@@ -10,6 +10,11 @@
       "StackName": "amplify-tuvarnanote-dev-205513",
       "StackId": "arn:aws:cloudformation:eu-west-1:512617552494:stack/amplify-tuvarnanote-dev-205513/d2156c10-dc7f-11ed-b007-067daacad6dd",
       "AmplifyAppId": "d1nyybr00ldz1k"
+    },
+    "categories": {
+      "auth": {
+        "TuVarnaNote": {}
+      }
     }
   }
 }
