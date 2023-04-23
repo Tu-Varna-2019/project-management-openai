@@ -1,13 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-import { withAuthenticator, Button, Heading , useTheme , Icon, Image, Text, View, Authenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator, Button, Heading , useTheme , Icon, Image, Text, View, Authenticator, Card } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from "./aws-exports";
-import { Amplify, API, graphqlOperation , Auth  } from 'aws-amplify'
+import { Amplify } from 'aws-amplify'
 import {React} from "./pages/LoginPage";
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import LoginPage from './pages/LoginPage';
-import { useHistory } from "react-router-dom";
+import { BrowserRouter , Route , Routes } from 'react-router-dom';
+import { Notfound } from "./ui-components";
+import CreateNotePage from "./pages/CreateNotePage";
+import HomePage from './pages/HomePage';
+import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 
 const components = {
@@ -256,10 +259,37 @@ const formFields = {
 
 Amplify.configure(awsExports);
 export default function App() {
+  useEffect(() => {
+    // This will run when the page first loads and whenever the title changes
+    document.title = "MNotes";
+  });
+
+
   return (
+    <div className='HomePage' style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 1000
+      }}>
+        <Helmet>
+      <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbrandslogos.com%2Fwp-content%2Fuploads%2Fimages%2Flarge%2Faws-ec2-logo.png&f=1&nofb=1&ipt=78ee68f6d41e0800d935d8fe600c6abac3d3316581a94380c3e6db839e682106&ipo=images" />
+      </Helmet>
+      <Card variation="elevated">
     <Authenticator components={components} >
-    <LoginPage/>
+
+    <BrowserRouter>
+      <Routes>
+        <Route path="/note" element={<HomePage/>}/>
+        <Route path='/create-note' element={<CreateNotePage/>}/>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path='*' element={<Notfound/>}/>
+      </Routes>
+    </BrowserRouter>
     </Authenticator>
+    </Card>
+    </div>
+  
   );
 }
 

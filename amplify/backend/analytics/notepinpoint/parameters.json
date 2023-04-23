@@ -1,0 +1,22 @@
+{
+  "appName": "notepinpoint",
+  "roleName": "pinpointLambdaRolef011d313",
+  "cloudformationPolicyName": "cloudformationPolicyf011d313",
+  "cloudWatchPolicyName": "cloudWatchPolicyf011d313",
+  "pinpointPolicyName": "pinpointPolicyf011d313",
+  "authPolicyName": "pinpoint_amplify_f011d313",
+  "unauthPolicyName": "pinpoint_amplify_f011d313",
+  "authRoleName": {
+    "Ref": "AuthRoleName"
+  },
+  "unauthRoleName": {
+    "Ref": "UnauthRoleName"
+  },
+  "authRoleArn": {
+    "Fn::GetAtt": [
+      "AuthRole",
+      "Arn"
+    ]
+  },
+  "pinpointInAppMessagingPolicyName": "pinpointInAppMessagingPolicyNamef011d313"
+}

@@ -1,4 +1,11 @@
 export type AmplifyDependentResourcesAttributes = {
+  "analytics": {
+    "notepinpoint": {
+      "Id": "string",
+      "Region": "string",
+      "appName": "string"
+    }
+  },
   "api": {
     "TuVarnaNote": {
       "GraphQLAPIEndpointOutput": "string",

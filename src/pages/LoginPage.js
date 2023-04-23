@@ -1,7 +1,7 @@
 import React, { useEffect, useState,MyApp, useRef } from 'react'
 import '@aws-amplify/ui-react/styles.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import {Login , Register , MNotes , Createnote } from "../ui-components";
+import {Login , Register , MNotes , Createnote, HomePage } from "../ui-components";
 import { Button, TextField , Authenticator } from '@aws-amplify/ui-react';
 import { Hub, Auth } from 'aws-amplify';
 import { DataStore } from 'aws-amplify';
@@ -17,7 +17,7 @@ export default function LoginPage(props) {
     const [switchComponent,setSwitchComponent] = useState(false);
     const [switchComponentRegister,setSwitchComponentRegister] = useState(false);
     const [componentKey, setComponentKey] = useState(0);
-
+    console.log("LoginPage!")
 
     const handleEmail = (event) => {
       event.preventDefault();
@@ -95,8 +95,7 @@ export default function LoginPage(props) {
         justifyContent: 'center',
         height: 1000
         }}>
-
-        <MNotes
+        <Login
       overrides={{
         icon_override,
         email_text_box:{
@@ -113,10 +112,7 @@ export default function LoginPage(props) {
       }
         }} 
         />
-      <Card>Default card</Card>
-      <Card variation="outlined">Outlined card</Card>
-      <Card variation="elevated">Elevated card</Card>
-      <Card as="section">{`I'm a section!`}</Card>;
+
         { switchComponent && <Createnote/>}
         { switchComponentRegister && <RegisterPage key={componentKey}/>}
       </div>

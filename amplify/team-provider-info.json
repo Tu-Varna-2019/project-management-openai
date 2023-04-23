@@ -14,6 +14,24 @@
     "categories": {
       "auth": {
         "TuVarnaNote": {}
+      },
+      "notifications": {
+        "Pinpoint": {
+          "Name": "notepinpoint-dev",
+          "Id": "504064d4fdb44206b2beacc3b999702c",
+          "Region": "eu-west-1"
+        }
+      },
+      "analytics": {
+        "Pinpoint": {
+          "Name": "notepinpoint-dev",
+          "Id": "504064d4fdb44206b2beacc3b999702c",
+          "Region": "eu-west-1"
+        },
+        "notepinpoint": {}
+      },
+      "api": {
+        "TuVarnaNote": {}
       }
     }
   }

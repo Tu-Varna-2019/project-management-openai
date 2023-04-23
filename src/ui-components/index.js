@@ -5,6 +5,7 @@
  **************************************************************************/
 
 export { default as QRalertbox } from "./QRalertbox";
+export { default as Notfound } from "./Notfound";
 export { default as Sharedselectedwithemail } from "./Sharedselectedwithemail";
 export { default as Changepasswordalertbox } from "./Changepasswordalertbox";
 export { default as Noteselecteddelete1 } from "./Noteselecteddelete1";
@@ -18,11 +19,13 @@ export { default as Deleteaccountalertbox2 } from "./Deleteaccountalertbox2";
 export { default as AccountinfoQRon } from "./AccountinfoQRon";
 export { default as Menufullscreen } from "./Menufullscreen";
 export { default as Createnote } from "./Createnote";
+export { default as Toolbar } from "./Toolbar";
 export { default as Noteswithnotecopy } from "./Noteswithnotecopy";
 export { default as Sharedselectedwithemail2 } from "./Sharedselectedwithemail2";
 export { default as Createshared1 } from "./Createshared1";
 export { default as Accountinfo } from "./Accountinfo";
 export { default as Notebookselected } from "./Notebookselected";
+export { default as CreateNotev2 } from "./CreateNotev2";
 export { default as Reminderswithnote } from "./Reminderswithnote";
 export { default as Noteswithdeleted } from "./Noteswithdeleted";
 export { default as Deletedwithnoteempty } from "./Deletedwithnoteempty";
@@ -41,7 +44,7 @@ export { default as Noteselectedtask } from "./Noteselectedtask";
 export { default as Deleted } from "./Deleted";
 export { default as Deletedwithnotefull } from "./Deletedwithnotefull";
 export { default as Deleteaccountalertbox1 } from "./Deleteaccountalertbox1";
-export { default as HomePage } from "./HomePage";
+export { default as Home } from "./Home";
 export { default as Reminders } from "./Reminders";
 export { default as Tasksinprogress } from "./Tasksinprogress";
 export { default as Notebooks } from "./Notebooks";
@@ -59,4 +62,9 @@ export { default as Taskscompletedwithnotecompletedempty } from "./Taskscomplete
 export { default as Createnotebook2 } from "./Createnotebook2";
 export { default as studioTheme } from "./studioTheme";
 export { default as NewForm1 } from "./NewForm1";
+export { default as NoteV2CreateForm } from "./NoteV2CreateForm";
+export { default as NoteV2UpdateForm } from "./NoteV2UpdateForm";
+export { default as BinCreateForm } from "./BinCreateForm";
+export { default as BinUpdateForm } from "./BinUpdateForm";
+export { default as UserCreateForm } from "./UserCreateForm";
 export { default as UserUpdateForm } from "./UserUpdateForm";

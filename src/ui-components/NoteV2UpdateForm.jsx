@@ -10,21 +10,20 @@ import {
   Button,
   Flex,
   Grid,
-  SelectField,
-  TextAreaField,
+  SwitchField,
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Note } from "../models";
+import { NoteV2 } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function NewForm1(props) {
+export default function NoteV2UpdateForm(props) {
   const {
-    clearOnSuccess = true,
+    id: idProp,
+    noteV2: noteV2ModelProp,
     onSuccess,
     onError,
     onSubmit,
-    onCancel,
     onValidate,
     onChange,
     overrides,
@@ -35,6 +34,8 @@ export default function NewForm1(props) {
     Description: "",
     Priority: "",
     Reminder: "",
+    UserId: "",
+    Deleted: false,
   };
   const [Title, setTitle] = React.useState(initialValues.Title);
   const [Description, setDescription] = React.useState(
@@ -42,19 +43,39 @@ export default function NewForm1(props) {
   );
   const [Priority, setPriority] = React.useState(initialValues.Priority);
   const [Reminder, setReminder] = React.useState(initialValues.Reminder);
+  const [UserId, setUserId] = React.useState(initialValues.UserId);
+  const [Deleted, setDeleted] = React.useState(initialValues.Deleted);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setTitle(initialValues.Title);
-    setDescription(initialValues.Description);
-    setPriority(initialValues.Priority);
-    setReminder(initialValues.Reminder);
+    const cleanValues = noteV2Record
+      ? { ...initialValues, ...noteV2Record }
+      : initialValues;
+    setTitle(cleanValues.Title);
+    setDescription(cleanValues.Description);
+    setPriority(cleanValues.Priority);
+    setReminder(cleanValues.Reminder);
+    setUserId(cleanValues.UserId);
+    setDeleted(cleanValues.Deleted);
     setErrors({});
   };
+  const [noteV2Record, setNoteV2Record] = React.useState(noteV2ModelProp);
+  React.useEffect(() => {
+    const queryData = async () => {
+      const record = idProp
+        ? await DataStore.query(NoteV2, idProp)
+        : noteV2ModelProp;
+      setNoteV2Record(record);
+    };
+    queryData();
+  }, [idProp, noteV2ModelProp]);
+  React.useEffect(resetStateValues, [noteV2Record]);
   const validations = {
     Title: [{ type: "Required" }],
-    Description: [{ type: "Required" }],
+    Description: [],
     Priority: [],
     Reminder: [],
+    UserId: [],
+    Deleted: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -103,6 +124,8 @@ export default function NewForm1(props) {
           Description,
           Priority,
           Reminder,
+          UserId,
+          Deleted,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -132,12 +155,13 @@ export default function NewForm1(props) {
               modelFields[key] = undefined;
             }
           });
-          await DataStore.save(new Note(modelFields));
+          await DataStore.save(
+            NoteV2.copyOf(noteV2Record, (updated) => {
+              Object.assign(updated, modelFields);
+            })
+          );
           if (onSuccess) {
             onSuccess(modelFields);
-          }
-          if (clearOnSuccess) {
-            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -145,7 +169,7 @@ export default function NewForm1(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "NewForm1")}
+      {...getOverrideProps(overrides, "NoteV2UpdateForm")}
       {...rest}
     >
       <TextField
@@ -161,6 +185,8 @@ export default function NewForm1(props) {
               Description,
               Priority,
               Reminder,
+              UserId,
+              Deleted,
             };
             const result = onChange(modelFields);
             value = result?.Title ?? value;
@@ -175,10 +201,11 @@ export default function NewForm1(props) {
         hasError={errors.Title?.hasError}
         {...getOverrideProps(overrides, "Title")}
       ></TextField>
-      <TextAreaField
+      <TextField
         label="Description"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
+        value={Description}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -187,6 +214,8 @@ export default function NewForm1(props) {
               Description: value,
               Priority,
               Reminder,
+              UserId,
+              Deleted,
             };
             const result = onChange(modelFields);
             value = result?.Description ?? value;
@@ -200,11 +229,11 @@ export default function NewForm1(props) {
         errorMessage={errors.Description?.errorMessage}
         hasError={errors.Description?.hasError}
         {...getOverrideProps(overrides, "Description")}
-      ></TextAreaField>
-      <SelectField
+      ></TextField>
+      <TextField
         label="Priority"
-        placeholder="Please select an option"
-        isDisabled={false}
+        isRequired={false}
+        isReadOnly={false}
         value={Priority}
         onChange={(e) => {
           let { value } = e.target;
@@ -214,6 +243,8 @@ export default function NewForm1(props) {
               Description,
               Priority: value,
               Reminder,
+              UserId,
+              Deleted,
             };
             const result = onChange(modelFields);
             value = result?.Priority ?? value;
@@ -227,13 +258,7 @@ export default function NewForm1(props) {
         errorMessage={errors.Priority?.errorMessage}
         hasError={errors.Priority?.hasError}
         {...getOverrideProps(overrides, "Priority")}
-      >
-        <option
-          children="High\nMedium\nLow"
-          value="High\nMedium\nLow"
-          {...getOverrideProps(overrides, "Priorityoption0")}
-        ></option>
-      </SelectField>
+      ></TextField>
       <TextField
         label="Reminder"
         isRequired={false}
@@ -249,6 +274,8 @@ export default function NewForm1(props) {
               Description,
               Priority,
               Reminder: value,
+              UserId,
+              Deleted,
             };
             const result = onChange(modelFields);
             value = result?.Reminder ?? value;
@@ -263,36 +290,90 @@ export default function NewForm1(props) {
         hasError={errors.Reminder?.hasError}
         {...getOverrideProps(overrides, "Reminder")}
       ></TextField>
+      <TextField
+        label="User id"
+        isRequired={false}
+        isReadOnly={false}
+        value={UserId}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              Title,
+              Description,
+              Priority,
+              Reminder,
+              UserId: value,
+              Deleted,
+            };
+            const result = onChange(modelFields);
+            value = result?.UserId ?? value;
+          }
+          if (errors.UserId?.hasError) {
+            runValidationTasks("UserId", value);
+          }
+          setUserId(value);
+        }}
+        onBlur={() => runValidationTasks("UserId", UserId)}
+        errorMessage={errors.UserId?.errorMessage}
+        hasError={errors.UserId?.hasError}
+        {...getOverrideProps(overrides, "UserId")}
+      ></TextField>
+      <SwitchField
+        label="Deleted"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={Deleted}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              Title,
+              Description,
+              Priority,
+              Reminder,
+              UserId,
+              Deleted: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.Deleted ?? value;
+          }
+          if (errors.Deleted?.hasError) {
+            runValidationTasks("Deleted", value);
+          }
+          setDeleted(value);
+        }}
+        onBlur={() => runValidationTasks("Deleted", Deleted)}
+        errorMessage={errors.Deleted?.errorMessage}
+        hasError={errors.Deleted?.hasError}
+        {...getOverrideProps(overrides, "Deleted")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Clear"
+          children="Reset"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          isDisabled={!(idProp || noteV2ModelProp)}
+          {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
           gap="15px"
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
           <Button
-            children="Cancel"
-            type="button"
-            onClick={() => {
-              onCancel && onCancel();
-            }}
-            {...getOverrideProps(overrides, "CancelButton")}
-          ></Button>
-          <Button
-            children="Create"
+            children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={Object.values(errors).some((e) => e?.hasError)}
+            isDisabled={
+              !(idProp || noteV2ModelProp) ||
+              Object.values(errors).some((e) => e?.hasError)
+            }
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

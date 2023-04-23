@@ -5,42 +5,47 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type NewForm1InputValues = {
+export declare type NoteV2CreateFormInputValues = {
     Title?: string;
     Description?: string;
     Priority?: string;
     Reminder?: string;
+    UserId?: string;
+    Deleted?: boolean;
 };
-export declare type NewForm1ValidationValues = {
+export declare type NoteV2CreateFormValidationValues = {
     Title?: ValidationFunction<string>;
     Description?: ValidationFunction<string>;
     Priority?: ValidationFunction<string>;
     Reminder?: ValidationFunction<string>;
+    UserId?: ValidationFunction<string>;
+    Deleted?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type NewForm1OverridesProps = {
-    NewForm1Grid?: PrimitiveOverrideProps<GridProps>;
+export declare type NoteV2CreateFormOverridesProps = {
+    NoteV2CreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     Title?: PrimitiveOverrideProps<TextFieldProps>;
-    Description?: PrimitiveOverrideProps<TextAreaFieldProps>;
-    Priority?: PrimitiveOverrideProps<SelectFieldProps>;
+    Description?: PrimitiveOverrideProps<TextFieldProps>;
+    Priority?: PrimitiveOverrideProps<TextFieldProps>;
     Reminder?: PrimitiveOverrideProps<TextFieldProps>;
+    UserId?: PrimitiveOverrideProps<TextFieldProps>;
+    Deleted?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
-export declare type NewForm1Props = React.PropsWithChildren<{
-    overrides?: NewForm1OverridesProps | undefined | null;
+export declare type NoteV2CreateFormProps = React.PropsWithChildren<{
+    overrides?: NoteV2CreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: NewForm1InputValues) => NewForm1InputValues;
-    onSuccess?: (fields: NewForm1InputValues) => void;
-    onError?: (fields: NewForm1InputValues, errorMessage: string) => void;
-    onCancel?: () => void;
-    onChange?: (fields: NewForm1InputValues) => NewForm1InputValues;
-    onValidate?: NewForm1ValidationValues;
+    onSubmit?: (fields: NoteV2CreateFormInputValues) => NoteV2CreateFormInputValues;
+    onSuccess?: (fields: NoteV2CreateFormInputValues) => void;
+    onError?: (fields: NoteV2CreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: NoteV2CreateFormInputValues) => NoteV2CreateFormInputValues;
+    onValidate?: NoteV2CreateFormValidationValues;
 } & React.CSSProperties>;
-export default function NewForm1(props: NewForm1Props): React.ReactElement;
+export default function NoteV2CreateForm(props: NoteV2CreateFormProps): React.ReactElement;
