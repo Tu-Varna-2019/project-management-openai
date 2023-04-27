@@ -11,6 +11,7 @@ import {
   useNavigateAction,
 } from "@aws-amplify/ui-react/internal";
 import {
+  Alert,
   Badge,
   Button,
   Divider,
@@ -566,6 +567,20 @@ export default function Home(props) {
           variation="quiet"
           {...getOverrideProps(overrides, "SelectField")}
         ></SelectField>
+        <Alert
+          width="1342px"
+          height="173px"
+          heading="Success"
+          position="absolute"
+          top="171px"
+          left="4px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          variation="success"
+          isDismissible={true}
+          hasIcon={true}
+          children="Description"
+          {...getOverrideProps(overrides, "success_alert")}
+        ></Alert>
       </View>
     </View>
   );

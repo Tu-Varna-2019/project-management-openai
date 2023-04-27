@@ -3,12 +3,13 @@ import '@aws-amplify/ui-react/styles.css';
 import { CreateNotev2, Createnote, Home , NewForm1 } from "../ui-components";
 import { Button, TextField , Authenticator , Image } from '@aws-amplify/ui-react';
 import { Hub, Auth, Logger,DataStore } from 'aws-amplify';
-import { Alert,Card } from '@aws-amplify/ui-react';
-import { Note ,User} from '../models';
+import { useNavigate  } from 'react-router-dom';
+import { Note ,User , NoteV2} from '../models';
 
 export default function CreateNotePage(props) {
   
   const initialValues = {
+    UserId: "",
     Title: "",
     Description: "",
     Priority: "",
@@ -17,8 +18,9 @@ export default function CreateNotePage(props) {
   const initialHasErrorValues = {
     hasError: true,
     hasErrorRem: false,
+    isLoading: false,
   };
-  
+    const navigate = useNavigate();
     const [title,setTitle] = useState(initialValues.Title);
     const [description,setDescription] = useState(initialValues.Description);
     const [priority,setPriority] = useState(initialValues.Priority);
@@ -26,10 +28,19 @@ export default function CreateNotePage(props) {
     const [hasError, setHasError] = useState(initialHasErrorValues.hasError);
     const [hasErrorRem, setHasErrorRem] = useState(initialHasErrorValues.hasErrorRem);
 
+    const [isLoading,setIsLoading] = useState(initialHasErrorValues.isLoading);
+    const [errorMessage,setErrorMessage] = useState("none");
+    const [errorDescription,setErrorDescription] = useState("");
+    const [user,setUser] = useState();
+    const sub = user?.attributes?.sub;
+  
+    useEffect(() => {
+      Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
+     },[]);
+     console.log(sub,typeof(sub));
+
     const handleTitle = (event) => {
       event.preventDefault();
-      //const containsChars = /\d/.test(event.currentTarget.value);
-      console.log("changing title... ");
       setTitle(event.target.value);
      if (props.onChange) {
        props.onChange(event);
@@ -39,7 +50,6 @@ export default function CreateNotePage(props) {
     };
     const handleDescription = (event) => {
       event.preventDefault();
-      console.log("changing description... ");
       setDescription(event.target.value);
      if (props.onChange) {
        props.onChange(event);
@@ -47,7 +57,6 @@ export default function CreateNotePage(props) {
     };
     const handlePriority = (event) => {
       event.preventDefault();
-      console.log("changing priority...");
       setPriority(event.target.value);
      if (props.onChange) {
        props.onChange(event);
@@ -55,7 +64,6 @@ export default function CreateNotePage(props) {
     };
     const handleReminder = (event) => {
       event.preventDefault();
-      console.log("changing reminder...");
       const newReminder = event.target.value === "" ? "" : new Date(event.target.value).toISOString();
       setReminder(newReminder);
       const compareDates = new Date(event.target.value) >= Date.now();
@@ -83,46 +91,41 @@ export default function CreateNotePage(props) {
       if (prompt_cancel)
         window.location.href = 'http://localhost:3000/note';  
     };
-    const handleOnClickConfirm =  (event) => {
+    const handleOnClickConfirm = async  (event) => {
       event.preventDefault();
-      console.log("Creating content...");
+      setIsLoading(!isLoading);
 
-      if (title.trim() !== "") {
-         DataStore.save(
-          new Note({
+      if (hasErrorRem) {
+        setIsLoading(false);
+        setErrorMessage("block");
+        setErrorDescription("Reminder cannot be set in the past!");
+      } else if (!hasError) {
+        await DataStore.save(
+          new NoteV2({
           "Title": title,
           "Description": description,
           "Priority": priority,
-          "Deleted": false,
-          "userID": "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d",
           "Reminder": reminder,
-          "binID": "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d"
-        })
-      );
-      window.location.href = 'http://localhost:3000/note';
-       // window.location.reload();
-      }
-      else
-        return "<><Alert variation='error'>Error</Alert></>";
+          "sub": sub,
+          "Deleted": false,}));
+          navigate('/note', { state: { alert_success:'block' , title: title } });
+      } else {
+      setIsLoading(false);
+      setErrorMessage("block");
+      setErrorDescription("Title must not be empty!");}
     };
-
 
     return (  
       <>
       <CreateNotev2
       overrides={{
         title_text_field:{
-          isRequired: true,
-          hasError: hasError,
-          value: title,
+          isRequired: true,hasError: hasError,value: title,
           errorMessage:"Title must not be empty !",
           onChange: (event) => (handleTitle(event)),
           "inputStyles":{
             "style":{
-              "color":"white"
-            }
-          }
-         },
+              "color":"white"}}},
         description_text_field : {
           onChange: (event) => (handleDescription(event)),
           value: description,
@@ -169,9 +172,15 @@ export default function CreateNotePage(props) {
           "color":"white",
         }
     },
+    error_alert: {
+      style:{ "display": errorMessage },
+      isDismissible: false,
+      children: errorDescription,
+    },
     submit_button: {
       onClick : (event) => (handleOnClickConfirm(event)),
       type: "submit",
+      isLoading: isLoading,
       "style":{
         "color":"white",
       }

@@ -6,10 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  getOverrideProps,
-  useNavigateAction,
-} from "@aws-amplify/ui-react/internal";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import {
   Alert,
   Badge,
@@ -18,34 +15,17 @@ import {
   Flex,
   Icon,
   Image,
+  Rating,
   SearchField,
   SelectField,
   Text,
-  TextAreaField,
-  TextField,
   View,
 } from "@aws-amplify/ui-react";
-export default function CreateNotev2(props) {
-  const { NoteTitle, overrides, ...rest } = props;
-  const noteUnderScorebuttonOnClick = useNavigateAction({
-    type: "url",
-    url: "/note",
-  });
-  const taskUnderScorebuttonOnClick = useNavigateAction({
-    type: "url",
-    url: "/task",
-  });
-  const reminderUnderScorebuttonOnClick = useNavigateAction({
-    type: "url",
-    url: "/reminder",
-  });
-  const binUnderScorebuttonOnClick = useNavigateAction({
-    type: "url",
-    url: "/bin",
-  });
+export default function HomeTest(props) {
+  const { overrides, ...rest } = props;
   return (
     <View
-      width="1335px"
+      width="1346px"
       height="937px"
       display="block"
       gap="unset"
@@ -55,11 +35,11 @@ export default function CreateNotev2(props) {
       position="relative"
       padding="0px 0px 0px 0px"
       backgroundColor="rgba(255,255,255,1)"
-      {...getOverrideProps(overrides, "CreateNotev2")}
+      {...getOverrideProps(overrides, "HomeTest")}
       {...rest}
     >
       <View
-        width="1345px"
+        width="1352px"
         height="937px"
         display="block"
         gap="unset"
@@ -68,7 +48,7 @@ export default function CreateNotev2(props) {
         overflow="hidden"
         position="absolute"
         top="0px"
-        left="-10px"
+        left="-6px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Frame")}
       >
@@ -80,10 +60,20 @@ export default function CreateNotev2(props) {
           left="4px"
           size="small"
           orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider176021467")}
+          {...getOverrideProps(overrides, "Divider176731632")}
+        ></Divider>
+        <Divider
+          width="1346px"
+          height="16px"
+          position="absolute"
+          top="340px"
+          left="0px"
+          size="small"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "Divider176731633")}
         ></Divider>
         <View
-          width="1328px"
+          width="1346px"
           height="171px"
           display="block"
           gap="unset"
@@ -91,7 +81,7 @@ export default function CreateNotev2(props) {
           justifyContent="unset"
           position="absolute"
           top="0px"
-          left="17px"
+          left="-1px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           padding="0px 0px 0px 0px"
           backgroundColor="rgba(35,47,62,1)"
@@ -130,7 +120,7 @@ export default function CreateNotev2(props) {
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
             children="Created by "
-            {...getOverrideProps(overrides, "powered_by_amplify_text176021471")}
+            {...getOverrideProps(overrides, "powered_by_amplify_text176731636")}
           ></Text>
           <Text
             fontFamily="Inter"
@@ -152,7 +142,7 @@ export default function CreateNotev2(props) {
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
             children="AWS Amplify"
-            {...getOverrideProps(overrides, "powered_by_amplify_text176021472")}
+            {...getOverrideProps(overrides, "powered_by_amplify_text176731637")}
           ></Text>
         </View>
         <SearchField
@@ -180,9 +170,6 @@ export default function CreateNotev2(props) {
           isDisabled={false}
           variation="primary"
           children="Note"
-          onClick={() => {
-            noteUnderScorebuttonOnClick();
-          }}
           {...getOverrideProps(overrides, "note_button")}
         ></Button>
         <Button
@@ -196,9 +183,6 @@ export default function CreateNotev2(props) {
           isDisabled={false}
           variation="primary"
           children="Task"
-          onClick={() => {
-            taskUnderScorebuttonOnClick();
-          }}
           {...getOverrideProps(overrides, "task_button")}
         ></Button>
         <Button
@@ -212,9 +196,6 @@ export default function CreateNotev2(props) {
           isDisabled={false}
           variation="primary"
           children="Reminder"
-          onClick={() => {
-            reminderUnderScorebuttonOnClick();
-          }}
           {...getOverrideProps(overrides, "reminder_button")}
         ></Button>
         <Button
@@ -228,9 +209,6 @@ export default function CreateNotev2(props) {
           isDisabled={false}
           variation="primary"
           children="Bin"
-          onClick={() => {
-            binUnderScorebuttonOnClick();
-          }}
           {...getOverrideProps(overrides, "bin_button")}
         ></Button>
         <Button
@@ -251,6 +229,69 @@ export default function CreateNotev2(props) {
           height="38px"
           {...getOverrideProps(overrides, "amplify_logo")}
         ></View>
+        <Image
+          width="1347px"
+          height="173px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="171px"
+          left="-1px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          padding="0px 0px 0px 0px"
+          objectFit="cover"
+          {...getOverrideProps(overrides, "aws_image_background")}
+        ></Image>
+        <View
+          padding="0px 0px 0px 0px"
+          width="248px"
+          height="57.02px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="266px"
+          left="546px"
+          {...getOverrideProps(overrides, "Feedback")}
+        >
+          <Badge
+            width="unset"
+            height="33px"
+            position="absolute"
+            top="0px"
+            left="0px"
+            size="default"
+            variation="default"
+            children="We’d love to hear your feedback !"
+            {...getOverrideProps(overrides, "feedback_text")}
+          ></Badge>
+          <Rating
+            width="unset"
+            height="15.02px"
+            position="absolute"
+            top="42px"
+            left="28px"
+            size="default"
+            {...getOverrideProps(overrides, "Rating")}
+          ></Rating>
+        </View>
+        <Image
+          width="1341px"
+          height="593px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="344px"
+          left="4px"
+          padding="0px 0px 0px 0px"
+          objectFit="cover"
+          {...getOverrideProps(overrides, "aws_image_background_notes")}
+        ></Image>
         <Divider
           width="1316px"
           height="2px"
@@ -260,7 +301,7 @@ export default function CreateNotev2(props) {
           backgroundColor="rgba(0,0,0,1)"
           size="small"
           orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider176021485")}
+          {...getOverrideProps(overrides, "Divider176731650")}
         ></Divider>
         <Badge
           width="898px"
@@ -273,6 +314,21 @@ export default function CreateNotev2(props) {
           children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
           {...getOverrideProps(overrides, "copyright_text")}
         ></Badge>
+        <Button
+          width="207px"
+          height="84px"
+          position="absolute"
+          border="1px SOLID rgba(255,255,255,1)"
+          top="734px"
+          left="1102px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          backgroundColor="rgba(255,153,0,1)"
+          size="default"
+          isDisabled={false}
+          variation="default"
+          children="Create"
+          {...getOverrideProps(overrides, "create_note_button")}
+        ></Button>
         <Flex
           gap="10px"
           direction="column"
@@ -339,7 +395,7 @@ export default function CreateNotev2(props) {
                 bottom="0%"
                 left="0%"
                 right="0%"
-                {...getOverrideProps(overrides, "Vector176021491")}
+                {...getOverrideProps(overrides, "Vector176731656")}
               ></Icon>
             </View>
             <View
@@ -364,7 +420,7 @@ export default function CreateNotev2(props) {
                   minX: 0,
                   minY: 0,
                   width: 21.0224609375,
-                  height: 16.6666259765625,
+                  height: 16.666667938232422,
                 }}
                 paths={[
                   {
@@ -382,7 +438,7 @@ export default function CreateNotev2(props) {
                 bottom="0.01%"
                 left="0%"
                 right="42.17%"
-                {...getOverrideProps(overrides, "Vector176021493")}
+                {...getOverrideProps(overrides, "Vector176731658")}
               ></Icon>
               <Icon
                 width="16.64px"
@@ -391,7 +447,7 @@ export default function CreateNotev2(props) {
                   minX: 0,
                   minY: 0,
                   width: 16.642578125,
-                  height: 23.015869140625,
+                  height: 23.015838623046875,
                 }}
                 paths={[
                   {
@@ -409,7 +465,7 @@ export default function CreateNotev2(props) {
                 bottom="0%"
                 left="32.53%"
                 right="21.69%"
-                {...getOverrideProps(overrides, "Vector176021494")}
+                {...getOverrideProps(overrides, "Vector176731659")}
               ></Icon>
               <Icon
                 width="21.02px"
@@ -431,11 +487,23 @@ export default function CreateNotev2(props) {
                 bottom="0%"
                 left="42.17%"
                 right="0%"
-                {...getOverrideProps(overrides, "Vector176021495")}
+                {...getOverrideProps(overrides, "Vector176731660")}
               ></Icon>
             </View>
           </Flex>
         </Flex>
+        <Badge
+          width="326px"
+          height="40px"
+          position="absolute"
+          backgroundColor="rgba(255,153,0,1)"
+          top="213px"
+          left="507px"
+          size="default"
+          variation="default"
+          children="Welcome back"
+          {...getOverrideProps(overrides, "Badge")}
+        ></Badge>
         <SelectField
           width="175px"
           height="47px"
@@ -450,178 +518,19 @@ export default function CreateNotev2(props) {
           variation="quiet"
           {...getOverrideProps(overrides, "SelectField")}
         ></SelectField>
-        <Image
-          width="1328px"
-          height="690px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="166px"
-          left="17px"
-          padding="0px 0px 0px 0px"
-          objectFit="cover"
-          src="https://dqqb8jb1p8fmj.cloudfront.net/AiqBuyerFrontend/bg-silver-01@2x.b626e5f906ef4637bd304f3297a2a4ab.png"
-          {...getOverrideProps(overrides, "bg-silver-01@2x 1")}
-        ></Image>
-        <Text
-          fontFamily="Inter"
-          fontSize="40px"
-          fontWeight="700"
-          color="rgba(255,255,255,1)"
-          lineHeight="60px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="unset"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="188px"
-          left="519px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="Create Note"
-          {...getOverrideProps(overrides, "Create Note")}
-        ></Text>
-        <TextField
-          width="300px"
-          height="40px"
-          placeholder="Title"
-          position="absolute"
-          top="333px"
-          left="286px"
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="default"
-          {...getOverrideProps(overrides, "title_text_field")}
-        ></TextField>
-        <TextAreaField
-          width="466px"
-          height="110px"
-          placeholder="Description"
-          position="absolute"
-          top="439px"
-          left="286px"
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="default"
-          {...getOverrideProps(overrides, "description_text_field")}
-        ></TextAreaField>
-        <SelectField
-          width="300px"
-          height="unset"
-          label="Priority"
-          position="absolute"
-          top="615px"
-          left="633px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "priority_select_field")}
-        ></SelectField>
-        <TextField
-          width="300px"
-          height="61px"
-          label="Reminder"
-          placeholder="mm/dd/yyy"
-          position="absolute"
-          top="620px"
-          left="286px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "reminder_text_field")}
-        ></TextField>
-        <Button
-          width="303px"
-          height="66px"
-          position="absolute"
-          border="3px SOLID rgba(255,153,0,1)"
-          borderRadius="7px"
-          top="750px"
-          left="calc(50% - 148.5px - -100px)"
-          backgroundColor="rgba(35,47,62,1)"
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Submit"
-          {...getOverrideProps(overrides, "submit_button")}
-        ></Button>
-        <Button
-          width="303px"
-          height="64px"
-          position="absolute"
-          border="3px SOLID rgba(255,153,0,1)"
-          borderRadius="7px"
-          top="751px"
-          left="calc(50% - 148.5px - 244px)"
-          backgroundColor="rgba(35,47,62,1)"
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Cancel"
-          {...getOverrideProps(overrides, "cancel_button")}
-        ></Button>
-        <Button
-          width="156px"
-          height="112px"
-          position="absolute"
-          border="3px SOLID rgba(255,153,0,1)"
-          borderRadius="7px"
-          top="436px"
-          left="calc(50% - 75px - -191.5px)"
-          backgroundColor="rgba(35,47,62,1)"
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Clear"
-          {...getOverrideProps(overrides, "clear_button")}
-        ></Button>
-        <SelectField
-          width="98px"
-          height="unset"
-          position="absolute"
-          top="218px"
-          left="862px"
-          backgroundColor="rgba(35,47,62,1)"
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="quiet"
-          {...getOverrideProps(overrides, "openai_select_field")}
-        ></SelectField>
-        <Divider
-          width="674px"
-          height="1px"
-          position="absolute"
-          top="265px"
-          left="286px"
-          size="small"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider176231440")}
-        ></Divider>
         <Alert
-          width="1328px"
-          height="146px"
-          heading="Error"
+          width="1342px"
+          height="173px"
+          heading="Success"
           position="absolute"
-          top="166px"
-          left="17px"
+          top="171px"
+          left="4px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          variation="error"
+          variation="success"
           isDismissible={true}
           hasIcon={true}
           children="Description"
-          {...getOverrideProps(overrides, "error_alert")}
+          {...getOverrideProps(overrides, "success_alert")}
         ></Alert>
       </View>
     </View>

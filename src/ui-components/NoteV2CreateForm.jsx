@@ -33,7 +33,7 @@ export default function NoteV2CreateForm(props) {
     Description: "",
     Priority: "",
     Reminder: "",
-    UserId: "",
+    sub: "",
     Deleted: false,
   };
   const [Title, setTitle] = React.useState(initialValues.Title);
@@ -42,7 +42,7 @@ export default function NoteV2CreateForm(props) {
   );
   const [Priority, setPriority] = React.useState(initialValues.Priority);
   const [Reminder, setReminder] = React.useState(initialValues.Reminder);
-  const [UserId, setUserId] = React.useState(initialValues.UserId);
+  const [sub, setSub] = React.useState(initialValues.sub);
   const [Deleted, setDeleted] = React.useState(initialValues.Deleted);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -50,7 +50,7 @@ export default function NoteV2CreateForm(props) {
     setDescription(initialValues.Description);
     setPriority(initialValues.Priority);
     setReminder(initialValues.Reminder);
-    setUserId(initialValues.UserId);
+    setSub(initialValues.sub);
     setDeleted(initialValues.Deleted);
     setErrors({});
   };
@@ -59,7 +59,7 @@ export default function NoteV2CreateForm(props) {
     Description: [],
     Priority: [],
     Reminder: [],
-    UserId: [],
+    sub: [],
     Deleted: [],
   };
   const runValidationTasks = async (
@@ -109,7 +109,7 @@ export default function NoteV2CreateForm(props) {
           Description,
           Priority,
           Reminder,
-          UserId,
+          sub,
           Deleted,
         };
         const validationResponses = await Promise.all(
@@ -169,7 +169,7 @@ export default function NoteV2CreateForm(props) {
               Description,
               Priority,
               Reminder,
-              UserId,
+              sub,
               Deleted,
             };
             const result = onChange(modelFields);
@@ -198,7 +198,7 @@ export default function NoteV2CreateForm(props) {
               Description: value,
               Priority,
               Reminder,
-              UserId,
+              sub,
               Deleted,
             };
             const result = onChange(modelFields);
@@ -227,7 +227,7 @@ export default function NoteV2CreateForm(props) {
               Description,
               Priority: value,
               Reminder,
-              UserId,
+              sub,
               Deleted,
             };
             const result = onChange(modelFields);
@@ -258,7 +258,7 @@ export default function NoteV2CreateForm(props) {
               Description,
               Priority,
               Reminder: value,
-              UserId,
+              sub,
               Deleted,
             };
             const result = onChange(modelFields);
@@ -275,10 +275,10 @@ export default function NoteV2CreateForm(props) {
         {...getOverrideProps(overrides, "Reminder")}
       ></TextField>
       <TextField
-        label="User id"
+        label="Sub"
         isRequired={false}
         isReadOnly={false}
-        value={UserId}
+        value={sub}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -287,21 +287,21 @@ export default function NoteV2CreateForm(props) {
               Description,
               Priority,
               Reminder,
-              UserId: value,
+              sub: value,
               Deleted,
             };
             const result = onChange(modelFields);
-            value = result?.UserId ?? value;
+            value = result?.sub ?? value;
           }
-          if (errors.UserId?.hasError) {
-            runValidationTasks("UserId", value);
+          if (errors.sub?.hasError) {
+            runValidationTasks("sub", value);
           }
-          setUserId(value);
+          setSub(value);
         }}
-        onBlur={() => runValidationTasks("UserId", UserId)}
-        errorMessage={errors.UserId?.errorMessage}
-        hasError={errors.UserId?.hasError}
-        {...getOverrideProps(overrides, "UserId")}
+        onBlur={() => runValidationTasks("sub", sub)}
+        errorMessage={errors.sub?.errorMessage}
+        hasError={errors.sub?.hasError}
+        {...getOverrideProps(overrides, "sub")}
       ></TextField>
       <SwitchField
         label="Deleted"
@@ -316,7 +316,7 @@ export default function NoteV2CreateForm(props) {
               Description,
               Priority,
               Reminder,
-              UserId,
+              sub,
               Deleted: value,
             };
             const result = onChange(modelFields);

@@ -6,12 +6,15 @@ import { Amplify } from 'aws-amplify'
 import {React} from "./pages/LoginPage";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter , Route , Routes } from 'react-router-dom';
-import { Notfound } from "./ui-components";
+import { DeleteAccount, Notfound } from "./ui-components";
 import CreateNotePage from "./pages/CreateNotePage";
 import HomePage from './pages/HomePage';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import DeleteAccountPage from './pages/DeleteAccountPage';
+import {NotebuttonCollection } from './ui-components';
+import NoteButtonPage from './pages/NoteButtonPage';
 
 const components = {
   Header() {
@@ -281,7 +284,11 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/note" element={<HomePage/>}/>
+        <Route path="/reminder" element={<NoteButtonPage/>}/>
         <Route path='/create-note' element={<CreateNotePage/>}/>
+        <Route path='/reset-password' element={<ResetPasswordPage/>}/>
+        <Route path='/delete-account' element={<DeleteAccountPage/>}/>
+
         <Route path="/" element={<HomePage/>}/>
         <Route path='*' element={<Notfound/>}/>
       </Routes>

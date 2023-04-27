@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { BadgeProps, ButtonProps, DividerProps, FlexProps, IconProps, ImageProps, SearchFieldProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { AlertProps, BadgeProps, ButtonProps, DividerProps, FlexProps, IconProps, ImageProps, SearchFieldProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CreateNotev2OverridesProps = {
     CreateNotev2?: PrimitiveOverrideProps<ViewProps>;
@@ -45,6 +45,7 @@ export declare type CreateNotev2OverridesProps = {
     clear_button?: PrimitiveOverrideProps<ButtonProps>;
     openai_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     Divider176231440?: PrimitiveOverrideProps<DividerProps>;
+    error_alert?: PrimitiveOverrideProps<AlertProps>;
 } & EscapeHatchProps;
 export declare type CreateNotev2Props = React.PropsWithChildren<Partial<ViewProps> & {
     NoteTitle?: String;

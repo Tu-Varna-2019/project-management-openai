@@ -16,7 +16,7 @@ type EagerNoteV2 = {
   readonly Description?: string | null;
   readonly Priority?: string | null;
   readonly Reminder?: string | null;
-  readonly UserId?: string | null;
+  readonly sub?: string | null;
   readonly Deleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -32,7 +32,7 @@ type LazyNoteV2 = {
   readonly Description?: string | null;
   readonly Priority?: string | null;
   readonly Reminder?: string | null;
-  readonly UserId?: string | null;
+  readonly sub?: string | null;
   readonly Deleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
