@@ -1,6 +1,6 @@
 import React, { useEffect, useState,MyApp, useRef } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { CreateNotev2, Createnote, Home , NewForm1, Notebutton, NotebuttonCollection } from "../ui-components";
+import { CreateNotev2, Createnote, Home , HomeTest, NewForm1, Notebutton, NotebuttonCollection, NotetitlebuttonCollection } from "../ui-components";
 import { Button, TextField , Authenticator , Image } from '@aws-amplify/ui-react';
 import { Hub, Auth, Logger,DataStore } from 'aws-amplify';
 import { useNavigate  } from 'react-router-dom';
@@ -49,42 +49,55 @@ export default function NoteButtonPage(props) {
       dts_query.then(data => {
         // Perform your query on the resolved data
         //const filteredData = data.filter(item => item.sub === sub);
-        setNotes(data.filter(item => item.sub === sub));
-        
+        setNotes(data.filter(item => item.sub === sub));  
       }).catch(error => {
         console.error(error);
       });
   },[sub]);
    console.log(sub,email);
-   console.log(notes[0].Title,notes.length);
+   console.log(notes,notes.length);
 
   
+    const handleNoteButton = (event) => {
+      console.log(`Button ${event.Title} `)
+    };
+
 
     const customOverrideItems = ({ item, index }) => ({
-      children: item.Title,
-      onClick: () => console.log(`Button ${index} clicked!`),
+      overrides: { note_button:{ children: item.Title , style:({color: "white"}) }},
+      //overrides: { note_button:{ children: item.Title , backgroundColor: index % 2 === 0 ? 'white' : 'lightgray'}},
+      onClick: () => (handleNoteButton(item))
     });
 
-    return (  
-      <div>
-    <NotebuttonCollection
+    return ( 
+      <>
+      <div className='homepages' style={{ 
+            position: 'relative',
+             display: 'inline-block',
+              overflow: "auto"}}>
+        <HomeTest/ >
+            </div>
+            <div style={{ 
+            position: 'relative',
+             display: 'block',
+              alignItems: 'center',
+              justifyContent: 'center',
+              top: "-100px",
+              width: "1341px",
+              left: "100px",
+              objectFit: "cover"}}>
+    <NotetitlebuttonCollection
+    style={{position: 'absolute', bottom: 250, right: 200 ,alignItems: 'center',justifyContent: 'center'}}
     overrides={{
         NotebuttonCollection:{
         items: notes,
-        isSearchable: false
+        isSearchable: true
     }
 }}
 overrideItems={customOverrideItems}
 >
-    {(notes, index) => (
-            <Notebutton overrides={{
-                note_button:{
-                children: notes.Title,
-                size: 'small',
-            }}} />
-    )}
-    
-    </NotebuttonCollection>
-      </div>
+  </NotetitlebuttonCollection>
+</div>
+      </>
     )
 }

@@ -7,7 +7,7 @@
 import * as React from "react";
 import { User } from "../models";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { AlertProps, BadgeProps, ButtonProps, DividerProps, FlexProps, IconProps, ImageProps, RatingProps, SearchFieldProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { AlertProps, BadgeProps, ButtonProps, DividerProps, FlexProps, IconProps, ImageProps, RatingProps, SearchFieldProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type HomeOverridesProps = {
     Home?: PrimitiveOverrideProps<ViewProps>;
@@ -31,19 +31,36 @@ export declare type HomeOverridesProps = {
     Rating?: PrimitiveOverrideProps<RatingProps>;
     aws_image_background_notes?: PrimitiveOverrideProps<ImageProps>;
     Divider175691724?: PrimitiveOverrideProps<DividerProps>;
-    copyright_text?: PrimitiveOverrideProps<BadgeProps>;
-    create_note_button?: PrimitiveOverrideProps<ButtonProps>;
     "amplify-logo.677fad72 1"?: PrimitiveOverrideProps<FlexProps>;
     "Clip path group"?: PrimitiveOverrideProps<FlexProps>;
     clip0?: PrimitiveOverrideProps<ViewProps>;
     Vector175851720?: PrimitiveOverrideProps<IconProps>;
-    Group?: PrimitiveOverrideProps<ViewProps>;
+    Group175851715?: PrimitiveOverrideProps<ViewProps>;
     Vector175851716?: PrimitiveOverrideProps<IconProps>;
     Vector175851717?: PrimitiveOverrideProps<IconProps>;
     Vector175851718?: PrimitiveOverrideProps<IconProps>;
     Badge?: PrimitiveOverrideProps<BadgeProps>;
     SelectField?: PrimitiveOverrideProps<SelectFieldProps>;
     success_alert?: PrimitiveOverrideProps<AlertProps>;
+    create_note_button?: PrimitiveOverrideProps<ButtonProps>;
+    title_text_field?: PrimitiveOverrideProps<TextFieldProps>;
+    priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    more_options_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    description_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;
+    submit_button?: PrimitiveOverrideProps<ButtonProps>;
+    reminder_text_field?: PrimitiveOverrideProps<TextFieldProps>;
+    Divider176891819?: PrimitiveOverrideProps<DividerProps>;
+    "trash-svgrepo-com 1"?: PrimitiveOverrideProps<ViewProps>;
+    "trash-svgrepo-com(1) 1"?: PrimitiveOverrideProps<ViewProps>;
+    SVGRepo_iconCarrier?: PrimitiveOverrideProps<ViewProps>;
+    Group176891885?: PrimitiveOverrideProps<ViewProps>;
+    Group176891886?: PrimitiveOverrideProps<ViewProps>;
+    Group176891887?: PrimitiveOverrideProps<ViewProps>;
+    Vector176891888?: PrimitiveOverrideProps<IconProps>;
+    Vector176891889?: PrimitiveOverrideProps<IconProps>;
+    Vector176891890?: PrimitiveOverrideProps<IconProps>;
+    Vector176891891?: PrimitiveOverrideProps<IconProps>;
+    copyright_text?: PrimitiveOverrideProps<BadgeProps>;
 } & EscapeHatchProps;
 export declare type HomeProps = React.PropsWithChildren<Partial<ViewProps> & {
     user?: User;

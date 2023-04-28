@@ -8,33 +8,33 @@
 import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Button, Flex } from "@aws-amplify/ui-react";
-export default function Notebutton(props) {
-  const { noteV2, overrides, ...rest } = props;
+export default function Notetitlebutton(props) {
+  const { overrides, ...rest } = props;
   return (
     <Flex
       gap="0"
       direction="row"
       width="unset"
-      height="unset"
+      height="87px"
       justifyContent="flex-start"
       alignItems="flex-start"
       position="relative"
+      boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
       padding="0px 0px 0px 0px"
-      {...getOverrideProps(overrides, "Notebutton")}
+      {...getOverrideProps(overrides, "Notetitlebutton")}
       {...rest}
     >
       <Button
-        width="148px"
-        height="125px"
-        border="3px SOLID rgba(255,153,0,1)"
-        padding="5px 13px 5px 13px"
+        width="150px"
+        height="89px"
+        border="1px SOLID rgba(255,153,0,1)"
         shrink="0"
         backgroundColor="rgba(35,47,62,1)"
-        size="large"
+        size="default"
         isDisabled={false}
-        variation="link"
-        children={noteV2?.Title}
-        {...getOverrideProps(overrides, "note_button")}
+        variation="default"
+        children="Title"
+        {...getOverrideProps(overrides, "Button")}
       ></Button>
     </Flex>
   );

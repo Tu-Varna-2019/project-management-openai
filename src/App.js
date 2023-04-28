@@ -3,7 +3,7 @@ import { withAuthenticator, Button, Heading , useTheme , Icon, Image, Text, View
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify'
-import {React} from "./pages/LoginPage";
+import React from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter , Route , Routes } from 'react-router-dom';
 import { DeleteAccount, Notfound } from "./ui-components";

@@ -22,6 +22,8 @@ import {
   SearchField,
   SelectField,
   Text,
+  TextAreaField,
+  TextField,
   View,
 } from "@aws-amplify/ui-react";
 export default function Home(props) {
@@ -53,7 +55,7 @@ export default function Home(props) {
   return (
     <View
       width="1346px"
-      height="937px"
+      height="986px"
       display="block"
       gap="unset"
       alignItems="unset"
@@ -67,7 +69,7 @@ export default function Home(props) {
     >
       <View
         width="1352px"
-        height="937px"
+        height="986px"
         display="block"
         gap="unset"
         alignItems="unset"
@@ -75,7 +77,7 @@ export default function Home(props) {
         overflow="hidden"
         position="absolute"
         top="0px"
-        left="-6px"
+        left="-3px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Frame")}
       >
@@ -325,7 +327,7 @@ export default function Home(props) {
         </View>
         <Image
           width="1341px"
-          height="593px"
+          height="663px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -342,42 +344,13 @@ export default function Home(props) {
           width="1316px"
           height="2px"
           position="absolute"
-          top="854px"
-          left="17px"
+          top="919px"
+          left="19px"
           backgroundColor="rgba(0,0,0,1)"
           size="small"
           orientation="horizontal"
           {...getOverrideProps(overrides, "Divider175691724")}
         ></Divider>
-        <Badge
-          width="898px"
-          height="unset"
-          position="absolute"
-          top="876px"
-          left="224px"
-          size="default"
-          variation="default"
-          children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
-          {...getOverrideProps(overrides, "copyright_text")}
-        ></Badge>
-        <Button
-          width="207px"
-          height="84px"
-          position="absolute"
-          border="1px SOLID rgba(255,255,255,1)"
-          top="734px"
-          left="1102px"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor="rgba(255,153,0,1)"
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Create"
-          onClick={() => {
-            createUnderScorenoteUnderScorebuttonOnClick();
-          }}
-          {...getOverrideProps(overrides, "create_note_button")}
-        ></Button>
         <Flex
           gap="10px"
           direction="column"
@@ -460,7 +433,7 @@ export default function Home(props) {
               bottom="0%"
               left="0%"
               right="0%"
-              {...getOverrideProps(overrides, "Group")}
+              {...getOverrideProps(overrides, "Group175851715")}
             >
               <Icon
                 width="21.02px"
@@ -581,7 +554,330 @@ export default function Home(props) {
           children="Description"
           {...getOverrideProps(overrides, "success_alert")}
         ></Alert>
+        <Button
+          width="207px"
+          height="84px"
+          position="absolute"
+          border="1px SOLID rgba(35,47,62,1)"
+          top="225px"
+          left="970px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          backgroundColor="rgba(255,153,0,1)"
+          size="default"
+          isDisabled={false}
+          variation="default"
+          children="Create"
+          onClick={() => {
+            createUnderScorenoteUnderScorebuttonOnClick();
+          }}
+          {...getOverrideProps(overrides, "create_note_button")}
+        ></Button>
+        <TextField
+          width="300px"
+          height="unset"
+          label="Title"
+          placeholder="Title"
+          position="absolute"
+          top="398px"
+          left="61px"
+          size="default"
+          isDisabled={false}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "title_text_field")}
+        ></TextField>
+        <SelectField
+          width="191px"
+          height="unset"
+          label="Priority"
+          position="absolute"
+          top="398px"
+          left="466px"
+          placeholder=""
+          size="default"
+          isDisabled={false}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "priority_select_field")}
+        ></SelectField>
+        <SelectField
+          width="191px"
+          height="unset"
+          label="More options"
+          position="absolute"
+          top="515px"
+          left="467px"
+          placeholder=""
+          size="default"
+          isDisabled={false}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "more_options_select_field")}
+        ></SelectField>
+        <TextAreaField
+          width="367px"
+          height="unset"
+          label="Description"
+          placeholder="Description"
+          position="absolute"
+          top="511px"
+          left="61px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          size="default"
+          isDisabled={false}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "description_text_field")}
+        ></TextAreaField>
+        <Button
+          width="599px"
+          height="62px"
+          position="absolute"
+          border="1px SOLID rgba(35,47,62,1)"
+          top="835px"
+          left="60px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          backgroundColor="rgba(255,153,0,1)"
+          size="default"
+          isDisabled={false}
+          variation="default"
+          children="Save"
+          {...getOverrideProps(overrides, "submit_button")}
+        ></Button>
+        <TextField
+          width="242px"
+          height="unset"
+          label="Reminder"
+          placeholder="mm/dd/yyy"
+          position="absolute"
+          top="690px"
+          left="60px"
+          size="default"
+          isDisabled={false}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "reminder_text_field")}
+        ></TextField>
+        <Divider
+          width="524.08px"
+          height="3.99px"
+          position="absolute"
+          top="896.12px"
+          left="718.05px"
+          transformOrigin="top left"
+          transform="rotate(-89.87deg)"
+          size="small"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "Divider176891819")}
+        ></Divider>
+        <View
+          width="45px"
+          height="44px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          overflow="hidden"
+          position="absolute"
+          top="665px"
+          left="573px"
+          padding="0px 0px 0px 0px"
+          {...getOverrideProps(overrides, "trash-svgrepo-com 1")}
+        ></View>
+        <View
+          width="37px"
+          height="40px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          overflow="hidden"
+          position="absolute"
+          top="714px"
+          left="570px"
+          padding="0px 0px 0px 0px"
+          {...getOverrideProps(overrides, "trash-svgrepo-com(1) 1")}
+        >
+          <View
+            padding="0px 0px 0px 0px"
+            width="37px"
+            height="40px"
+            display="block"
+            gap="unset"
+            alignItems="unset"
+            justifyContent="unset"
+            position="absolute"
+            top="0%"
+            bottom="0%"
+            left="0%"
+            right="0%"
+            {...getOverrideProps(overrides, "SVGRepo_iconCarrier")}
+          >
+            <View
+              padding="0px 0px 0px 0px"
+              width="37px"
+              height="40px"
+              display="block"
+              gap="unset"
+              alignItems="unset"
+              justifyContent="unset"
+              position="absolute"
+              top="0%"
+              bottom="0%"
+              left="0%"
+              right="0%"
+              {...getOverrideProps(overrides, "Group176891885")}
+            >
+              <View
+                padding="0px 0px 0px 0px"
+                width="37px"
+                height="40px"
+                display="block"
+                gap="unset"
+                alignItems="unset"
+                justifyContent="unset"
+                position="absolute"
+                top="0%"
+                bottom="0%"
+                left="0%"
+                right="0%"
+                {...getOverrideProps(overrides, "Group176891886")}
+              >
+                <View
+                  padding="0px 0px 0px 0px"
+                  width="37px"
+                  height="40px"
+                  display="block"
+                  gap="unset"
+                  alignItems="unset"
+                  justifyContent="unset"
+                  position="absolute"
+                  top="0%"
+                  bottom="0%"
+                  left="0%"
+                  right="0%"
+                  {...getOverrideProps(overrides, "Group176891887")}
+                >
+                  <Icon
+                    width="37px"
+                    height="40px"
+                    viewBox={{ minX: 0, minY: 0, width: 37, height: 40 }}
+                    paths={[
+                      {
+                        d: "M35.4584 6.66664L32.3751 6.66664L32.375 6.66664L27.4122 6.66664L26.9054 4.4743C26.2978 1.84445 24.112 0 21.6049 0L15.395 0C12.8879 0 10.7021 1.84445 10.0945 4.47445L9.58777 6.66664L4.62514 6.66664C4.62514 6.66664 4.62507 6.66664 4.625 6.66664L1.54164 6.66664C0.690209 6.66664 0 7.41289 0 8.33336C0 9.25383 0.690209 10 1.54164 10L3.16675 10L4.46565 35.2758C4.60209 37.9259 6.62994 40 9.08516 40L27.9151 40C30.3703 40 32.3981 37.9259 32.5346 35.2759L33.8335 10L35.4584 10C36.3098 10 37 9.25383 37 8.33336C37 7.41289 36.3098 6.66664 35.4584 6.66664ZM13.0859 5.28234C13.3506 4.13672 14.3027 3.33328 15.3951 3.33328L21.605 3.33328C22.6973 3.33328 23.6494 4.13672 23.9141 5.28219L24.2341 6.66664L12.7659 6.66664L13.0859 5.28234ZM29.456 35.0909C29.4105 35.9745 28.7339 36.6666 27.9151 36.6666L9.08516 36.6666C8.26639 36.6666 7.5897 35.9745 7.54417 35.0907L6.25488 10L10.7917 10L26.2084 10L30.7455 10L29.456 35.0909Z",
+                        fill: "rgba(255,255,255,1)",
+                        fillRule: "nonzero",
+                      },
+                    ]}
+                    display="block"
+                    gap="unset"
+                    alignItems="unset"
+                    justifyContent="unset"
+                    position="absolute"
+                    top="0%"
+                    bottom="0%"
+                    left="0%"
+                    right="0%"
+                    {...getOverrideProps(overrides, "Vector176891888")}
+                  ></Icon>
+                  <Icon
+                    width="3.08px"
+                    height="20px"
+                    viewBox={{
+                      minX: 0,
+                      minY: 0,
+                      width: 3.08349609375,
+                      height: 19.99993896484375,
+                    }}
+                    paths={[
+                      {
+                        d: "M1.54164 0C0.69021 0 0 0.746171 0 1.66664L0 18.3333C0 19.2537 0.69021 19.9999 1.54164 19.9999C2.39308 19.9999 3.08329 19.2537 3.08329 18.3333L3.08329 1.66664C3.08329 0.746171 2.39308 0 1.54164 0Z",
+                        fill: "rgba(255,255,255,1)",
+                        fillRule: "nonzero",
+                      },
+                    ]}
+                    display="block"
+                    gap="unset"
+                    alignItems="unset"
+                    justifyContent="unset"
+                    position="absolute"
+                    top="33.33%"
+                    bottom="16.67%"
+                    left="29.17%"
+                    right="62.5%"
+                    {...getOverrideProps(overrides, "Vector176891889")}
+                  ></Icon>
+                  <Icon
+                    width="3.08px"
+                    height="20px"
+                    viewBox={{
+                      minX: 0,
+                      minY: 0,
+                      width: 3.08349609375,
+                      height: 19.99993896484375,
+                    }}
+                    paths={[
+                      {
+                        d: "M1.54164 0C0.690208 0 0 0.746171 0 1.66664L0 18.3333C0 19.2537 0.690208 19.9999 1.54164 19.9999C2.39308 19.9999 3.08329 19.2537 3.08329 18.3333L3.08329 1.66664C3.08329 0.746171 2.39308 0 1.54164 0Z",
+                        fill: "rgba(255,255,255,1)",
+                        fillRule: "nonzero",
+                      },
+                    ]}
+                    display="block"
+                    gap="unset"
+                    alignItems="unset"
+                    justifyContent="unset"
+                    position="absolute"
+                    top="33.33%"
+                    bottom="16.67%"
+                    left="45.83%"
+                    right="45.83%"
+                    {...getOverrideProps(overrides, "Vector176891890")}
+                  ></Icon>
+                  <Icon
+                    width="3.08px"
+                    height="20px"
+                    viewBox={{
+                      minX: 0,
+                      minY: 0,
+                      width: 3.08349609375,
+                      height: 19.99993896484375,
+                    }}
+                    paths={[
+                      {
+                        d: "M1.54164 0C0.69021 0 0 0.746171 0 1.66664L0 18.3333C0 19.2537 0.69021 19.9999 1.54164 19.9999C2.39308 19.9999 3.08328 19.2537 3.08328 18.3333L3.08328 1.66664C3.08336 0.746171 2.39308 0 1.54164 0Z",
+                        fill: "rgba(255,255,255,1)",
+                        fillRule: "nonzero",
+                      },
+                    ]}
+                    display="block"
+                    gap="unset"
+                    alignItems="unset"
+                    justifyContent="unset"
+                    position="absolute"
+                    top="33.33%"
+                    bottom="16.67%"
+                    left="62.5%"
+                    right="29.17%"
+                    {...getOverrideProps(overrides, "Vector176891891")}
+                  ></Icon>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
       </View>
+      <Badge
+        width="898px"
+        height="unset"
+        position="absolute"
+        top="937px"
+        left="227px"
+        size="default"
+        variation="default"
+        children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
+        {...getOverrideProps(overrides, "copyright_text")}
+      ></Badge>
     </View>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState,MyApp, useRef } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { CreateNotev2, Createnote, Home , NewForm1 } from "../ui-components";
+import { CreateNotev2, Createnote, Home } from "../ui-components";
 import { Button, TextField , Authenticator , Image } from '@aws-amplify/ui-react';
 import { Hub, Auth, Logger,DataStore } from 'aws-amplify';
 import { useNavigate  } from 'react-router-dom';
@@ -42,25 +42,19 @@ export default function CreateNotePage(props) {
     const handleTitle = (event) => {
       event.preventDefault();
       setTitle(event.target.value);
-     if (props.onChange) {
-       props.onChange(event);
-     }
+     if (props.onChange) props.onChange(event);  
      const containsChars =  /^\s*$/.test(event.currentTarget.value);
      setHasError(containsChars);
     };
     const handleDescription = (event) => {
       event.preventDefault();
       setDescription(event.target.value);
-     if (props.onChange) {
-       props.onChange(event);
-     }
+     if (props.onChange) props.onChange(event); 
     };
     const handlePriority = (event) => {
       event.preventDefault();
       setPriority(event.target.value);
-     if (props.onChange) {
-       props.onChange(event);
-     }
+     if (props.onChange) props.onChange(event);
     };
     const handleReminder = (event) => {
       event.preventDefault();
@@ -68,9 +62,7 @@ export default function CreateNotePage(props) {
       setReminder(newReminder);
       const compareDates = new Date(event.target.value) >= Date.now();
       setHasErrorRem(!compareDates);
-     if (props.onChange) {
-       props.onChange(event);
-     }
+     if (props.onChange) props.onChange(event);
     };
     const handleOnClickResetValues = (event) => {
       event.preventDefault();
@@ -82,14 +74,12 @@ export default function CreateNotePage(props) {
       // TODO: Disabled reminder clear due to bug 
       // when selecting a date the initial value is returned 
       //setHasErrorRem(initialHasErrorValues.hasErrorRem);
-      console.log("Clearing content...");
     };
     const handleOnClickCancel = (event) => {
       event.preventDefault();
       console.log("Canceling content...");
       const prompt_cancel = window.confirm("Are you sure you want to leave ?");
-      if (prompt_cancel)
-        window.location.href = 'http://localhost:3000/note';  
+      if (prompt_cancel) window.location.href = 'http://localhost:3000/note';  
     };
     const handleOnClickConfirm = async  (event) => {
       event.preventDefault();
@@ -123,69 +113,37 @@ export default function CreateNotePage(props) {
           isRequired: true,hasError: hasError,value: title,
           errorMessage:"Title must not be empty !",
           onChange: (event) => (handleTitle(event)),
-          "inputStyles":{
-            "style":{
-              "color":"white"}}},
+          "inputStyles":{"style":{"color":"white"}}},
         description_text_field : {
           onChange: (event) => (handleDescription(event)),
           value: description,
-          "inputStyles":{
-            "style":{
-              "color":"white"
-            }
-          }
-        },
+          "inputStyles":{"style":{"color":"white"}}},
         priority_select_field : {
           onChange : (event) => (handlePriority(event)),
           value: priority,
           options: ["High","Medium","Low"],
-          "inputStyles":{
-            "style":{
-              "color":"white"
-            }
-          }
-        },
+          "inputStyles":{"style":{"color":"white"}}},
         reminder_text_field : {
           onChange : (event) => (handleReminder(event)),
           type: "datetime-local",
           //value: reminder,
           defaultValue: reminder,
-          //"inputprops":{ "min": new Date().toISOString()},
           hasError: hasErrorRem,
           errorMessage:"Reminder should be set after the current date & time !",
-          "inputStyles":{
-            "style":{
-              "color":"white"
-            }
-          }
-        },
+          "inputStyles":{"style":{"color":"white"}}},
         clear_button : {
           type:"reset",
           onClick : (event) => (handleOnClickResetValues(event)),
-          "style":{
-            "color":"white",
-          }
-      },
+          "style":{"color":"white"}},
       cancel_button :{
         onClick : (event) => (handleOnClickCancel(event)),
-        "style":{
-          "color":"white",
-        }
-    },
+        "style":{"color":"white"}},
     error_alert: {
-      style:{ "display": errorMessage },
+      style:{ "display": errorMessage},
       isDismissible: false,
-      children: errorDescription,
-    },
+      children: errorDescription,},
     submit_button: {
       onClick : (event) => (handleOnClickConfirm(event)),
       type: "submit",
       isLoading: isLoading,
-      "style":{
-        "color":"white",
-      }
-    },
-      }}/>
-      </>
-    )
-}
+      "style":{"color":"white"}}}}/></>)}

@@ -12,9 +12,9 @@ import {
   getOverrideProps,
   useDataStoreBinding,
 } from "@aws-amplify/ui-react/internal";
-import Notebutton from "./Notebutton";
+import Notetitlebutton from "./Notetitlebutton";
 import { Collection } from "@aws-amplify/ui-react";
-export default function NotebuttonCollection(props) {
+export default function NotetitlebuttonCollection(props) {
   const { items: itemsProp, overrideItems, overrides, ...rest } = props;
   const itemsPagination = {
     sort: (s) =>
@@ -38,23 +38,24 @@ export default function NotebuttonCollection(props) {
       type="grid"
       isSearchable="true"
       isPaginated={true}
-      searchPlaceholder="Search note"
-      templateRows="1fr 1fr 1fr 1fr"
-      autoFlow="column"
+      searchPlaceholder="Search note..."
+      itemsPerPage={8}
+      templateColumns="1fr 1fr"
+      autoFlow="row"
       alignItems="stretch"
-      justifyContent="stretch"
+      justifyContent="right"
       items={items || []}
-      {...getOverrideProps(overrides, "NotebuttonCollection")}
+      {...getOverrideProps(overrides, "NotetitlebuttonCollection")}
       {...rest}
     >
       {(item, index) => (
-        <Notebutton
+        <Notetitlebutton
           height="auto"
           width="auto"
-          margin="20px 30px 10px 10px"
+          margin="10px 20px 10px 10px"
           key={item.id}
           {...(overrideItems && overrideItems({ item, index }))}
-        ></Notebutton>
+        ></Notetitlebutton>
       )}
     </Collection>
   );
