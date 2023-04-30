@@ -1,0 +1,18 @@
+.slider {
+    position: absolute;
+    top: 0;
+    left: -200px;
+    width: 200px;
+    height: 100vh;
+    background-color: #000000;
+    transition: transform 0.3s ease;
+  }
+  
+  .slider.open {
+    transform: translateX(200px);
+  }
+  
+  .slider-content {
+    padding: 20px;
+  }
+  

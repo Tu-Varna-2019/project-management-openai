@@ -21,14 +21,11 @@ import {
   Rating,
   SearchField,
   SelectField,
-  SwitchField,
   Text,
-  TextAreaField,
-  TextField,
   View,
 } from "@aws-amplify/ui-react";
-export default function Home(props) {
-  const { user, test, url, overrides, ...rest } = props;
+export default function Reminder(props) {
+  const { overrides, ...rest } = props;
   const noteUnderScorebuttonOnClick = useNavigateAction({
     type: "url",
     url: "/note",
@@ -45,14 +42,6 @@ export default function Home(props) {
     type: "url",
     url: "/bin",
   });
-  const contactUnderScoreusUnderScorebuttonOnClick = useNavigateAction({
-    type: "url",
-    url: "/contact-us",
-  });
-  const createUnderScorenoteUnderScorebuttonOnClick = useNavigateAction({
-    type: "url",
-    url: "/create-note",
-  });
   return (
     <View
       width="1346px"
@@ -65,7 +54,7 @@ export default function Home(props) {
       position="relative"
       padding="0px 0px 0px 0px"
       backgroundColor="rgba(255,255,255,1)"
-      {...getOverrideProps(overrides, "Home")}
+      {...getOverrideProps(overrides, "Reminder")}
       {...rest}
     >
       <View
@@ -90,7 +79,7 @@ export default function Home(props) {
           left="4px"
           size="small"
           orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider175552033")}
+          {...getOverrideProps(overrides, "Divider177182476")}
         ></Divider>
         <Divider
           width="1346px"
@@ -100,7 +89,7 @@ export default function Home(props) {
           left="0px"
           size="small"
           orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider175691694")}
+          {...getOverrideProps(overrides, "Divider177182477")}
         ></Divider>
         <View
           width="1346px"
@@ -150,7 +139,7 @@ export default function Home(props) {
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
             children="Created by "
-            {...getOverrideProps(overrides, "powered_by_amplify_text175572064")}
+            {...getOverrideProps(overrides, "powered_by_amplify_text177182480")}
           ></Text>
           <Text
             fontFamily="Inter"
@@ -172,7 +161,7 @@ export default function Home(props) {
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
             children="AWS Amplify"
-            {...getOverrideProps(overrides, "powered_by_amplify_text175851722")}
+            {...getOverrideProps(overrides, "powered_by_amplify_text177182481")}
           ></Text>
         </View>
         <SearchField
@@ -263,11 +252,7 @@ export default function Home(props) {
           size="default"
           isDisabled={false}
           variation="primary"
-          about=""
           children="Contact us"
-          onClick={() => {
-            contactUnderScoreusUnderScorebuttonOnClick();
-          }}
           {...getOverrideProps(overrides, "contact_us_button")}
         ></Button>
         <View
@@ -288,7 +273,7 @@ export default function Home(props) {
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           padding="0px 0px 0px 0px"
           objectFit="cover"
-          src="https://d1.awsstatic.com/aws-media-series-assets/Site-Merch_AWS-Back-to-Basics_Vid-Series_Hero-BG.c12b4f1f0099e91cbf1dd0b7efbdf53e8e6a8f84.png"
+          src="https://d1.awsstatic.com/legal/builders-library/WEB_Library-header.d958a0d6de10906ba0ed43e35bfd1669a3c84031.jpg"
           {...getOverrideProps(overrides, "aws_image_background")}
         ></Image>
         <View
@@ -322,7 +307,6 @@ export default function Home(props) {
             top="42px"
             left="28px"
             size="default"
-            alignSelf=""
             {...getOverrideProps(overrides, "Rating")}
           ></Rating>
         </View>
@@ -350,7 +334,7 @@ export default function Home(props) {
           backgroundColor="rgba(0,0,0,1)"
           size="small"
           orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider175691724")}
+          {...getOverrideProps(overrides, "Divider177182494")}
         ></Divider>
         <Flex
           gap="10px"
@@ -418,7 +402,7 @@ export default function Home(props) {
                 bottom="0%"
                 left="0%"
                 right="0%"
-                {...getOverrideProps(overrides, "Vector175851720")}
+                {...getOverrideProps(overrides, "Vector177182498")}
               ></Icon>
             </View>
             <View
@@ -443,7 +427,7 @@ export default function Home(props) {
                   minX: 0,
                   minY: 0,
                   width: 21.0224609375,
-                  height: 16.6666259765625,
+                  height: 16.666667938232422,
                 }}
                 paths={[
                   {
@@ -461,7 +445,7 @@ export default function Home(props) {
                 bottom="0.01%"
                 left="0%"
                 right="42.17%"
-                {...getOverrideProps(overrides, "Vector175851716")}
+                {...getOverrideProps(overrides, "Vector177182500")}
               ></Icon>
               <Icon
                 width="16.64px"
@@ -470,7 +454,7 @@ export default function Home(props) {
                   minX: 0,
                   minY: 0,
                   width: 16.642578125,
-                  height: 23.015869140625,
+                  height: 23.015838623046875,
                 }}
                 paths={[
                   {
@@ -488,7 +472,7 @@ export default function Home(props) {
                 bottom="0%"
                 left="32.53%"
                 right="21.69%"
-                {...getOverrideProps(overrides, "Vector175851717")}
+                {...getOverrideProps(overrides, "Vector177182501")}
               ></Icon>
               <Icon
                 width="21.02px"
@@ -510,7 +494,7 @@ export default function Home(props) {
                 bottom="0%"
                 left="42.17%"
                 right="0%"
-                {...getOverrideProps(overrides, "Vector175851718")}
+                {...getOverrideProps(overrides, "Vector177182502")}
               ></Icon>
             </View>
           </Flex>
@@ -524,7 +508,7 @@ export default function Home(props) {
           left="507px"
           size="default"
           variation="default"
-          children="Welcome back "
+          children="Welcome back"
           {...getOverrideProps(overrides, "Badge")}
         ></Badge>
         <SelectField
@@ -542,139 +526,26 @@ export default function Home(props) {
           variation="default"
           {...getOverrideProps(overrides, "SelectField")}
         ></SelectField>
-        <TextField
-          width="300px"
-          height="unset"
-          label="Title"
-          placeholder="Title"
-          position="absolute"
-          top="398px"
-          left="61px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "title_text_field")}
-        ></TextField>
-        <SelectField
-          width="191px"
-          height="unset"
-          label="Priority"
-          position="absolute"
-          top="398px"
-          left="466px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "priority_select_field")}
-        ></SelectField>
-        <TextAreaField
-          width="367px"
-          height="unset"
-          label="Description"
-          placeholder="Description"
-          position="absolute"
-          top="511px"
-          left="61px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "description_text_field")}
-        ></TextAreaField>
         <Button
-          width="599px"
-          height="62px"
+          width="205px"
+          height="82px"
           position="absolute"
-          border="1px SOLID rgba(35,47,62,1)"
-          top="835px"
-          left="60px"
+          borderRadius="4px"
+          top="226px"
+          left="971px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           backgroundColor="rgba(255,153,0,1)"
           size="default"
           isDisabled={false}
           variation="default"
-          children="Save"
-          {...getOverrideProps(overrides, "submit_button")}
-        ></Button>
-        <TextField
-          width="242px"
-          height="unset"
-          label="Reminder"
-          placeholder="mm/dd/yyy"
-          position="absolute"
-          top="690px"
-          left="60px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "reminder_text_field")}
-        ></TextField>
-        <Divider
-          width="524.08px"
-          height="3.99px"
-          position="absolute"
-          top="896.12px"
-          left="718.05px"
-          transformOrigin="top left"
-          transform="rotate(-89.87deg)"
-          size="small"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "divider_notes_info")}
-        ></Divider>
-        <Button
-          width="207px"
-          height="84px"
-          position="absolute"
-          border="1px SOLID rgba(35,47,62,1)"
-          top="225px"
-          left="970px"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor="rgba(255,153,0,1)"
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Create"
-          onClick={() => {
-            createUnderScorenoteUnderScorebuttonOnClick();
-          }}
+          children="Delete all"
           {...getOverrideProps(overrides, "create_note_button")}
         ></Button>
-        <SwitchField
-          width="unset"
-          height="unset"
-          label="Delete"
-          position="absolute"
-          top="575px"
-          left="497px"
-          size="default"
-          defaultChecked={false}
-          isDisabled={false}
-          labelPosition="start"
-          {...getOverrideProps(overrides, "deleted_switch_field")}
-        ></SwitchField>
-        <Alert
-          width="1342px"
-          height="173px"
-          heading="Success"
-          position="absolute"
-          top="171px"
-          left="4px"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          variation="success"
-          isDismissible={true}
-          hasIcon={true}
-          children="Description"
-          {...getOverrideProps(overrides, "success_alert")}
-        ></Alert>
         <Text
           fontFamily="Inter"
           fontSize="40px"
           fontWeight="700"
-          color="rgba(104,112,120,1)"
+          color="rgba(20,81,117,1)"
           lineHeight="48.409088134765625px"
           textAlign="center"
           display="block"
@@ -685,11 +556,11 @@ export default function Home(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="662px"
-          left="299px"
+          top="669px"
+          left="198px"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Notes you've added are displayed here"
+          children="Notes with upcoming reminders are displayed here"
           {...getOverrideProps(overrides, "notes_displayed_here_no_note")}
         ></Text>
         <Image
@@ -700,22 +571,37 @@ export default function Home(props) {
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
-          top="471px"
-          left="544px"
+          top="485px"
+          left="563px"
           padding="0px 0px 0px 0px"
-          objectFit="cover"
+          objectFit="contain"
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn4.iconfinder.com%2Fdata%2Ficons%2F24x24-grid-filled-symbols-1-1%2F1024%2Fbell_app_software_mobile-512.png&f=1&nofb=1&ipt=c0d9037e3e82eee21838119a8ed6669e105cc71b921d341d8d1015ac734658a4&ipo=images"
           {...getOverrideProps(overrides, "amplify_image_logo_no_note")}
         ></Image>
         <Divider
           width="100px"
           position="absolute"
           top="155px"
-          left="366px"
+          left="544px"
           boxShadow="0px 16px 24px rgba(0, 0, 0, 0.14000000059604645)"
           size="large"
           orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider177161908")}
+          {...getOverrideProps(overrides, "Divider177182515")}
         ></Divider>
+        <Alert
+          width="1342px"
+          height="173px"
+          heading="Success"
+          position="absolute"
+          top="171px"
+          left="6px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          variation="success"
+          isDismissible={true}
+          hasIcon={true}
+          children="Description"
+          {...getOverrideProps(overrides, "success_alert")}
+        ></Alert>
       </View>
       <Badge
         width="898px"

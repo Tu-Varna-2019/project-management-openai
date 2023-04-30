@@ -1,6 +1,6 @@
 import React, { useEffect, useState,MyApp, useRef } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { CreateNotev2, Createnote, Home , HomeTest, NewForm1, Notebutton, NotebuttonCollection, NotetitlebuttonCollection } from "../ui-components";
+import { CreateNotev2, Createnote, Home , NewForm1, Notebutton, NotebuttonCollection, NotetitlebuttonCollection } from "../ui-components";
 import { Button, TextField , Authenticator , Image } from '@aws-amplify/ui-react';
 import { Hub, Auth, Logger,DataStore } from 'aws-amplify';
 import { useNavigate  } from 'react-router-dom';
@@ -75,7 +75,7 @@ export default function NoteButtonPage(props) {
             position: 'relative',
              display: 'inline-block',
               overflow: "auto"}}>
-        <HomeTest/ >
+        <Home/ >
             </div>
             <div style={{ 
             position: 'relative',

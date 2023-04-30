@@ -8,7 +8,6 @@ import awsExports from './aws-exports';
 import { AmplifyProvider,createTheme } from '@aws-amplify/ui-react';
 import studioTheme from './ui-components/studioTheme';
 
-
 const updatedTheme = createTheme({
   // Extend the theme to update the button color
   name: "my-theme-updates", 
@@ -29,9 +28,7 @@ Amplify.configure(awsExports);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AmplifyProvider theme={updatedTheme}>
-
-      <App />
-   
+    <App />
   </AmplifyProvider>
 );
 // If you want to start measuring performance in your app, pass a function

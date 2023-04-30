@@ -7,27 +7,4 @@ type NoteV2 @model @auth(rules: [{allow: public}, {allow: private}, {allow: grou
   sub: String
   Deleted: Boolean
 }
-
-type Bin @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private, operations: [read, update, delete]}]) {
-  id: ID!
-  Notes: [Note] @hasMany(indexName: "byBin", fields: ["id"])
-}
-
-type Note @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
-  id: ID!
-  Title: String
-  Description: String
-  Priority: String
-  Deleted: Boolean
-  userID: ID! @index(name: "byUser")
-  Reminder: AWSDateTime
-  binID: ID! @index(name: "byBin")
-}
-
-type User @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  Email: String!
-  password: String!
-  Notes: [Note] @hasMany(indexName: "byUser", fields: ["id"])
-}
  

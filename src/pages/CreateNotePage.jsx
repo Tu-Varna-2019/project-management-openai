@@ -1,10 +1,9 @@
 import React, { useEffect, useState,MyApp, useRef } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { CreateNotev2, Createnote, Home } from "../ui-components";
-import { Button, TextField , Authenticator , Image } from '@aws-amplify/ui-react';
-import { Hub, Auth, Logger,DataStore } from 'aws-amplify';
+import { CreateNotev2 } from "../ui-components";
+import { Auth,DataStore } from 'aws-amplify';
 import { useNavigate  } from 'react-router-dom';
-import { Note ,User , NoteV2} from '../models';
+import { NoteV2} from '../models';
 
 export default function CreateNotePage(props) {
   
@@ -13,7 +12,7 @@ export default function CreateNotePage(props) {
     Title: "",
     Description: "",
     Priority: "",
-    Reminder: new Date().toISOString(),
+    Reminder: new Date()
   };
   const initialHasErrorValues = {
     hasError: true,
@@ -58,8 +57,7 @@ export default function CreateNotePage(props) {
     };
     const handleReminder = (event) => {
       event.preventDefault();
-      const newReminder = event.target.value === "" ? "" : new Date(event.target.value).toISOString();
-      setReminder(newReminder);
+      setReminder(event.target.value);
       const compareDates = new Date(event.target.value) >= Date.now();
       setHasErrorRem(!compareDates);
      if (props.onChange) props.onChange(event);
@@ -71,9 +69,7 @@ export default function CreateNotePage(props) {
       setPriority(initialValues.Priority);
       setReminder(initialValues.Reminder);
       setHasError(initialHasErrorValues.hasError);
-      // TODO: Disabled reminder clear due to bug 
-      // when selecting a date the initial value is returned 
-      //setHasErrorRem(initialHasErrorValues.hasErrorRem);
+      setHasErrorRem(initialHasErrorValues.hasErrorRem);
     };
     const handleOnClickCancel = (event) => {
       event.preventDefault();
@@ -90,20 +86,22 @@ export default function CreateNotePage(props) {
         setErrorMessage("block");
         setErrorDescription("Reminder cannot be set in the past!");
       } else if (!hasError) {
+        const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+        const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
+        const newReminder = newDate.toISOString();
         await DataStore.save(
           new NoteV2({
           "Title": title,
           "Description": description,
           "Priority": priority,
-          "Reminder": reminder,
+          "Reminder": newReminder,
           "sub": sub,
-          "Deleted": false,}));
-          navigate('/note', { state: { alert_success:'block' , title: title } });
+          "Deleted": false}));
+          navigate('/note', { state: { alert_success:'block' , title: title , action: "created !" } });
       } else {
       setIsLoading(false);
       setErrorMessage("block");
-      setErrorDescription("Title must not be empty!");}
-    };
+      setErrorDescription("Title must not be empty!");}};
 
     return (  
       <>
@@ -126,8 +124,7 @@ export default function CreateNotePage(props) {
         reminder_text_field : {
           onChange : (event) => (handleReminder(event)),
           type: "datetime-local",
-          //value: reminder,
-          defaultValue: reminder,
+          value: reminder,
           hasError: hasErrorRem,
           errorMessage:"Reminder should be set after the current date & time !",
           "inputStyles":{"style":{"color":"white"}}},
@@ -141,7 +138,7 @@ export default function CreateNotePage(props) {
     error_alert: {
       style:{ "display": errorMessage},
       isDismissible: false,
-      children: errorDescription,},
+      children: errorDescription},
     submit_button: {
       onClick : (event) => (handleOnClickConfirm(event)),
       type: "submit",

@@ -1,20 +1,21 @@
 import './App.css';
-import { withAuthenticator, Button, Heading , useTheme , Icon, Image, Text, View, Authenticator, Card } from '@aws-amplify/ui-react';
+import { Button, Heading , useTheme , Image, Text, View, Authenticator, Card } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify'
 import React from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter , Route , Routes } from 'react-router-dom';
-import { DeleteAccount, Notfound } from "./ui-components";
+import { Notfound } from "./ui-components";
 import CreateNotePage from "./pages/CreateNotePage";
 import HomePage from './pages/HomePage';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import DeleteAccountPage from './pages/DeleteAccountPage';
-import {NotebuttonCollection } from './ui-components';
 import NoteButtonPage from './pages/NoteButtonPage';
+import BinPage from './pages/BinPage';
+import ReminderPage from './pages/ReminderPage';
 
 const components = {
   Header() {
@@ -267,38 +268,24 @@ export default function App() {
     document.title = "MNotes";
   });
 
-
   return (
     <div className='HomePage' style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 1000
-      }}>
-        <Helmet>
+      display: 'flex',alignItems: 'center',
+      justifyContent: 'center',height: 1000}}>
+      <Helmet>
       <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbrandslogos.com%2Fwp-content%2Fuploads%2Fimages%2Flarge%2Faws-ec2-logo.png&f=1&nofb=1&ipt=78ee68f6d41e0800d935d8fe600c6abac3d3316581a94380c3e6db839e682106&ipo=images" />
-      </Helmet>
-      <Card variation="elevated">
-    <Authenticator components={components} >
-
+      </Helmet><Card variation="elevated"><Authenticator components={components} >
     <BrowserRouter>
       <Routes>
         <Route path="/note" element={<HomePage/>}/>
-        <Route path="/reminder" element={<NoteButtonPage/>}/>
+        <Route path="/reminder" element={<ReminderPage/>}/>
+        <Route path="/bin" element={<BinPage/>}/>
         <Route path='/create-note' element={<CreateNotePage/>}/>
         <Route path='/reset-password' element={<ResetPasswordPage/>}/>
         <Route path='/delete-account' element={<DeleteAccountPage/>}/>
-
         <Route path="/" element={<HomePage/>}/>
         <Route path='*' element={<Notfound/>}/>
       </Routes>
-    </BrowserRouter>
-    </Authenticator>
-    </Card>
-    </div>
-  
-  );
-}
-
+    </BrowserRouter></Authenticator></Card></div>);}
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);
 //export default  App;

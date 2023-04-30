@@ -1,15 +1,7 @@
-import React, { useEffect, useState,MyApp, useRef } from 'react'
+import React, { useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Createnote, DeleteAccount, Home, ResetPassword } from "../ui-components";
-import { Button, TextField , Authenticator , Image,View,Heading } from '@aws-amplify/ui-react';
+import { DeleteAccount} from "../ui-components";
 import { Auth } from 'aws-amplify';
-import { DataStore } from 'aws-amplify';
-import { Alert,Card , Text } from '@aws-amplify/ui-react';
-import { Note, NoteV2 } from '../models';
-import { useTheme } from '@aws-amplify/ui-react';
-import { useAuthenticator } from '@aws-amplify/ui-react';
-import HomePage from './HomePage';
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import { useNavigate  } from 'react-router-dom';
 
 export default function DeleteAccountPage(props) {
