@@ -267,7 +267,7 @@ export default function App() {
     // This will run when the page first loads and whenever the title changes
     document.title = "MNotes";
   });
-
+  
   return (
     <div className='HomePage' style={{
       display: 'flex',alignItems: 'center',

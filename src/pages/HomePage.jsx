@@ -88,12 +88,12 @@ export default function HomePage(props) {
       case UserSettingsMenu.ChangePassword:
         if (window.confirm("Are you sure you want to change password,"
         +"we will redirect you to different page?")) 
-          window.location.href = 'http://localhost:3000/reset-password'; 
+            navigate('/reset-password'); 
         break;
       case UserSettingsMenu.DeleteAccount:
         if (window.confirm("Are you sure you want to delete account,"
         +"we will redirect you to different page?")) 
-          window.location.href = 'http://localhost:3000/delete-account'; 
+            navigate('/delete-account');
         break;
       default: 
         console.log("default");

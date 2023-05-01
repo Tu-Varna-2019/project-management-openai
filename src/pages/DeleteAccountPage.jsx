@@ -38,7 +38,7 @@ export default function DeleteAccountPage(props) {
 
 const handleCancelPassword = (event) => {
   if (window.confirm("Are you sure you want to leave?"))
-      window.location.href = 'http://localhost:3000/note';};
+      navigate('/');};
 
 const handleDeleteAccount = async (event) => {
   event.preventDefault();

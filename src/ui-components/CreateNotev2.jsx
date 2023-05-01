@@ -443,11 +443,11 @@ export default function CreateNotev2(props) {
           position="absolute"
           top="34px"
           left="1151px"
-          backgroundColor="rgba(255,255,255,1)"
+          backgroundColor="rgba(35,47,62,1)"
           size="default"
           isDisabled={false}
           labelHidden={true}
-          variation="quiet"
+          variation="default"
           {...getOverrideProps(overrides, "SelectField")}
         ></SelectField>
         <Image

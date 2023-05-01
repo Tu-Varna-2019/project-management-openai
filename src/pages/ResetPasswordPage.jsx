@@ -34,7 +34,7 @@ const handleConfirmPassword = (event) => {
 
 const handleCancelPassword = (event) => {
   if (window.confirm("Are you sure you want to leave?"))
-      window.location.href = 'http://localhost:3000/note';};
+       navigate('/note'); };
 
 const handleResetPassword = async (event) => {
   event.preventDefault();

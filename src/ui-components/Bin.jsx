@@ -517,11 +517,11 @@ export default function Bin(props) {
           width="175px"
           height="40px"
           label="My account"
+          placeholder="My account"
           position="absolute"
           top="34px"
           left="1136px"
           backgroundColor="rgba(35,47,62,1)"
-          placeholder=""
           size="default"
           isDisabled={false}
           labelHidden={true}

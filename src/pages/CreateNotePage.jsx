@@ -1,4 +1,4 @@
-import React, { useEffect, useState,MyApp, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
 import { CreateNotev2 } from "../ui-components";
 import { Auth,DataStore } from 'aws-amplify';
@@ -73,9 +73,8 @@ export default function CreateNotePage(props) {
     };
     const handleOnClickCancel = (event) => {
       event.preventDefault();
-      console.log("Canceling content...");
       const prompt_cancel = window.confirm("Are you sure you want to leave ?");
-      if (prompt_cancel) window.location.href = 'http://localhost:3000/note';  
+      if (prompt_cancel) navigate('/note');
     };
     const handleOnClickConfirm = async  (event) => {
       event.preventDefault();
@@ -89,15 +88,20 @@ export default function CreateNotePage(props) {
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
         const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
         const newReminder = newDate.toISOString();
-        await DataStore.save(
-          new NoteV2({
-          "Title": title,
-          "Description": description,
-          "Priority": priority,
-          "Reminder": newReminder,
-          "sub": sub,
-          "Deleted": false}));
-          navigate('/note', { state: { alert_success:'block' , title: title , action: "created !" } });
+        try {
+          await DataStore.save(
+            new NoteV2({
+            "Title": title,
+            "Description": description,
+            "Priority": priority,
+            "Reminder": newReminder,
+            "sub": sub,
+            "Deleted": false}));
+            navigate('/note', { state: { alert_success:'block' , title: title , action: "created !" } });
+        } catch (error) {
+          setIsLoading(false);
+          setErrorMessage("block");
+          setErrorDescription("App is not supported in this browser's private mode! Please enable cookies!");}
       } else {
       setIsLoading(false);
       setErrorMessage("block");

@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "tuvarnde3f488d",
     "userPoolName": "TuVarnaNote",
     "autoVerifiedAttributes": [
@@ -51,7 +51,7 @@
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid profile\",\"AttributeMapping\":{\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/note\"],\"LogoutURLs\":[\"http://localhost:3000/note\"]}",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dev.d1nyybr00ldz1k.amplifyapp.com/note\"],\"LogoutURLs\":[\"https://dev.d1nyybr00ldz1k.amplifyapp.com/note\"]}",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
     "authRoleArn": {
