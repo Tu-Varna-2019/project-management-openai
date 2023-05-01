@@ -4,7 +4,7 @@ import { Home ,NotetitlebuttonCollection } from "../ui-components";
 import { Auth,DataStore } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';
-import amplify_image_logo_no_note from 'C:\\Users\\ikostov2\\tu-varna-amplify\\src\\images\\amplify_image_logo_no_note.png';
+import amplify_image_logo_no_note from '../images/amplify_image_logo_no_note.png';
 
 export default function HomePage(props) {
 
