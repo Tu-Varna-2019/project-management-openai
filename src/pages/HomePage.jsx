@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Home ,NotetitlebuttonCollection } from "../ui-components";
+import { Home ,HomeV2,NotetitlebuttonCollection } from "../ui-components";
 import { Auth,DataStore } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';
@@ -168,7 +168,7 @@ export default function HomePage(props) {
         <>
         <div className='homepages' 
           style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
-         <Home overrides={{
+         <HomeV2 overrides={{
           amplify_image_logo_no_note:{
             src: amplify_image_logo_no_note,
             top: String(noNotesText) + "px"},

@@ -40,6 +40,8 @@ export declare type NotfoundOverridesProps = {
     "Sorry, the page you tried cannot be found."?: PrimitiveOverrideProps<TextProps>;
 } & EscapeHatchProps;
 export declare type NotfoundProps = React.PropsWithChildren<Partial<ViewProps> & {
+    TaskBarMouseLeave?: String;
+} & {
     overrides?: NotfoundOverridesProps | undefined | null;
 }>;
 export default function Notfound(props: NotfoundProps): React.ReactElement;

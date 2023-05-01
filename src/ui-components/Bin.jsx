@@ -9,6 +9,7 @@ import * as React from "react";
 import {
   getOverrideProps,
   useNavigateAction,
+  useStateMutationAction,
 } from "@aws-amplify/ui-react/internal";
 import {
   Alert,
@@ -27,23 +28,116 @@ import {
   View,
 } from "@aws-amplify/ui-react";
 export default function Bin(props) {
-  const { overrides, ...rest } = props;
+  const { noteV2, overrides, ...rest } = props;
+  const [
+    noteUnderScorebuttonBackgroundColor,
+    setNoteUnderScorebuttonBackgroundColor,
+  ] = useStateMutationAction("rgba(35,47,62,1)");
+  const [
+    taskUnderScorebuttonBackgroundColor,
+    setTaskUnderScorebuttonBackgroundColor,
+  ] = useStateMutationAction("rgba(35,47,62,1)");
+  const [
+    reminderUnderScorebuttonBackgroundColor,
+    setReminderUnderScorebuttonBackgroundColor,
+  ] = useStateMutationAction("rgba(35,47,62,1)");
+  const [
+    binUnderScorebuttonBackgroundColor,
+    setBinUnderScorebuttonBackgroundColor,
+  ] = useStateMutationAction("rgba(35,47,62,1)");
+  const [
+    restoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneBackgroundColor,
+    setRestoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneBackgroundColor,
+  ] = useStateMutationAction("rgba(255,153,0,1)");
+  const [
+    restoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourBackgroundColor,
+    setRestoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourBackgroundColor,
+  ] = useStateMutationAction("rgba(255,153,0,1)");
+  const [
+    createUnderScorenoteUnderScorebuttonBackgroundColor,
+    setCreateUnderScorenoteUnderScorebuttonBackgroundColor,
+  ] = useStateMutationAction("rgba(255,153,0,1)");
+  const [
+    confirmUnderScorecancelUnderScorealertDisplay,
+    setConfirmUnderScorecancelUnderScorealertDisplay,
+  ] = useStateMutationAction(undefined);
   const noteUnderScorebuttonOnClick = useNavigateAction({
     type: "url",
     url: "/note",
   });
+  const noteUnderScorebuttonOnMouseLeave = () => {
+    setNoteUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 1)");
+  };
+  const noteUnderScorebuttonOnMouseOver = () => {
+    setNoteUnderScorebuttonBackgroundColor("rgba(145, 151, 158, 1)");
+  };
   const taskUnderScorebuttonOnClick = useNavigateAction({
     type: "url",
     url: "/task",
   });
+  const taskUnderScorebuttonOnMouseLeave = () => {
+    setTaskUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 1)");
+  };
+  const taskUnderScorebuttonOnMouseOver = () => {
+    setTaskUnderScorebuttonBackgroundColor("rgba(145, 151, 158, 1)");
+  };
   const reminderUnderScorebuttonOnClick = useNavigateAction({
     type: "url",
     url: "/reminder",
   });
+  const reminderUnderScorebuttonOnMouseLeave = () => {
+    setReminderUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 1)");
+  };
+  const reminderUnderScorebuttonOnMouseOver = () => {
+    setReminderUnderScorebuttonBackgroundColor("rgba(145, 151, 158, 1)");
+  };
   const binUnderScorebuttonOnClick = useNavigateAction({
     type: "url",
     url: "/bin",
   });
+  const binUnderScorebuttonOnMouseLeave = () => {
+    setBinUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 1)");
+  };
+  const binUnderScorebuttonOnMouseOver = () => {
+    setBinUnderScorebuttonBackgroundColor("rgba(145, 151, 158, 1)");
+  };
+  const restoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneOnMouseOver =
+    () => {
+      setRestoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneBackgroundColor(
+        "rgba(195, 120, 6, 1)"
+      );
+    };
+  const restoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneOnMouseLeave =
+    () => {
+      setRestoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneBackgroundColor(
+        "rgba(255, 153, 0, 1)"
+      );
+    };
+  const restoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourOnMouseLeave =
+    () => {
+      setRestoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourBackgroundColor(
+        "rgba(255, 153, 0, 1)"
+      );
+    };
+  const restoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourOnMouseOver =
+    () => {
+      setRestoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourBackgroundColor(
+        "rgba(195, 120, 6, 1)"
+      );
+    };
+  const createUnderScorenoteUnderScorebuttonOnMouseLeave = () => {
+    setCreateUnderScorenoteUnderScorebuttonBackgroundColor(
+      "rgba(255, 153, 0, 1)"
+    );
+  };
+  const createUnderScorenoteUnderScorebuttonOnMouseOver = () => {
+    setCreateUnderScorenoteUnderScorebuttonBackgroundColor(
+      "rgba(188, 116, 9, 1)"
+    );
+  };
+  const cancelUnderScorebuttonOnClick = () => {
+    setConfirmUnderScorecancelUnderScorealertDisplay("none");
+  };
   return (
     <View
       width="1346px"
@@ -178,6 +272,8 @@ export default function Bin(props) {
           isDisabled={false}
           labelHidden={true}
           variation="default"
+          itemProp={noteV2?.Title}
+          itemRef={noteV2?.Title}
           {...getOverrideProps(overrides, "SearchField")}
         ></SearchField>
         <Button
@@ -186,13 +282,19 @@ export default function Bin(props) {
           position="absolute"
           top="115px"
           left="339px"
-          backgroundColor="rgba(35,47,62,1)"
+          backgroundColor={noteUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
           variation="primary"
           children="Note"
           onClick={() => {
             noteUnderScorebuttonOnClick();
+          }}
+          onMouseLeave={() => {
+            noteUnderScorebuttonOnMouseLeave();
+          }}
+          onMouseOver={() => {
+            noteUnderScorebuttonOnMouseOver();
           }}
           {...getOverrideProps(overrides, "note_button")}
         ></Button>
@@ -202,13 +304,19 @@ export default function Bin(props) {
           position="absolute"
           top="115px"
           left="693px"
-          backgroundColor="rgba(35,47,62,1)"
+          backgroundColor={taskUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
           variation="primary"
           children="Task"
           onClick={() => {
             taskUnderScorebuttonOnClick();
+          }}
+          onMouseLeave={() => {
+            taskUnderScorebuttonOnMouseLeave();
+          }}
+          onMouseOver={() => {
+            taskUnderScorebuttonOnMouseOver();
           }}
           {...getOverrideProps(overrides, "task_button")}
         ></Button>
@@ -218,13 +326,19 @@ export default function Bin(props) {
           position="absolute"
           top="115px"
           left="516px"
-          backgroundColor="rgba(35,47,62,1)"
+          backgroundColor={reminderUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
           variation="primary"
           children="Reminder"
           onClick={() => {
             reminderUnderScorebuttonOnClick();
+          }}
+          onMouseLeave={() => {
+            reminderUnderScorebuttonOnMouseLeave();
+          }}
+          onMouseOver={() => {
+            reminderUnderScorebuttonOnMouseOver();
           }}
           {...getOverrideProps(overrides, "reminder_button")}
         ></Button>
@@ -234,13 +348,19 @@ export default function Bin(props) {
           position="absolute"
           top="115px"
           left="870px"
-          backgroundColor="rgba(35,47,62,1)"
+          backgroundColor={binUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
           variation="primary"
           children="Bin"
           onClick={() => {
             binUnderScorebuttonOnClick();
+          }}
+          onMouseLeave={() => {
+            binUnderScorebuttonOnMouseLeave();
+          }}
+          onMouseOver={() => {
+            binUnderScorebuttonOnMouseOver();
           }}
           {...getOverrideProps(overrides, "bin_button")}
         ></Button>
@@ -578,11 +698,19 @@ export default function Bin(props) {
           top="835px"
           left="60px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor="rgba(255,153,0,1)"
+          backgroundColor={
+            restoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneBackgroundColor
+          }
           size="default"
           isDisabled={false}
           variation="default"
           children="Restore"
+          onMouseOver={() => {
+            restoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneOnMouseOver();
+          }}
+          onMouseLeave={() => {
+            restoreUnderScorebuttonOneSevenSevenOneSixOneSevenSevenOneOnMouseLeave();
+          }}
           {...getOverrideProps(overrides, "restore_button177161771")}
         ></Button>
         <Button
@@ -593,11 +721,19 @@ export default function Bin(props) {
           top="835px"
           left="372px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor="rgba(255,153,0,1)"
+          backgroundColor={
+            restoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourBackgroundColor
+          }
           size="default"
           isDisabled={false}
           variation="default"
           children="Permanently delete"
+          onMouseLeave={() => {
+            restoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourOnMouseLeave();
+          }}
+          onMouseOver={() => {
+            restoreUnderScorebuttonOneSevenSevenOneSixOneNineZeroFourOnMouseOver();
+          }}
           {...getOverrideProps(overrides, "restore_button177161904")}
         ></Button>
         <TextField
@@ -634,11 +770,17 @@ export default function Bin(props) {
           top="226px"
           left="971px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor="rgba(255,153,0,1)"
+          backgroundColor={createUnderScorenoteUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
           variation="default"
           children="Delete all"
+          onMouseLeave={() => {
+            createUnderScorenoteUnderScorebuttonOnMouseLeave();
+          }}
+          onMouseOver={() => {
+            createUnderScorenoteUnderScorebuttonOnMouseOver();
+          }}
           {...getOverrideProps(overrides, "create_note_button")}
         ></Button>
         <Text
@@ -713,6 +855,7 @@ export default function Bin(props) {
           isDismissible={false}
           hasIcon={true}
           children="Description"
+          display={confirmUnderScorecancelUnderScorealertDisplay}
           {...getOverrideProps(overrides, "confirm_cancel_alert")}
         ></Alert>
         <Button
@@ -737,6 +880,9 @@ export default function Bin(props) {
           isDisabled={false}
           variation="link"
           children="Cancel"
+          onClick={() => {
+            cancelUnderScorebuttonOnClick();
+          }}
           {...getOverrideProps(overrides, "cancel_button")}
         ></Button>
       </View>

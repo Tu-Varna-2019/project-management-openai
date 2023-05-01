@@ -7,19 +7,17 @@
 import * as React from "react";
 import { NoteV2 } from "../models";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { CardProps, SelectFieldProps, TextFieldProps, ViewProps } from "@aws-amplify/ui-react";
+import { BadgeProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type NotereminderformOverridesProps = {
-    Notereminderform?: PrimitiveOverrideProps<ViewProps>;
+export declare type NoteremindercardOverridesProps = {
+    Noteremindercard?: PrimitiveOverrideProps<ViewProps>;
     Frame?: PrimitiveOverrideProps<ViewProps>;
-    card_reminder_form?: PrimitiveOverrideProps<CardProps>;
-    title_text_field?: PrimitiveOverrideProps<TextFieldProps>;
-    reminder_text_field?: PrimitiveOverrideProps<TextFieldProps>;
-    more_info_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    Badge?: PrimitiveOverrideProps<BadgeProps>;
+    Title?: PrimitiveOverrideProps<TextProps>;
 } & EscapeHatchProps;
-export declare type NotereminderformProps = React.PropsWithChildren<Partial<ViewProps> & {
+export declare type NoteremindercardProps = React.PropsWithChildren<Partial<ViewProps> & {
     noteV2?: NoteV2;
 } & {
-    overrides?: NotereminderformOverridesProps | undefined | null;
+    overrides?: NoteremindercardOverridesProps | undefined | null;
 }>;
-export default function Notereminderform(props: NotereminderformProps): React.ReactElement;
+export default function Noteremindercard(props: NoteremindercardProps): React.ReactElement;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Bin ,NotetitlebuttonCollection, Reminder } from "../ui-components";
+import { Noteremindercard, NoteremindercardCollection, NotereminderformCollection,NotetitlebuttonCollection, Reminder } from "../ui-components";
 import { Auth,DataStore } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';
@@ -20,13 +20,11 @@ export default function ReminderPage(props) {
     HideNote: "none",
     HideNoteLabel: true
   };
-
   const NoteValues = {
     Title: "",
     Description: "",
     Priority: "",
     Reminder: new Date(),
-
   };
   const initialHasErrorValues = {
     hasErrorRem: false,
@@ -208,7 +206,7 @@ export default function ReminderPage(props) {
           options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount],},
           success_alert : { style:{ "display": successMessage },children: successDescription}}}/>
     </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>
-    <NotetitlebuttonCollection
+    <NoteremindercardCollection
     style={{position: 'absolute', bottom: 160, right: 180 }}
     overrides={{
       NotetitlebuttonCollection:{

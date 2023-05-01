@@ -12,13 +12,13 @@ import {
   getOverrideProps,
   useDataStoreBinding,
 } from "@aws-amplify/ui-react/internal";
-import Notereminderform from "./Notereminderform";
+import Noteremindercard from "./Noteremindercard";
 import { Collection } from "@aws-amplify/ui-react";
-export default function NotereminderformCollection(props) {
+export default function NoteremindercardCollection(props) {
   const { items: itemsProp, overrideItems, overrides, ...rest } = props;
   const itemsPagination = {
     sort: (s) =>
-      s.Title(SortDirection.ASCENDING).createdAt(SortDirection.ASCENDING),
+      s.Reminder(SortDirection.ASCENDING).createdAt(SortDirection.ASCENDING),
   };
   const [items, setItems] = React.useState(undefined);
   const itemsDataStore = useDataStoreBinding({
@@ -39,20 +39,20 @@ export default function NotereminderformCollection(props) {
       isPaginated={true}
       searchPlaceholder="Search..."
       itemsPerPage={6}
-      templateRows="1fr 1fr"
-      autoFlow="column"
+      templateColumns="1fr 1fr 1fr"
+      autoFlow="row"
       alignItems="stretch"
       justifyContent="stretch"
       items={items || []}
-      {...getOverrideProps(overrides, "NotereminderformCollection")}
+      {...getOverrideProps(overrides, "NoteremindercardCollection")}
       {...rest}
     >
       {(item, index) => (
-        <Notereminderform
-          margin="40px 40px 40px 40px"
+        <Noteremindercard
+          noteV2={item}
           key={item.id}
           {...(overrideItems && overrideItems({ item, index }))}
-        ></Notereminderform>
+        ></Noteremindercard>
       )}
     </Collection>
   );

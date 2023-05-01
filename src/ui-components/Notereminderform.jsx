@@ -6,10 +6,17 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import {
+  getOverrideProps,
+  useNavigateAction,
+} from "@aws-amplify/ui-react/internal";
 import { Card, SelectField, TextField, View } from "@aws-amplify/ui-react";
 export default function Notereminderform(props) {
-  const { overrides, ...rest } = props;
+  const { noteV2, overrides, ...rest } = props;
+  const cardUnderScorereminderUnderScoreformOnClick = useNavigateAction({
+    type: "url",
+    url: "/note",
+  });
   return (
     <View
       width="336px"
@@ -46,6 +53,10 @@ export default function Notereminderform(props) {
           top="0px"
           left="0px"
           variation="outline"
+          cursor="pointer"
+          onClick={() => {
+            cardUnderScorereminderUnderScoreformOnClick();
+          }}
           {...getOverrideProps(overrides, "card_reminder_form")}
         ></Card>
         <TextField
@@ -60,6 +71,7 @@ export default function Notereminderform(props) {
           isDisabled={false}
           labelHidden={true}
           variation="default"
+          value={noteV2?.Title}
           {...getOverrideProps(overrides, "title_text_field")}
         ></TextField>
         <TextField
@@ -74,6 +86,7 @@ export default function Notereminderform(props) {
           isDisabled={false}
           labelHidden={true}
           variation="default"
+          value={noteV2?.Reminder}
           {...getOverrideProps(overrides, "reminder_text_field")}
         ></TextField>
         <SelectField
@@ -83,7 +96,7 @@ export default function Notereminderform(props) {
           position="absolute"
           top="118px"
           left="16px"
-          placeholder=""
+          placeholder="Delete Note"
           size="default"
           isDisabled={false}
           labelHidden={false}

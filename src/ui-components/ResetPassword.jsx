@@ -6,7 +6,10 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import {
+  getOverrideProps,
+  useStateMutationAction,
+} from "@aws-amplify/ui-react/internal";
 import {
   Alert,
   Badge,
@@ -20,6 +23,26 @@ import {
 } from "@aws-amplify/ui-react";
 export default function ResetPassword(props) {
   const { overrides, ...rest } = props;
+  const [
+    confirmUnderScorebuttonBackgroundColor,
+    setConfirmUnderScorebuttonBackgroundColor,
+  ] = useStateMutationAction("rgba(255,153,0,1)");
+  const [
+    cancelUnderScorebuttonBackgroundColor,
+    setCancelUnderScorebuttonBackgroundColor,
+  ] = useStateMutationAction("rgba(255,153,0,1)");
+  const confirmUnderScorebuttonOnMouseOver = () => {
+    setConfirmUnderScorebuttonBackgroundColor("lightskyblue");
+  };
+  const confirmUnderScorebuttonOnMouseLeave = () => {
+    setConfirmUnderScorebuttonBackgroundColor("rgba(255, 153, 0, 1)");
+  };
+  const cancelUnderScorebuttonOnMouseOver = () => {
+    setCancelUnderScorebuttonBackgroundColor("lightskyblue");
+  };
+  const cancelUnderScorebuttonOnMouseLeave = () => {
+    setCancelUnderScorebuttonBackgroundColor("rgba(255, 153, 0, 1)");
+  };
   return (
     <View
       width="1346px"
@@ -118,11 +141,17 @@ export default function ResetPassword(props) {
             top="453px"
             left="70px"
             boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-            backgroundColor="rgba(255,153,0,1)"
+            backgroundColor={confirmUnderScorebuttonBackgroundColor}
             size="default"
             isDisabled={false}
             variation="default"
             children="Confirm"
+            onMouseOver={() => {
+              confirmUnderScorebuttonOnMouseOver();
+            }}
+            onMouseLeave={() => {
+              confirmUnderScorebuttonOnMouseLeave();
+            }}
             {...getOverrideProps(overrides, "confirm_button")}
           ></Button>
           <Button
@@ -133,11 +162,17 @@ export default function ResetPassword(props) {
             top="453px"
             left="370px"
             boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-            backgroundColor="rgba(255,153,0,1)"
+            backgroundColor={cancelUnderScorebuttonBackgroundColor}
             size="default"
             isDisabled={false}
             variation="default"
             children="Cancel"
+            onMouseOver={() => {
+              cancelUnderScorebuttonOnMouseOver();
+            }}
+            onMouseLeave={() => {
+              cancelUnderScorebuttonOnMouseLeave();
+            }}
             {...getOverrideProps(overrides, "cancel_button")}
           ></Button>
           <PasswordField
