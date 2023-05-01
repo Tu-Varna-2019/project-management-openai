@@ -4,7 +4,6 @@ import { Bin ,NotetitlebuttonCollection, Reminder } from "../ui-components";
 import { Auth,DataStore } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';
-import amplify_image_logo_no_note from 'C:\\Users\\ikostov2\\tu-varna-amplify\\src\\images\\amplify_image_logo_no_note.png';
 
 export default function ReminderPage(props) {
 
@@ -170,7 +169,6 @@ export default function ReminderPage(props) {
           style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
          <Reminder overrides={{
           amplify_image_logo_no_note:{
-            src: amplify_image_logo_no_note,
             top: String(noNotesText) + "px"},
           notes_displayed_here_no_note:{
             top: String(noNotesText+197) + "px"},
