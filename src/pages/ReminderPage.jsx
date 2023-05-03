@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Noteremindercard, NoteremindercardCollection, NotereminderformCollection,NotetitlebuttonCollection, Reminder } from "../ui-components";
+import { NoteremindercardCollection, Reminder } from "../ui-components";
 import { Auth,DataStore , Notifications } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';
@@ -26,6 +26,7 @@ export default function ReminderPage(props) {
     Priority: "",
     Reminder: new Date(),
     Reminder_state : "pending",
+    Divider_state: "5px",
   };
   const initialHasErrorValues = {
     hasErrorRem: false,
@@ -41,6 +42,7 @@ export default function ReminderPage(props) {
   const [successMessage,setSuccessMessage] = useState(initialValues.SuccessMessage);
   const [successDescription,setSuccessDescription] = useState(initialValues.SuccessDesc);
   const [reminderState,setReminderState] = useState(NoteValues.Reminder_state);
+  const [dividerState,setDividerState] = useState(NoteValues.Divider_state);
 
   const [title,setTitle] = useState(NoteValues.Title);
   const [description,setDescription] = useState(NoteValues.Description);
@@ -60,9 +62,13 @@ export default function ReminderPage(props) {
 
   useEffect(() => {
     Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
-    setSuccessMessage(location.state.title ? location.state.success_alert : "none");
-    setSuccessDescription(location.state.title ? location.state.title + " has been " + location.state.action : "");
-    setReminderState(location.state ? location.state.reminder_state : NoteValues.Reminder_state);
+    try {
+        setReminderState(location.state.reminder_state);
+        setDividerState(location.state.divider_state);
+        setSuccessMessage(location.state.alert_success);
+        setSuccessDescription(location.state.title + " has been " + location.state.action );
+    } catch(error) {
+      console.log("exception!");}
    },[]);
 
    useEffect(() => {
@@ -70,10 +76,10 @@ export default function ReminderPage(props) {
       return;
       const timezoneOffset = new Date().getTimezoneOffset() * 60000;
       const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
-
+     
       const dts_query = DataStore.query(NoteV2)
       dts_query.then(data => {     
-        setNotes(  reminderState === "passed" ? 
+        setNotes( reminderState === "passed" ? 
         data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() < newDate.getTime()) :
         data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() > newDate.getTime()));
       }).catch(error => {
@@ -153,17 +159,20 @@ export default function ReminderPage(props) {
         navigate('/reminder', { state: { 
          alert_success:'block' , title: title ,
          action: action_message ,
-         reminder_state: reminderState }});
+         reminder_state: reminderState ,
+         divider_state: dividerState
+        }});
         window.location.reload();
       };
 
   const handleOnClickPending = (event) => {
-    
-    navigate('/reminder', { state: { reminder_state: "pending" , pen_pas_divider_state : "5px" }});
+    //setDividerState("5px");
+    navigate('/reminder', { state: { reminder_state: "pending" , alert_success:'none' , title:"",action:"", divider_state: "5px"}});
     window.location.reload();
   };
   const handleOnClickPassed = (event) => {
-    navigate('/reminder', { state: { reminder_state: "passed",pen_pas_divider_state : "250px" }});
+    //setDividerState("250px");
+    navigate('/reminder', { state: { reminder_state: "passed" , alert_success:'none' , title:"",action:"",  divider_state: "250px" }});
     window.location.reload();
   };
   
@@ -179,7 +188,8 @@ export default function ReminderPage(props) {
             onClick: (event) => (handleOnClickPassed(event)),
           },
           pending_passed_divider: {
-            style: {marginLeft: location.state.pen_pas_divider_state ? location.state.pen_pas_divider_state : "5px"},
+            //style: {marginLeft: location.state.pen_pas_divider_state ? location.state.pen_pas_divider_state : "5px"},
+            style: {marginLeft: dividerState},
           },
           amplify_image_logo_no_note:{
             top: String(noNotesText) + "px"},
