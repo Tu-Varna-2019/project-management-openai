@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
 import { Noteremindercard, NoteremindercardCollection, NotereminderformCollection,NotetitlebuttonCollection, Reminder } from "../ui-components";
-import { Auth,DataStore } from 'aws-amplify';
+import { Auth,DataStore , Notifications } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';
 
 export default function ReminderPage(props) {
-
+  
   const UserSettingsMenu = {
     SignOut: "Sign out",
     ChangePassword: "Change password",
@@ -25,7 +25,7 @@ export default function ReminderPage(props) {
     Description: "",
     Priority: "",
     Reminder: new Date(),
-    Reminder_state : "pending"
+    Reminder_state : "pending",
   };
   const initialHasErrorValues = {
     hasErrorRem: false,
@@ -60,22 +60,22 @@ export default function ReminderPage(props) {
 
   useEffect(() => {
     Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
-    setSuccessMessage(location.state ? location.state.success_alert : "none");
-    setSuccessDescription(location.state ? location.state.title + " has been " + location.state.action : "");
+    setSuccessMessage(location.state.title ? location.state.success_alert : "none");
+    setSuccessDescription(location.state.title ? location.state.title + " has been " + location.state.action : "");
     setReminderState(location.state ? location.state.reminder_state : NoteValues.Reminder_state);
    },[]);
 
    useEffect(() => {
     if (!sub)
       return;
-      const reminder_state_sign = reminderState === "passed" ? "<" : ">" ;
       const timezoneOffset = new Date().getTimezoneOffset() * 60000;
       const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
-s
 
       const dts_query = DataStore.query(NoteV2)
       dts_query.then(data => {     
-        setNotes(data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() > newDate.getTime() ));
+        setNotes(  reminderState === "passed" ? 
+        data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() < newDate.getTime()) :
+        data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() > newDate.getTime()));
       }).catch(error => {
         console.error(error);});
   },[sub]);
@@ -150,16 +150,20 @@ s
         item.Reminder = newReminder;
         item.Deleted = deleted;}));
         const action_message = deleted === true ? "deleted !" : "modified !";
-        navigate('/reminder', { state: { alert_success:'block' , title: title , action: action_message }});
+        navigate('/reminder', { state: { 
+         alert_success:'block' , title: title ,
+         action: action_message ,
+         reminder_state: reminderState }});
         window.location.reload();
       };
 
   const handleOnClickPending = (event) => {
-    navigate('/reminder', { state: { reminder_state: "pending" }});
+    
+    navigate('/reminder', { state: { reminder_state: "pending" , pen_pas_divider_state : "5px" }});
     window.location.reload();
   };
   const handleOnClickPassed = (event) => {
-    navigate('/reminder', { state: { reminder_state: "passed" }});
+    navigate('/reminder', { state: { reminder_state: "passed",pen_pas_divider_state : "250px" }});
     window.location.reload();
   };
   
@@ -169,10 +173,13 @@ s
           style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
          <Reminder overrides={{
           pending_reminder_button : {
-            onClick: (event) => (handleOnClickPending(event))
+            onClick: (event) => (handleOnClickPending(event)),
           },
           passed_reminder_button: {
-            onClick: (event) => (handleOnClickPassed(event))
+            onClick: (event) => (handleOnClickPassed(event)),
+          },
+          pending_passed_divider: {
+            style: {marginLeft: location.state.pen_pas_divider_state ? location.state.pen_pas_divider_state : "5px"},
           },
           amplify_image_logo_no_note:{
             top: String(noNotesText) + "px"},

@@ -647,6 +647,8 @@ export default function Reminder(props) {
           position="absolute"
           top="307px"
           left="calc(50% - 71px - 547px)"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          backgroundColor="rgba(255,255,255,1)"
           size="large"
           orientation="horizontal"
           marginLeft={pendingUnderScorepassedUnderScoredividerMarginLeft}
@@ -662,6 +664,8 @@ export default function Reminder(props) {
           size="default"
           isDisabled={false}
           variation="link"
+          fontSize="40px"
+          color="white"
           children="Pending"
           onClick={() => {
             pendingUnderScorereminderUnderScorebuttonOnClick();
@@ -678,6 +682,8 @@ export default function Reminder(props) {
           size="default"
           isDisabled={false}
           variation="link"
+          fontSize="40px"
+          color="white"
           children="Passed"
           onClick={() => {
             passedUnderScorereminderUnderScorebuttonOnClick();
@@ -806,8 +812,8 @@ export default function Reminder(props) {
         height="173px"
         heading="Success"
         position="absolute"
-        top="170px"
-        left="2px"
+        top="171px"
+        left="0px"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
         variation="success"
         isDismissible={true}
