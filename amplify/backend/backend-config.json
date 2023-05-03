@@ -40,6 +40,20 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
+    },
+    "apiopenai": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "openaiLambda"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
     }
   },
   "auth": {
@@ -75,10 +89,19 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "openaiLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "notifications": {
     "notepinpoint": {
       "channels": [
-        "InAppMessaging"
+        "InAppMessaging",
+        "SMS"
       ],
       "service": "Pinpoint"
     }
@@ -105,6 +128,54 @@
         {
           "category": "analytics",
           "resourceName": "Pinpoint"
+        }
+      ]
+    },
+    "AMPLIFY_function_openaiLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_openaiLambda_model": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_openaiLambda_regionName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_openaiLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_openaiLambda_secretName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_openaiLambda_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiLambda"
         }
       ]
     },

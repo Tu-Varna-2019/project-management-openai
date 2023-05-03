@@ -4,6 +4,7 @@ import { CreateNotev2 } from "../ui-components";
 import { Auth,DataStore } from 'aws-amplify';
 import { useNavigate  } from 'react-router-dom';
 import { NoteV2} from '../models';
+import { Lambda } from 'aws-sdk';
 
 export default function CreateNotePage(props) {
   
@@ -36,7 +37,6 @@ export default function CreateNotePage(props) {
     useEffect(() => {
       Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
      },[]);
-     console.log(sub,typeof(sub));
 
     const handleTitle = (event) => {
       event.preventDefault();
@@ -62,7 +62,7 @@ export default function CreateNotePage(props) {
       setHasErrorRem(!compareDates);
      if (props.onChange) props.onChange(event);
     };
-    const handleOnClickResetValues = (event) => {
+    const handleOnClickResetValues = async (event) => {
       event.preventDefault();
       setTitle(initialValues.Title);
       setDescription(initialValues.Description);
@@ -85,11 +85,9 @@ export default function CreateNotePage(props) {
         setErrorMessage("block");
         setErrorDescription("Reminder cannot be set in the past & 5 minutes ahead !");
       } else if (!hasError) {
-        console.log("ok");
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
         const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
         const newReminder = newDate.toISOString();
-        console.log("New: "+newReminder);
         try {
           await DataStore.save(
             new NoteV2({

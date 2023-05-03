@@ -67,26 +67,20 @@ export default function ReminderPage(props) {
         setDividerState(location.state.divider_state);
         setSuccessMessage(location.state.alert_success);
         setSuccessDescription(location.state.title + " has been " + location.state.action );
-    } catch(error) {
-      console.log("exception!");}
+    } catch(error) {console.log("");}
    },[]);
 
    useEffect(() => {
-    if (!sub)
-      return;
+      if (!sub) return;
       const timezoneOffset = new Date().getTimezoneOffset() * 60000;
       const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
-     
       const dts_query = DataStore.query(NoteV2)
       dts_query.then(data => {     
         setNotes( reminderState === "passed" ? 
         data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() < newDate.getTime()) :
         data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() > newDate.getTime()));
-      }).catch(error => {
-        console.error(error);});
+      }).catch(error => {console.error(error);});
   },[sub]);
-   console.log(sub,email);
-   console.log(notes);
 
   const handleSettings = (event) => {
     event.preventDefault();
@@ -161,17 +155,13 @@ export default function ReminderPage(props) {
          action: action_message ,
          reminder_state: reminderState ,
          divider_state: dividerState
-        }});
-        window.location.reload();
-      };
+        }}); window.location.reload();};
 
   const handleOnClickPending = (event) => {
-    //setDividerState("5px");
     navigate('/reminder', { state: { reminder_state: "pending" , alert_success:'none' , title:"",action:"", divider_state: "5px"}});
     window.location.reload();
   };
   const handleOnClickPassed = (event) => {
-    //setDividerState("250px");
     navigate('/reminder', { state: { reminder_state: "passed" , alert_success:'none' , title:"",action:"",  divider_state: "250px" }});
     window.location.reload();
   };
@@ -182,15 +172,10 @@ export default function ReminderPage(props) {
           style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
          <Reminder overrides={{
           pending_reminder_button : {
-            onClick: (event) => (handleOnClickPending(event)),
-          },
+            onClick: (event) => (handleOnClickPending(event)),},
           passed_reminder_button: {
-            onClick: (event) => (handleOnClickPassed(event)),
-          },
-          pending_passed_divider: {
-            //style: {marginLeft: location.state.pen_pas_divider_state ? location.state.pen_pas_divider_state : "5px"},
-            style: {marginLeft: dividerState},
-          },
+            onClick: (event) => (handleOnClickPassed(event)),},
+          pending_passed_divider: {style: {marginLeft: dividerState},},
           amplify_image_logo_no_note:{
             top: String(noNotesText) + "px"},
           notes_displayed_here_no_note:{
