@@ -4,7 +4,6 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
-export { default as Notereminderform } from "./Notereminderform";
 export { default as Notfound } from "./Notfound";
 export { default as CreateNotev2 } from "./CreateNotev2";
 export { default as Notebutton } from "./Notebutton";

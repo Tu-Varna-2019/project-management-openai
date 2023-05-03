@@ -6,13 +6,12 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { AlertProps, BadgeProps, ButtonProps, DividerProps, FlexProps, IconProps, ImageProps, RatingProps, SearchFieldProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { AlertProps, BadgeProps, ButtonProps, DividerProps, FlexProps, IconProps, ImageProps, RatingProps, SearchFieldProps, SelectFieldProps, SwitchFieldProps, TextAreaFieldProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ReminderOverridesProps = {
     Reminder?: PrimitiveOverrideProps<ViewProps>;
     Frame?: PrimitiveOverrideProps<ViewProps>;
     Divider177182476?: PrimitiveOverrideProps<DividerProps>;
-    Divider177182477?: PrimitiveOverrideProps<DividerProps>;
     footer_rectangle?: PrimitiveOverrideProps<ViewProps>;
     components_footer?: PrimitiveOverrideProps<ViewProps>;
     powered_by_amplify_text177182480?: PrimitiveOverrideProps<TextProps>;
@@ -40,12 +39,22 @@ export declare type ReminderOverridesProps = {
     Vector177182502?: PrimitiveOverrideProps<IconProps>;
     Badge?: PrimitiveOverrideProps<BadgeProps>;
     SelectField?: PrimitiveOverrideProps<SelectFieldProps>;
-    create_note_button?: PrimitiveOverrideProps<ButtonProps>;
     notes_displayed_here_no_note?: PrimitiveOverrideProps<TextProps>;
     amplify_image_logo_no_note?: PrimitiveOverrideProps<ImageProps>;
     Divider177182515?: PrimitiveOverrideProps<DividerProps>;
-    success_alert?: PrimitiveOverrideProps<AlertProps>;
+    pending_passed_divider?: PrimitiveOverrideProps<DividerProps>;
+    pending_reminder_button?: PrimitiveOverrideProps<ButtonProps>;
+    passed_reminder_button?: PrimitiveOverrideProps<ButtonProps>;
+    Divider177451841?: PrimitiveOverrideProps<DividerProps>;
+    title_text_field?: PrimitiveOverrideProps<TextFieldProps>;
+    priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    description_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;
+    submit_button?: PrimitiveOverrideProps<ButtonProps>;
+    reminder_text_field?: PrimitiveOverrideProps<TextFieldProps>;
+    divider_notes_info?: PrimitiveOverrideProps<DividerProps>;
+    deleted_switch_field?: PrimitiveOverrideProps<SwitchFieldProps>;
     copyright_text?: PrimitiveOverrideProps<BadgeProps>;
+    success_alert?: PrimitiveOverrideProps<AlertProps>;
 } & EscapeHatchProps;
 export declare type ReminderProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: ReminderOverridesProps | undefined | null;

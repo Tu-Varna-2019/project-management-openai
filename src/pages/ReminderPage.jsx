@@ -25,6 +25,7 @@ export default function ReminderPage(props) {
     Description: "",
     Priority: "",
     Reminder: new Date(),
+    Reminder_state : "pending"
   };
   const initialHasErrorValues = {
     hasErrorRem: false,
@@ -39,6 +40,7 @@ export default function ReminderPage(props) {
   const [hideNoteLabel,setHideNoteLabel] = useState(initialValues.HideNoteLabel);
   const [successMessage,setSuccessMessage] = useState(initialValues.SuccessMessage);
   const [successDescription,setSuccessDescription] = useState(initialValues.SuccessDesc);
+  const [reminderState,setReminderState] = useState(NoteValues.Reminder_state);
 
   const [title,setTitle] = useState(NoteValues.Title);
   const [description,setDescription] = useState(NoteValues.Description);
@@ -60,17 +62,22 @@ export default function ReminderPage(props) {
     Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
     setSuccessMessage(location.state ? location.state.success_alert : "none");
     setSuccessDescription(location.state ? location.state.title + " has been " + location.state.action : "");
+    setReminderState(location.state ? location.state.reminder_state : NoteValues.Reminder_state);
    },[]);
 
    useEffect(() => {
     if (!sub)
       return;
+      const reminder_state_sign = reminderState === "passed" ? "<" : ">" ;
+      const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+      const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
+s
+
       const dts_query = DataStore.query(NoteV2)
-      dts_query.then(data => {
-        setNotes(data.filter(item => item.sub === sub && item.Deleted === false));
+      dts_query.then(data => {     
+        setNotes(data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() > newDate.getTime() ));
       }).catch(error => {
-        console.error(error);
-      });
+        console.error(error);});
   },[sub]);
    console.log(sub,email);
    console.log(notes);
@@ -96,20 +103,7 @@ export default function ReminderPage(props) {
         console.log("default");
         break;}};
 
-  const handleTitle = (event) => {
-      event.preventDefault();
-      setTitle(event.target.value);
-      if (props.onChange) props.onChange(event);};
-  const handleDescription = (event) => {
-    event.preventDefault();
-    setDescription(event.target.value);
-    if (props.onChange) props.onChange(event); 
-  };
-  const handlePriority = (event) => {
-    event.preventDefault();
-    setPriority(event.target.value);
-    if (props.onChange) props.onChange(event);
-  };
+
   const handleDelete = (event) => {
     event.preventDefault();
     setDeleted(!deleted);
@@ -138,7 +132,6 @@ export default function ReminderPage(props) {
       
   const customOverrideItems = ({ item, index }) => ({
       overrides: { Button:{ children: item.Title , style:({color: "white" })}},
-      //overrides: { note_button:{ children: item.Title , backgroundColor: index % 2 === 0 ? 'white' : 'lightgray'}},
       onClick: () => (handleNoteButton(item))
     });
 
@@ -157,27 +150,39 @@ export default function ReminderPage(props) {
         item.Reminder = newReminder;
         item.Deleted = deleted;}));
         const action_message = deleted === true ? "deleted !" : "modified !";
-        navigate('/', { state: { alert_success:'block' , title: title , action: action_message }});
+        navigate('/reminder', { state: { alert_success:'block' , title: title , action: action_message }});
         window.location.reload();
       };
+
+  const handleOnClickPending = (event) => {
+    navigate('/reminder', { state: { reminder_state: "pending" }});
+    window.location.reload();
+  };
+  const handleOnClickPassed = (event) => {
+    navigate('/reminder', { state: { reminder_state: "passed" }});
+    window.location.reload();
+  };
   
     return (  
         <>
-        <div className='homepages' 
+        <div className='reminderpages' 
           style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
          <Reminder overrides={{
+          pending_reminder_button : {
+            onClick: (event) => (handleOnClickPending(event))
+          },
+          passed_reminder_button: {
+            onClick: (event) => (handleOnClickPassed(event))
+          },
           amplify_image_logo_no_note:{
             top: String(noNotesText) + "px"},
           notes_displayed_here_no_note:{
             top: String(noNotesText+197) + "px"},
           divider_notes_info:{style:{"display": hideNote}},
           title_text_field:{
-            isRequired: true,hasError: isTitleEmpty & !hideNoteLabel,value: title,
-            errorMessage:"Title must not be empty !",
-            onChange: (event) => (handleTitle(event)),
+            value: title,
             labelHidden: hideNoteLabel,style:{"display": hideNote}},
           description_text_field:{
-            onChange: (event) => (handleDescription(event)),
             value: description,
             labelHidden: hideNoteLabel,style:{"display": hideNote}},
           reminder_text_field:{
@@ -187,8 +192,7 @@ export default function ReminderPage(props) {
             errorMessage:"Reminder should be set after the current date & time !",
             labelHidden: hideNoteLabel,style:{"display": hideNote}},
           priority_select_field: {
-            onChange : (event) => (handlePriority(event)),
-            value: priority,options: ["High","Medium","Low"],
+            options: [priority],
             labelHidden: hideNoteLabel,style:{"display": hideNote}},
           deleted_switch_field: { 
             onChange : (event) => (handleDelete(event)),
@@ -207,9 +211,9 @@ export default function ReminderPage(props) {
           success_alert : { style:{ "display": successMessage },children: successDescription}}}/>
     </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>
     <NoteremindercardCollection
-    style={{position: 'absolute', bottom: 160, right: 180 }}
+    style={{position: 'absolute', bottom: 160, right: 130 }}
     overrides={{
-      NotetitlebuttonCollection:{
+      NoteremindercardCollection:{
         items: notes,
         isSearchable: false}}}
 overrideItems={customOverrideItems}/></div></>);}

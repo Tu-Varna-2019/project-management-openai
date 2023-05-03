@@ -30,7 +30,7 @@ export declare type HomeOverridesProps = {
     feedback_text?: PrimitiveOverrideProps<BadgeProps>;
     Rating?: PrimitiveOverrideProps<RatingProps>;
     aws_image_background_notes?: PrimitiveOverrideProps<ImageProps>;
-    Divider175691724?: PrimitiveOverrideProps<DividerProps>;
+    divider_consent_text?: PrimitiveOverrideProps<DividerProps>;
     "amplify-logo.677fad72 1"?: PrimitiveOverrideProps<FlexProps>;
     "Clip path group"?: PrimitiveOverrideProps<FlexProps>;
     clip0?: PrimitiveOverrideProps<ViewProps>;
@@ -40,7 +40,7 @@ export declare type HomeOverridesProps = {
     Vector175851717?: PrimitiveOverrideProps<IconProps>;
     Vector175851718?: PrimitiveOverrideProps<IconProps>;
     Badge?: PrimitiveOverrideProps<BadgeProps>;
-    SelectField?: PrimitiveOverrideProps<SelectFieldProps>;
+    my_account_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     title_text_field?: PrimitiveOverrideProps<TextFieldProps>;
     priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     description_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;

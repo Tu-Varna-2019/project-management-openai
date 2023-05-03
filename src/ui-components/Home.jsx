@@ -350,7 +350,7 @@ export default function Home(props) {
           backgroundColor="rgba(0,0,0,1)"
           size="small"
           orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider175691724")}
+          {...getOverrideProps(overrides, "divider_consent_text")}
         ></Divider>
         <Flex
           gap="10px"
@@ -396,12 +396,7 @@ export default function Home(props) {
               <Icon
                 width="36.35px"
                 height="25px"
-                viewBox={{
-                  minX: 0,
-                  minY: 0,
-                  width: 36.35107421875,
-                  height: 25,
-                }}
+                viewBox={{ minX: 0, minY: 0, width: 36.3505859375, height: 25 }}
                 paths={[
                   {
                     d: "M36.3508 0L0 0L0 25L36.3508 25L36.3508 0Z",
@@ -443,7 +438,7 @@ export default function Home(props) {
                   minX: 0,
                   minY: 0,
                   width: 21.0224609375,
-                  height: 16.6666259765625,
+                  height: 16.666748046875,
                 }}
                 paths={[
                   {
@@ -540,7 +535,7 @@ export default function Home(props) {
           isDisabled={false}
           labelHidden={true}
           variation="default"
-          {...getOverrideProps(overrides, "SelectField")}
+          {...getOverrideProps(overrides, "my_account_select_field")}
         ></SelectField>
         <TextField
           width="300px"
@@ -716,18 +711,18 @@ export default function Home(props) {
           orientation="horizontal"
           {...getOverrideProps(overrides, "Divider177161908")}
         ></Divider>
+        <Badge
+          width="898px"
+          height="unset"
+          position="absolute"
+          top="937px"
+          left="230px"
+          size="default"
+          variation="default"
+          children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
+          {...getOverrideProps(overrides, "copyright_text")}
+        ></Badge>
       </View>
-      <Badge
-        width="898px"
-        height="unset"
-        position="absolute"
-        top="937px"
-        left="227px"
-        size="default"
-        variation="default"
-        children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
-        {...getOverrideProps(overrides, "copyright_text")}
-      ></Badge>
     </View>
   );
 }

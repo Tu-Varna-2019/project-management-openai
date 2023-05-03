@@ -38,9 +38,9 @@ export default function NoteremindercardCollection(props) {
       type="grid"
       isPaginated={true}
       searchPlaceholder="Search..."
-      itemsPerPage={6}
-      templateColumns="1fr 1fr 1fr"
-      autoFlow="row"
+      itemsPerPage={4}
+      templateRows="1fr 1fr"
+      autoFlow="column"
       alignItems="stretch"
       justifyContent="stretch"
       items={items || []}

@@ -83,11 +83,13 @@ export default function CreateNotePage(props) {
       if (hasErrorRem) {
         setIsLoading(false);
         setErrorMessage("block");
-        setErrorDescription("Reminder cannot be set in the past!");
+        setErrorDescription("Reminder cannot be set in the past & 5 minutes ahead !");
       } else if (!hasError) {
+        console.log("ok");
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
         const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
         const newReminder = newDate.toISOString();
+        console.log("New: "+newReminder);
         try {
           await DataStore.save(
             new NoteV2({
@@ -123,7 +125,7 @@ export default function CreateNotePage(props) {
         priority_select_field : {
           onChange : (event) => (handlePriority(event)),
           value: priority,
-          options: ["High","Medium","Low"],
+          options: ["","High","Medium","Low"],
           "inputStyles":{"style":{"color":"white"}}},
         reminder_text_field : {
           onChange : (event) => (handleReminder(event)),

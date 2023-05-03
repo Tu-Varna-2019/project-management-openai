@@ -140,7 +140,9 @@ export default function HomePage(props) {
       setEditNoteId(event.id);};
       
   const customOverrideItems = ({ item, index }) => ({
-      overrides: { Button:{ children: item.Title , style:({color: "white" })}},
+      overrides: { Button:{ children: item.Title , style:({color: "white" }),
+      backgroundColor: item.Priority === "High" ? "rgba(197, 58, 17, 1)" : item.Priority === "Medium" ? "rgba(255, 153, 0, 1)" : 
+      item.Priority === "Low" ? "rgba(241, 146, 4, 0.26)" :"white"}},
       //overrides: { note_button:{ children: item.Title , backgroundColor: index % 2 === 0 ? 'white' : 'lightgray'}},
       onClick: () => (handleNoteButton(item))
     });

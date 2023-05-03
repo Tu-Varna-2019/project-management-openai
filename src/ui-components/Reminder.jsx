@@ -22,7 +22,10 @@ import {
   Rating,
   SearchField,
   SelectField,
+  SwitchField,
   Text,
+  TextAreaField,
+  TextField,
   View,
 } from "@aws-amplify/ui-react";
 export default function Reminder(props) {
@@ -44,9 +47,9 @@ export default function Reminder(props) {
     setBinUnderScorebuttonBackgroundColor,
   ] = useStateMutationAction("rgba(35,47,62,1)");
   const [
-    createUnderScorenoteUnderScorebuttonBackgroundColor,
-    setCreateUnderScorenoteUnderScorebuttonBackgroundColor,
-  ] = useStateMutationAction("rgba(255,153,0,1)");
+    pendingUnderScorepassedUnderScoredividerMarginLeft,
+    setPendingUnderScorepassedUnderScoredividerMarginLeft,
+  ] = useStateMutationAction(undefined);
   const noteUnderScorebuttonOnClick = useNavigateAction({
     type: "url",
     url: "/note",
@@ -87,15 +90,11 @@ export default function Reminder(props) {
   const binUnderScorebuttonOnMouseOver = () => {
     setBinUnderScorebuttonBackgroundColor("rgba(145, 151, 158, 1)");
   };
-  const createUnderScorenoteUnderScorebuttonOnMouseLeave = () => {
-    setCreateUnderScorenoteUnderScorebuttonBackgroundColor(
-      "rgba(255, 153, 0, 1)"
-    );
+  const pendingUnderScorereminderUnderScorebuttonOnClick = () => {
+    setPendingUnderScorepassedUnderScoredividerMarginLeft("28px");
   };
-  const createUnderScorenoteUnderScorebuttonOnMouseOver = () => {
-    setCreateUnderScorenoteUnderScorebuttonBackgroundColor(
-      "rgba(188, 116, 9, 1)"
-    );
+  const passedUnderScorereminderUnderScorebuttonOnClick = () => {
+    setPendingUnderScorepassedUnderScoredividerMarginLeft("270px");
   };
   return (
     <View
@@ -135,16 +134,6 @@ export default function Reminder(props) {
           size="small"
           orientation="horizontal"
           {...getOverrideProps(overrides, "Divider177182476")}
-        ></Divider>
-        <Divider
-          width="1346px"
-          height="16px"
-          position="absolute"
-          top="340px"
-          left="0px"
-          size="small"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider177182477")}
         ></Divider>
         <View
           width="1346px"
@@ -605,27 +594,6 @@ export default function Reminder(props) {
           variation="default"
           {...getOverrideProps(overrides, "SelectField")}
         ></SelectField>
-        <Button
-          width="205px"
-          height="82px"
-          position="absolute"
-          borderRadius="4px"
-          top="226px"
-          left="971px"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor={createUnderScorenoteUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Delete all"
-          onMouseLeave={() => {
-            createUnderScorenoteUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            createUnderScorenoteUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "create_note_button")}
-        ></Button>
         <Text
           fontFamily="Inter"
           fontSize="40px"
@@ -673,20 +641,154 @@ export default function Reminder(props) {
           orientation="horizontal"
           {...getOverrideProps(overrides, "Divider177182515")}
         ></Divider>
-        <Alert
-          width="1342px"
-          height="173px"
-          heading="Success"
+        <Divider
+          width="142px"
+          height="13px"
           position="absolute"
-          top="171px"
-          left="6px"
+          top="307px"
+          left="calc(50% - 71px - 547px)"
+          size="large"
+          orientation="horizontal"
+          marginLeft={pendingUnderScorepassedUnderScoredividerMarginLeft}
+          {...getOverrideProps(overrides, "pending_passed_divider")}
+        ></Divider>
+        <Button
+          width="253px"
+          height="166px"
+          position="absolute"
+          top="174px"
+          left="4px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          variation="success"
-          isDismissible={true}
-          hasIcon={true}
-          children="Description"
-          {...getOverrideProps(overrides, "success_alert")}
-        ></Alert>
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Pending"
+          onClick={() => {
+            pendingUnderScorereminderUnderScorebuttonOnClick();
+          }}
+          {...getOverrideProps(overrides, "pending_reminder_button")}
+        ></Button>
+        <Button
+          width="250px"
+          height="166px"
+          position="absolute"
+          top="175px"
+          left="257px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Passed"
+          onClick={() => {
+            passedUnderScorereminderUnderScorebuttonOnClick();
+          }}
+          {...getOverrideProps(overrides, "passed_reminder_button")}
+        ></Button>
+        <Divider
+          height="153px"
+          position="absolute"
+          top="179px"
+          left="262px"
+          size="small"
+          orientation="vertical"
+          {...getOverrideProps(overrides, "Divider177451841")}
+        ></Divider>
+        <TextField
+          width="300px"
+          height="unset"
+          label="Title"
+          placeholder="Title"
+          position="absolute"
+          top="377.95px"
+          left="20px"
+          size="default"
+          isDisabled={true}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "title_text_field")}
+        ></TextField>
+        <SelectField
+          width="191px"
+          height="unset"
+          label="Priority"
+          position="absolute"
+          top="377.95px"
+          left="425px"
+          placeholder=""
+          size="default"
+          isDisabled={true}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "priority_select_field")}
+        ></SelectField>
+        <TextAreaField
+          width="367px"
+          height="unset"
+          label="Description"
+          placeholder="Description"
+          position="absolute"
+          top="490.95px"
+          left="20px"
+          size="default"
+          isDisabled={true}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "description_text_field")}
+        ></TextAreaField>
+        <Button
+          width="599px"
+          height="62px"
+          position="absolute"
+          border="1px SOLID rgba(35,47,62,1)"
+          top="814.95px"
+          left="19px"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          backgroundColor="rgba(255,153,0,1)"
+          size="default"
+          isDisabled={false}
+          variation="default"
+          children="Save"
+          {...getOverrideProps(overrides, "submit_button")}
+        ></Button>
+        <TextField
+          width="242px"
+          height="unset"
+          label="Reminder"
+          placeholder="mm/dd/yyy"
+          position="absolute"
+          top="669.95px"
+          left="19px"
+          size="default"
+          isDisabled={false}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "reminder_text_field")}
+        ></TextField>
+        <Divider
+          width="524.08px"
+          height="3.99px"
+          position="absolute"
+          top="876.07px"
+          left="677.05px"
+          transformOrigin="top left"
+          transform="rotate(-89.87deg)"
+          size="small"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "divider_notes_info")}
+        ></Divider>
+        <SwitchField
+          width="unset"
+          height="unset"
+          label="Delete"
+          position="absolute"
+          top="554.95px"
+          left="456px"
+          size="default"
+          defaultChecked={false}
+          isDisabled={false}
+          labelPosition="start"
+          {...getOverrideProps(overrides, "deleted_switch_field")}
+        ></SwitchField>
       </View>
       <Badge
         width="898px"
@@ -699,6 +801,20 @@ export default function Reminder(props) {
         children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
         {...getOverrideProps(overrides, "copyright_text")}
       ></Badge>
+      <Alert
+        width="1342px"
+        height="173px"
+        heading="Success"
+        position="absolute"
+        top="170px"
+        left="2px"
+        boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+        variation="success"
+        isDismissible={true}
+        hasIcon={true}
+        children="Description"
+        {...getOverrideProps(overrides, "success_alert")}
+      ></Alert>
     </View>
   );
 }

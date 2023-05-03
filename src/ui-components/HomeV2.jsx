@@ -110,6 +110,10 @@ export default function HomeV2(props) {
       "rgba(188, 116, 9, 1)"
     );
   };
+  const createUnderScorenoteUnderScorebuttonOnClick = useNavigateAction({
+    type: "url",
+    url: "/create-note",
+  });
   return (
     <View
       width="1346px"
@@ -725,6 +729,9 @@ export default function HomeV2(props) {
           }}
           onMouseOver={() => {
             createUnderScorenoteUnderScorebuttonOnMouseOver();
+          }}
+          onClick={() => {
+            createUnderScorenoteUnderScorebuttonOnClick();
           }}
           {...getOverrideProps(overrides, "create_note_button")}
         ></Button>

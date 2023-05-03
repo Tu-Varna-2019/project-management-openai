@@ -35,6 +35,7 @@ export default function Noteremindercard(props) {
       borderRadius="20px"
       padding="0px 0px 0px 0px"
       backgroundColor="rgba(255,255,255,1)"
+      cursor="pointer"
       {...getOverrideProps(overrides, "Noteremindercard")}
       {...rest}
     >
@@ -62,11 +63,11 @@ export default function Noteremindercard(props) {
         {...getOverrideProps(overrides, "Frame")}
       >
         <Badge
-          width="174px"
+          width="216px"
           height="46px"
           position="absolute"
-          top="114px"
-          left="calc(50% - 87px - 0.5px)"
+          top="118px"
+          left="calc(50% - 108px - -1.5px)"
           size="default"
           variation="warning"
           children={noteV2?.Reminder}
