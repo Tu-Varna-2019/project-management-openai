@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
 import { CreateNotev2 } from "../ui-components";
-import { Auth,DataStore } from 'aws-amplify';
+import { Auth,DataStore , API } from 'aws-amplify';
 import { useNavigate  } from 'react-router-dom';
 import { NoteV2} from '../models';
 import { Lambda } from 'aws-sdk';
@@ -62,6 +62,27 @@ export default function CreateNotePage(props) {
       setHasErrorRem(!compareDates);
      if (props.onChange) props.onChange(event);
     };
+
+    const postData = async (event) => {
+      const response = await API.post('apiopenai','/openai/chatcompletion', { body: JSON.stringify({event}) });
+      console.log(response);
+      return response;
+      }
+
+      const handleAIOption = async (event) => {
+        event.preventDefault();
+        console.log("changed openai settings...");
+        let openai_response = ""
+        if (description.trim().length !== 0) {
+          switch(event.target.value){
+            case "OpenAI change description":
+              openai_response = await postData(description);
+              setDescription(openai_response);
+              break;
+            default: 
+              console.log("default");
+              break;}}};  
+
     const handleOnClickResetValues = async (event) => {
       event.preventDefault();
       setTitle(initialValues.Title);
@@ -136,6 +157,11 @@ export default function CreateNotePage(props) {
           type:"reset",
           onClick : (event) => (handleOnClickResetValues(event)),
           "style":{"color":"white"}},
+          openai_select_field:{
+            onChange : (event) => (handleAIOption(event)),
+            style:{ color: "white"},
+            options: ["","OpenAI change description"]
+          },
       cancel_button :{
         onClick : (event) => (handleOnClickCancel(event)),
         "style":{"color":"white"}},

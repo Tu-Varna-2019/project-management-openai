@@ -63,7 +63,7 @@ export default function HomePage(props) {
     Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
     setSuccessMessage(location.state ? location.state.success_alert : "none");
     setSuccessDescription(location.state ? location.state.title + " has been " + location.state.action : "");
-   },[]);
+   },[location.state]);
 
    useEffect(() => {
     if (!sub)
@@ -206,10 +206,10 @@ export default function HomePage(props) {
             isDisabled : isTitleEmpty || hasErrorRem,
             style:{"display": hideNote ,"color":"white",textAlign: 'center'}},
           "Badge" : { children: welcome_back_text},
-          "SelectField": {
+          "my_account_select_field": {
           onChange : (event) => (handleSettings(event)),
           style:{ color: "white"},
-          options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount],},
+          options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount]},
           success_alert : { style:{ "display": successMessage },children: successDescription}}}/>
     </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>
     <NotetitlebuttonCollection

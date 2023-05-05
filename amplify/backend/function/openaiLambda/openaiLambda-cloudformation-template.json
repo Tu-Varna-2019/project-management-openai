@@ -123,7 +123,7 @@
         },
         "Runtime": "python3.9",
         "Layers": [
-          "arn:aws:lambda:eu-west-1:512617552494:layer:openai-test:2"
+          "arn:aws:lambda:eu-west-1:512617552494:layer:OpenAI-AWS-Lambda-Layer:2"
         ],
         "Timeout": 25
       }

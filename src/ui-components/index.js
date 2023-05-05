@@ -14,7 +14,6 @@ export { default as NotetitlebuttonCollection } from "./NotetitlebuttonCollectio
 export { default as NoteremindercardCollection } from "./NoteremindercardCollection";
 export { default as Notetitlebutton } from "./Notetitlebutton";
 export { default as ResetPassword } from "./ResetPassword";
-export { default as Home } from "./Home";
 export { default as Bin } from "./Bin";
 export { default as HomeV2 } from "./HomeV2";
 export { default as studioTheme } from "./studioTheme";
