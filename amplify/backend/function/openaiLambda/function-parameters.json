@@ -1,0 +1,26 @@
+{
+  "permissions": {},
+  "lambdaLayers": [
+    {
+      "type": "ExternalLayer",
+      "arn": "arn:aws:lambda:eu-west-1:512617552494:layer:OpenAI-AWS-Lambda-Layer:2"
+    }
+  ],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "secretName",
+      "environmentVariableName": "SECRET_NAME"
+    },
+    {
+      "cloudFormationParameterName": "regionName",
+      "environmentVariableName": "REGION_NAME"
+    },
+    {
+      "cloudFormationParameterName": "model",
+      "environmentVariableName": "MODEL"
+    }
+  ],
+  "secretNames": [
+    "openai_api_key"
+  ]
+}

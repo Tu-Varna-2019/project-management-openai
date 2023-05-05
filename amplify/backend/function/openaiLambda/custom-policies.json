@@ -1,0 +1,7 @@
+[
+  {
+    "Action": ["secretsmanager:GetSecretValue"],
+    "Resource": ["arn:aws:secretsmanager:eu-west-1:512617552494:secret:openai_api_key-KUsrSm"],
+    "Effect": "Allow"
+  }
+]

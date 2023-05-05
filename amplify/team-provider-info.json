@@ -10,6 +10,40 @@
       "StackName": "amplify-tuvarnanote-dev-205513",
       "StackId": "arn:aws:cloudformation:eu-west-1:512617552494:stack/amplify-tuvarnanote-dev-205513/d2156c10-dc7f-11ed-b007-067daacad6dd",
       "AmplifyAppId": "d1nyybr00ldz1k"
+    },
+    "categories": {
+      "auth": {
+        "TuVarnaNote": {}
+      },
+      "notifications": {
+        "Pinpoint": {
+          "Name": "notepinpoint-dev",
+          "Id": "504064d4fdb44206b2beacc3b999702c",
+          "Region": "eu-west-1"
+        }
+      },
+      "analytics": {
+        "Pinpoint": {
+          "Name": "notepinpoint-dev",
+          "Id": "504064d4fdb44206b2beacc3b999702c",
+          "Region": "eu-west-1"
+        },
+        "notepinpoint": {}
+      },
+      "api": {
+        "TuVarnaNote": {},
+        "apiopenai": {}
+      },
+      "function": {
+        "openaiLambda": {
+          "secretsPathAmplifyAppId": "d1nyybr00ldz1k",
+          "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
+          "s3Key": "amplify-builds/openaiLambda-387a48516c6a7a576f58-build.zip",
+          "secretName": "openai_api_key",
+          "regionName": "eu-west-1",
+          "model": "gpt-3.5-turbo"
+        }
+      }
     }
   }
 }

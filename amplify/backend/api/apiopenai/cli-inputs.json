@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/openai/chatcompletion": {
+      "name": "/openai/chatcompletion",
+      "lambdaFunction": "openaiLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
