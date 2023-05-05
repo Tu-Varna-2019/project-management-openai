@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Bin ,Notereminderform,NotetitlebuttonCollection } from "../ui-components";
+import { Bin ,NotetitlebuttonCollection } from "../ui-components";
 import { Auth,DataStore } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';

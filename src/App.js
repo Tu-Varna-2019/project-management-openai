@@ -13,7 +13,6 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import DeleteAccountPage from './pages/DeleteAccountPage';
-import NoteButtonPage from './pages/NoteButtonPage';
 import BinPage from './pages/BinPage';
 import ReminderPage from './pages/ReminderPage';
 

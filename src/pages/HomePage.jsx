@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Home ,HomeV2,NotetitlebuttonCollection } from "../ui-components";
+import { HomeV2,NotetitlebuttonCollection } from "../ui-components";
 import { Auth,DataStore } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';

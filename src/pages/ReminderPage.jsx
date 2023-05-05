@@ -6,7 +6,7 @@ import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';
 
 export default function ReminderPage(props) {
-  
+
   const UserSettingsMenu = {
     SignOut: "Sign out",
     ChangePassword: "Change password",
