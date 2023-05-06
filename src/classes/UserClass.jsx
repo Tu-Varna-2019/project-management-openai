@@ -1,38 +1,36 @@
 import { useEffect, useState } from 'react'
-import { Auth} from 'aws-amplify';
-import { useLocation,useNavigate} from 'react-router-dom';
+import { Auth } from 'aws-amplify';
+import { useLocation,useNavigate } from 'react-router-dom';
+
 
 export function UserClass() {
 
-const UserSettingsMenu = {
-    SignOut: "Sign out",
-    ChangePassword: "Change password",
-    DeleteAccount : "Delete account"
+    const UserSettingsMenu = {
+        SignOut: "Sign out",
+        ChangePassword: "Change password",
+        DeleteAccount : "Delete account"
     }
     const initialValues = {
-    UserId: "",
-    Email: "",
-    SuccessMessage: "none",
-    SuccessDesc: "",
+        SuccessMessage: "none",
+        SuccessDesc: ""
     };
 
     const navigate = useNavigate();
     const [user,setUser] = useState();
-    
     const [successMessage,setSuccessMessage] = useState(initialValues.SuccessMessage);
     const [successDescription,setSuccessDescription] = useState(initialValues.SuccessDesc);
+    
     const location = useLocation();
     const sub = user?.attributes?.sub;
     const check_email = user?.attributes?.email;
     const email = check_email === undefined ? "Google EXTERNAL" : check_email;
     const welcome_back_text = "Welcome back " + String(email);
 
-
     useEffect(() => {
-    Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
-    setSuccessMessage(location.state ? location.state.success_alert : "none");
-    setSuccessDescription(location.state ? location.state.title + " has been " + location.state.action : "");
-    },[location.state]);
+        Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
+       setSuccessMessage(location.state ? location.state.success_alert : "none");
+       setSuccessDescription(location.state ? location.state.title + " has been " + location.state.action : "");
+    },[location.state,setSuccessMessage,setSuccessDescription]);
 
     const handleSettings = (event) => {
     event.preventDefault();
@@ -63,6 +61,8 @@ const UserSettingsMenu = {
         welcome_back_text,
         UserSettingsMenu,
         successDescription,
-        successMessage
+        successMessage,
+        setSuccessMessage,
+        setSuccessDescription
     }
 }

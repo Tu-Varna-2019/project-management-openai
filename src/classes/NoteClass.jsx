@@ -1,9 +1,14 @@
 import { useState } from 'react'
-import { DataStore } from 'aws-amplify';
+import { DataStore,API } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import {useNavigate} from 'react-router-dom';
+import { UserClass } from './UserClass';
 
 export function NoteClass() {
+
+    const {
+        sub
+    } = UserClass();
 
     const NoteValues = {
         Title: "",
@@ -11,13 +16,18 @@ export function NoteClass() {
         Priority: "",
         Reminder: new Date(),
         HideNote: "none",
-        HideNoteLabel: true
+        HideNoteLabel: true,
+        Notes: [],
+        NoteId: ""
     };    
     const initialHasErrorValues = {
         hasErrorRem: false,
         isLoading: false,
+        ShowErrorMessage: "none",
+        ErrorDesc: "",
     };
 
+    const [selectedNote,setSelectedNote] = useState();
     const [title,setTitle] = useState(NoteValues.Title);
     const [description,setDescription] = useState(NoteValues.Description);
     const [priority,setPriority] = useState(NoteValues.Priority);
@@ -25,10 +35,13 @@ export function NoteClass() {
     const [reminder,setReminder] = useState(NoteValues.Reminder);
     const [hasErrorRem, setHasErrorRem] = useState(initialHasErrorValues.hasErrorRem);
     const [isLoading,setIsLoading] = useState(initialHasErrorValues.isLoading);
-    const [editNoteId,setEditNoteId] = useState("");
-    const [notes,setNotes] = useState([]);
+    const [editNoteId,setEditNoteId] = useState(NoteValues.NoteId);
+    const [notes,setNotes] = useState(NoteValues.Notes);
     const [hideNote,setHideNote] = useState(NoteValues.HideNote);
     const [hideNoteLabel,setHideNoteLabel] = useState(NoteValues.HideNoteLabel);
+
+    const [errorNoteMessage,setErrorNoteMessage] = useState(initialHasErrorValues.ShowErrorMessage);
+    const [errorNoteDescription,setErrorNoteDescription] = useState(initialHasErrorValues.ErrorDesc);
 
     const isTitleEmpty =  /^\s*$/.test(title);
     const noNotesText = notes.length === 0 ? 465 : -300;
@@ -64,8 +77,11 @@ export function NoteClass() {
      // if (props.onChange) props.onChange(event);
     };
     
+    ////////////////////////* List all notes : HomePage,BinPage,ReminderPage ... *//////////////////////////////////////////////////////////////
+
     const handleNoteButton = (event) => {
         console.log(`Button ${event.Title} `);
+        setSelectedNote(event);
         setHideNote("block");
         setHideNoteLabel(false);      
         setTitle(event.Title);
@@ -78,7 +94,7 @@ export function NoteClass() {
         setEditNoteId(event.id);
     };
 
-    const handleOnClickSave = async  (event) => {
+    const handleOnClickSave = async  (event,route,reminder_state) => {
         event.preventDefault();
         setIsLoading(!isLoading);
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -87,19 +103,83 @@ export function NoteClass() {
 
         const editNote = await DataStore.query(NoteV2, editNoteId);
         await DataStore.save(NoteV2.copyOf(editNote, item => {
-        item.Title = title;
-        item.Description = description;
-        item.Priority = priority;
-        item.Reminder = newReminder;
-        item.Deleted = deleted;}));
+            item.Title = title;
+            item.Description = description;
+            item.Priority = priority;
+            item.Reminder = newReminder;
+            item.Deleted = deleted;}));
         const action_message = deleted === true ? "deleted !" : "modified !";
-        navigate('/', { state: { alert_success:'block' , title: title , action: action_message }});
+        navigate(route, { state: { alert_success:'block' , title: title , action: action_message , reminder_state:reminder_state }});
         window.location.reload();
         };
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    ////////////////////////* Create note : CreateNotePage ... *//////////////////////////////////////////////////////////////
+
+     const postData = async (event) => {
+        const response = await API.post('apiopenai','/openai/chatcompletion',
+        { body: JSON.stringify({event}) });
+        console.log(response);
+        return response;
+    }
+
+    const handleAIOption = async (event) => {
+        event.preventDefault();
+        console.log("changed openai settings...");
+        let openai_response = ""
+        if (description.trim().length !== 0) {
+        switch(event.target.value){
+            case "OpenAI change description":
+                openai_response = await postData(description);
+                setDescription(openai_response);
+                break;
+            default: 
+                console.log("default");
+                break;
+        }}};  
+
+    const handleOnClickResetValues = (event) => {
+        event.preventDefault();
+        setTitle(NoteValues.Title);
+        setDescription(NoteValues.Description);
+        setPriority(NoteValues.Priority);
+        setReminder(NoteValues.Reminder);
+        //setHasError(initialHasErrorValues.hasError);
+        setHasErrorRem(initialHasErrorValues.hasErrorRem);
+    };
+
+    const handleOnClickCancel = (event) => {
+        event.preventDefault();
+        const prompt_cancel = window.confirm("Are you sure you want to leave ?");
+        if (prompt_cancel) navigate('/note');
+    };
+
+    const handleOnClickConfirm = async  (event) => {
+        event.preventDefault();
+        setIsLoading(!isLoading);
+
+        const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+        const newDate = new Date(new Date(reminder).getTime() - timezoneOffset);
+        const newReminder = newDate.toISOString();
+        try {
+            await DataStore.save(
+                new NoteV2({
+                "Title": title,
+                "Description": description,
+                "Priority": priority,
+                "Reminder": newReminder,
+                "sub": sub,
+                "Deleted": false}));
+            navigate('/note', { state: { alert_success:'block' , title: title , action: "created !" } });
+        } catch (error) {
+            setIsLoading(false);
+            setErrorNoteMessage("block");
+            setErrorNoteDescription("App is not supported in this browser's private mode! Please enable cookies!");
+    }};
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     return {
         handleDelete,
-        setNotes,
         notes,
         handleTitle,
         handleDescription,
@@ -117,6 +197,15 @@ export function NoteClass() {
         hasErrorRem,
         priority,
         deleted,
-        isLoading
+        isLoading,
+        NoteValues,
+        handleAIOption,
+        handleOnClickResetValues,
+        handleOnClickCancel,
+        handleOnClickConfirm,
+        errorNoteMessage,
+        errorNoteDescription,
+        setNotes,
+        selectedNote
     }
 }

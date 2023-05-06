@@ -42,7 +42,6 @@ export function HomeOverrideFunc () {
         successMessage
     } = UserClass();
 
-    
     useEffect(() => {
         const dts_query = DataStore.query(NoteV2)
         dts_query.then(data => {
@@ -99,15 +98,15 @@ export function HomeOverrideFunc () {
             isChecked:deleted,
             labelHidden: hideNoteLabel, style:{"display": hideNote}},
         submit_button:{ 
-            onClick : (event) => (handleOnClickSave(event)),
+            onClick : (event) => (handleOnClickSave(event,"/","pending")),
             type: "submit",isLoading: isLoading,
             isDisabled : isTitleEmpty || hasErrorRem,
             style:{"display": hideNote ,"color":"white",textAlign: 'center'}},
         "Badge" : { children: welcome_back_text},
-        "my_account_select_field": {
-        onChange : (event) => (handleSettings(event)),
-        style:{ color: "white"},
-        options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount]},
+        my_account_select_field: {
+            onChange : (event) => (handleSettings(event)),
+            style:{ color: "white"},
+            options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount]},
         success_alert : { style:{ "display": successMessage },children: successDescription}
     };
 
