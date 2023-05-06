@@ -23,16 +23,17 @@ export function DeleteAccountFunc () {
             onChange : (event) => (handlePassword(event)),
             value: password,
             isRequired: true},
-          confirm_password_field : {
+        confirm_password_field : {
             onChange : (event) => (handleConfirmPassword(event)),
             value: confirmPassword,
             hasError: password !== confirmPassword,
             errorMessage: "Passwords are not the same !",
             isRequired: true},
-            delete_account_button: {
+        delete_account_button: {
             onClick : (event) => (handleDeleteAccount(event)),
             type: "submit",
-            isLoading: isLoading,},
+            isDisabled : password !== confirmPassword || errorCheckBox ,
+            isLoading: isLoading},
           cancel_button: {
             onClick : (event) => (handleCancelPassword(event)),},
           agreement_checkbox: {

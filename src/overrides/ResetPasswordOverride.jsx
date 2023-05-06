@@ -36,8 +36,9 @@ export function ResetPasswordFunc () {
             isRequired: true},
           confirm_button: {
             onClick : (event) => (handleResetPassword(event)),
+            isDisabled : (newPassword !== confirmPassword) || (oldPassword === newPassword),
             type: "submit",
-            isLoading: isLoading,},
+            isLoading: isLoading},
           cancel_button: {
             onClick : (event) => (handleCancelPassword(event)),},
           error_alert: {
