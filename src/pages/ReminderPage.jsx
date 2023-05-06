@@ -4,6 +4,7 @@ import { NoteremindercardCollection, Reminder } from "../ui-components";
 import { Auth,DataStore , Notifications } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import { useLocation,useNavigate} from 'react-router-dom';
+import ms_outlook_sound from '../audio/ms_outlook_sound.mp3';
 
 export default function ReminderPage(props) {
 
@@ -69,6 +70,17 @@ export default function ReminderPage(props) {
         setSuccessDescription(location.state.title + " has been " + location.state.action );
     } catch(error) {console.log("");}
    },[]);
+   const [isSetDateEqual, setIsSetDateEqual] = useState(false);
+   useEffect(() => {
+    const intervalId = setInterval(() => {
+      const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+      const setDateTime = new Date(new Date(reminder).getTime() - timezoneOffset);
+      notes.filter(item =>{ if(new Date(item.Reminder).getTime() === setDateTime.getTime()) { console.log("Yes");}})
+      //setIsSetDateEqual(isEqual);
+    }, 1000); // Execute the function every 1 second
+    return () => clearInterval(intervalId);
+  }, [notes.reminder]); // Execute the effect whenever the setDateTime changes
+
 
    useEffect(() => {
       if (!sub) return;
@@ -81,6 +93,15 @@ export default function ReminderPage(props) {
         data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() > newDate.getTime()));
       }).catch(error => {console.error(error);});
   },[sub]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const currentDate = new Date();
+      if (currentDate.getTime() === new Date(reminder).getTime()) {
+        alert('Reminder triggered!');}
+    }, 1000); // Check every second
+    return () => clearInterval(intervalId); // Clear interval on unmount
+  }, [reminder]);
 
   const handleSettings = (event) => {
     event.preventDefault();
@@ -118,6 +139,8 @@ export default function ReminderPage(props) {
   
   const handleNoteButton = (event) => {
       console.log(`Button ${event.Title} `);
+      const date = new Date(event.Reminder);
+      const formattedDate = date.toISOString().slice(0, 16);
       setHideNote("block");
       setHideNoteLabel(false);
       
@@ -125,8 +148,6 @@ export default function ReminderPage(props) {
       setDescription(event.Description);
       setPriority(event.Priority);
       setDeleted(false);
-      const date = new Date(event.Reminder);
-      const formattedDate = date.toISOString().slice(0, 16);
       setReminder(formattedDate);
       setEditNoteId(event.id);};
       
