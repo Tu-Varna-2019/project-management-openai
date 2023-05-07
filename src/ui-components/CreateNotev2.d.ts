@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { AlertProps, BadgeProps, ButtonProps, DividerProps, FlexProps, IconProps, ImageProps, SearchFieldProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { AlertProps, BadgeProps, ButtonProps, CardProps, DividerProps, FlexProps, IconProps, ImageProps, SearchFieldProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CreateNotev2OverridesProps = {
     CreateNotev2?: PrimitiveOverrideProps<ViewProps>;
@@ -35,16 +35,19 @@ export declare type CreateNotev2OverridesProps = {
     Vector176021495?: PrimitiveOverrideProps<IconProps>;
     SelectField?: PrimitiveOverrideProps<SelectFieldProps>;
     "bg-silver-01@2x 1"?: PrimitiveOverrideProps<ImageProps>;
+    Divider177841685?: PrimitiveOverrideProps<DividerProps>;
+    createForm?: PrimitiveOverrideProps<ViewProps>;
     "Create Note"?: PrimitiveOverrideProps<TextProps>;
+    Divider176231440?: PrimitiveOverrideProps<DividerProps>;
+    Card?: PrimitiveOverrideProps<CardProps>;
     title_text_field?: PrimitiveOverrideProps<TextFieldProps>;
     description_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;
-    priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     reminder_text_field?: PrimitiveOverrideProps<TextFieldProps>;
+    priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    clear_button?: PrimitiveOverrideProps<ButtonProps>;
     submit_button?: PrimitiveOverrideProps<ButtonProps>;
     cancel_button?: PrimitiveOverrideProps<ButtonProps>;
-    clear_button?: PrimitiveOverrideProps<ButtonProps>;
-    openai_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
-    Divider176231440?: PrimitiveOverrideProps<DividerProps>;
+    openaiDescButton?: PrimitiveOverrideProps<ImageProps>;
     error_alert?: PrimitiveOverrideProps<AlertProps>;
 } & EscapeHatchProps;
 export declare type CreateNotev2Props = React.PropsWithChildren<Partial<ViewProps> & {

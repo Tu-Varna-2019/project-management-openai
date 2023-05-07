@@ -13,7 +13,7 @@ export function NoteClass() {
     const NoteValues = {
         Title: "",
         Description: "",
-        Priority: "",
+        Priority: "Low",
         Reminder: new Date(),
         HideNote: "none",
         HideNoteLabel: true,
@@ -94,7 +94,7 @@ export function NoteClass() {
         setEditNoteId(event.id);
     };
 
-    const handleOnClickSave = async  (event,route,reminder_state) => {
+    const handleOnClickSave = async  (event,route,reminder_state,divider_state) => {
         event.preventDefault();
         setIsLoading(!isLoading);
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -109,7 +109,7 @@ export function NoteClass() {
             item.Reminder = newReminder;
             item.Deleted = deleted;}));
         const action_message = deleted === true ? "deleted !" : "modified !";
-        navigate(route, { state: { alert_success:'block' , title: title , action: action_message , reminder_state:reminder_state }});
+        navigate(route, { state: { alert_success:'block' , title: title , action: action_message , reminder_state:reminder_state,divider_state: divider_state }});
         window.location.reload();
         };
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,15 +128,9 @@ export function NoteClass() {
         console.log("changed openai settings...");
         let openai_response = ""
         if (description.trim().length !== 0) {
-        switch(event.target.value){
-            case "OpenAI change description":
-                openai_response = await postData(description);
-                setDescription(openai_response);
-                break;
-            default: 
-                console.log("default");
-                break;
-        }}};  
+            openai_response = await postData(description);
+            setDescription(openai_response);
+        }};  
 
     const handleOnClickResetValues = (event) => {
         event.preventDefault();

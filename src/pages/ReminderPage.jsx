@@ -11,13 +11,14 @@ export default function ReminderPage(props) {
     customOverrideItems
   } = ReminderFunc();
 
-    return (  
-        <>
-        <div className='reminderpages' 
-          style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
-         <Reminder overrides={ReminderOverride}/>
-    </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>
-    <NoteremindercardCollection
-    style={{position: 'absolute', bottom: 160, right: 130 }}
-    overrides={ReminderNoteCollectionOverride}
-overrideItems={customOverrideItems}/></div></>);}
+  return (  
+      <>
+      <div className='reminderpages' 
+        style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
+        <Reminder overrides={ReminderOverride}/>
+      </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>
+      <NoteremindercardCollection
+        style={{position: 'absolute', bottom: 160, right: 130 }}
+        overrides={ReminderNoteCollectionOverride}
+        overrideItems={customOverrideItems}/></div></>
+        );}

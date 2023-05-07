@@ -648,7 +648,6 @@ export default function Reminder(props) {
           top="307px"
           left="calc(50% - 71px - 547px)"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor="rgba(255,255,255,1)"
           size="large"
           orientation="horizontal"
           marginLeft={pendingUnderScorepassedUnderScoredividerMarginLeft}
@@ -664,7 +663,7 @@ export default function Reminder(props) {
           size="default"
           isDisabled={false}
           variation="link"
-          fontSize="40px"
+          fontSize="30px"
           color="white"
           children="Pending"
           onClick={() => {
@@ -682,7 +681,7 @@ export default function Reminder(props) {
           size="default"
           isDisabled={false}
           variation="link"
-          fontSize="40px"
+          fontSize="30px"
           color="white"
           children="Passed"
           onClick={() => {

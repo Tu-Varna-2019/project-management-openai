@@ -14,7 +14,7 @@ const {
 
     return (  
         <>
-        <div className='homepages' 
+        <div  
           style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
         <HomeV2 overrides={HomeOverride}/>
     </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>

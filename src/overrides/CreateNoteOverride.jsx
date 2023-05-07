@@ -37,35 +37,31 @@ export function CreateNoteFunc () {
             value: title,
             errorMessage: "Title must not be empty !",
             onChange: (event) => (handleTitle(event)),
-            "inputStyles":{"style":{"color":"white"}}},
+            },
         description_text_field : {
             onChange: (event) => (handleDescription(event)),
             value: description,
-            "inputStyles":{"style":{"color":"white"}}},
+            },
         priority_select_field : {
             onChange : (event) => (handlePriority(event)),
             value: priority,
-            options: ["","High","Medium","Low"],
-            "inputStyles":{"style":{"color":"white"}}},
+            options: ["Low","Medium","High"]
+            },
         reminder_text_field : {
             onChange : (event) => (handleReminder(event)),
             type: "datetime-local",
             value: reminder,
             hasError: hasErrorRem,
             errorMessage:"Reminder should be set after the current date & time !",
-            "inputStyles":{"style":{"color":"white"}}},
+            },
         clear_button : {
             type:"reset",
-            onClick : (event) => (handleOnClickResetValues(event)),
-            "style":{"color":"white"}},
-        openai_select_field:{
-            onChange : (event) => (handleAIOption(event)),
-            style:{ color: "white"},
-            options: ["","OpenAI change description"]
+            onClick : (event) => (handleOnClickResetValues(event))},
+        openaiDescButton:{
+            onClick : (event) => (handleAIOption(event)),
             },
         cancel_button :{
-            onClick : (event) => (handleOnClickCancel(event)),
-            "style":{"color":"white"}},
+            onClick : (event) => (handleOnClickCancel(event))},
         error_alert: {
             style:{ "display": errorNoteMessage},
             isDismissible: false,
@@ -79,7 +75,7 @@ export function CreateNoteFunc () {
             type: "submit",
             isLoading: isLoading,
             isDisabled : isTitleEmpty || hasErrorRem,
-            "style":{"color":"white"}}}
+            }}
 
 
         return {

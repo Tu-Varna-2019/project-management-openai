@@ -84,7 +84,7 @@ export default function Notfound(props) {
   return (
     <View
       width="1346px"
-      height="937px"
+      height="986px"
       display="block"
       gap="unset"
       alignItems="unset"
@@ -98,7 +98,7 @@ export default function Notfound(props) {
     >
       <View
         width="1352px"
-        height="937px"
+        height="986px"
         display="block"
         gap="unset"
         alignItems="unset"
@@ -325,7 +325,7 @@ export default function Notfound(props) {
         ></View>
         <Image
           width="1341px"
-          height="782px"
+          height="831px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -342,8 +342,8 @@ export default function Notfound(props) {
           width="1316px"
           height="2px"
           position="absolute"
-          top="854px"
-          left="17px"
+          top="917px"
+          left="14px"
           backgroundColor="rgba(0,0,0,1)"
           size="small"
           orientation="horizontal"
@@ -351,10 +351,10 @@ export default function Notfound(props) {
         ></Divider>
         <Badge
           width="898px"
-          height="unset"
+          height="29px"
           position="absolute"
-          top="876px"
-          left="224px"
+          top="940px"
+          left="221px"
           size="default"
           variation="default"
           children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."

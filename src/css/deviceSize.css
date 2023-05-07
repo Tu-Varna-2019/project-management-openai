@@ -1,0 +1,11 @@
+/* MyComponent.css */
+.my-component {
+  width: 100%;
+  height: 400px;
+}
+
+@media (max-width: 768px) {
+  .my-component {
+    height: 200px;
+  }
+}

@@ -38,7 +38,7 @@
         "openaiLambda": {
           "secretsPathAmplifyAppId": "d1nyybr00ldz1k",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/openaiLambda-387a48516c6a7a576f58-build.zip",
+          "s3Key": "amplify-builds/openaiLambda-4d753638546a654b332b-build.zip",
           "secretName": "openai_api_key",
           "regionName": "eu-west-1",
           "model": "gpt-3.5-turbo"

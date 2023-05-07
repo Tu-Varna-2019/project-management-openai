@@ -15,6 +15,7 @@ import {
   Alert,
   Badge,
   Button,
+  Card,
   Divider,
   Flex,
   Icon,
@@ -45,17 +46,19 @@ export default function CreateNotev2(props) {
     setBinUnderScorebuttonBackgroundColor,
   ] = useStateMutationAction("rgba(35,47,62,1)");
   const [
+    clearUnderScorebuttonBackgroundColor,
+    setClearUnderScorebuttonBackgroundColor,
+  ] = useStateMutationAction("rgba(255,153,0,1)");
+  const [
     submitUnderScorebuttonBackgroundColor,
     setSubmitUnderScorebuttonBackgroundColor,
-  ] = useStateMutationAction("rgba(35,47,62,1)");
+  ] = useStateMutationAction("rgba(255,153,0,1)");
   const [
     cancelUnderScorebuttonBackgroundColor,
     setCancelUnderScorebuttonBackgroundColor,
-  ] = useStateMutationAction("rgba(35,47,62,1)");
-  const [
-    clearUnderScorebuttonBackgroundColor,
-    setClearUnderScorebuttonBackgroundColor,
-  ] = useStateMutationAction("rgba(35,47,62,1)");
+  ] = useStateMutationAction("rgba(255,153,0,1)");
+  const [openaiDescButtonBackgroundColor, setOpenaiDescButtonBackgroundColor] =
+    useStateMutationAction(undefined);
   const noteUnderScorebuttonOnClick = useNavigateAction({
     type: "url",
     url: "/note",
@@ -96,28 +99,34 @@ export default function CreateNotev2(props) {
   const binUnderScorebuttonOnMouseOver = () => {
     setBinUnderScorebuttonBackgroundColor("rgba(145, 151, 158, 1)");
   };
-  const submitUnderScorebuttonOnMouseOver = () => {
-    setSubmitUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 1)");
-  };
-  const submitUnderScorebuttonOnMouseLeave = () => {
-    setSubmitUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 0.6)");
-  };
-  const cancelUnderScorebuttonOnMouseLeave = () => {
-    setCancelUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 0.6)");
-  };
-  const cancelUnderScorebuttonOnMouseOver = () => {
-    setCancelUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 1)");
-  };
   const clearUnderScorebuttonOnMouseLeave = () => {
-    setClearUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 0.6)");
+    setClearUnderScorebuttonBackgroundColor("rgba(255, 153, 0, 1)");
   };
   const clearUnderScorebuttonOnMouseOver = () => {
-    setClearUnderScorebuttonBackgroundColor("rgba(35, 47, 62, 1)");
+    setClearUnderScorebuttonBackgroundColor("rgba(188, 116, 9, 1)");
+  };
+  const submitUnderScorebuttonOnMouseOver = () => {
+    setSubmitUnderScorebuttonBackgroundColor("rgba(188, 116, 9, 1)");
+  };
+  const submitUnderScorebuttonOnMouseLeave = () => {
+    setSubmitUnderScorebuttonBackgroundColor("rgba(255, 153, 0, 1)");
+  };
+  const cancelUnderScorebuttonOnMouseLeave = () => {
+    setCancelUnderScorebuttonBackgroundColor("rgba(255, 153, 0, 1)");
+  };
+  const cancelUnderScorebuttonOnMouseOver = () => {
+    setCancelUnderScorebuttonBackgroundColor("rgba(188, 116, 9, 1)");
+  };
+  const openaiDescButtonOnMouseOver = () => {
+    setOpenaiDescButtonBackgroundColor("rgba(76, 198, 185, 1)");
+  };
+  const openaiDescButtonOnMouseLeave = () => {
+    setOpenaiDescButtonBackgroundColor("white");
   };
   return (
     <View
       width="1335px"
-      height="937px"
+      height="986px"
       display="block"
       gap="unset"
       alignItems="unset"
@@ -131,7 +140,7 @@ export default function CreateNotev2(props) {
     >
       <View
         width="1345px"
-        height="937px"
+        height="986px"
         display="block"
         gap="unset"
         alignItems="unset"
@@ -359,10 +368,10 @@ export default function CreateNotev2(props) {
         ></Divider>
         <Badge
           width="898px"
-          height="unset"
+          height="30px"
           position="absolute"
-          top="876px"
-          left="224px"
+          top="932px"
+          left="calc(50% - 449px - 0.5px)"
           size="default"
           variation="default"
           children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
@@ -547,7 +556,7 @@ export default function CreateNotev2(props) {
         ></SelectField>
         <Image
           width="1328px"
-          height="690px"
+          height="755px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -560,175 +569,223 @@ export default function CreateNotev2(props) {
           src="https://dqqb8jb1p8fmj.cloudfront.net/AiqBuyerFrontend/bg-silver-01@2x.b626e5f906ef4637bd304f3297a2a4ab.png"
           {...getOverrideProps(overrides, "bg-silver-01@2x 1")}
         ></Image>
-        <Text
-          fontFamily="Inter"
-          fontSize="40px"
-          fontWeight="700"
-          color="rgba(255,255,255,1)"
-          lineHeight="60px"
-          textAlign="left"
+        <Divider
+          width="300px"
+          position="absolute"
+          top="711px"
+          left="617px"
+          size="large"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "Divider177841685")}
+        ></Divider>
+        <View
+          padding="0px 0px 0px 0px"
+          width="756px"
+          height="649px"
           display="block"
-          direction="column"
-          justifyContent="unset"
-          width="unset"
-          height="unset"
           gap="unset"
           alignItems="unset"
+          justifyContent="unset"
           position="absolute"
-          top="188px"
-          left="519px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="Create Note"
-          {...getOverrideProps(overrides, "Create Note")}
-        ></Text>
-        <TextField
-          width="300px"
-          height="40px"
-          placeholder="Title"
-          position="absolute"
-          top="333px"
-          left="286px"
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="default"
-          {...getOverrideProps(overrides, "title_text_field")}
-        ></TextField>
-        <TextAreaField
-          width="466px"
-          height="110px"
-          placeholder="Description"
-          position="absolute"
-          top="439px"
-          left="286px"
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="default"
-          {...getOverrideProps(overrides, "description_text_field")}
-        ></TextAreaField>
-        <SelectField
-          width="300px"
-          height="unset"
-          label="Priority"
-          position="absolute"
-          top="615px"
-          left="633px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "priority_select_field")}
-        ></SelectField>
-        <TextField
-          width="300px"
-          height="61px"
-          label="Reminder"
-          placeholder="mm/dd/yyy"
-          position="absolute"
-          top="620px"
-          left="286px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "reminder_text_field")}
-        ></TextField>
-        <Button
-          width="303px"
-          height="66px"
-          position="absolute"
-          border="3px SOLID rgba(255,153,0,1)"
-          borderRadius="7px"
-          top="750px"
-          left="calc(50% - 148.5px - -100px)"
-          backgroundColor={submitUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Submit"
-          onMouseOver={() => {
-            submitUnderScorebuttonOnMouseOver();
-          }}
-          onMouseLeave={() => {
-            submitUnderScorebuttonOnMouseLeave();
-          }}
-          {...getOverrideProps(overrides, "submit_button")}
-        ></Button>
-        <Button
-          width="303px"
-          height="64px"
-          position="absolute"
-          border="3px SOLID rgba(255,153,0,1)"
-          borderRadius="7px"
-          top="751px"
-          left="calc(50% - 148.5px - 244px)"
-          backgroundColor={cancelUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Cancel"
-          onMouseLeave={() => {
-            cancelUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            cancelUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "cancel_button")}
-        ></Button>
-        <Button
-          width="156px"
-          height="112px"
-          position="absolute"
-          border="3px SOLID rgba(255,153,0,1)"
-          borderRadius="7px"
-          top="436px"
-          left="calc(50% - 75px - -191.5px)"
-          backgroundColor={clearUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Clear"
-          onMouseLeave={() => {
-            clearUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            clearUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "clear_button")}
-        ></Button>
-        <SelectField
-          width="98px"
-          height="unset"
-          position="absolute"
-          top="218px"
-          left="862px"
-          backgroundColor="rgba(35,47,62,1)"
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="quiet"
-          {...getOverrideProps(overrides, "openai_select_field")}
-        ></SelectField>
-        <Divider
-          width="674px"
-          height="1px"
-          position="absolute"
-          top="265px"
-          left="286px"
-          size="small"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider176231440")}
-        ></Divider>
+          top="207px"
+          left="282px"
+          {...getOverrideProps(overrides, "createForm")}
+        >
+          <Text
+            fontFamily="Inter"
+            fontSize="40px"
+            fontWeight="700"
+            color="rgba(255,255,255,1)"
+            lineHeight="60px"
+            textAlign="left"
+            display="block"
+            direction="column"
+            justifyContent="unset"
+            width="unset"
+            height="unset"
+            gap="unset"
+            alignItems="unset"
+            position="absolute"
+            top="0px"
+            left="269px"
+            padding="0px 0px 0px 0px"
+            whiteSpace="pre-wrap"
+            children="Create Note"
+            {...getOverrideProps(overrides, "Create Note")}
+          ></Text>
+          <Divider
+            width="756px"
+            height="1px"
+            position="absolute"
+            top="77px"
+            left="0px"
+            size="small"
+            orientation="horizontal"
+            {...getOverrideProps(overrides, "Divider176231440")}
+          ></Divider>
+          <Card
+            width="756px"
+            height="561px"
+            position="absolute"
+            padding="13px 13px 13px 13px"
+            top="88px"
+            left="0px"
+            border="3px SOLID rgba(255,153,0,1)"
+            variation="elevated"
+            {...getOverrideProps(overrides, "Card")}
+          ></Card>
+          <TextField
+            width="300px"
+            height="72px"
+            label="Title"
+            placeholder="Title"
+            position="absolute"
+            top="111px"
+            left="50px"
+            size="default"
+            isDisabled={false}
+            labelHidden={false}
+            variation="default"
+            {...getOverrideProps(overrides, "title_text_field")}
+          ></TextField>
+          <TextAreaField
+            width="647px"
+            height="138px"
+            label="Description"
+            placeholder="Description"
+            position="absolute"
+            top="251px"
+            left="50px"
+            size="default"
+            isDisabled={false}
+            labelHidden={false}
+            variation="default"
+            {...getOverrideProps(overrides, "description_text_field")}
+          ></TextAreaField>
+          <TextField
+            width="300px"
+            height="82px"
+            label="Reminder"
+            placeholder="mm/dd/yyy"
+            position="absolute"
+            top="414px"
+            left="41px"
+            size="default"
+            isDisabled={false}
+            labelHidden={false}
+            variation="default"
+            {...getOverrideProps(overrides, "reminder_text_field")}
+          ></TextField>
+          <SelectField
+            width="300px"
+            height="unset"
+            label="Priority"
+            position="absolute"
+            top="113px"
+            left="393px"
+            placeholder=""
+            size="default"
+            isDisabled={false}
+            labelHidden={false}
+            variation="default"
+            {...getOverrideProps(overrides, "priority_select_field")}
+          ></SelectField>
+          <Button
+            width="313px"
+            height="79px"
+            position="absolute"
+            border="3px SOLID rgba(255,153,0,1)"
+            borderRadius="7px"
+            top="546px"
+            left="calc(50% - 153.5px - 193.5px)"
+            backgroundColor={clearUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="default"
+            color="white"
+            children="Clear"
+            onMouseLeave={() => {
+              clearUnderScorebuttonOnMouseLeave();
+            }}
+            onMouseOver={() => {
+              clearUnderScorebuttonOnMouseOver();
+            }}
+            {...getOverrideProps(overrides, "clear_button")}
+          ></Button>
+          <Button
+            width="303px"
+            height="80px"
+            position="absolute"
+            border="3px SOLID rgba(255,153,0,1)"
+            borderRadius="7px"
+            top="546px"
+            left="calc(50% - 148.5px - -167.5px)"
+            backgroundColor={submitUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="default"
+            color="white"
+            children="Submit"
+            onMouseOver={() => {
+              submitUnderScorebuttonOnMouseOver();
+            }}
+            onMouseLeave={() => {
+              submitUnderScorebuttonOnMouseLeave();
+            }}
+            {...getOverrideProps(overrides, "submit_button")}
+          ></Button>
+          <Button
+            width="303px"
+            height="77px"
+            position="absolute"
+            border="3px SOLID rgba(255,153,0,1)"
+            borderRadius="7px"
+            top="440px"
+            left="calc(50% - 148.5px - -166.5px)"
+            backgroundColor={cancelUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="default"
+            color="white"
+            children="Cancel"
+            onMouseLeave={() => {
+              cancelUnderScorebuttonOnMouseLeave();
+            }}
+            onMouseOver={() => {
+              cancelUnderScorebuttonOnMouseOver();
+            }}
+            {...getOverrideProps(overrides, "cancel_button")}
+          ></Button>
+          <Image
+            width="89px"
+            height="70px"
+            display="block"
+            gap="unset"
+            alignItems="unset"
+            justifyContent="unset"
+            position="absolute"
+            top="293px"
+            left="604px"
+            padding="0px 0px 0px 0px"
+            objectFit="cover"
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F1000logos.net%2Fwp-content%2Fuploads%2F2023%2F02%2FChatGPT-Emblem.png&f=1&nofb=1&ipt=ee7da17fad52c756b997b9fd82dc28a4a7d3f19a89b497187edc55684bf225e4&ipo=images"
+            backgroundColor={openaiDescButtonBackgroundColor}
+            onMouseOver={() => {
+              openaiDescButtonOnMouseOver();
+            }}
+            onMouseLeave={() => {
+              openaiDescButtonOnMouseLeave();
+            }}
+            {...getOverrideProps(overrides, "openaiDescButton")}
+          ></Image>
+        </View>
         <Alert
           width="1328px"
           height="146px"
           heading="Error"
           position="absolute"
           top="166px"
-          left="17px"
+          left="18px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           variation="error"
           isDismissible={true}

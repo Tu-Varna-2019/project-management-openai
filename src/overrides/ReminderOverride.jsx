@@ -53,7 +53,6 @@ export function ReminderFunc () {
 
     useEffect(() => {
         try {
-            console.log(location.state);
             setReminderState(location.state.reminder_state);
             setDividerState(location.state.divider_state);
             setSuccessRemMessage(location.state.alert_success);
@@ -122,27 +121,29 @@ export function ReminderFunc () {
             isChecked: deleted,
             labelHidden: hideNoteLabel, style:{"display": hideNote}},
         submit_button:{ 
-            onClick : (event) => (handleOnClickSave(event,"/reminder",reminderState)),
-            type: "submit",isLoading: isLoading,
+            onClick : (event) => (handleOnClickSave(event,"/reminder",reminderState,dividerState)),
+            type: "submit", isLoading: isLoading,
             isDisabled : isTitleEmpty || hasErrorRem,
             style:{"display": hideNote ,"color":"white",textAlign: 'center'}},
             "Badge" : { children: welcome_back_text},
             "SelectField": {
             onChange : (event) => (handleSettings(event)),
             style:{ color: "white"},
-            options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount],},
+            options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount]},
         success_alert : { style:{ "display": successRemMessage },children: successRemDescription }
     }
 
     const ReminderNoteCollectionOverride={
         NoteremindercardCollection:{
-          items: notes,
-          isSearchable: false}
-        }
+          items: notes}}
 
     const customOverrideItems = ({ item, index }) => ({
-      overrides: { Button:{ children: item.Title , style:({color: "white" })}},
-      onClick: () => (handleNoteButton(item))
+      overrides: {
+        Noteremindercard:{style:({cursor:"pointer"})},
+            Badge:{  
+                children: new Date(item.Reminder).toISOString().slice(0, 16).replace('T', ' ') , 
+                style:({ fontSize:"18px",justifyContent:"center" })}},
+        onClick: () => (handleNoteButton(item))
     });
 
     return {
