@@ -32,6 +32,13 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "ShareNoteLambda": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "openaiLambda": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

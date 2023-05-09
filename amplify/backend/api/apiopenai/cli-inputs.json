@@ -7,6 +7,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/sns/sharenote": {
+      "name": "/sns/sharenote",
+      "lambdaFunction": "ShareNoteLambda",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

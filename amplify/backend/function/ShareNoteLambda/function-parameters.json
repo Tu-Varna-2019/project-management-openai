@@ -1,0 +1,23 @@
+{
+  "permissions": {},
+  "lambdaLayers": [
+    {
+      "type": "ExternalLayer",
+      "arn": "arn:aws:lambda:eu-west-1:512617552494:layer:OpenAI-AWS-Lambda-Layer:3"
+    }
+  ],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "senderEmail",
+      "environmentVariableName": "SENDER_EMAIL"
+    },
+    {
+      "cloudFormationParameterName": "sendNoteThresholdTableName",
+      "environmentVariableName": "SEND_NOTE_THRESHOLD_TABLE_NAME"
+    },
+    {
+      "cloudFormationParameterName": "sendNoteAttributeDateName",
+      "environmentVariableName": "SEND_NOTE_ATTRIBUTE_DATE_NAME"
+    }
+  ]
+}

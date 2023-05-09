@@ -50,6 +50,14 @@
           ],
           "category": "function",
           "resourceName": "openaiLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "ShareNoteLambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -90,6 +98,12 @@
     }
   },
   "function": {
+    "ShareNoteLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "openaiLambda": {
       "build": true,
       "dependsOn": [],
@@ -128,6 +142,46 @@
         {
           "category": "analytics",
           "resourceName": "Pinpoint"
+        }
+      ]
+    },
+    "AMPLIFY_function_ShareNoteLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ShareNoteLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_ShareNoteLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ShareNoteLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_ShareNoteLambda_sendNoteAttributeDateName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ShareNoteLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_ShareNoteLambda_sendNoteThresholdTableName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ShareNoteLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_ShareNoteLambda_senderEmail": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ShareNoteLambda"
         }
       ]
     },

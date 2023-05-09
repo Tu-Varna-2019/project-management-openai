@@ -15,6 +15,7 @@ export { default as NoteremindercardCollection } from "./NoteremindercardCollect
 export { default as Notetitlebutton } from "./Notetitlebutton";
 export { default as ResetPassword } from "./ResetPassword";
 export { default as Bin } from "./Bin";
+export { default as HomeV2Mobile } from "./HomeV2Mobile";
 export { default as HomeV2 } from "./HomeV2";
 export { default as studioTheme } from "./studioTheme";
 export { default as ReminderNoteForm } from "./ReminderNoteForm";

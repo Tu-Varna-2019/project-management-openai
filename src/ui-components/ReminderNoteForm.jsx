@@ -35,10 +35,12 @@ export default function ReminderNoteForm(props) {
     Title: "",
     Reminder: "",
     Deleted: false,
+    Notified: false,
   };
   const [Title, setTitle] = React.useState(initialValues.Title);
   const [Reminder, setReminder] = React.useState(initialValues.Reminder);
   const [Deleted, setDeleted] = React.useState(initialValues.Deleted);
+  const [Notified, setNotified] = React.useState(initialValues.Notified);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = noteV2Record
@@ -47,6 +49,7 @@ export default function ReminderNoteForm(props) {
     setTitle(cleanValues.Title);
     setReminder(cleanValues.Reminder);
     setDeleted(cleanValues.Deleted);
+    setNotified(cleanValues.Notified);
     setErrors({});
   };
   const [noteV2Record, setNoteV2Record] = React.useState(noteV2ModelProp);
@@ -64,6 +67,7 @@ export default function ReminderNoteForm(props) {
     Title: [{ type: "Required" }],
     Reminder: [],
     Deleted: [],
+    Notified: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -111,6 +115,7 @@ export default function ReminderNoteForm(props) {
           Title,
           Reminder,
           Deleted,
+          Notified,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -169,6 +174,7 @@ export default function ReminderNoteForm(props) {
               Title: value,
               Reminder,
               Deleted,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.Title ?? value;
@@ -197,6 +203,7 @@ export default function ReminderNoteForm(props) {
               Title,
               Reminder: value,
               Deleted,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.Reminder ?? value;
@@ -223,6 +230,7 @@ export default function ReminderNoteForm(props) {
               Title,
               Reminder,
               Deleted: value,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.Deleted ?? value;
@@ -236,6 +244,33 @@ export default function ReminderNoteForm(props) {
         errorMessage={errors.Deleted?.errorMessage}
         hasError={errors.Deleted?.hasError}
         {...getOverrideProps(overrides, "Deleted")}
+      ></SwitchField>
+      <SwitchField
+        label="Notified"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={Notified}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              Title,
+              Reminder,
+              Deleted,
+              Notified: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.Notified ?? value;
+          }
+          if (errors.Notified?.hasError) {
+            runValidationTasks("Notified", value);
+          }
+          setNotified(value);
+        }}
+        onBlur={() => runValidationTasks("Notified", Notified)}
+        errorMessage={errors.Notified?.errorMessage}
+        hasError={errors.Notified?.hasError}
+        {...getOverrideProps(overrides, "Notified")}
       ></SwitchField>
       <Flex
         justifyContent="space-between"

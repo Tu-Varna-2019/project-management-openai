@@ -43,7 +43,6 @@ export declare type HomeV2OverridesProps = {
     my_account_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     title_text_field?: PrimitiveOverrideProps<TextFieldProps>;
     priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
-    description_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;
     submit_button?: PrimitiveOverrideProps<ButtonProps>;
     reminder_text_field?: PrimitiveOverrideProps<TextFieldProps>;
     divider_notes_info?: PrimitiveOverrideProps<DividerProps>;
@@ -54,6 +53,13 @@ export declare type HomeV2OverridesProps = {
     amplify_image_logo_no_note?: PrimitiveOverrideProps<ImageProps>;
     Divider177411844?: PrimitiveOverrideProps<DividerProps>;
     copyright_text?: PrimitiveOverrideProps<BadgeProps>;
+    Divider177941757?: PrimitiveOverrideProps<DividerProps>;
+    description_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;
+    shareIcon?: PrimitiveOverrideProps<ImageProps>;
+    info_alert?: PrimitiveOverrideProps<AlertProps>;
+    cancel_button?: PrimitiveOverrideProps<ButtonProps>;
+    confirm_button?: PrimitiveOverrideProps<ButtonProps>;
+    shareTextField?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type HomeV2Props = React.PropsWithChildren<Partial<ViewProps> & {
     noteV2?: NoteV2;

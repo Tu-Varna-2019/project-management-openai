@@ -6,5 +6,6 @@ type NoteV2 @model @auth(rules: [{allow: public}, {allow: private}, {allow: grou
   Reminder: AWSDateTime
   sub: String
   Deleted: Boolean
+  Notified: Boolean
 }
  

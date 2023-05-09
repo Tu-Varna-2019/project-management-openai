@@ -623,12 +623,12 @@ export default function HomeV2(props) {
           {...getOverrideProps(overrides, "my_account_select_field")}
         ></SelectField>
         <TextField
-          width="300px"
+          width="596px"
           height="unset"
           label="Title"
           placeholder="Title"
           position="absolute"
-          top="398px"
+          top="367px"
           left="61px"
           size="default"
           isDisabled={false}
@@ -637,12 +637,12 @@ export default function HomeV2(props) {
           {...getOverrideProps(overrides, "title_text_field")}
         ></TextField>
         <SelectField
-          width="191px"
+          width="268px"
           height="unset"
           label="Priority"
           position="absolute"
-          top="398px"
-          left="466px"
+          top="643px"
+          left="392px"
           placeholder=""
           size="default"
           isDisabled={false}
@@ -650,27 +650,13 @@ export default function HomeV2(props) {
           variation="default"
           {...getOverrideProps(overrides, "priority_select_field")}
         ></SelectField>
-        <TextAreaField
-          width="367px"
-          height="unset"
-          label="Description"
-          placeholder="Description"
-          position="absolute"
-          top="511px"
-          left="61px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "description_text_field")}
-        ></TextAreaField>
         <Button
-          width="599px"
-          height="62px"
+          width="592px"
+          height="56px"
           position="absolute"
           border="1px SOLID rgba(35,47,62,1)"
-          top="835px"
-          left="60px"
+          top="848px"
+          left="59px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           backgroundColor={submitUnderScorebuttonBackgroundColor}
           size="default"
@@ -686,12 +672,12 @@ export default function HomeV2(props) {
           {...getOverrideProps(overrides, "submit_button")}
         ></Button>
         <TextField
-          width="242px"
+          width="276px"
           height="unset"
           label="Reminder"
           placeholder="mm/dd/yyy"
           position="absolute"
-          top="690px"
+          top="643px"
           left="60px"
           size="default"
           isDisabled={false}
@@ -740,8 +726,8 @@ export default function HomeV2(props) {
           height="unset"
           label="Delete"
           position="absolute"
-          top="575px"
-          left="497px"
+          top="784px"
+          left="544px"
           size="default"
           defaultChecked={false}
           isDisabled={false}
@@ -819,6 +805,97 @@ export default function HomeV2(props) {
           children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
           {...getOverrideProps(overrides, "copyright_text")}
         ></Badge>
+        <Divider
+          width="595px"
+          height="1px"
+          position="absolute"
+          top="832px"
+          left="55px"
+          size="small"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "Divider177941757")}
+        ></Divider>
+        <TextAreaField
+          width="596px"
+          height="unset"
+          label="Description"
+          placeholder="Description"
+          position="absolute"
+          top="480px"
+          left="61px"
+          size="default"
+          isDisabled={false}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "description_text_field")}
+        ></TextAreaField>
+        <Image
+          width="47px"
+          height="47px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="777px"
+          left="61px"
+          padding="0px 0px 0px 0px"
+          objectFit="cover"
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngkit.com%2Fpng%2Ffull%2F301-3018544_icon-user-conference-people-icon-png-orange.png&f=1&nofb=1&ipt=4950a9d8aab21071e87cbe1f56944ae9b824e335017347f28de6e4db3f705e86&ipo=images"
+          {...getOverrideProps(overrides, "shareIcon")}
+        ></Image>
+        <Alert
+          width="1342px"
+          height="176px"
+          heading="Info"
+          position="absolute"
+          top="171px"
+          left="4px"
+          variation="info"
+          isDismissible={false}
+          hasIcon={true}
+          children="Description"
+          {...getOverrideProps(overrides, "info_alert")}
+        ></Alert>
+        <Button
+          width="123px"
+          height="64px"
+          position="absolute"
+          top="280px"
+          left="1223px"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Cancel"
+          {...getOverrideProps(overrides, "cancel_button")}
+        ></Button>
+        <Button
+          width="122px"
+          height="64px"
+          position="absolute"
+          top="280px"
+          left="1101px"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Confirm"
+          {...getOverrideProps(overrides, "confirm_button")}
+        ></Button>
+        <TextField
+          width="279px"
+          height="unset"
+          label="Title"
+          placeholder="john.doe@hotmail.com"
+          position="absolute"
+          top="115px"
+          left="1051px"
+          size="default"
+          isDisabled={false}
+          labelHidden={true}
+          variation="quiet"
+          color="white"
+          {...getOverrideProps(overrides, "shareTextField")}
+        ></TextField>
       </View>
     </View>
   );

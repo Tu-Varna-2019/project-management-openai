@@ -35,6 +35,7 @@ export default function NoteV2CreateForm(props) {
     Reminder: "",
     sub: "",
     Deleted: false,
+    Notified: false,
   };
   const [Title, setTitle] = React.useState(initialValues.Title);
   const [Description, setDescription] = React.useState(
@@ -44,6 +45,7 @@ export default function NoteV2CreateForm(props) {
   const [Reminder, setReminder] = React.useState(initialValues.Reminder);
   const [sub, setSub] = React.useState(initialValues.sub);
   const [Deleted, setDeleted] = React.useState(initialValues.Deleted);
+  const [Notified, setNotified] = React.useState(initialValues.Notified);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setTitle(initialValues.Title);
@@ -52,6 +54,7 @@ export default function NoteV2CreateForm(props) {
     setReminder(initialValues.Reminder);
     setSub(initialValues.sub);
     setDeleted(initialValues.Deleted);
+    setNotified(initialValues.Notified);
     setErrors({});
   };
   const validations = {
@@ -61,6 +64,7 @@ export default function NoteV2CreateForm(props) {
     Reminder: [],
     sub: [],
     Deleted: [],
+    Notified: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -111,6 +115,7 @@ export default function NoteV2CreateForm(props) {
           Reminder,
           sub,
           Deleted,
+          Notified,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -171,6 +176,7 @@ export default function NoteV2CreateForm(props) {
               Reminder,
               sub,
               Deleted,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.Title ?? value;
@@ -200,6 +206,7 @@ export default function NoteV2CreateForm(props) {
               Reminder,
               sub,
               Deleted,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.Description ?? value;
@@ -229,6 +236,7 @@ export default function NoteV2CreateForm(props) {
               Reminder,
               sub,
               Deleted,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.Priority ?? value;
@@ -260,6 +268,7 @@ export default function NoteV2CreateForm(props) {
               Reminder: value,
               sub,
               Deleted,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.Reminder ?? value;
@@ -289,6 +298,7 @@ export default function NoteV2CreateForm(props) {
               Reminder,
               sub: value,
               Deleted,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.sub ?? value;
@@ -318,6 +328,7 @@ export default function NoteV2CreateForm(props) {
               Reminder,
               sub,
               Deleted: value,
+              Notified,
             };
             const result = onChange(modelFields);
             value = result?.Deleted ?? value;
@@ -331,6 +342,36 @@ export default function NoteV2CreateForm(props) {
         errorMessage={errors.Deleted?.errorMessage}
         hasError={errors.Deleted?.hasError}
         {...getOverrideProps(overrides, "Deleted")}
+      ></SwitchField>
+      <SwitchField
+        label="Notified"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={Notified}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              Title,
+              Description,
+              Priority,
+              Reminder,
+              sub,
+              Deleted,
+              Notified: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.Notified ?? value;
+          }
+          if (errors.Notified?.hasError) {
+            runValidationTasks("Notified", value);
+          }
+          setNotified(value);
+        }}
+        onBlur={() => runValidationTasks("Notified", Notified)}
+        errorMessage={errors.Notified?.errorMessage}
+        hasError={errors.Notified?.hasError}
+        {...getOverrideProps(overrides, "Notified")}
       ></SwitchField>
       <Flex
         justifyContent="space-between"
