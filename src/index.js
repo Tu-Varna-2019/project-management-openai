@@ -8,6 +8,7 @@ import awsExports from './aws-exports';
 import { AmplifyProvider,createTheme } from '@aws-amplify/ui-react';
 import studioTheme from './ui-components/studioTheme';
 
+
 const updatedTheme = createTheme({
   // Extend the theme to update the button color
   name: "my-theme-updates", 
@@ -23,6 +24,7 @@ const updatedTheme = createTheme({
       },
   },
 }, studioTheme)
+
 
 Amplify.configure(awsExports);
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState , useEffect, useRef } from 'react'
 import { DataStore,API } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import {useNavigate} from 'react-router-dom';
 import { UserClass } from './UserClass';
 
+
 export function NoteClass() {
 
     const {
-        sub
+        sub,
     } = UserClass();
 
     const NoteValues = {
@@ -40,13 +41,15 @@ export function NoteClass() {
     const [hideNote,setHideNote] = useState(NoteValues.HideNote);
     const [hideNoteLabel,setHideNoteLabel] = useState(NoteValues.HideNoteLabel);
 
+    // Create note error alert
     const [errorNoteMessage,setErrorNoteMessage] = useState(initialHasErrorValues.ShowErrorMessage);
     const [errorNoteDescription,setErrorNoteDescription] = useState(initialHasErrorValues.ErrorDesc);
 
     const isTitleEmpty =  /^\s*$/.test(title);
     const noNotesText = notes.length === 0 ? 465 : -300;
+    const noMoreIcon = title === "" ? -300 : 780;
     const navigate = useNavigate();
-
+    
     const handleDelete = (event) => {
         event.preventDefault();
         setDeleted(!deleted);
@@ -94,7 +97,7 @@ export function NoteClass() {
         setEditNoteId(event.id);
     };
 
-    const handleOnClickSave = async  (event,route,reminder_state,divider_state) => {
+    const handleOnClickSave = async (event,route,reminder_state,divider_state) => {
         event.preventDefault();
         setIsLoading(!isLoading);
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -112,6 +115,7 @@ export function NoteClass() {
         navigate(route, { state: { alert_success:'block' , title: title , action: action_message , reminder_state:reminder_state,divider_state: divider_state }});
         window.location.reload();
         };
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     ////////////////////////* Create note : CreateNotePage ... *//////////////////////////////////////////////////////////////
@@ -200,6 +204,7 @@ export function NoteClass() {
         errorNoteMessage,
         errorNoteDescription,
         setNotes,
-        selectedNote
+        selectedNote,
+        noMoreIcon  
     }
 }

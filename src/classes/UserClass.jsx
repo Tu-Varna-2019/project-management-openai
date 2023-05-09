@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState , useRef } from 'react'
 import { Auth } from 'aws-amplify';
 import { useLocation,useNavigate } from 'react-router-dom';
-
+import { API } from 'aws-amplify';
 
 export function UserClass() {
 
@@ -12,14 +12,25 @@ export function UserClass() {
     }
     const initialValues = {
         SuccessMessage: "none",
-        SuccessDesc: ""
+        SuccessDesc: "",
+        SuccessVariant: "success"
     };
 
     const navigate = useNavigate();
     const [user,setUser] = useState();
+    // Success Alert
     const [successMessage,setSuccessMessage] = useState(initialValues.SuccessMessage);
     const [successDescription,setSuccessDescription] = useState(initialValues.SuccessDesc);
-    
+    // Info Alert Share email
+    const [successVariant,setSuccessVariant] = useState(initialValues.SuccessVariant);
+    const [infoMessage,setInfoMessage] = useState(initialValues.SuccessMessage);
+    const [infoDescription,setInfoDescription] = useState(initialValues.SuccessDesc);
+    // Confirm/Cancel button hide/show
+    const [hideConfCanButton,setHideConfCanButton] = useState(initialValues.SuccessMessage);
+    //Email share text box
+    const [shareEmail,setShareEmail] = useState("");
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(shareEmail);
+
     const location = useLocation();
     const sub = user?.attributes?.sub;
     const check_email = user?.attributes?.email;
@@ -27,10 +38,29 @@ export function UserClass() {
     const welcome_back_text = "Welcome back " + String(email);
 
     useEffect(() => {
-        Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
+       Auth.currentAuthenticatedUser({ bypassCache: true }).then(setUser);
        setSuccessMessage(location.state ? location.state.success_alert : "none");
        setSuccessDescription(location.state ? location.state.title + " has been " + location.state.action : "");
     },[location.state,setSuccessMessage,setSuccessDescription]);
+
+    const shareNoteThrottle = useRef(300);
+    // useEffect(() => {
+    //   const interval = setInterval(() => {
+    //     if (shareNoteThrottle.current > 0) {
+    //         shareNoteThrottle.current--;
+    //         console.log("Share note throttle: "+shareNoteThrottle.current);
+    //     }
+    //   }, 1000);
+    //   return () => clearInterval(interval);
+    // },[]);
+
+    const handleOnClickShare = (event) => {
+        event.preventDefault();
+        setSuccessVariant("info");
+        setInfoMessage("block");
+        setHideConfCanButton("block");
+        setInfoDescription("Enter your collaborator's email to share the selected note:");
+        };
 
     const handleSettings = (event) => {
     event.preventDefault();
@@ -53,6 +83,47 @@ export function UserClass() {
         console.log("default");
         break;}};
 
+    const postShareNote = async (event) => {
+        const response = await API.post('apiopenai','/sns/sharenote',
+        { body: JSON.stringify({event}) });
+        console.log(response);
+        return response;
+    }
+
+    const handleOnclickConfirm = async (title,description,priority,reminder) => {
+
+        if (shareNoteThrottle > 0){
+            setSuccessVariant("error");
+            setInfoDescription("You are allowed to send messages every 5 minutes!");
+       }else {
+            shareNoteThrottle.current = 300;
+            const email_response = await postShareNote({
+                "receipt_email": shareEmail,
+                "sub": sub,
+                "Title": title,
+                "Description": description,
+                "Priority": priority,
+                "Reminder": reminder
+            });
+            setSuccessVariant(initialValues.SuccessVariant);
+            if (email_response.startsWith("Email verified! Note sent")) {
+                navigate('/note', { state: { alert_success:'block' , title: shareEmail , action: "sent an email for note: "+title+" !" } });
+                window.location.reload();
+            }
+            else setInfoDescription(email_response);
+        }
+    }
+
+    const handleOnclickCancel = (event) => {
+        event.preventDefault();
+        setInfoMessage("none");
+        setHideConfCanButton("none");
+    };
+    const handleShareEmailChange = (event) => {
+        event.preventDefault();
+        setShareEmail(event.target.value);
+    };
+
 
     return {
         sub,
@@ -62,7 +133,18 @@ export function UserClass() {
         UserSettingsMenu,
         successDescription,
         successMessage,
+        successVariant,
         setSuccessMessage,
-        setSuccessDescription
+        setSuccessDescription,
+        setSuccessVariant,
+        handleOnClickShare,
+        hideConfCanButton,
+        handleShareEmailChange,
+        handleOnclickCancel,
+        handleOnclickConfirm,
+        regexEmail,
+        shareEmail,
+        infoMessage,
+        infoDescription
     }
 }

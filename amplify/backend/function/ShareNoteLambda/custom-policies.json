@@ -1,0 +1,23 @@
+[
+  {
+    "Action": ["ses:SendEmail"],
+    "Resource": ["arn:aws:ses:eu-west-1:512617552494:identity/*"],
+    "Effect": "Allow"
+  },
+  {
+    "Action": [
+      "ses:VerifyEmailAddress",
+      "ses:GetIdentityVerificationAttributes"
+    ],
+    "Resource": ["*"],
+    "Effect": "Allow"
+  },
+  {
+    "Action": [
+      "dynamodb:PutItem",
+      "dynamodb:GetItem"
+    ],
+    "Resource": ["arn:aws:dynamodb:eu-west-1:512617552494:table/ShareNoteThrottle"],
+    "Effect": "Allow"
+  }
+]

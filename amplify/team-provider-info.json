@@ -42,6 +42,13 @@
           "secretName": "openai_api_key",
           "regionName": "eu-west-1",
           "model": "gpt-3.5-turbo"
+        },
+        "ShareNoteLambda": {
+          "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
+          "s3Key": "amplify-builds/ShareNoteLambda-576e5933544d6e4f7242-build.zip",
+          "senderEmail": "M.Notes@hotmail.com",
+          "sendNoteThresholdTableName": "ShareNoteThrottle",
+          "sendNoteAttributeDateName": "dateTimeThrottle"
         }
       }
     }

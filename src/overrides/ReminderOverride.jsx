@@ -61,14 +61,18 @@ export function ReminderFunc () {
     },[]);
 
    useEffect(() => {
-    const intervalId = setInterval(() => {
-      const timezoneOffset = new Date().getTimezoneOffset() * 60000;
-      const setDateTime = new Date(new Date(reminder).getTime() - timezoneOffset);
-      notes.filter(item =>{ if(new Date(item.Reminder).getTime() === setDateTime.getTime()) { console.log("Yes");}})
-      //setIsSetDateEqual(isEqual);
+      const intervalId = setInterval(() => {
+      const currentDate = new Date();
+      currentDate.setHours(currentDate.getHours()+3);
+      const currentDateISO = currentDate.toISOString().slice(0, 16);
+      notes.filter(item =>{
+         const item_date = new Date(item.Reminder).toISOString().slice(0, 16);
+         if ( item_date  === currentDateISO ) { 
+            console.log("Yes");
+        }else console.log("No");})
     }, 1000); // Execute the function every 1 second
     return () => clearInterval(intervalId);
-  }, [notes.Reminder]); // Execute the effect whenever the setDateTime changes
+  }, [notes]);
 
    useEffect(() => {
       const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -80,15 +84,6 @@ export function ReminderFunc () {
         data.filter(item => item.sub === sub && item.Deleted === false && new Date(item.Reminder).getTime() > newDate.getTime()));
       }).catch(error => {console.error(error);});
   },[sub,setNotes]);
-
-//   useEffect(() => {
-//     const intervalId = setInterval(() => {
-//       const currentDate = new Date();
-//       if (currentDate.getTime() === new Date(reminder).getTime()) {
-//         alert('Reminder triggered!');}
-//     }, 1000); // Check every second
-//     return () => clearInterval(intervalId); // Clear interval on unmount
-//   }, [reminder]);
 
     const ReminderOverride={
         pending_reminder_button : {

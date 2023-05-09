@@ -29,7 +29,8 @@ export function HomeOverrideFunc () {
         hasErrorRem,
         priority,
         deleted,
-        isLoading
+        isLoading,
+        noMoreIcon,
     } = NoteClass();
 
     const {
@@ -39,7 +40,17 @@ export function HomeOverrideFunc () {
         welcome_back_text,
         UserSettingsMenu,
         successDescription,
-        successMessage
+        successMessage,
+        successVariant,
+        handleOnClickShare,
+        hideConfCanButton,
+        handleOnclickConfirm,
+        handleOnclickCancel,
+        handleShareEmailChange,
+        regexEmail,
+        shareEmail,
+        infoMessage,
+        infoDescription
     } = UserClass();
 
     useEffect(() => {
@@ -57,7 +68,6 @@ export function HomeOverrideFunc () {
         overrides: { Button:{ children: item.Title , style:({color: "white" }),
         backgroundColor: item.Priority === "High" ? "rgba(197, 58, 17, 1)" : item.Priority === "Medium" ? "rgba(255, 153, 0, 1)" : 
         item.Priority === "Low" ? "rgba(241, 146, 4, 0.26)" :"white"}},
-        //overrides: { note_button:{ children: item.Title , backgroundColor: index % 2 === 0 ? 'white' : 'lightgray'}},
         onClick: () => (handleNoteButton(item))
     });
 
@@ -97,6 +107,29 @@ export function HomeOverrideFunc () {
             onChange : (event) => (handleDelete(event)),
             isChecked:deleted,
             labelHidden: hideNoteLabel, style:{"display": hideNote}},
+        shareIcon:{
+            onClick : (event) => (handleOnClickShare(event)),
+            top: String(noMoreIcon) + "px"},
+        confirm_button:{
+            onClick : (event) => (handleOnclickConfirm(title,description,priority,reminder)),
+            style:{"display": hideConfCanButton},
+            isDisabled: !regexEmail
+        },
+        cancel_button:{
+            onClick : (event) => (handleOnclickCancel(event)),
+            style:{"display": hideConfCanButton},
+        },
+        Divider177941757:{
+            style:{"display": hideNote }
+            },
+        shareTextField:{
+            onChange : (event) => (handleShareEmailChange(event)),
+            value: shareEmail,
+            style:{"display": hideConfCanButton , color:"white" },
+            isRequired: true,
+            hasError: !regexEmail && hideConfCanButton ==="block",
+            errorMessage:"Incorrect email!",
+            },
         submit_button:{ 
             onClick : (event) => (handleOnClickSave(event,"/","pending")),
             type: "submit",isLoading: isLoading,
@@ -107,7 +140,13 @@ export function HomeOverrideFunc () {
             onChange : (event) => (handleSettings(event)),
             style:{ color: "white"},
             options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount]},
-        success_alert : { style:{ "display": successMessage },children: successDescription}
+        success_alert : { 
+            style:{ "display": successMessage },children: successDescription 
+        },
+        info_alert:{
+            variation: successVariant,
+            style:{ "display": infoMessage },children: infoDescription 
+        },
     };
 
     return {

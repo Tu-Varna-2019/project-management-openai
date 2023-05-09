@@ -13,7 +13,7 @@ export default function BinPage(props) {
 
     return (  
         <>
-        <div className='binpages' 
+        <div  
           style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
          <Bin overrides={BinOverride}/>
     </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>

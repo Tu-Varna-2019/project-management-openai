@@ -8,12 +8,13 @@ export default function ReminderPage(props) {
   const {
     ReminderOverride,
     ReminderNoteCollectionOverride,
-    customOverrideItems
+    customOverrideItems,
+    
   } = ReminderFunc();
 
   return (  
       <>
-      <div className='reminderpages' 
+      <div 
         style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>
         <Reminder overrides={ReminderOverride}/>
       </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>
