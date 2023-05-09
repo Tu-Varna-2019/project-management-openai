@@ -13,7 +13,7 @@ import BinPage from './pages/BinPage';
 import ReminderPage from './pages/ReminderPage';
 import NotFound404Page from './pages/NotFound404Page';
 import { AppFunc } from './overrides/AppOverride';
-import "./css/deviceSize.css";
+
 
 const {
     AppComponentOverride,
@@ -28,7 +28,7 @@ export default function App() {
   });
   
   return (
-    <div className='amplify-container my-component' style={{
+    <div className='amplify-container' style={{
       display: 'flex',alignItems: 'center',
       justifyContent: 'center',height: 1100}}>
       <Helmet>

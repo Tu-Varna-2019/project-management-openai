@@ -45,7 +45,7 @@
         },
         "ShareNoteLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/ShareNoteLambda-576e5933544d6e4f7242-build.zip",
+          "s3Key": "amplify-builds/ShareNoteLambda-514446724237502f746c-build.zip",
           "senderEmail": "M.Notes@hotmail.com",
           "sendNoteThresholdTableName": "ShareNoteThrottle",
           "sendNoteAttributeDateName": "dateTimeThrottle"
