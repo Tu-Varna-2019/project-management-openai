@@ -1,4 +1,4 @@
-import { useEffect, useState , useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { Auth } from 'aws-amplify';
 import { useLocation,useNavigate } from 'react-router-dom';
 import { API } from 'aws-amplify';
@@ -29,6 +29,7 @@ export function UserClass() {
     const [hideConfCanButton,setHideConfCanButton] = useState(initialValues.SuccessMessage);
     //Email share text box
     const [shareEmail,setShareEmail] = useState("");
+    const [isConfirmInfoBtnLoading,setIsConfirmInfoBtnLoading] = useState(false);
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(shareEmail);
 
     const location = useLocation();
@@ -42,17 +43,6 @@ export function UserClass() {
        setSuccessMessage(location.state ? location.state.success_alert : "none");
        setSuccessDescription(location.state ? location.state.title + " has been " + location.state.action : "");
     },[location.state,setSuccessMessage,setSuccessDescription]);
-
-    const shareNoteThrottle = useRef(300);
-    // useEffect(() => {
-    //   const interval = setInterval(() => {
-    //     if (shareNoteThrottle.current > 0) {
-    //         shareNoteThrottle.current--;
-    //         console.log("Share note throttle: "+shareNoteThrottle.current);
-    //     }
-    //   }, 1000);
-    //   return () => clearInterval(interval);
-    // },[]);
 
     const handleOnClickShare = (event) => {
         event.preventDefault();
@@ -91,27 +81,23 @@ export function UserClass() {
     }
 
     const handleOnclickConfirm = async (title,description,priority,reminder) => {
-
-        if (shareNoteThrottle > 0){
-            setSuccessVariant("error");
-            setInfoDescription("You are allowed to send messages every 5 minutes!");
-       }else {
-            shareNoteThrottle.current = 300;
-            const email_response = await postShareNote({
-                "receipt_email": shareEmail,
-                "sub": sub,
-                "Title": title,
-                "Description": description,
-                "Priority": priority,
-                "Reminder": reminder
-            });
-            setSuccessVariant(initialValues.SuccessVariant);
-            if (email_response.startsWith("Email verified! Note sent")) {
-                navigate('/note', { state: { alert_success:'block' , title: shareEmail , action: "sent an email for note: "+title+" !" } });
-                window.location.reload();
-            }
-            else setInfoDescription(email_response);
+        setIsConfirmInfoBtnLoading(!isConfirmInfoBtnLoading);
+        const email_response = await postShareNote({
+            "receipt_email": shareEmail,
+            "sub": sub,
+            "Title": title,
+            "Description": description,
+            "Priority": priority,
+            "Reminder": reminder
+        });
+        setSuccessVariant(initialValues.SuccessVariant);
+        setIsConfirmInfoBtnLoading(false);
+        if (email_response.startsWith("Email verified! Note sent")) {
+            navigate('/note', { state: { alert_success:'block' , title: shareEmail ,
+             action: "sent an email for note: "+title+" !" } });
+            window.location.reload();
         }
+        else setInfoDescription(email_response);
     }
 
     const handleOnclickCancel = (event) => {
@@ -145,6 +131,7 @@ export function UserClass() {
         regexEmail,
         shareEmail,
         infoMessage,
-        infoDescription
+        infoDescription,
+        isConfirmInfoBtnLoading
     }
 }

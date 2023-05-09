@@ -1,4 +1,4 @@
-import { Button, Heading , useTheme , Image, Text, View, Authenticator, Card } from '@aws-amplify/ui-react';
+import { Button, Heading , useTheme , Image, Text, View } from '@aws-amplify/ui-react';
 import React from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 

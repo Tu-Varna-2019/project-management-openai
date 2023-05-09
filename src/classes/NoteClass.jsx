@@ -1,4 +1,4 @@
-import { useState , useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { DataStore,API } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import {useNavigate} from 'react-router-dom';

@@ -50,7 +50,8 @@ export function HomeOverrideFunc () {
         regexEmail,
         shareEmail,
         infoMessage,
-        infoDescription
+        infoDescription,
+        isConfirmInfoBtnLoading
     } = UserClass();
 
     useEffect(() => {
@@ -113,7 +114,8 @@ export function HomeOverrideFunc () {
         confirm_button:{
             onClick : (event) => (handleOnclickConfirm(title,description,priority,reminder)),
             style:{"display": hideConfCanButton},
-            isDisabled: !regexEmail
+            isDisabled: !regexEmail,
+            isLoading: isConfirmInfoBtnLoading
         },
         cancel_button:{
             onClick : (event) => (handleOnclickCancel(event)),
@@ -140,7 +142,7 @@ export function HomeOverrideFunc () {
             onChange : (event) => (handleSettings(event)),
             style:{ color: "white"},
             options: [UserSettingsMenu.SignOut,UserSettingsMenu.ChangePassword,UserSettingsMenu.DeleteAccount]},
-        success_alert : { 
+        success_alert : {
             style:{ "display": successMessage },children: successDescription 
         },
         info_alert:{

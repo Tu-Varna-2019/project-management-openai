@@ -1,6 +1,5 @@
 import './App.css';
 import { Authenticator, Card } from '@aws-amplify/ui-react';
-//import '@aws-amplify/ui-react/styles.css';
 import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify'
 import { BrowserRouter , Route , Routes } from 'react-router-dom';
