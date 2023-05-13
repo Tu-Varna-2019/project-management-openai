@@ -30,7 +30,7 @@ export default function App() {
   return (
     <div className='amplify-container' style={{
       display: 'flex',alignItems: 'center',
-      justifyContent: 'center',height: 1100}}>
+      justifyContent: 'center'/*,height: 1100*/}}>
       <Helmet>
       <link rel="icon" href={logoURL} />
       </Helmet><Card variation="elevated">

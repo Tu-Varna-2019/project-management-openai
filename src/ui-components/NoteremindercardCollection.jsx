@@ -31,7 +31,16 @@ export default function NoteremindercardCollection(props) {
       setItems(itemsProp);
       return;
     }
-    setItems(itemsDataStore);
+    async function setItemsFromDataStore() {
+      var loaded = await Promise.all(
+        itemsDataStore.map(async (item) => ({
+          ...item,
+          ONoteMTask: await item.ONoteMTask.toArray(),
+        }))
+      );
+      setItems(loaded);
+    }
+    setItemsFromDataStore();
   }, [itemsProp, itemsDataStore]);
   return (
     <Collection

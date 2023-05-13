@@ -20,6 +20,7 @@ export declare type NoteV2CreateFormInputValues = {
     sub?: string;
     Deleted?: boolean;
     Notified?: boolean;
+    ImageName?: string;
 };
 export declare type NoteV2CreateFormValidationValues = {
     Title?: ValidationFunction<string>;
@@ -29,6 +30,7 @@ export declare type NoteV2CreateFormValidationValues = {
     sub?: ValidationFunction<string>;
     Deleted?: ValidationFunction<boolean>;
     Notified?: ValidationFunction<boolean>;
+    ImageName?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NoteV2CreateFormOverridesProps = {
@@ -40,6 +42,7 @@ export declare type NoteV2CreateFormOverridesProps = {
     sub?: PrimitiveOverrideProps<TextFieldProps>;
     Deleted?: PrimitiveOverrideProps<SwitchFieldProps>;
     Notified?: PrimitiveOverrideProps<SwitchFieldProps>;
+    ImageName?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type NoteV2CreateFormProps = React.PropsWithChildren<{
     overrides?: NoteV2CreateFormOverridesProps | undefined | null;

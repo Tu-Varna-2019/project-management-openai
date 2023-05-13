@@ -36,6 +36,7 @@ export default function NoteV2CreateForm(props) {
     sub: "",
     Deleted: false,
     Notified: false,
+    ImageName: "",
   };
   const [Title, setTitle] = React.useState(initialValues.Title);
   const [Description, setDescription] = React.useState(
@@ -46,6 +47,7 @@ export default function NoteV2CreateForm(props) {
   const [sub, setSub] = React.useState(initialValues.sub);
   const [Deleted, setDeleted] = React.useState(initialValues.Deleted);
   const [Notified, setNotified] = React.useState(initialValues.Notified);
+  const [ImageName, setImageName] = React.useState(initialValues.ImageName);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setTitle(initialValues.Title);
@@ -55,6 +57,7 @@ export default function NoteV2CreateForm(props) {
     setSub(initialValues.sub);
     setDeleted(initialValues.Deleted);
     setNotified(initialValues.Notified);
+    setImageName(initialValues.ImageName);
     setErrors({});
   };
   const validations = {
@@ -65,6 +68,7 @@ export default function NoteV2CreateForm(props) {
     sub: [],
     Deleted: [],
     Notified: [],
+    ImageName: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -116,6 +120,7 @@ export default function NoteV2CreateForm(props) {
           sub,
           Deleted,
           Notified,
+          ImageName,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -177,6 +182,7 @@ export default function NoteV2CreateForm(props) {
               sub,
               Deleted,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Title ?? value;
@@ -207,6 +213,7 @@ export default function NoteV2CreateForm(props) {
               sub,
               Deleted,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Description ?? value;
@@ -237,6 +244,7 @@ export default function NoteV2CreateForm(props) {
               sub,
               Deleted,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Priority ?? value;
@@ -269,6 +277,7 @@ export default function NoteV2CreateForm(props) {
               sub,
               Deleted,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Reminder ?? value;
@@ -299,6 +308,7 @@ export default function NoteV2CreateForm(props) {
               sub: value,
               Deleted,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.sub ?? value;
@@ -329,6 +339,7 @@ export default function NoteV2CreateForm(props) {
               sub,
               Deleted: value,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Deleted ?? value;
@@ -359,6 +370,7 @@ export default function NoteV2CreateForm(props) {
               sub,
               Deleted,
               Notified: value,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Notified ?? value;
@@ -373,6 +385,37 @@ export default function NoteV2CreateForm(props) {
         hasError={errors.Notified?.hasError}
         {...getOverrideProps(overrides, "Notified")}
       ></SwitchField>
+      <TextField
+        label="Image name"
+        isRequired={false}
+        isReadOnly={false}
+        value={ImageName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              Title,
+              Description,
+              Priority,
+              Reminder,
+              sub,
+              Deleted,
+              Notified,
+              ImageName: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.ImageName ?? value;
+          }
+          if (errors.ImageName?.hasError) {
+            runValidationTasks("ImageName", value);
+          }
+          setImageName(value);
+        }}
+        onBlur={() => runValidationTasks("ImageName", ImageName)}
+        errorMessage={errors.ImageName?.errorMessage}
+        hasError={errors.ImageName?.hasError}
+        {...getOverrideProps(overrides, "ImageName")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

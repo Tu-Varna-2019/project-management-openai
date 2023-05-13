@@ -19,15 +19,14 @@ export declare type NotfoundOverridesProps = {
     powered_by_amplify_text176001292?: PrimitiveOverrideProps<TextProps>;
     powered_by_amplify_text176001293?: PrimitiveOverrideProps<TextProps>;
     SearchField?: PrimitiveOverrideProps<SearchFieldProps>;
+    "Frame 2"?: PrimitiveOverrideProps<FlexProps>;
     note_button?: PrimitiveOverrideProps<ButtonProps>;
-    task_button?: PrimitiveOverrideProps<ButtonProps>;
     reminder_button?: PrimitiveOverrideProps<ButtonProps>;
+    task_button?: PrimitiveOverrideProps<ButtonProps>;
     bin_button?: PrimitiveOverrideProps<ButtonProps>;
     contact_us_button?: PrimitiveOverrideProps<ButtonProps>;
     amplify_logo?: PrimitiveOverrideProps<ViewProps>;
     aws_image_background_notes?: PrimitiveOverrideProps<ImageProps>;
-    Divider176001306?: PrimitiveOverrideProps<DividerProps>;
-    copyright_text?: PrimitiveOverrideProps<BadgeProps>;
     "amplify-logo.677fad72 1"?: PrimitiveOverrideProps<FlexProps>;
     "Clip path group"?: PrimitiveOverrideProps<FlexProps>;
     clip0?: PrimitiveOverrideProps<ViewProps>;
@@ -37,7 +36,10 @@ export declare type NotfoundOverridesProps = {
     Vector176001315?: PrimitiveOverrideProps<IconProps>;
     Vector176001316?: PrimitiveOverrideProps<IconProps>;
     SelectField?: PrimitiveOverrideProps<SelectFieldProps>;
+    "Frame 1"?: PrimitiveOverrideProps<FlexProps>;
     "Sorry, the page you tried cannot be found."?: PrimitiveOverrideProps<TextProps>;
+    copyright_text?: PrimitiveOverrideProps<BadgeProps>;
+    Divider176001306?: PrimitiveOverrideProps<DividerProps>;
 } & EscapeHatchProps;
 export declare type NotfoundProps = React.PropsWithChildren<Partial<ViewProps> & {
     TaskBarMouseLeave?: String;

@@ -18,12 +18,14 @@ export declare type ReminderNoteFormInputValues = {
     Reminder?: string;
     Deleted?: boolean;
     Notified?: boolean;
+    ImageName?: string;
 };
 export declare type ReminderNoteFormValidationValues = {
     Title?: ValidationFunction<string>;
     Reminder?: ValidationFunction<string>;
     Deleted?: ValidationFunction<boolean>;
     Notified?: ValidationFunction<boolean>;
+    ImageName?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ReminderNoteFormOverridesProps = {
@@ -32,6 +34,7 @@ export declare type ReminderNoteFormOverridesProps = {
     Reminder?: PrimitiveOverrideProps<TextFieldProps>;
     Deleted?: PrimitiveOverrideProps<SwitchFieldProps>;
     Notified?: PrimitiveOverrideProps<SwitchFieldProps>;
+    ImageName?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ReminderNoteFormProps = React.PropsWithChildren<{
     overrides?: ReminderNoteFormOverridesProps | undefined | null;

@@ -201,6 +201,14 @@
         }
       ]
     },
+    "AMPLIFY_function_openaiLambda_openaiApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiLambda"
+        }
+      ]
+    },
     "AMPLIFY_function_openaiLambda_regionName": {
       "usedBy": [
         {
@@ -256,6 +264,13 @@
           "resourceName": "Pinpoint"
         }
       ]
+    }
+  },
+  "storage": {
+    "s3mnotesimagebucket": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

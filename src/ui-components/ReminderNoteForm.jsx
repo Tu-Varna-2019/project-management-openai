@@ -36,11 +36,13 @@ export default function ReminderNoteForm(props) {
     Reminder: "",
     Deleted: false,
     Notified: false,
+    ImageName: "",
   };
   const [Title, setTitle] = React.useState(initialValues.Title);
   const [Reminder, setReminder] = React.useState(initialValues.Reminder);
   const [Deleted, setDeleted] = React.useState(initialValues.Deleted);
   const [Notified, setNotified] = React.useState(initialValues.Notified);
+  const [ImageName, setImageName] = React.useState(initialValues.ImageName);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = noteV2Record
@@ -50,6 +52,7 @@ export default function ReminderNoteForm(props) {
     setReminder(cleanValues.Reminder);
     setDeleted(cleanValues.Deleted);
     setNotified(cleanValues.Notified);
+    setImageName(cleanValues.ImageName);
     setErrors({});
   };
   const [noteV2Record, setNoteV2Record] = React.useState(noteV2ModelProp);
@@ -68,6 +71,7 @@ export default function ReminderNoteForm(props) {
     Reminder: [],
     Deleted: [],
     Notified: [],
+    ImageName: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -116,6 +120,7 @@ export default function ReminderNoteForm(props) {
           Reminder,
           Deleted,
           Notified,
+          ImageName,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -175,6 +180,7 @@ export default function ReminderNoteForm(props) {
               Reminder,
               Deleted,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Title ?? value;
@@ -204,6 +210,7 @@ export default function ReminderNoteForm(props) {
               Reminder: value,
               Deleted,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Reminder ?? value;
@@ -231,6 +238,7 @@ export default function ReminderNoteForm(props) {
               Reminder,
               Deleted: value,
               Notified,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Deleted ?? value;
@@ -258,6 +266,7 @@ export default function ReminderNoteForm(props) {
               Reminder,
               Deleted,
               Notified: value,
+              ImageName,
             };
             const result = onChange(modelFields);
             value = result?.Notified ?? value;
@@ -272,6 +281,34 @@ export default function ReminderNoteForm(props) {
         hasError={errors.Notified?.hasError}
         {...getOverrideProps(overrides, "Notified")}
       ></SwitchField>
+      <TextField
+        label="Image name"
+        isRequired={false}
+        isReadOnly={false}
+        value={ImageName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              Title,
+              Reminder,
+              Deleted,
+              Notified,
+              ImageName: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.ImageName ?? value;
+          }
+          if (errors.ImageName?.hasError) {
+            runValidationTasks("ImageName", value);
+          }
+          setImageName(value);
+        }}
+        onBlur={() => runValidationTasks("ImageName", ImageName)}
+        errorMessage={errors.ImageName?.errorMessage}
+        hasError={errors.ImageName?.hasError}
+        {...getOverrideProps(overrides, "ImageName")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

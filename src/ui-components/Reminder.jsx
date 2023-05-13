@@ -98,8 +98,8 @@ export default function Reminder(props) {
   };
   return (
     <View
-      width="1346px"
-      height="986px"
+      width="1920px"
+      height="1080px"
       display="block"
       gap="unset"
       alignItems="unset"
@@ -112,8 +112,8 @@ export default function Reminder(props) {
       {...rest}
     >
       <View
-        width="1352px"
-        height="986px"
+        width="1920px"
+        height="1080px"
         display="block"
         gap="unset"
         alignItems="unset"
@@ -136,7 +136,7 @@ export default function Reminder(props) {
           {...getOverrideProps(overrides, "Divider177182476")}
         ></Divider>
         <View
-          width="1346px"
+          width="1921px"
           height="171px"
           display="block"
           gap="unset"
@@ -214,7 +214,7 @@ export default function Reminder(props) {
           placeholder="Search note"
           position="absolute"
           top="34px"
-          left="349px"
+          left="calc(50% - 311px - 0px)"
           backgroundColor="rgba(255,255,255,1)"
           size="default"
           isDisabled={false}
@@ -226,96 +226,8 @@ export default function Reminder(props) {
           width="150px"
           height="unset"
           position="absolute"
-          top="115px"
-          left="339px"
-          backgroundColor={noteUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Note"
-          onClick={() => {
-            noteUnderScorebuttonOnClick();
-          }}
-          onMouseLeave={() => {
-            noteUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            noteUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "note_button")}
-        ></Button>
-        <Button
-          width="150px"
-          height="unset"
-          position="absolute"
-          top="115px"
-          left="693px"
-          backgroundColor={taskUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Task"
-          onClick={() => {
-            taskUnderScorebuttonOnClick();
-          }}
-          onMouseLeave={() => {
-            taskUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            taskUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "task_button")}
-        ></Button>
-        <Button
-          width="150px"
-          height="unset"
-          position="absolute"
-          top="115px"
-          left="516px"
-          backgroundColor={reminderUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Reminder"
-          onClick={() => {
-            reminderUnderScorebuttonOnClick();
-          }}
-          onMouseLeave={() => {
-            reminderUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            reminderUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "reminder_button")}
-        ></Button>
-        <Button
-          width="150px"
-          height="unset"
-          position="absolute"
-          top="115px"
-          left="870px"
-          backgroundColor={binUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Bin"
-          onClick={() => {
-            binUnderScorebuttonOnClick();
-          }}
-          onMouseLeave={() => {
-            binUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            binUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "bin_button")}
-        ></Button>
-        <Button
-          width="150px"
-          height="unset"
-          position="absolute"
-          top="34px"
-          left="992px"
+          top="40px"
+          left="1560px"
           backgroundColor="rgba(35,47,62,1)"
           size="default"
           isDisabled={false}
@@ -329,7 +241,7 @@ export default function Reminder(props) {
           {...getOverrideProps(overrides, "amplify_logo")}
         ></View>
         <Image
-          width="1347px"
+          width="1921px"
           height="173px"
           display="block"
           gap="unset"
@@ -354,7 +266,7 @@ export default function Reminder(props) {
           justifyContent="unset"
           position="absolute"
           top="266px"
-          left="546px"
+          left="calc(50% - 124px - 0px)"
           {...getOverrideProps(overrides, "Feedback")}
         >
           <Badge
@@ -379,8 +291,8 @@ export default function Reminder(props) {
           ></Rating>
         </View>
         <Image
-          width="1341px"
-          height="663px"
+          width="1916px"
+          height="736px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -394,11 +306,11 @@ export default function Reminder(props) {
           {...getOverrideProps(overrides, "aws_image_background_notes")}
         ></Image>
         <Divider
-          width="1316px"
+          width="1871px"
           height="2px"
           position="absolute"
-          top="919px"
-          left="19px"
+          top="1016px"
+          left="35px"
           backgroundColor="rgba(0,0,0,1)"
           size="small"
           orientation="horizontal"
@@ -495,7 +407,7 @@ export default function Reminder(props) {
                   minX: 0,
                   minY: 0,
                   width: 21.0224609375,
-                  height: 16.666667938232422,
+                  height: 16.66668701171875,
                 }}
                 paths={[
                   {
@@ -522,7 +434,7 @@ export default function Reminder(props) {
                   minX: 0,
                   minY: 0,
                   width: 16.642578125,
-                  height: 23.015838623046875,
+                  height: 23.015869140625,
                 }}
                 paths={[
                   {
@@ -573,7 +485,7 @@ export default function Reminder(props) {
           position="absolute"
           backgroundColor="rgba(255,153,0,1)"
           top="213px"
-          left="507px"
+          left="calc(50% - 163px - 0px)"
           size="default"
           variation="default"
           children="Welcome back"
@@ -585,8 +497,8 @@ export default function Reminder(props) {
           label="My account"
           placeholder="My account"
           position="absolute"
-          top="34px"
-          left="1136px"
+          top="40px"
+          left="1724px"
           backgroundColor="rgba(35,47,62,1)"
           size="default"
           isDisabled={false}
@@ -609,8 +521,8 @@ export default function Reminder(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="669px"
-          left="198px"
+          top="729px"
+          left="calc(50% - 496.5px - 0.5px)"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
           children="Notes with upcoming reminders are displayed here"
@@ -625,22 +537,124 @@ export default function Reminder(props) {
           justifyContent="unset"
           position="absolute"
           top="485px"
-          left="563px"
+          left="calc(50% - 131px - 0px)"
           padding="0px 0px 0px 0px"
           objectFit="contain"
           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn4.iconfinder.com%2Fdata%2Ficons%2F24x24-grid-filled-symbols-1-1%2F1024%2Fbell_app_software_mobile-512.png&f=1&nofb=1&ipt=c0d9037e3e82eee21838119a8ed6669e105cc71b921d341d8d1015ac734658a4&ipo=images"
           {...getOverrideProps(overrides, "amplify_image_logo_no_note")}
         ></Image>
-        <Divider
-          width="100px"
+        <View
+          padding="0px 0px 0px 0px"
+          width="681px"
+          height="43px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
           position="absolute"
-          top="155px"
-          left="544px"
-          boxShadow="0px 16px 24px rgba(0, 0, 0, 0.14000000059604645)"
-          size="large"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider177182515")}
-        ></Divider>
+          top="103px"
+          left="calc(50% - 340.5px - -2.5px)"
+          {...getOverrideProps(overrides, "task_bar_button")}
+        >
+          <Button
+            width="150px"
+            height="unset"
+            position="absolute"
+            top="0px"
+            left="0px"
+            backgroundColor={noteUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="primary"
+            children="Note"
+            onClick={() => {
+              noteUnderScorebuttonOnClick();
+            }}
+            onMouseLeave={() => {
+              noteUnderScorebuttonOnMouseLeave();
+            }}
+            onMouseOver={() => {
+              noteUnderScorebuttonOnMouseOver();
+            }}
+            {...getOverrideProps(overrides, "note_button")}
+          ></Button>
+          <Button
+            width="150px"
+            height="unset"
+            position="absolute"
+            top="0px"
+            left="354px"
+            backgroundColor={taskUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="primary"
+            children="Task"
+            onClick={() => {
+              taskUnderScorebuttonOnClick();
+            }}
+            onMouseLeave={() => {
+              taskUnderScorebuttonOnMouseLeave();
+            }}
+            onMouseOver={() => {
+              taskUnderScorebuttonOnMouseOver();
+            }}
+            {...getOverrideProps(overrides, "task_button")}
+          ></Button>
+          <Button
+            width="150px"
+            height="unset"
+            position="absolute"
+            top="0px"
+            left="177px"
+            backgroundColor={reminderUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="primary"
+            children="Reminder"
+            onClick={() => {
+              reminderUnderScorebuttonOnClick();
+            }}
+            onMouseLeave={() => {
+              reminderUnderScorebuttonOnMouseLeave();
+            }}
+            onMouseOver={() => {
+              reminderUnderScorebuttonOnMouseOver();
+            }}
+            {...getOverrideProps(overrides, "reminder_button")}
+          ></Button>
+          <Button
+            width="150px"
+            height="unset"
+            position="absolute"
+            top="0px"
+            left="531px"
+            backgroundColor={binUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="primary"
+            children="Bin"
+            onClick={() => {
+              binUnderScorebuttonOnClick();
+            }}
+            onMouseLeave={() => {
+              binUnderScorebuttonOnMouseLeave();
+            }}
+            onMouseOver={() => {
+              binUnderScorebuttonOnMouseOver();
+            }}
+            {...getOverrideProps(overrides, "bin_button")}
+          ></Button>
+          <Divider
+            width="100px"
+            position="absolute"
+            top="40px"
+            left="205px"
+            boxShadow="0px 16px 24px rgba(0, 0, 0, 0.14000000059604645)"
+            size="large"
+            orientation="horizontal"
+            {...getOverrideProps(overrides, "Divider177182515")}
+          ></Divider>
+        </View>
         <Divider
           width="142px"
           height="13px"
@@ -698,121 +712,176 @@ export default function Reminder(props) {
           orientation="vertical"
           {...getOverrideProps(overrides, "Divider177451841")}
         ></Divider>
-        <TextField
-          width="300px"
-          height="unset"
-          label="Title"
-          placeholder="Title"
-          position="absolute"
-          top="377.95px"
-          left="20px"
-          size="default"
-          isDisabled={true}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "title_text_field")}
-        ></TextField>
-        <SelectField
-          width="191px"
-          height="unset"
-          label="Priority"
-          position="absolute"
-          top="377.95px"
-          left="425px"
-          placeholder=""
-          size="default"
-          isDisabled={true}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "priority_select_field")}
-        ></SelectField>
-        <TextAreaField
-          width="367px"
-          height="unset"
-          label="Description"
-          placeholder="Description"
-          position="absolute"
-          top="490.95px"
-          left="20px"
-          size="default"
-          isDisabled={true}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "description_text_field")}
-        ></TextAreaField>
-        <Button
-          width="599px"
-          height="62px"
-          position="absolute"
-          border="1px SOLID rgba(35,47,62,1)"
-          top="814.95px"
-          left="19px"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor="rgba(255,153,0,1)"
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Save"
-          {...getOverrideProps(overrides, "submit_button")}
-        ></Button>
-        <TextField
-          width="242px"
-          height="unset"
-          label="Reminder"
-          placeholder="mm/dd/yyy"
-          position="absolute"
-          top="669.95px"
-          left="19px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "reminder_text_field")}
-        ></TextField>
         <Divider
-          width="524.08px"
+          width="590.96px"
           height="3.99px"
           position="absolute"
-          top="876.07px"
-          left="677.05px"
+          top="984.07px"
+          left="712px"
           transformOrigin="top left"
           transform="rotate(-89.87deg)"
           size="small"
           orientation="horizontal"
           {...getOverrideProps(overrides, "divider_notes_info")}
         ></Divider>
-        <SwitchField
-          width="unset"
-          height="unset"
-          label="Delete"
+        <View
+          padding="0px 0px 0px 0px"
+          width="613px"
+          height="607px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
           position="absolute"
-          top="554.95px"
-          left="456px"
-          size="default"
-          defaultChecked={false}
-          isDisabled={false}
-          labelPosition="start"
-          {...getOverrideProps(overrides, "deleted_switch_field")}
-        ></SwitchField>
+          top="377px"
+          left="48px"
+          {...getOverrideProps(overrides, "edit_note_form")}
+        >
+          <TextField
+            width="596px"
+            height="unset"
+            label="Title"
+            placeholder="Title"
+            position="absolute"
+            top="91px"
+            left="17px"
+            size="default"
+            isDisabled={true}
+            labelHidden={false}
+            variation="default"
+            {...getOverrideProps(overrides, "title_text_field")}
+          ></TextField>
+          <SelectField
+            width="276px"
+            height="unset"
+            label="Priority"
+            position="absolute"
+            top="364px"
+            left="335px"
+            placeholder=""
+            size="default"
+            isDisabled={true}
+            labelHidden={false}
+            variation="default"
+            {...getOverrideProps(overrides, "priority_select_field")}
+          ></SelectField>
+          <TextAreaField
+            width="596px"
+            height="unset"
+            label="Description"
+            placeholder="Description"
+            position="absolute"
+            top="185px"
+            left="17px"
+            size="default"
+            isDisabled={true}
+            labelHidden={false}
+            variation="default"
+            {...getOverrideProps(overrides, "description_text_field")}
+          ></TextAreaField>
+          <Button
+            width="615px"
+            height="62px"
+            position="absolute"
+            border="1px SOLID rgba(35,47,62,1)"
+            top="546px"
+            left="-1px"
+            boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+            backgroundColor="rgba(255,153,0,1)"
+            size="default"
+            isDisabled={false}
+            variation="default"
+            children="Save"
+            {...getOverrideProps(overrides, "submit_button")}
+          ></Button>
+          <TextField
+            width="276px"
+            height="unset"
+            label="Reminder"
+            placeholder="mm/dd/yyy"
+            position="absolute"
+            top="367px"
+            left="0px"
+            size="default"
+            isDisabled={false}
+            labelHidden={false}
+            variation="default"
+            {...getOverrideProps(overrides, "reminder_text_field")}
+          ></TextField>
+          <SwitchField
+            width="unset"
+            height="unset"
+            label="Delete"
+            position="absolute"
+            top="476px"
+            left="502px"
+            size="default"
+            defaultChecked={false}
+            isDisabled={false}
+            labelPosition="start"
+            {...getOverrideProps(overrides, "deleted_switch_field")}
+          ></SwitchField>
+          <Image
+            width="121px"
+            height="103px"
+            display="block"
+            gap="unset"
+            alignItems="unset"
+            justifyContent="unset"
+            position="absolute"
+            top="0px"
+            left="275px"
+            borderRadius="103px"
+            padding="0px 0px 0px 0px"
+            objectFit="cover"
+            {...getOverrideProps(overrides, "imageNote")}
+          ></Image>
+          <Divider
+            width="613px"
+            height="1px"
+            position="absolute"
+            top="531px"
+            left="0px"
+            size="small"
+            orientation="horizontal"
+            {...getOverrideProps(overrides, "Divider177941757")}
+          ></Divider>
+        </View>
+        <Image
+          width="2.45%"
+          height="4.35%"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="78.15%"
+          bottom="17.5%"
+          left="3.59%"
+          right="93.96%"
+          padding="0px 0px 0px 0px"
+          objectFit="cover"
+          {...getOverrideProps(overrides, "shareIcon")}
+        ></Image>
       </View>
       <Badge
         width="898px"
         height="unset"
         position="absolute"
-        top="937px"
-        left="227px"
+        top="1025px"
+        left="calc(50% - 449px - 0px)"
         size="default"
         variation="default"
         children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
         {...getOverrideProps(overrides, "copyright_text")}
       ></Badge>
       <Alert
-        width="1342px"
-        height="173px"
+        width="1921px"
+        height="176px"
         heading="Success"
         position="absolute"
         top="171px"
-        left="0px"
+        left="-3px"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
         variation="success"
         isDismissible={true}

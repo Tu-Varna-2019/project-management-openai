@@ -31,6 +31,7 @@ export function HomeOverrideFunc () {
         deleted,
         isLoading,
         noMoreIcon,
+        imageName
     } = NoteClass();
 
     const {
@@ -66,9 +67,9 @@ export function HomeOverrideFunc () {
     console.log(notes);
 
     const customOverrideItems = ({ item, index }) => ({
-        overrides: { Button:{ children: item.Title , style:({color: "white" }),
-        backgroundColor: item.Priority === "High" ? "rgba(197, 58, 17, 1)" : item.Priority === "Medium" ? "rgba(255, 153, 0, 1)" : 
-        item.Priority === "Low" ? "rgba(241, 146, 4, 0.26)" :"white"}},
+        overrides: { Button:{ children: item.Title , style:({color: "white" ,fontSize:"18px" }),
+        backgroundColor: item.Priority === "High" ? "rgba(203, 53, 9, 1)" : item.Priority === "Medium" ? "rgba(220, 137, 13, 1)" : 
+        item.Priority === "Low" ? "rgba(88, 188, 9, 1)" :"white"}},
         onClick: () => (handleNoteButton(item))
     });
 
@@ -149,6 +150,9 @@ export function HomeOverrideFunc () {
             variation: successVariant,
             style:{ "display": infoMessage },children: infoDescription 
         },
+        imageNote:{
+            src: imageName
+        }
     };
 
     return {

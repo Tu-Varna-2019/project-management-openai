@@ -13,5 +13,6 @@
   "window.autoDetectColorScheme": true,
   "workbench.colorTheme": "Default Dark+",
   "workbench.preferredHighContrastColorTheme": "Default Dark+",
-  "workbench.preferredDarkColorTheme": "Default Dark+"
+  "workbench.preferredDarkColorTheme": "Default Dark+",
+  "editor.fontLigatures": false
 }

@@ -1,10 +1,40 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
 
 
 
 
+
+type EagerTask = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Task, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Name?: string | null;
+  readonly notev2ID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTask = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Task, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Name?: string | null;
+  readonly notev2ID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Task = LazyLoading extends LazyLoadingDisabled ? EagerTask : LazyTask
+
+export declare const Task: (new (init: ModelInit<Task>) => Task) & {
+  copyOf(source: Task, mutator: (draft: MutableModel<Task>) => MutableModel<Task> | void): Task;
+}
 
 type EagerNoteV2 = {
   readonly [__modelMeta__]: {
@@ -19,6 +49,8 @@ type EagerNoteV2 = {
   readonly sub?: string | null;
   readonly Deleted?: boolean | null;
   readonly Notified?: boolean | null;
+  readonly ImageName?: string | null;
+  readonly ONoteMTask?: (Task | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -36,6 +68,8 @@ type LazyNoteV2 = {
   readonly sub?: string | null;
   readonly Deleted?: boolean | null;
   readonly Notified?: boolean | null;
+  readonly ImageName?: string | null;
+  readonly ONoteMTask: AsyncCollection<Task>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

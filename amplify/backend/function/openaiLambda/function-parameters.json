@@ -18,6 +18,10 @@
     {
       "cloudFormationParameterName": "model",
       "environmentVariableName": "MODEL"
+    },
+    {
+      "cloudFormationParameterName": "openaiApiKey",
+      "environmentVariableName": "OPENAI_API_KEY"
     }
   ],
   "secretNames": [

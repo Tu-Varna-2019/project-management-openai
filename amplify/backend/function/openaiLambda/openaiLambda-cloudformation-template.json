@@ -27,6 +27,9 @@
     },
     "model": {
       "Type": "String"
+    },
+    "openaiApiKey": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -112,6 +115,9 @@
             },
             "MODEL": {
               "Ref": "model"
+            },
+            "OPENAI_API_KEY": {
+              "Ref": "openaiApiKey"
             }
           }
         },

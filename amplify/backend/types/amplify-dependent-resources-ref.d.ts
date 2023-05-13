@@ -46,5 +46,11 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     }
+  },
+  "storage": {
+    "s3mnotesimagebucket": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }
