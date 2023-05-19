@@ -6,25 +6,27 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { NoteV2 } from "../models";
-import { SortDirection } from "@aws-amplify/datastore";
+import { Ticket } from "../models";
 import {
+  createDataStorePredicate,
   getOverrideProps,
   useDataStoreBinding,
 } from "@aws-amplify/ui-react/internal";
-import Noteremindercard from "./Noteremindercard";
+import Ticketshort from "./Ticketshort";
 import { Collection } from "@aws-amplify/ui-react";
-export default function NoteremindercardCollection(props) {
+export default function TicketDoneCollection(props) {
   const { items: itemsProp, overrideItems, overrides, ...rest } = props;
-  const itemsPagination = {
-    sort: (s) =>
-      s.Reminder(SortDirection.ASCENDING).createdAt(SortDirection.ASCENDING),
+  const itemsFilterObj = {
+    field: "TicketStatus",
+    operator: "eq",
+    operand: "Done",
   };
+  const itemsFilter = createDataStorePredicate(itemsFilterObj);
   const [items, setItems] = React.useState(undefined);
   const itemsDataStore = useDataStoreBinding({
     type: "collection",
-    model: NoteV2,
-    pagination: itemsPagination,
+    model: Ticket,
+    criteria: itemsFilter,
   }).items;
   React.useEffect(() => {
     if (itemsProp !== undefined) {
@@ -35,24 +37,23 @@ export default function NoteremindercardCollection(props) {
   }, [itemsProp, itemsDataStore]);
   return (
     <Collection
-      type="grid"
+      type="list"
       isPaginated={true}
       searchPlaceholder="Search..."
-      itemsPerPage={4}
-      templateRows="1fr 1fr"
-      autoFlow="column"
-      alignItems="stretch"
-      justifyContent="stretch"
+      itemsPerPage={5}
+      direction="column"
+      justifyContent="left"
       items={items || []}
-      {...getOverrideProps(overrides, "NoteremindercardCollection")}
+      {...getOverrideProps(overrides, "TicketDoneCollection")}
       {...rest}
     >
       {(item, index) => (
-        <Noteremindercard
-          noteV2={item}
+        <Ticketshort
+          ticket={item}
+          margin="5px 0 0 0"
           key={item.id}
           {...(overrideItems && overrideItems({ item, index }))}
-        ></Noteremindercard>
+        ></Ticketshort>
       )}
     </Collection>
   );

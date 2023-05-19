@@ -6,24 +6,21 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { NoteV2 } from "../models";
+import { Ticket } from "../models";
 import { SortDirection } from "@aws-amplify/datastore";
 import {
   getOverrideProps,
   useDataStoreBinding,
 } from "@aws-amplify/ui-react/internal";
-import Noteremindercard from "./Noteremindercard";
+import Ticketshort from "./Ticketshort";
 import { Collection } from "@aws-amplify/ui-react";
-export default function NoteremindercardCollection(props) {
+export default function TicketshortCollection(props) {
   const { items: itemsProp, overrideItems, overrides, ...rest } = props;
-  const itemsPagination = {
-    sort: (s) =>
-      s.Reminder(SortDirection.ASCENDING).createdAt(SortDirection.ASCENDING),
-  };
+  const itemsPagination = { sort: (s) => s.updatedAt(SortDirection.ASCENDING) };
   const [items, setItems] = React.useState(undefined);
   const itemsDataStore = useDataStoreBinding({
     type: "collection",
-    model: NoteV2,
+    model: Ticket,
     pagination: itemsPagination,
   }).items;
   React.useEffect(() => {
@@ -35,24 +32,25 @@ export default function NoteremindercardCollection(props) {
   }, [itemsProp, itemsDataStore]);
   return (
     <Collection
-      type="grid"
+      type="list"
       isPaginated={true}
       searchPlaceholder="Search..."
-      itemsPerPage={4}
-      templateRows="1fr 1fr"
-      autoFlow="column"
+      itemsPerPage={5}
+      direction="column"
       alignItems="stretch"
-      justifyContent="stretch"
+      justifyContent="left"
       items={items || []}
-      {...getOverrideProps(overrides, "NoteremindercardCollection")}
+      {...getOverrideProps(overrides, "TicketshortCollection")}
       {...rest}
     >
       {(item, index) => (
-        <Noteremindercard
-          noteV2={item}
+        <Ticketshort
+          ticket={item}
+          user={item}
+          margin="0px 0px 0 0"
           key={item.id}
           {...(overrideItems && overrideItems({ item, index }))}
-        ></Noteremindercard>
+        ></Ticketshort>
       )}
     </Collection>
   );

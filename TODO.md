@@ -16,3 +16,4 @@
 [].Create a functionality on Dolly model to generate images , based on note title and/or description
 [].Improve UI , add animations
 [].Create a documentation
+[X].Use logger instead of print in lambda handler code

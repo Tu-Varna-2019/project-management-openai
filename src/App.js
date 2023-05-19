@@ -13,6 +13,9 @@ import BinPage from './pages/BinPage';
 import ReminderPage from './pages/ReminderPage';
 import NotFound404Page from './pages/NotFound404Page';
 import { AppFunc } from './overrides/AppOverride';
+import BoardPage from './pages/BoardPage';
+import SelectProjectPage from './pages/SelectProjectPage';
+import CreateProjectPage from './pages/CreateProjectPage';
 
 
 const {
@@ -24,7 +27,7 @@ Amplify.configure(awsExports);
 export default function App() {
   useEffect(() => {
     // This will run when the page first loads and whenever the title changes
-    document.title = "MNotes";
+    document.title = "KAI";
   });
   
   return (
@@ -37,14 +40,16 @@ export default function App() {
         <Authenticator components={AppComponentOverride}>
     <BrowserRouter>
       <Routes>
+        <Route path="/board" element={<BoardPage/>}/>
+        <Route path="/create-project" element={<CreateProjectPage/>}/>
+        <Route path="/" element={<SelectProjectPage/>}/>
+        <Route path='*' element={<NotFound404Page/>}/>
         <Route path="/note" element={<HomePage/>}/>
         <Route path="/reminder" element={<ReminderPage/>}/>
         <Route path="/bin" element={<BinPage/>}/>
         <Route path='/create-note' element={<CreateNotePage/>}/>
         <Route path='/reset-password' element={<ResetPasswordPage/>}/>
         <Route path='/delete-account' element={<DeleteAccountPage/>}/>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path='*' element={<NotFound404Page/>}/>
       </Routes>
     </BrowserRouter></Authenticator></Card></div>);}
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);

@@ -6,34 +6,128 @@ import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/
 
 
 
-type EagerTask = {
+type EagerProject = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Task, 'id'>;
+    identifier: ManagedIdentifier<Project, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Name?: string | null;
-  readonly notev2ID: string;
+  readonly Name: string;
+  readonly OProjectMTickets?: (Ticket | null)[] | null;
+  readonly ImageProject?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyTask = {
+type LazyProject = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Task, 'id'>;
+    identifier: ManagedIdentifier<Project, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Name?: string | null;
-  readonly notev2ID: string;
+  readonly Name: string;
+  readonly OProjectMTickets: AsyncCollection<Ticket>;
+  readonly ImageProject?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type Task = LazyLoading extends LazyLoadingDisabled ? EagerTask : LazyTask
+export declare type Project = LazyLoading extends LazyLoadingDisabled ? EagerProject : LazyProject
 
-export declare const Task: (new (init: ModelInit<Task>) => Task) & {
-  copyOf(source: Task, mutator: (draft: MutableModel<Task>) => MutableModel<Task> | void): Task;
+export declare const Project: (new (init: ModelInit<Project>) => Project) & {
+  copyOf(source: Project, mutator: (draft: MutableModel<Project>) => MutableModel<Project> | void): Project;
+}
+
+type EagerUser = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<User, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly sub: string;
+  readonly username: string;
+  readonly ImageProfile?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyUser = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<User, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly sub: string;
+  readonly username: string;
+  readonly ImageProfile?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type User = LazyLoading extends LazyLoadingDisabled ? EagerUser : LazyUser
+
+export declare const User: (new (init: ModelInit<User>) => User) & {
+  copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
+}
+
+type EagerTicket = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Ticket, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Title: string;
+  readonly Description?: string | null;
+  readonly TicketID?: string | null;
+  readonly StoryPoint?: number | null;
+  readonly Watch?: string | null;
+  readonly Reporter: string;
+  readonly Asignee?: string | null;
+  readonly ImageTicket?: string | null;
+  readonly EpicLink?: string | null;
+  readonly CreatedDate: string;
+  readonly UpdatedDate?: string | null;
+  readonly ResolvedDate?: string | null;
+  readonly projectID: string;
+  readonly IssueType: string;
+  readonly Priority: string;
+  readonly TicketStatus: string;
+  readonly Comment?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTicket = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Ticket, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Title: string;
+  readonly Description?: string | null;
+  readonly TicketID?: string | null;
+  readonly StoryPoint?: number | null;
+  readonly Watch?: string | null;
+  readonly Reporter: string;
+  readonly Asignee?: string | null;
+  readonly ImageTicket?: string | null;
+  readonly EpicLink?: string | null;
+  readonly CreatedDate: string;
+  readonly UpdatedDate?: string | null;
+  readonly ResolvedDate?: string | null;
+  readonly projectID: string;
+  readonly IssueType: string;
+  readonly Priority: string;
+  readonly TicketStatus: string;
+  readonly Comment?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Ticket = LazyLoading extends LazyLoadingDisabled ? EagerTicket : LazyTicket
+
+export declare const Ticket: (new (init: ModelInit<Ticket>) => Ticket) & {
+  copyOf(source: Ticket, mutator: (draft: MutableModel<Ticket>) => MutableModel<Ticket> | void): Ticket;
 }
 
 type EagerNoteV2 = {
@@ -50,7 +144,6 @@ type EagerNoteV2 = {
   readonly Deleted?: boolean | null;
   readonly Notified?: boolean | null;
   readonly ImageName?: string | null;
-  readonly ONoteMTask?: (Task | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -69,7 +162,6 @@ type LazyNoteV2 = {
   readonly Deleted?: boolean | null;
   readonly Notified?: boolean | null;
   readonly ImageName?: string | null;
-  readonly ONoteMTask: AsyncCollection<Task>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

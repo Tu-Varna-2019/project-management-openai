@@ -23,7 +23,7 @@ import {
   getOverrideProps,
   useDataStoreBinding,
 } from "@aws-amplify/ui-react/internal";
-import { User, Ticket } from "../models";
+import { Project, Ticket } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
 function ArrayField({
@@ -184,10 +184,9 @@ function ArrayField({
     </React.Fragment>
   );
 }
-export default function UserUpdateForm(props) {
+export default function ProjectCreateForm(props) {
   const {
-    id: idProp,
-    user: userModelProp,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -197,76 +196,46 @@ export default function UserUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    sub: "",
-    username: "",
-    ImageProfile: "",
-    OUserMTickets: [],
+    Name: "",
+    OProjectMTickets: [],
   };
-  const [sub, setSub] = React.useState(initialValues.sub);
-  const [username, setUsername] = React.useState(initialValues.username);
-  const [ImageProfile, setImageProfile] = React.useState(
-    initialValues.ImageProfile
-  );
-  const [OUserMTickets, setOUserMTickets] = React.useState(
-    initialValues.OUserMTickets
+  const [Name, setName] = React.useState(initialValues.Name);
+  const [OProjectMTickets, setOProjectMTickets] = React.useState(
+    initialValues.OProjectMTickets
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = userRecord
-      ? { ...initialValues, ...userRecord, OUserMTickets: linkedOUserMTickets }
-      : initialValues;
-    setSub(cleanValues.sub);
-    setUsername(cleanValues.username);
-    setImageProfile(cleanValues.ImageProfile);
-    setOUserMTickets(cleanValues.OUserMTickets ?? []);
-    setCurrentOUserMTicketsValue(undefined);
-    setCurrentOUserMTicketsDisplayValue("");
+    setName(initialValues.Name);
+    setOProjectMTickets(initialValues.OProjectMTickets);
+    setCurrentOProjectMTicketsValue(undefined);
+    setCurrentOProjectMTicketsDisplayValue("");
     setErrors({});
   };
-  const [userRecord, setUserRecord] = React.useState(userModelProp);
-  const [linkedOUserMTickets, setLinkedOUserMTickets] = React.useState([]);
-  const canUnlinkOUserMTickets = false;
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? await DataStore.query(User, idProp)
-        : userModelProp;
-      setUserRecord(record);
-      const linkedOUserMTickets = record
-        ? await record.OUserMTickets.toArray()
-        : [];
-      setLinkedOUserMTickets(linkedOUserMTickets);
-    };
-    queryData();
-  }, [idProp, userModelProp]);
-  React.useEffect(resetStateValues, [userRecord, linkedOUserMTickets]);
   const [
-    currentOUserMTicketsDisplayValue,
-    setCurrentOUserMTicketsDisplayValue,
+    currentOProjectMTicketsDisplayValue,
+    setCurrentOProjectMTicketsDisplayValue,
   ] = React.useState("");
-  const [currentOUserMTicketsValue, setCurrentOUserMTicketsValue] =
+  const [currentOProjectMTicketsValue, setCurrentOProjectMTicketsValue] =
     React.useState(undefined);
-  const OUserMTicketsRef = React.createRef();
+  const OProjectMTicketsRef = React.createRef();
   const getIDValue = {
-    OUserMTickets: (r) => JSON.stringify({ id: r?.id }),
+    OProjectMTickets: (r) => JSON.stringify({ id: r?.id }),
   };
-  const OUserMTicketsIdSet = new Set(
-    Array.isArray(OUserMTickets)
-      ? OUserMTickets.map((r) => getIDValue.OUserMTickets?.(r))
-      : getIDValue.OUserMTickets?.(OUserMTickets)
+  const OProjectMTicketsIdSet = new Set(
+    Array.isArray(OProjectMTickets)
+      ? OProjectMTickets.map((r) => getIDValue.OProjectMTickets?.(r))
+      : getIDValue.OProjectMTickets?.(OProjectMTickets)
   );
   const ticketRecords = useDataStoreBinding({
     type: "collection",
     model: Ticket,
   }).items;
   const getDisplayValue = {
-    OUserMTickets: (r) => `${r?.Title ? r?.Title + " - " : ""}${r?.id}`,
+    OProjectMTickets: (r) => `${r?.Title ? r?.Title + " - " : ""}${r?.id}`,
   };
   const validations = {
-    sub: [{ type: "Required" }],
-    username: [{ type: "Required" }],
-    ImageProfile: [],
-    OUserMTickets: [],
+    Name: [{ type: "Required" }],
+    OProjectMTickets: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -294,10 +263,8 @@ export default function UserUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          sub,
-          username,
-          ImageProfile,
-          OUserMTickets,
+          Name,
+          OProjectMTickets,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -335,65 +302,29 @@ export default function UserUpdateForm(props) {
               modelFields[key] = undefined;
             }
           });
-          const promises = [];
-          const oUserMTicketsToLink = [];
-          const oUserMTicketsToUnLink = [];
-          const oUserMTicketsSet = new Set();
-          const linkedOUserMTicketsSet = new Set();
-          OUserMTickets.forEach((r) =>
-            oUserMTicketsSet.add(getIDValue.OUserMTickets?.(r))
-          );
-          linkedOUserMTickets.forEach((r) =>
-            linkedOUserMTicketsSet.add(getIDValue.OUserMTickets?.(r))
-          );
-          linkedOUserMTickets.forEach((r) => {
-            if (!oUserMTicketsSet.has(getIDValue.OUserMTickets?.(r))) {
-              oUserMTicketsToUnLink.push(r);
-            }
-          });
-          OUserMTickets.forEach((r) => {
-            if (!linkedOUserMTicketsSet.has(getIDValue.OUserMTickets?.(r))) {
-              oUserMTicketsToLink.push(r);
-            }
-          });
-          oUserMTicketsToUnLink.forEach((original) => {
-            if (!canUnlinkOUserMTickets) {
-              throw Error(
-                `Ticket ${original.id} cannot be unlinked from User because userID is a required field.`
-              );
-            }
-            promises.push(
-              DataStore.save(
-                Ticket.copyOf(original, (updated) => {
-                  updated.userID = null;
-                })
-              )
-            );
-          });
-          oUserMTicketsToLink.forEach((original) => {
-            promises.push(
-              DataStore.save(
-                Ticket.copyOf(original, (updated) => {
-                  updated.userID = userRecord.id;
-                })
-              )
-            );
-          });
           const modelFieldsToSave = {
-            sub: modelFields.sub,
-            username: modelFields.username,
-            ImageProfile: modelFields.ImageProfile,
+            Name: modelFields.Name,
           };
+          const project = await DataStore.save(new Project(modelFieldsToSave));
+          const promises = [];
           promises.push(
-            DataStore.save(
-              User.copyOf(userRecord, (updated) => {
-                Object.assign(updated, modelFieldsToSave);
-              })
-            )
+            ...OProjectMTickets.reduce((promises, original) => {
+              promises.push(
+                DataStore.save(
+                  Ticket.copyOf(original, (updated) => {
+                    updated.projectID = project.id;
+                  })
+                )
+              );
+              return promises;
+            }, [])
           );
           await Promise.all(promises);
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -401,169 +332,112 @@ export default function UserUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "UserUpdateForm")}
+      {...getOverrideProps(overrides, "ProjectCreateForm")}
       {...rest}
     >
       <TextField
-        label="Sub"
+        label="Name"
         isRequired={true}
         isReadOnly={false}
-        value={sub}
+        value={Name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              sub: value,
-              username,
-              ImageProfile,
-              OUserMTickets,
+              Name: value,
+              OProjectMTickets,
             };
             const result = onChange(modelFields);
-            value = result?.sub ?? value;
+            value = result?.Name ?? value;
           }
-          if (errors.sub?.hasError) {
-            runValidationTasks("sub", value);
+          if (errors.Name?.hasError) {
+            runValidationTasks("Name", value);
           }
-          setSub(value);
+          setName(value);
         }}
-        onBlur={() => runValidationTasks("sub", sub)}
-        errorMessage={errors.sub?.errorMessage}
-        hasError={errors.sub?.hasError}
-        {...getOverrideProps(overrides, "sub")}
-      ></TextField>
-      <TextField
-        label="Username"
-        isRequired={true}
-        isReadOnly={false}
-        value={username}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              sub,
-              username: value,
-              ImageProfile,
-              OUserMTickets,
-            };
-            const result = onChange(modelFields);
-            value = result?.username ?? value;
-          }
-          if (errors.username?.hasError) {
-            runValidationTasks("username", value);
-          }
-          setUsername(value);
-        }}
-        onBlur={() => runValidationTasks("username", username)}
-        errorMessage={errors.username?.errorMessage}
-        hasError={errors.username?.hasError}
-        {...getOverrideProps(overrides, "username")}
-      ></TextField>
-      <TextField
-        label="Image profile"
-        isRequired={false}
-        isReadOnly={false}
-        value={ImageProfile}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              sub,
-              username,
-              ImageProfile: value,
-              OUserMTickets,
-            };
-            const result = onChange(modelFields);
-            value = result?.ImageProfile ?? value;
-          }
-          if (errors.ImageProfile?.hasError) {
-            runValidationTasks("ImageProfile", value);
-          }
-          setImageProfile(value);
-        }}
-        onBlur={() => runValidationTasks("ImageProfile", ImageProfile)}
-        errorMessage={errors.ImageProfile?.errorMessage}
-        hasError={errors.ImageProfile?.hasError}
-        {...getOverrideProps(overrides, "ImageProfile")}
+        onBlur={() => runValidationTasks("Name", Name)}
+        errorMessage={errors.Name?.errorMessage}
+        hasError={errors.Name?.hasError}
+        {...getOverrideProps(overrides, "Name")}
       ></TextField>
       <ArrayField
         onChange={async (items) => {
           let values = items;
           if (onChange) {
             const modelFields = {
-              sub,
-              username,
-              ImageProfile,
-              OUserMTickets: values,
+              Name,
+              OProjectMTickets: values,
             };
             const result = onChange(modelFields);
-            values = result?.OUserMTickets ?? values;
+            values = result?.OProjectMTickets ?? values;
           }
-          setOUserMTickets(values);
-          setCurrentOUserMTicketsValue(undefined);
-          setCurrentOUserMTicketsDisplayValue("");
+          setOProjectMTickets(values);
+          setCurrentOProjectMTicketsValue(undefined);
+          setCurrentOProjectMTicketsDisplayValue("");
         }}
-        currentFieldValue={currentOUserMTicketsValue}
-        label={"O user m tickets"}
-        items={OUserMTickets}
-        hasError={errors?.OUserMTickets?.hasError}
-        errorMessage={errors?.OUserMTickets?.errorMessage}
-        getBadgeText={getDisplayValue.OUserMTickets}
+        currentFieldValue={currentOProjectMTicketsValue}
+        label={"O project m tickets"}
+        items={OProjectMTickets}
+        hasError={errors?.OProjectMTickets?.hasError}
+        errorMessage={errors?.OProjectMTickets?.errorMessage}
+        getBadgeText={getDisplayValue.OProjectMTickets}
         setFieldValue={(model) => {
-          setCurrentOUserMTicketsDisplayValue(
-            model ? getDisplayValue.OUserMTickets(model) : ""
+          setCurrentOProjectMTicketsDisplayValue(
+            model ? getDisplayValue.OProjectMTickets(model) : ""
           );
-          setCurrentOUserMTicketsValue(model);
+          setCurrentOProjectMTicketsValue(model);
         }}
-        inputFieldRef={OUserMTicketsRef}
+        inputFieldRef={OProjectMTicketsRef}
         defaultFieldValue={""}
       >
         <Autocomplete
-          label="O user m tickets"
+          label="O project m tickets"
           isRequired={false}
           isReadOnly={false}
           placeholder="Search Ticket"
-          value={currentOUserMTicketsDisplayValue}
+          value={currentOProjectMTicketsDisplayValue}
           options={ticketRecords
             .filter(
-              (r) => !OUserMTicketsIdSet.has(getIDValue.OUserMTickets?.(r))
+              (r) =>
+                !OProjectMTicketsIdSet.has(getIDValue.OProjectMTickets?.(r))
             )
             .map((r) => ({
-              id: getIDValue.OUserMTickets?.(r),
-              label: getDisplayValue.OUserMTickets?.(r),
+              id: getIDValue.OProjectMTickets?.(r),
+              label: getDisplayValue.OProjectMTickets?.(r),
             }))}
           onSelect={({ id, label }) => {
-            setCurrentOUserMTicketsValue(
+            setCurrentOProjectMTicketsValue(
               ticketRecords.find((r) =>
                 Object.entries(JSON.parse(id)).every(
                   ([key, value]) => r[key] === value
                 )
               )
             );
-            setCurrentOUserMTicketsDisplayValue(label);
-            runValidationTasks("OUserMTickets", label);
+            setCurrentOProjectMTicketsDisplayValue(label);
+            runValidationTasks("OProjectMTickets", label);
           }}
           onClear={() => {
-            setCurrentOUserMTicketsDisplayValue("");
+            setCurrentOProjectMTicketsDisplayValue("");
           }}
           onChange={(e) => {
             let { value } = e.target;
-            if (errors.OUserMTickets?.hasError) {
-              runValidationTasks("OUserMTickets", value);
+            if (errors.OProjectMTickets?.hasError) {
+              runValidationTasks("OProjectMTickets", value);
             }
-            setCurrentOUserMTicketsDisplayValue(value);
-            setCurrentOUserMTicketsValue(undefined);
+            setCurrentOProjectMTicketsDisplayValue(value);
+            setCurrentOProjectMTicketsValue(undefined);
           }}
           onBlur={() =>
             runValidationTasks(
-              "OUserMTickets",
-              currentOUserMTicketsDisplayValue
+              "OProjectMTickets",
+              currentOProjectMTicketsDisplayValue
             )
           }
-          errorMessage={errors.OUserMTickets?.errorMessage}
-          hasError={errors.OUserMTickets?.hasError}
-          ref={OUserMTicketsRef}
+          errorMessage={errors.OProjectMTickets?.errorMessage}
+          hasError={errors.OProjectMTickets?.hasError}
+          ref={OProjectMTicketsRef}
           labelHidden={true}
-          {...getOverrideProps(overrides, "OUserMTickets")}
+          {...getOverrideProps(overrides, "OProjectMTickets")}
         ></Autocomplete>
       </ArrayField>
       <Flex
@@ -571,14 +445,13 @@ export default function UserUpdateForm(props) {
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || userModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -588,10 +461,7 @@ export default function UserUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || userModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

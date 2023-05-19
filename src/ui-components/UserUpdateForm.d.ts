@@ -5,27 +5,33 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { AutocompleteProps, GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { User } from "../models";
+import { User, Ticket } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type UserUpdateFormInputValues = {
-    Email?: string;
-    password?: string;
+    sub?: string;
+    username?: string;
+    ImageProfile?: string;
+    OUserMTickets?: Ticket[];
 };
 export declare type UserUpdateFormValidationValues = {
-    Email?: ValidationFunction<string>;
-    password?: ValidationFunction<string>;
+    sub?: ValidationFunction<string>;
+    username?: ValidationFunction<string>;
+    ImageProfile?: ValidationFunction<string>;
+    OUserMTickets?: ValidationFunction<Ticket>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserUpdateFormOverridesProps = {
     UserUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    Email?: PrimitiveOverrideProps<TextFieldProps>;
-    password?: PrimitiveOverrideProps<TextFieldProps>;
+    sub?: PrimitiveOverrideProps<TextFieldProps>;
+    username?: PrimitiveOverrideProps<TextFieldProps>;
+    ImageProfile?: PrimitiveOverrideProps<TextFieldProps>;
+    OUserMTickets?: PrimitiveOverrideProps<AutocompleteProps>;
 } & EscapeHatchProps;
 export declare type UserUpdateFormProps = React.PropsWithChildren<{
     overrides?: UserUpdateFormOverridesProps | undefined | null;

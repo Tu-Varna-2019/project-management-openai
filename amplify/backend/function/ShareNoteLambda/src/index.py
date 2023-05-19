@@ -4,13 +4,16 @@ import boto3
 from botocore.exceptions import ClientError
 import pytz
 from datetime import datetime, timezone
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 def handler(event, context):
-    print("received event:")
-    print(event)
+    logger.info(event)
     payload_serialize = json.loads(json.loads(event["body"]))
-    print(f"User input: {payload_serialize['event']}")
+    logger.info(f"User input: {payload_serialize['event']}")
 
     sub = payload_serialize["event"]["sub"]
     send_note_threshold_table_name = os.environ.get("SEND_NOTE_THRESHOLD_TABLE_NAME")
@@ -42,13 +45,13 @@ def handler(event, context):
     response_get_verify_email = client_ses.get_identity_verification_attributes(
         Identities=[receipt_email]
     )
-    print(f"Get verified email identity: {response_get_verify_email}")
+    logger.info(f"Get verified email identity: {response_get_verify_email}")
 
     if not response_get_verify_email["VerificationAttributes"]:
         response_verify_ses = client_ses.verify_email_address(
             EmailAddress=receipt_email
         )
-        print(f"Email verification sent response: {response_verify_ses}")
+        logger.info(f"Email verification sent response: {response_verify_ses}")
         response = (
             f"Email needs verification! Message sent to: {receipt_email} to confirm"
         )
@@ -75,7 +78,7 @@ def handler(event, context):
                     ],
                 )
                 retrieved_time = response_query_item["Item"]["dateTimeThrottle"]["S"]
-                print(
+                logger.info(
                     f"Item already exist for : {sub}. Let's compare instead: {response_query_item}"
                 )
                 # Compare the current date and the retrieved one for 5 mins threshold
@@ -83,16 +86,16 @@ def handler(event, context):
                     retrieved_time[:-6], "%Y-%m-%d %H:%M:%S.%f"
                 ).replace(tzinfo=pytz.FixedOffset(180))
                 time_difference = (current_time - retrieved_time).total_seconds() // 60
-                print(f"Time difference: {time_difference}")
+                logger.info(f"Time difference: {time_difference}")
                 # Check if time difference is less than 5 minutes :
                 # 1. If true , don't send & inform user
                 if time_difference < 6:
                     response = "You cannot send a message every 5 minutes!"
-                    print(response)
+                    logger.info(response)
                     send_note_flag = False
             # 2. If false , update item & send message
             except:
-                print(f"Item doesn't exist for {sub} .Let's add it!")
+                logger.info(f"Item doesn't exist for {sub} .Let's add it!")
                 pass
             # Check if minute difference is NOT less than 5 mins
             if send_note_flag:
@@ -104,7 +107,7 @@ def handler(event, context):
                         "dateTimeThrottle": {"S": str(current_time)},
                     },
                 )
-                print(
+                logger.info(
                     f"Updated/created item with date: {current_time} for {sub} \
                     \nresponse: {response_put_item_db} "
                 )
@@ -120,10 +123,10 @@ def handler(event, context):
                     },
                     ReplyToAddresses=[sender_email],
                 )
-                print(f"Status: Success , note sent: {response_ses}")
+                logger.info(f"Status: Success , note sent: {response_ses}")
                 response = f"Email verified! Note sent to {receipt_email}"
         else:
-            print(f"Email is in {email_status} state!")
+            logger.info(f"Email is in {email_status} state!")
             pending_state = (
                 f"The user {receipt_email} needs to confirm the message!"
                 if email_status == "Pending"
