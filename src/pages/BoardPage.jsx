@@ -1,10 +1,9 @@
 import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Board, CreateTicket, EditTicket, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection, TicketshortCollection } from '../ui-components';
+import { Board, CreateTicket, EditTicket, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection } from '../ui-components';
 import '@aws-amplify/ui-react/styles.css';
 import { TicketClass } from '../classes/TicketClass';
 import { BoardFunc } from '../overrides/BoardOverride';
-import { useRef } from 'react';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
 
 export default function BoardPage(props) {
@@ -12,13 +11,18 @@ export default function BoardPage(props) {
   const {
     switchCreateTicketPage,
     switchEditTicketPage,
-    setSwitchCreateTicketPage,
-    handleCreateTicketClick
+    handleCreateTicketClick,
+    ticketInProgressStyleTop,
+    ticketInReviewStyleTop,
+    ticketDoneStyleTop
   } = TicketClass();
   
   const {
     BoardComponentOverride,
-    BoardTicketCollectionOverride,
+    BoardTicketToDoOverride,
+    BoardTicketInProgressOverride,
+    BoardTicketInReviewOverride,
+    BoardTicketDoneOverride,
     customOverrideItems
   }= BoardFunc();
 
@@ -26,7 +30,18 @@ export default function BoardPage(props) {
     CreateTicketComponentOverride
   }= CreateTicketFunc();
 
-  const { roadmap_button,active_sprints_button} = BoardComponentOverride;
+  const { 
+    roadmap_button,
+    active_sprints_button,
+    project_name_text,
+    project_image_name,
+    profile_icon_image,
+    success_alert,
+    projects_select_field,
+    your_work_select_field,
+    issue_templates_select_field,
+    teams_select_field,
+  } = BoardComponentOverride;
   const { 
     project_select_field,
     issue_type_select_field,
@@ -34,7 +49,7 @@ export default function BoardPage(props) {
     title_text_field,
     description_text_field,
     asignee_select_field,
-    create_button} = CreateTicketComponentOverride
+    } = CreateTicketComponentOverride
 
     return(
       <>
@@ -43,32 +58,40 @@ export default function BoardPage(props) {
           <Board overrides={{
             roadmap_button ,
             active_sprints_button,
+            project_name_text,
+            project_image_name,
+            profile_icon_image,
+            success_alert,
+            projects_select_field,
+            your_work_select_field,
+            issue_templates_select_field,
+            teams_select_field,
             create_ticket_button:{
               onClick: (event) => (handleCreateTicketClick(event))},
           }}/>
         </div>
-        
-        <div style={{ position: 'relative' , display: 'block',top: "-5px",left: "-430px",objectFit: "cover"}}>
-          <TicketToDoCollection style={{position: 'absolute', top: "-800px", left: "800px" }}
-              overrides={BoardTicketCollectionOverride}
+
+        <div style={{ position: 'relative' , width:"120px", display: 'block',top: "0px",left: "460px",objectFit: "cover"}}>
+          <TicketToDoCollection style={{position: 'absolute', top: "-800px" , left:"-90px" }}
+              overrides={BoardTicketToDoOverride}
               overrideItems={customOverrideItems}/>
         </div>
 
-        <div style={{ position: 'relative' , display: 'block',top: "-20px",left: "-42px",objectFit: "cover"}}>
-          <TicketInProgressCollection style={{position: 'absolute', top: "-810px", left: "800px" }}
-              overrides={BoardTicketCollectionOverride}
+        <div style={{ position: 'relative' , width:"120px", display: 'block',top: ticketInProgressStyleTop.toString() + "px",left: "850px",objectFit: "cover"}}>
+          <TicketInProgressCollection style={{position: 'absolute', top: "-800px", left: "-90px" }}
+              overrides={BoardTicketInProgressOverride}
               overrideItems={customOverrideItems}/>
         </div>
 
-        <div style={{ position: 'relative' , display: 'block',top: "-85px",left: "320px",objectFit: "cover"}}>
-          <TicketInReviewCollection style={{position: 'absolute', top: "-800px", left: "800px" }}
-              overrides={BoardTicketCollectionOverride}
+        <div style={{ position: 'relative' , width:"120px", display: 'block',top: ticketInReviewStyleTop.toString() + "px",left: "1240px",objectFit: "cover"}}>
+          <TicketInReviewCollection style={{position: 'absolute', top: "-800px", left: "-90px" }}
+              overrides={BoardTicketInReviewOverride}
               overrideItems={customOverrideItems}/>
         </div>
 
-        <div style={{ position: 'relative' , display: 'block',top: "-85px",left: "920px",objectFit: "cover"}}>
-          <TicketDoneCollection style={{position: 'absolute', top: "-800px", left: "800px" }}
-              overrides={BoardTicketCollectionOverride}
+        <div style={{ position: 'relative' , width:"120px", display: 'block',top: ticketDoneStyleTop.toString() + "px",left: "1630px",objectFit: "cover"}}>
+          <TicketDoneCollection style={{position: 'absolute', top: "-800px", left: "-90px" }}
+              overrides={BoardTicketDoneOverride}
               overrideItems={customOverrideItems}/>
         </div>
         
@@ -78,12 +101,12 @@ export default function BoardPage(props) {
             <CreateTicket overrides={{
               cancel_button:{
                 onClick: (event) => (handleCreateTicketClick(event))},
-                // project_select_field,
-                // issue_type_select_field,
-                // priority_select_field,
-                // title_text_field,
-                // description_text_field,
-                // asignee_select_field,
+                project_select_field,
+                issue_type_select_field,
+                priority_select_field,
+                title_text_field,
+                description_text_field,
+                asignee_select_field,
           }}/>}
       </div>
       </>)}

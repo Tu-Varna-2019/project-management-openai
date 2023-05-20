@@ -25,17 +25,14 @@ export declare type BoardOverridesProps = {
     "logo 1"?: PrimitiveOverrideProps<ImageProps>;
     KAI?: PrimitiveOverrideProps<TextProps>;
     "Your work group178522270"?: PrimitiveOverrideProps<ViewProps>;
-    your_work_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     "Your work"?: PrimitiveOverrideProps<TextProps>;
+    your_work_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     "Your work group178522279"?: PrimitiveOverrideProps<ViewProps>;
-    projects_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     Projects?: PrimitiveOverrideProps<TextProps>;
+    projects_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     "Your work group178522290"?: PrimitiveOverrideProps<ViewProps>;
-    issue_templates_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     "Issue Templates"?: PrimitiveOverrideProps<TextProps>;
-    "Your work group178532301"?: PrimitiveOverrideProps<ViewProps>;
-    teams_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
-    Teams?: PrimitiveOverrideProps<TextProps>;
+    issue_templates_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     todo_card?: PrimitiveOverrideProps<CardProps>;
     in_progress_card?: PrimitiveOverrideProps<CardProps>;
     in_review_card?: PrimitiveOverrideProps<CardProps>;
@@ -69,6 +66,9 @@ export declare type BoardOverridesProps = {
     Vector178562488?: PrimitiveOverrideProps<IconProps>;
     Vector_2?: PrimitiveOverrideProps<IconProps>;
     Vector_3?: PrimitiveOverrideProps<IconProps>;
+    "Your work group178532301"?: PrimitiveOverrideProps<ViewProps>;
+    teams_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    Teams?: PrimitiveOverrideProps<TextProps>;
     success_alert?: PrimitiveOverrideProps<AlertProps>;
 } & EscapeHatchProps;
 export declare type BoardProps = React.PropsWithChildren<Partial<ViewProps> & {

@@ -8,7 +8,6 @@ export { default as TicketInProgressCollection } from "./TicketInProgressCollect
 export { default as Notfound } from "./Notfound";
 export { default as TicketInReviewCollection } from "./TicketInReviewCollection";
 export { default as CreateTicket } from "./CreateTicket";
-export { default as TicketshortCollection } from "./TicketshortCollection";
 export { default as CreateNotev2 } from "./CreateNotev2";
 export { default as Notebutton } from "./Notebutton";
 export { default as Noteremindercard } from "./Noteremindercard";

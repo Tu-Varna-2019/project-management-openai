@@ -50,7 +50,6 @@ export default function TicketToDoCollection(props) {
       {(item, index) => (
         <Ticketshort
           margin="5px 0 0 0"
-          ticket={item}
           key={item.id}
           {...(overrideItems && overrideItems({ item, index }))}
         ></Ticketshort>

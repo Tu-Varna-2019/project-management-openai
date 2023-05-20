@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Auth } from 'aws-amplify';
-import { useLocation,useNavigate } from 'react-router-dom';
-import { API,DataStore } from 'aws-amplify';
+import { useNavigate } from 'react-router-dom';
+import { DataStore } from 'aws-amplify';
 import { Ticket } from '../models';
+import { ProjectClass } from './ProjectClass';
 
 const iniTicketValue = {
     Title: "",
@@ -17,9 +17,24 @@ const iniErrorValue = {
 
 
 export function TicketClass(props) {
+
+    const {
+        getProjectID,
+        selectedProject,
+    } = ProjectClass();
     // Ticket/s
     const [selectedTicket,setSelectedTicket] = useState("");
     const [tickets,setTickets] = useState("");
+
+    // Ticket by statuses
+    const [ticketToDo,setTicketToDo] = useState("");
+    const [ticketInProgress,setTicketInProgress] = useState("");
+    const [ticketInReview,setTicketInReview] = useState("");
+    const [ticketDone,setTicketDone] = useState("");
+    // Ticket style props
+    const ticketInProgressStyleTop = ticketToDo.length === 0 ? -100 : -35;
+    const ticketInReviewStyleTop = ticketToDo.length === 0 ? -195 : -70;
+    const ticketDoneStyleTop = ticketToDo.length === 0 ? -295 : -105;
 
     const [title,setTitle] = useState(iniTicketValue.Title);
     const [description,setDescription] = useState(iniTicketValue.Description);
@@ -38,12 +53,28 @@ export function TicketClass(props) {
     const [ticketStatus,setTicketStatus] = useState("ToDo");
     const [isLoading,setIsLoading] = useState(iniErrorValue.isLoading);
 
-    const issueTypesArray = ["Task","Bug","UserStory","Subtask","Feature","Epic"];
     const [switchCreateTicketPage,setSwitchCreateTicketPage] = useState(false);
     const [switchEditTicketPage,setSwitchEditTicketPage] = useState(false);
 
     const isTitleEmpty =  /^\s*$/.test(title);
     const navigate = useNavigate();
+
+    // Get tickets by project
+    useEffect(() => {
+        const dts_query = DataStore.query(Ticket)
+        dts_query.then(data => {
+            setTickets(data.filter(item => item.projectID === getProjectID));
+        }).catch(error => {
+        console.error(error);
+        });
+    },[selectedProject,getProjectID]);
+    // Get ticket statuses
+    useEffect(() => {
+        setTicketToDo(Object.values(tickets).filter(item => item.TicketStatus === 'ToDo'));
+        setTicketInProgress(Object.values(tickets).filter(item => item.TicketStatus === 'InProgress'));
+        setTicketInReview(Object.values(tickets).filter(item => item.TicketStatus === 'InReview'));
+        setTicketDone(Object.values(tickets).filter(item => item.TicketStatus === 'Done'));
+    },[tickets]);
 
     const handleTitle = (event) => {
         event.preventDefault();
@@ -79,7 +110,6 @@ export function TicketClass(props) {
     const handleCreateTicketClick = (event) => {
         event.preventDefault();
         setSwitchCreateTicketPage(!switchCreateTicketPage);
-        console.log(switchCreateTicketPage);
     }
     const handleAsigneeChange = (event) => {
         event.preventDefault();
@@ -92,7 +122,6 @@ export function TicketClass(props) {
         console.log(`Selected ticket: ${event.Title} `);
         setSelectedTicket(event);
     }
-
 
     ////////////* Create ticket //////////////////
 
@@ -114,7 +143,7 @@ export function TicketClass(props) {
                     "Asignee": asignee,
                     "EpicLink": "",
                     "CreatedDate": newTicketDate,
-                    "projectID": "",
+                    "getProjectID": "",
                     "userID": "",
                     "IssueType": issueType,
                     "Priority": priority,
@@ -136,9 +165,15 @@ export function TicketClass(props) {
         switchEditTicketPage,
         handleCreateTicketClick,
         setSwitchCreateTicketPage,
-        issueTypesArray,
         tickets,
         setTickets,
+        ticketToDo,
+        ticketInProgress,
+        ticketInReview,
+        ticketDone,
+        ticketInProgressStyleTop,
+        ticketInReviewStyleTop,
+        ticketDoneStyleTop
     }
 
 }

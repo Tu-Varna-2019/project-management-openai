@@ -262,20 +262,6 @@ export default function Board(props) {
           left="176px"
           {...getOverrideProps(overrides, "Your work group178522270")}
         >
-          <SelectField
-            width="131px"
-            height="59px"
-            label="Your work"
-            position="absolute"
-            top="0px"
-            left="0px"
-            placeholder=""
-            size="large"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "your_work_select_field")}
-          ></SelectField>
           <Text
             fontFamily="Inter"
             fontSize="17px"
@@ -298,6 +284,20 @@ export default function Board(props) {
             children="Your work"
             {...getOverrideProps(overrides, "Your work")}
           ></Text>
+          <SelectField
+            width="131px"
+            height="59px"
+            label="Your work"
+            position="absolute"
+            top="0px"
+            left="0px"
+            placeholder=""
+            size="large"
+            isDisabled={false}
+            labelHidden={true}
+            variation="quiet"
+            {...getOverrideProps(overrides, "your_work_select_field")}
+          ></SelectField>
         </View>
         <View
           padding="0px 0px 0px 0px"
@@ -312,20 +312,6 @@ export default function Board(props) {
           left="307px"
           {...getOverrideProps(overrides, "Your work group178522279")}
         >
-          <SelectField
-            width="118px"
-            height="59px"
-            label="Your work"
-            position="absolute"
-            top="0px"
-            left="0px"
-            placeholder=""
-            size="large"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "projects_select_field")}
-          ></SelectField>
           <Text
             fontFamily="Inter"
             fontSize="17px"
@@ -348,6 +334,20 @@ export default function Board(props) {
             children="Projects"
             {...getOverrideProps(overrides, "Projects")}
           ></Text>
+          <SelectField
+            width="118px"
+            height="59px"
+            label="Your work"
+            position="absolute"
+            top="0px"
+            left="0px"
+            placeholder=""
+            size="large"
+            isDisabled={false}
+            labelHidden={true}
+            variation="quiet"
+            {...getOverrideProps(overrides, "projects_select_field")}
+          ></SelectField>
         </View>
         <View
           padding="0px 0px 0px 0px"
@@ -362,20 +362,6 @@ export default function Board(props) {
           left="425px"
           {...getOverrideProps(overrides, "Your work group178522290")}
         >
-          <SelectField
-            width="179.56px"
-            height="59px"
-            label="Your work"
-            position="absolute"
-            top="0px"
-            left="0px"
-            placeholder=""
-            size="large"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "issue_templates_select_field")}
-          ></SelectField>
           <Text
             fontFamily="Inter"
             fontSize="17px"
@@ -398,22 +384,8 @@ export default function Board(props) {
             children="Issue Templates"
             {...getOverrideProps(overrides, "Issue Templates")}
           ></Text>
-        </View>
-        <View
-          padding="0px 0px 0px 0px"
-          width="100px"
-          height="59px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="34px"
-          left="605px"
-          {...getOverrideProps(overrides, "Your work group178532301")}
-        >
           <SelectField
-            width="94.01px"
+            width="179.56px"
             height="59px"
             label="Your work"
             position="absolute"
@@ -424,40 +396,18 @@ export default function Board(props) {
             isDisabled={false}
             labelHidden={true}
             variation="quiet"
-            {...getOverrideProps(overrides, "teams_select_field")}
+            {...getOverrideProps(overrides, "issue_templates_select_field")}
           ></SelectField>
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="700"
-            color="rgba(255,255,255,1)"
-            lineHeight="25.5px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="98.2px"
-            height="38px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="10px"
-            left="1.8px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Teams"
-            {...getOverrideProps(overrides, "Teams")}
-          ></Text>
         </View>
         <Card
           width="301px"
           height="779px"
           position="absolute"
           padding="11px 11px 11px 11px"
-          backgroundColor="rgba(255, 255, 255, 0.61)"
+          backgroundColor="rgba(230, 230, 230, 1)"
           top="285px"
           left="375px"
-          border="5px SOLID rgba(44,58,75,1)"
+          border="none"
           variation="elevated"
           {...getOverrideProps(overrides, "todo_card")}
         ></Card>
@@ -466,10 +416,10 @@ export default function Board(props) {
           height="779px"
           position="absolute"
           padding="11px 11px 11px 11px"
-          backgroundColor="rgba(255, 255, 255, 0.61)"
+          backgroundColor="rgba(230, 230, 230, 1)"
           top="285px"
           left="764px"
-          border="5px SOLID rgba(44,58,75,1)"
+          border="none"
           variation="elevated"
           {...getOverrideProps(overrides, "in_progress_card")}
         ></Card>
@@ -478,10 +428,10 @@ export default function Board(props) {
           height="779px"
           position="absolute"
           padding="11px 11px 11px 11px"
-          backgroundColor="rgba(255,255,255,0.61)"
+          backgroundColor="rgba(230, 230, 230, 1)"
           top="285px"
           left="1153px"
-          border="5px SOLID rgba(44,58,75,1)"
+          border="none"
           variation="elevated"
           {...getOverrideProps(overrides, "in_review_card")}
         ></Card>
@@ -490,10 +440,10 @@ export default function Board(props) {
           height="779px"
           position="absolute"
           padding="11px 11px 11px 11px"
-          backgroundColor="rgba(255,255,255,0.61)"
+          backgroundColor="rgba(230, 230, 230, 1)"
           top="285px"
           left="1542px"
-          border="5px SOLID rgba(44,58,75,1)"
+          border="none"
           variation="elevated"
           {...getOverrideProps(overrides, "done_card")}
         ></Card>
@@ -989,6 +939,56 @@ export default function Board(props) {
               {...getOverrideProps(overrides, "Vector_3")}
             ></Icon>
           </View>
+        </View>
+        <View
+          padding="0px 0px 0px 0px"
+          width="100px"
+          height="59px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="34px"
+          left="605px"
+          {...getOverrideProps(overrides, "Your work group178532301")}
+        >
+          <SelectField
+            width="94.01px"
+            height="59px"
+            label="Your work"
+            position="absolute"
+            top="0px"
+            left="0px"
+            placeholder=""
+            size="large"
+            isDisabled={false}
+            labelHidden={true}
+            variation="quiet"
+            {...getOverrideProps(overrides, "teams_select_field")}
+          ></SelectField>
+          <Text
+            fontFamily="Inter"
+            fontSize="17px"
+            fontWeight="700"
+            color="rgba(255,255,255,1)"
+            lineHeight="25.5px"
+            textAlign="left"
+            display="block"
+            direction="column"
+            justifyContent="unset"
+            width="98.2px"
+            height="38px"
+            gap="unset"
+            alignItems="unset"
+            position="absolute"
+            top="10px"
+            left="1.8px"
+            padding="0px 0px 0px 0px"
+            whiteSpace="pre-wrap"
+            children="Teams"
+            {...getOverrideProps(overrides, "Teams")}
+          ></Text>
         </View>
       </View>
       <Alert

@@ -33,8 +33,6 @@ export function CreateTicketFunc (props) {
         handleProjectName,
         projectName,
         isProjectEmpty,
-        projects,
-        setProjects
     } = ProjectClass();
 
     const{
@@ -53,7 +51,7 @@ export function CreateTicketFunc (props) {
         project_select_field:{
             onChange : (event) => (handlePriority(event)),
             value: projectName,
-            options: projects
+           // options: projects
         },
         issue_type_select_field:{
             onChange : (event) => (handleIssueType(event)),

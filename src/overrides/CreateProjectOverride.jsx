@@ -1,10 +1,6 @@
 import '@aws-amplify/ui-react/styles.css';
-import { Auth } from 'aws-amplify';
-import React,{ useEffect } from 'react';
-import { DataStore } from 'aws-amplify';
-import { Project, User } from '../models';
+import React from 'react';
 import { ProjectClass } from '../classes/ProjectClass';
-import { User2Class } from '../classes/User2Class';
 import { FileUploader } from '@aws-amplify/ui-react';
 
 export function CreateProjectFunc(props) {
@@ -54,6 +50,7 @@ export function CreateProjectFunc(props) {
         />
         )}
 
+        
         return {
             CreateProjectOverride,
             FileImageUpload

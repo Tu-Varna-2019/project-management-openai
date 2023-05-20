@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react'
-import { Auth } from 'aws-amplify';
 import { useLocation,useNavigate } from 'react-router-dom';
-import { API , DataStore , Storage } from 'aws-amplify';
+import { DataStore , Storage } from 'aws-amplify';
 import { Project } from '../models';
+import { User2Class } from './User2Class';
 
 
 export function ProjectClass(props) {
+
+    const {
+        authenticatedUser
+    } = User2Class();
+
     const [projectName,setProjectName] = useState("");
+    const [getProjectID,setGetProjectID] = useState("");
+    const [getProjectImageName,setGetProjectImageName] = useState("");
     const [projectNames,setProjectNames] = useState([]);
-    const [projects,setProjects] = useState("");
     const [selectedProject,setSelectedProject] = useState("");
 
     const [isConfirmButtonLoading,setIsConfirmButtonLoading] = useState(false);
@@ -16,6 +22,7 @@ export function ProjectClass(props) {
     const[errorMessageProjectName,setErrorMessageProjectName] = useState("Project name must not be empty !");
     // Object Image name
     const [imageProjectName,setImageProjectName] = useState("");
+    const [imageProjectURL,setImageProjectURL] = useState("");
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -36,8 +43,7 @@ export function ProjectClass(props) {
     const handleConfirmCreateProjectOnClick = async (event) => {
         event.preventDefault();
         setIsConfirmButtonLoading(!isConfirmButtonLoading);
-        if (window.confirm(`Are you sure you want to \
-           create project with the following name : ${projectName} ?`)) {
+        if (window.confirm(`Are you sure you want to create project with the following name : ${projectName} ?`)) {
             // Check if project with the following name already exists
             let does_project_name_exist = false;
             await DataStore.query(Project)
@@ -52,25 +58,58 @@ export function ProjectClass(props) {
                 console.error(error);
                 });
             if (!does_project_name_exist) {
-                const credentials = await Auth.currentCredentials();
-                let s3_object_url = "";
-                await Storage.get(
-                    imageProjectName,{
-                    level:"protected",
-                    identityId: credentials.identityId
-                }).then(data => {
-                    s3_object_url = data;
-                    console.log(`Image URL: ${s3_object_url}`);
-                });
                 await DataStore.save(
                     new Project({
                         "Name": projectName,
-                        "ImageProject": s3_object_url}));
+                        "ImageProject": imageProjectName }));
                 console.log("Project created!");
                 navigate('/');}
         }
         setIsConfirmButtonLoading(false);
     };
+    // Get project
+    useEffect(() => {
+        console.log(`Selected project: ${received_project_name}`);
+        const dts_query = DataStore.query(Project)
+        dts_query.then(data => {
+        setSelectedProject(data.filter(item => item.Name === received_project_name));
+        }).catch(error => {
+        console.error(error);
+        });
+    },[setSelectedProject,received_project_name]);
+    // Get project ID from selectedProject
+    useEffect(() => {
+        Object.keys(selectedProject)
+            .forEach(key => {
+                const value = JSON.stringify(selectedProject[key]);
+                const value_json_parse = JSON.parse(value);
+                setGetProjectID(value_json_parse.id);
+                setGetProjectImageName(value_json_parse.ImageProject);
+            });
+        },[selectedProject,setSelectedProject])
+    // Get all project names for combo box
+    useEffect(() => {
+        async function fetchUserData() {
+            await DataStore.query(Project)
+            .then(data => {
+            data.filter(item => { 
+                setProjectNames(prevItems => [...prevItems, item.Name]);
+                })}).catch(error => {
+            console.error(error);});
+        }
+        fetchUserData();
+    },[]);
+    // Get Image URL
+    useEffect(() => {
+        async function fetchUserData() {
+            await Storage.get(
+                getProjectImageName, {
+                level: "protected"
+                }).then(data => {
+                    setImageProjectURL(data);
+                })}
+            fetchUserData();
+    },[setImageProjectURL,getProjectImageName])
 
     const handleCancelCreateProjectOnClick = (event) => {
         event.preventDefault();
@@ -81,10 +120,14 @@ export function ProjectClass(props) {
     };
 
     const handleSafeProjectImageChange = async (event) => {
-        await Storage.put(event,{level: 'protected'});
-        console.log(`Saving file: ${event} `);
+        await Storage.put(
+            event, 
+            'Protected Content', {
+            level: 'protected'
+        });
+        console.log(`Saving file: ${event}`);
         setImageProjectName(event);
-        }
+    }
 
     const handleSelectedProjectOnClick = (event) => {
         event.preventDefault();
@@ -109,8 +152,6 @@ export function ProjectClass(props) {
         handleProjectName,
         projectName,
         isProjectEmpty,
-        projects,
-        setProjects,
         setProjectNames,
         projectNames,
         isConfirmButtonLoading,
@@ -124,6 +165,10 @@ export function ProjectClass(props) {
         errorMessageProjectName,
         selectedProject,
         setSelectedProject,
-        received_project_name
+        received_project_name,
+        setImageProjectName,
+        imageProjectName,
+        imageProjectURL,
+        getProjectID
     }
 }

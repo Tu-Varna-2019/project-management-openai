@@ -1,19 +1,38 @@
 import { Button, Heading , useTheme , Image, Text, View } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
-import { useAuthenticator } from '@aws-amplify/ui-react';
 import { TicketClass } from '../classes/TicketClass';
 import { ProjectClass } from '../classes/ProjectClass';
-import { DataStore } from 'aws-amplify';
+import { DataStore , Storage } from 'aws-amplify';
 import { Project, Ticket } from '../models';
 import { useLocation } from 'react-router-dom';
+import { User2Class } from '../classes/User2Class';
+import { ToolbarSelectClass } from '../classes/ToolbarSelectbarClass';
 
 export function BoardFunc (props) {
 
     const {
-            handleSelectedTicket,
-            setSwitchCreateTicketPage,
-            tickets,
-            setTickets,
+        userProfileURL,
+        alertVariant,
+        alertVisibility,
+        alertDescription,
+    } = User2Class();
+
+    const {
+        handleProjectsSelectChange,
+        handleYourWorkSelectChange,
+        handleTeamsSelectChange,
+
+    } = ToolbarSelectClass();
+
+    const {
+        handleSelectedTicket,
+        setSwitchCreateTicketPage,
+        tickets,
+        setTickets,
+        ticketToDo,
+        ticketInProgress,
+        ticketInReview,
+        ticketDone
     } = TicketClass();
 
     const {
@@ -36,39 +55,12 @@ export function BoardFunc (props) {
         selectedProject,
         setSelectedProject,
         received_project_name,
-        projectID,
-        setProjectID
+        getProjectID,
+        imageProjectName,
+        setImageProjectName,
+        imageProjectURL,
     } = ProjectClass();
 
-     // Get project
-    useEffect(() => {
-        console.log(`Selected project: ${received_project_name}`);
-        const dts_query = DataStore.query(Project)
-        dts_query.then(data => {
-        setSelectedProject(data.filter(item => item.Name === received_project_name));
-        }).catch(error => {
-        console.error(error);
-        });
-    },[setSelectedProject,received_project_name]);
-    console.log(selectedProject);
-
-    // Get tickets by project
-    useEffect(() => {
-        let project_id = "";
-        Object.keys(selectedProject).forEach(key => {
-            const value = JSON.stringify(selectedProject[key]);
-            const value_json_parse = JSON.parse(value);
-            project_id = value_json_parse.id;
-          });
-        const dts_query = DataStore.query(Ticket)
-        dts_query.then(data => {
-        setTickets(data.filter(item => item.projectID === project_id));
-        }).catch(error => {
-        console.error(error);
-        });
-    },[selectedProject]);
-    console.log(tickets);
-    
     const customOverrideItems = ({ item, index }) => ({
         
         overrides: { Button:{ children: item.Title , style:({color: "white" ,fontSize:"18px" }),
@@ -77,10 +69,21 @@ export function BoardFunc (props) {
         onClick: () => (console.log(item.Title))
     });
 
-    const BoardTicketCollectionOverride={
-        NotetitlebuttonCollection:{
-            items: tickets,
-            isSearchable: false}
+    const BoardTicketToDoOverride={
+        TicketToDoCollection:{
+            items: ticketToDo}
+    }
+    const BoardTicketInProgressOverride={
+        TicketInProgressCollection:{
+            items:ticketInProgress }
+    }
+    const BoardTicketInReviewOverride={
+        TicketInReviewCollection:{
+            items: ticketInReview}
+    }
+    const BoardTicketDoneOverride={
+        TicketDoneCollection:{
+            items:ticketDone }
     }
 
     const BoardComponentOverride = {
@@ -88,11 +91,48 @@ export function BoardFunc (props) {
             onClick: (event) => (console.log("yes"))},
         active_sprints_button:{
             onClick: (event) => (console.log("yes2"))},
+        project_name_text:{
+            children: received_project_name
+        },
+        project_image_name:{
+            src: imageProjectURL,
+        },
+        profile_icon_image:{
+            src: userProfileURL
+        },
+        success_alert : { 
+            style:{"display": alertVisibility },
+            children: alertDescription,
+            variant: alertVariant,
+        },
+        projects_select_field:{
+            style:{color:"transparent"},
+            onChange : (event) => (handleProjectsSelectChange(event)),
+            options:["switch project",""],
+        },
+        your_work_select_field:{
+            style:{color:"transparent"},
+            onChange : (event) => (handleYourWorkSelectChange(event)),
+            options:["assigned to me","boards"],
+        },
+        issue_templates_select_field:{
+            style:{color:"transparent"},
+            //onChange : (event) => (handleSelectedProjectOnChange(event)),
+            options:["all templates","project templates"],
+        },
+        teams_select_field:{
+            style:{color:"transparent"},
+            onChange : (event) => (handleTeamsSelectChange(event)),
+            options:["all users"],
+        },
         }
         
     return {
         BoardComponentOverride,
-        BoardTicketCollectionOverride,
+        BoardTicketToDoOverride,
+        BoardTicketInProgressOverride,
+        BoardTicketInReviewOverride,
+        BoardTicketDoneOverride,
         customOverrideItems
     }
 }
