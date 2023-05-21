@@ -69,28 +69,6 @@ export default function Ticketshort(props) {
         ></Image>
         <Text
           fontFamily="Inter"
-          fontSize="16px"
-          fontWeight="600"
-          color="rgba(0,0,0,1)"
-          lineHeight="16px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="262px"
-          height="29px"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="9px"
-          left="7px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children={ticket?.Title}
-          {...getOverrideProps(overrides, "title_ticket_text")}
-        ></Text>
-        <Text
-          fontFamily="Inter"
           fontSize="14px"
           fontWeight="700"
           color="rgba(0,0,0,1)"
@@ -122,18 +100,6 @@ export default function Ticketshort(props) {
           children="1"
           {...getOverrideProps(overrides, "story_points_badge")}
         ></Badge>
-        <Badge
-          width="262px"
-          height="unset"
-          label="Epic Link"
-          position="absolute"
-          top="43px"
-          left="calc(50% - 131px - 0.54px)"
-          size="default"
-          variation="default"
-          children={ticket?.EpicLink}
-          {...getOverrideProps(overrides, "epic_link_badge")}
-        ></Badge>
         <Image
           width="24px"
           height="24px"
@@ -162,6 +128,39 @@ export default function Ticketshort(props) {
           objectFit="cover"
           {...getOverrideProps(overrides, "priority_image")}
         ></Image>
+        <Text
+          fontFamily="Inter"
+          fontSize="16px"
+          fontWeight="600"
+          color="rgba(0,0,0,1)"
+          lineHeight="16px"
+          textAlign="left"
+          display="block"
+          direction="column"
+          justifyContent="unset"
+          width="unset"
+          height="unset"
+          gap="unset"
+          alignItems="unset"
+          position="absolute"
+          top="10px"
+          left="21px"
+          padding="0px 0px 0px 0px"
+          whiteSpace="pre-wrap"
+          children="Title"
+          {...getOverrideProps(overrides, "title_ticket_text")}
+        ></Text>
+        <Badge
+          width="262px"
+          height="unset"
+          position="absolute"
+          top="43px"
+          left="calc(50% - 131px - 0.54px)"
+          size="default"
+          variation="default"
+          children="Epic Link"
+          {...getOverrideProps(overrides, "epic_link_badge")}
+        ></Badge>
       </View>
     </View>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useLocation } from 'react-router-dom';
 import { DataStore } from 'aws-amplify';
 import { Ticket } from '../models';
 import { ProjectClass } from './ProjectClass';
@@ -32,9 +32,9 @@ export function TicketClass(props) {
     const [ticketInReview,setTicketInReview] = useState("");
     const [ticketDone,setTicketDone] = useState("");
     // Ticket style props
-    const ticketInProgressStyleTop = ticketToDo.length === 0 ? -100 : -35;
-    const ticketInReviewStyleTop = ticketToDo.length === 0 ? -195 : -70;
-    const ticketDoneStyleTop = ticketToDo.length === 0 ? -295 : -105;
+    const ticketInProgressStyleTop = ticketInProgress.length === 0 ? -100 : -35;
+    const ticketInReviewStyleTop = ticketInReview.length === 0 ? -195 : -70;
+    const ticketDoneStyleTop = ticketDone.length === 0 ? -295 : -105;
 
     const [title,setTitle] = useState(iniTicketValue.Title);
     const [description,setDescription] = useState(iniTicketValue.Description);
@@ -55,6 +55,10 @@ export function TicketClass(props) {
 
     const [switchCreateTicketPage,setSwitchCreateTicketPage] = useState(false);
     const [switchEditTicketPage,setSwitchEditTicketPage] = useState(false);
+
+    const location = useLocation();
+    const editTicket = location.state ? location.state.selectedTicket : "";
+    console.log(editTicket);
 
     const isTitleEmpty =  /^\s*$/.test(title);
     const navigate = useNavigate();
@@ -110,7 +114,13 @@ export function TicketClass(props) {
     const handleCreateTicketClick = (event) => {
         event.preventDefault();
         setSwitchCreateTicketPage(!switchCreateTicketPage);
-    }
+    };
+
+    const handleCancelEditTicketClick = (event) => {
+        event.preventDefault();
+        navigate("/board",{state:{edited:false}})
+
+    };
     const handleAsigneeChange = (event) => {
         event.preventDefault();
         setAsignee(event.target.value);
@@ -173,7 +183,9 @@ export function TicketClass(props) {
         ticketDone,
         ticketInProgressStyleTop,
         ticketInReviewStyleTop,
-        ticketDoneStyleTop
+        ticketDoneStyleTop,
+        setSwitchEditTicketPage,
+        handleCancelEditTicketClick
     }
 
 }

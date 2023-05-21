@@ -48,7 +48,7 @@ export function SelectProjectFunc(props) {
             }catch(error) {console.log(`Ouch ${error}`)}
     }
     fetchUserData();
-    },[authenticatedUser!==""]);
+    },[authenticatedUser.attributes,setCurrentUser]);
 
     const SelectProjectOverride={
         select_project_select_field:{

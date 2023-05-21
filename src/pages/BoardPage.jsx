@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom';
 import '@aws-amplify/ui-react/styles.css';
 import { Board, CreateTicket, EditTicket, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection } from '../ui-components';
 import '@aws-amplify/ui-react/styles.css';
@@ -14,7 +15,8 @@ export default function BoardPage(props) {
     handleCreateTicketClick,
     ticketInProgressStyleTop,
     ticketInReviewStyleTop,
-    ticketDoneStyleTop
+    ticketDoneStyleTop,
+    handleCancelEditTicketClick,
   } = TicketClass();
   
   const {
@@ -50,6 +52,9 @@ export default function BoardPage(props) {
     description_text_field,
     asignee_select_field,
     } = CreateTicketComponentOverride
+
+    const location = useLocation();
+    const editTicketBoolean = location.state ? location.state.edited : false;
 
     return(
       <>
@@ -96,7 +101,12 @@ export default function BoardPage(props) {
         </div>
         
         <div style={{ position: 'relative',display: 'block', bottom: 1080, right: 0 }}>
-          {switchEditTicketPage &&<EditTicket/>}
+          {editTicketBoolean &&
+           <EditTicket overrides={{
+            cancel_button:{
+              onClick: (event) => (handleCancelEditTicketClick(event))
+            }
+           }}/>}
           {switchCreateTicketPage &&
             <CreateTicket overrides={{
               cancel_button:{

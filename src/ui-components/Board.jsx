@@ -942,7 +942,7 @@ export default function Board(props) {
         </View>
         <View
           padding="0px 0px 0px 0px"
-          width="100px"
+          width="153.5px"
           height="59px"
           display="block"
           gap="unset"
@@ -953,8 +953,30 @@ export default function Board(props) {
           left="605px"
           {...getOverrideProps(overrides, "Your work group178532301")}
         >
+          <Text
+            fontFamily="Inter"
+            fontSize="17px"
+            fontWeight="700"
+            color="rgba(255,255,255,1)"
+            lineHeight="25.5px"
+            textAlign="left"
+            display="block"
+            direction="column"
+            justifyContent="unset"
+            width="136.5px"
+            height="38px"
+            gap="unset"
+            alignItems="unset"
+            position="absolute"
+            top="11px"
+            left="17px"
+            padding="0px 0px 0px 0px"
+            whiteSpace="pre-wrap"
+            children="Teams"
+            {...getOverrideProps(overrides, "Teams")}
+          ></Text>
           <SelectField
-            width="94.01px"
+            width="130.68px"
             height="59px"
             label="Your work"
             position="absolute"
@@ -967,28 +989,6 @@ export default function Board(props) {
             variation="quiet"
             {...getOverrideProps(overrides, "teams_select_field")}
           ></SelectField>
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="700"
-            color="rgba(255,255,255,1)"
-            lineHeight="25.5px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="98.2px"
-            height="38px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="10px"
-            left="1.8px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Teams"
-            {...getOverrideProps(overrides, "Teams")}
-          ></Text>
         </View>
       </View>
       <Alert

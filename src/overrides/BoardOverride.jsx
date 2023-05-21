@@ -1,12 +1,10 @@
-import { Button, Heading , useTheme , Image, Text, View } from '@aws-amplify/ui-react';
-import { useEffect } from 'react';
 import { TicketClass } from '../classes/TicketClass';
 import { ProjectClass } from '../classes/ProjectClass';
-import { DataStore , Storage } from 'aws-amplify';
-import { Project, Ticket } from '../models';
-import { useLocation } from 'react-router-dom';
 import { User2Class } from '../classes/User2Class';
 import { ToolbarSelectClass } from '../classes/ToolbarSelectbarClass';
+import BoardPage from '../pages/BoardPage';
+import { useNavigate } from 'react-router-dom';
+
 
 export function BoardFunc (props) {
 
@@ -15,59 +13,49 @@ export function BoardFunc (props) {
         alertVariant,
         alertVisibility,
         alertDescription,
+        userSubImageURL
     } = User2Class();
 
     const {
         handleProjectsSelectChange,
         handleYourWorkSelectChange,
         handleTeamsSelectChange,
-
     } = ToolbarSelectClass();
 
     const {
-        handleSelectedTicket,
-        setSwitchCreateTicketPage,
-        tickets,
-        setTickets,
         ticketToDo,
         ticketInProgress,
         ticketInReview,
-        ticketDone
+        ticketDone,
     } = TicketClass();
 
     const {
-        handleProjectName,
-        projectName,
-        isProjectEmpty,
-        projects,
-        setProjects,
-        setProjectNames,
-        projectNames,
-        isConfirmButtonLoading,
-        isCancelButtonLoading,
-        handleSelectedProjectOnChange,
-        handleConfirmCreateProjectOnClick,
-        handleCancelCreateProjectOnClick,
-        handleSafeProjectImageChange,
-        handleSelectedProjectOnClick,
-        handleSelectedCreateOneProjectOnClick,
-        errorMessageProjectName,
-        selectedProject,
-        setSelectedProject,
         received_project_name,
-        getProjectID,
-        imageProjectName,
-        setImageProjectName,
         imageProjectURL,
     } = ProjectClass();
 
-    const customOverrideItems = ({ item, index }) => ({
-        
-        overrides: { Button:{ children: item.Title , style:({color: "white" ,fontSize:"18px" }),
-        backgroundColor: item.Priority === "High" ? "rgba(203, 53, 9, 1)" : item.Priority === "Medium" ? "rgba(220, 137, 13, 1)" : 
-        item.Priority === "Low" ? "rgba(88, 188, 9, 1)" :"white"}},
-        onClick: () => (console.log(item.Title))
-    });
+    const navigate = useNavigate();
+    const customOverrideItems = ({ item, index })  => {
+        let asignee_image_url = "";
+        userSubImageURL.map((data, index) => {
+            if (data.sub === item.Asignee)
+            asignee_image_url = data.url;
+        });
+
+        return {
+            overrides: {
+                title_ticket_text:{ children: item.Title },
+                epic_link_badge:{ children: item.EpicLink },
+                story_points_badge:{children: item.StoryPoint },
+                ticket_id_text: {children: "KAI-"+item.TicketID},
+                issue_type_image: {src: require(`../images/${item.IssueType}.jpeg`)},
+                priority_image: {src: require(`../images/${item.Priority}.jpeg`)},
+                asignee_icon_image: {src: asignee_image_url },
+            },
+            onClick: () => (
+                navigate("/board",{state:{edited:true,selectedTicket:item}})
+            )
+        };}
 
     const BoardTicketToDoOverride={
         TicketToDoCollection:{

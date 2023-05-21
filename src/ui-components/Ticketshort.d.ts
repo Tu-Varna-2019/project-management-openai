@@ -14,12 +14,12 @@ export declare type TicketshortOverridesProps = {
     "Frame 4"?: PrimitiveOverrideProps<ViewProps>;
     Card?: PrimitiveOverrideProps<CardProps>;
     asignee_icon_image?: PrimitiveOverrideProps<ImageProps>;
-    title_ticket_text?: PrimitiveOverrideProps<TextProps>;
     ticket_id_text?: PrimitiveOverrideProps<TextProps>;
     story_points_badge?: PrimitiveOverrideProps<BadgeProps>;
-    epic_link_badge?: PrimitiveOverrideProps<BadgeProps>;
     issue_type_image?: PrimitiveOverrideProps<ImageProps>;
     priority_image?: PrimitiveOverrideProps<ImageProps>;
+    title_ticket_text?: PrimitiveOverrideProps<TextProps>;
+    epic_link_badge?: PrimitiveOverrideProps<BadgeProps>;
 } & EscapeHatchProps;
 export declare type TicketshortProps = React.PropsWithChildren<Partial<ViewProps> & {
     ticket?: Ticket;

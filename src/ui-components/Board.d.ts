@@ -67,8 +67,8 @@ export declare type BoardOverridesProps = {
     Vector_2?: PrimitiveOverrideProps<IconProps>;
     Vector_3?: PrimitiveOverrideProps<IconProps>;
     "Your work group178532301"?: PrimitiveOverrideProps<ViewProps>;
-    teams_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     Teams?: PrimitiveOverrideProps<TextProps>;
+    teams_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     success_alert?: PrimitiveOverrideProps<AlertProps>;
 } & EscapeHatchProps;
 export declare type BoardProps = React.PropsWithChildren<Partial<ViewProps> & {

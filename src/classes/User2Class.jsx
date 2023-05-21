@@ -9,6 +9,8 @@ export function User2Class() {
     const [currentUser,setCurrentUser] = useState("");
     const [authenticatedUser,setAuthenticatedUser] = useState("");
     const [userProfileURL,setUserProfileURL] = useState("");
+    // User with image url dicionary
+    const [userSubImageURL,setUserSubImageURL] = useState([{}]);
     // Alert
     const [alertVariant,setAlertVariant] = useState("success");
     const [alertVisibility,setAlertVisibility] = useState("none");
@@ -40,6 +42,25 @@ export function User2Class() {
             fetchUserData();
     },[setCurrentUser,currentUser.ImageProfile])
 
+    // Get user sub & image URL to [{}] object
+    useEffect(() => {
+        async function fetchUserData() {
+            await DataStore.query(User)
+            .then(data => {
+                    data.filter(item => { 
+                     Storage.get(
+                        item.ImageProfile,{
+                        level:"public"
+                    }).then(data_url => {
+                        setUserSubImageURL([{
+                            sub: item.sub,
+                            url: data_url }]);})})
+                    }).catch(error => {console.error(error);});
+        }
+            fetchUserData();
+    },[])
+
+
     return {
         currentUser,
         setCurrentUser,
@@ -49,5 +70,6 @@ export function User2Class() {
         alertVisibility,
         alertDescription,
         userProfileURL,
+        userSubImageURL
     }
 }
