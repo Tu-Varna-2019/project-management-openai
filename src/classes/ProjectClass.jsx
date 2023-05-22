@@ -131,7 +131,11 @@ export function ProjectClass(props) {
 
     const handleSelectedProjectOnClick = (event) => {
         event.preventDefault();
-        navigate('/board',{ state: { project: selectedProject }});
+        if (selectedProject.length === 0) {
+            const default_project_name = Object.values(projectNames);
+            navigate('/board',{ state: { project: default_project_name[0] }});
+        }else
+            navigate('/board',{ state: { project: selectedProject }});
     };
 
     const handleSelectedProjectOnChange = (event) => {

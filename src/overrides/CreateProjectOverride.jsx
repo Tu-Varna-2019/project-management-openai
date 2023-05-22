@@ -43,7 +43,7 @@ export function CreateProjectFunc(props) {
             acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
             accessLevel="public"
             maxFileCount={1}
-            maxSize={300000}
+            //maxSize={300000}
             isResumable={true}
             showImages={true}
             onSuccess={(event) =>{handleSafeProjectImageChange(event.key);}}

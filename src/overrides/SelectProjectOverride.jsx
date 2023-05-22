@@ -19,7 +19,8 @@ export function SelectProjectFunc(props) {
         isConfirmButtonLoading,
         handleSelectedProjectOnClick,
         isCancelButtonLoading,
-        handleSelectedCreateOneProjectOnClick
+        handleSelectedCreateOneProjectOnClick,
+        selectedProject
     }= ProjectClass();
 
     // Create user if he doesn't exist in DataStore
@@ -45,7 +46,7 @@ export function SelectProjectFunc(props) {
                            "ImageProfile": "default_user_profile.png"
                        })).then(setCurrentUser);
                     console.log(`User created!`);}
-            }catch(error) {console.log(`Ouch ${error}`)}
+            }catch(error) {/*do nothing*/}
     }
     fetchUserData();
     },[authenticatedUser.attributes,setCurrentUser]);
@@ -53,7 +54,7 @@ export function SelectProjectFunc(props) {
     const SelectProjectOverride={
         select_project_select_field:{
             onChange : (event) => (handleSelectedProjectOnChange(event)),
-            options: projectNames
+            options: projectNames,
         },
         confirm_button:{
             onClick : (event) => (handleSelectedProjectOnClick(event)),

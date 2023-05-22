@@ -76,16 +76,19 @@ export default function CreateTicket(props) {
           width="508px"
           height="1016px"
           position="absolute"
+          padding="15px 15px 15px 15px"
           top="0px"
           left="calc(50% - 254px - 0px)"
-          variation="outline"
+          border="1px SOLID rgba(0,0,0,1)"
+          variation="elevated"
           {...getOverrideProps(overrides, "Card")}
         ></Card>
         <Button
-          width="153px"
-          height="74px"
+          width="150px"
+          height="64px"
           position="absolute"
-          top="918px"
+          border="1px SOLID rgba(0,0,0,1)"
+          top="925px"
           left="35px"
           backgroundColor={createUnderScorebuttonBackgroundColor}
           size="default"
@@ -101,11 +104,12 @@ export default function CreateTicket(props) {
           {...getOverrideProps(overrides, "create_button")}
         ></Button>
         <Button
-          width="159px"
-          height="74px"
+          width="156px"
+          height="64px"
           position="absolute"
-          top="918px"
-          right="33px"
+          border="1px SOLID rgba(0,0,0,1)"
+          top="925px"
+          right="31px"
           backgroundColor={cancelUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
@@ -174,7 +178,7 @@ export default function CreateTicket(props) {
           {...getOverrideProps(overrides, "description_text_field")}
         ></TextAreaField>
         <SelectField
-          width="440px"
+          width="212px"
           height="unset"
           label="Project"
           position="absolute"
@@ -185,7 +189,21 @@ export default function CreateTicket(props) {
           isDisabled={false}
           labelHidden={false}
           variation="default"
-          {...getOverrideProps(overrides, "project_select_field")}
+          {...getOverrideProps(overrides, "project_select_field178752215")}
+        ></SelectField>
+        <SelectField
+          width="212px"
+          height="unset"
+          label="Epic link"
+          position="absolute"
+          top="754px"
+          left="262px"
+          placeholder=""
+          size="default"
+          isDisabled={false}
+          labelHidden={false}
+          variation="default"
+          {...getOverrideProps(overrides, "project_select_field179402173")}
         ></SelectField>
         <SelectField
           width="212px"
@@ -287,13 +305,13 @@ export default function CreateTicket(props) {
         height="unset"
         label="StoryPoint"
         position="absolute"
-        top="772px"
+        top="161px"
         left="974px"
         placeholder=""
         size="default"
         isDisabled={false}
         labelHidden={false}
-        variation="quiet"
+        variation="default"
         {...getOverrideProps(overrides, "story_point_text_field")}
       ></TextField>
     </View>

@@ -19,7 +19,8 @@ export declare type CreateTicketOverridesProps = {
     watch_image?: PrimitiveOverrideProps<ImageProps>;
     watch_badge?: PrimitiveOverrideProps<BadgeProps>;
     description_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;
-    project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    project_select_field178752215?: PrimitiveOverrideProps<SelectFieldProps>;
+    project_select_field179402173?: PrimitiveOverrideProps<SelectFieldProps>;
     issue_type_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     asignee_select_field?: PrimitiveOverrideProps<SelectFieldProps>;

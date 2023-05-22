@@ -6,12 +6,11 @@ import '@aws-amplify/ui-react/styles.css';
 import { TicketClass } from '../classes/TicketClass';
 import { BoardFunc } from '../overrides/BoardOverride';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
+import { EditTicketFunc } from '../overrides/EditTicketOverride';
 
 export default function BoardPage(props) {
 
   const {
-    switchCreateTicketPage,
-    switchEditTicketPage,
     handleCreateTicketClick,
     ticketInProgressStyleTop,
     ticketInReviewStyleTop,
@@ -29,51 +28,22 @@ export default function BoardPage(props) {
   }= BoardFunc();
 
   const {
-    CreateTicketComponentOverride
-  }= CreateTicketFunc();
+    EditTicketOverride
+  } = EditTicketFunc();
 
-  const { 
-    roadmap_button,
-    active_sprints_button,
-    project_name_text,
-    project_image_name,
-    profile_icon_image,
-    success_alert,
-    projects_select_field,
-    your_work_select_field,
-    issue_templates_select_field,
-    teams_select_field,
-  } = BoardComponentOverride;
-  const { 
-    project_select_field,
-    issue_type_select_field,
-    priority_select_field,
-    title_text_field,
-    description_text_field,
-    asignee_select_field,
-    } = CreateTicketComponentOverride
+  const {
+    CreateTicketOverride
+  }= CreateTicketFunc();
 
     const location = useLocation();
     const editTicketBoolean = location.state ? location.state.edited : false;
+    const createTicketBoolean = location.state ? location.state.create : false;
 
     return(
       <>
         <div className='amplify-container'
           style={{ position:'relative', display: 'inline-block',overflow: "hidden"}}>
-          <Board overrides={{
-            roadmap_button ,
-            active_sprints_button,
-            project_name_text,
-            project_image_name,
-            profile_icon_image,
-            success_alert,
-            projects_select_field,
-            your_work_select_field,
-            issue_templates_select_field,
-            teams_select_field,
-            create_ticket_button:{
-              onClick: (event) => (handleCreateTicketClick(event))},
-          }}/>
+          <Board overrides={BoardComponentOverride}/>
         </div>
 
         <div style={{ position: 'relative' , width:"120px", display: 'block',top: "0px",left: "460px",objectFit: "cover"}}>
@@ -100,23 +70,10 @@ export default function BoardPage(props) {
               overrideItems={customOverrideItems}/>
         </div>
         
-        <div style={{ position: 'relative',display: 'block', bottom: 1080, right: 0 }}>
+        <div style={{ position: 'relative',display: 'block', bottom: 1210, right: 0 }}>
           {editTicketBoolean &&
-           <EditTicket overrides={{
-            cancel_button:{
-              onClick: (event) => (handleCancelEditTicketClick(event))
-            }
-           }}/>}
-          {switchCreateTicketPage &&
-            <CreateTicket overrides={{
-              cancel_button:{
-                onClick: (event) => (handleCreateTicketClick(event))},
-                project_select_field,
-                issue_type_select_field,
-                priority_select_field,
-                title_text_field,
-                description_text_field,
-                asignee_select_field,
-          }}/>}
+           <EditTicket overrides={EditTicketOverride}/>}
+          {createTicketBoolean &&
+            <CreateTicket overrides={CreateTicketOverride}/>}
       </div>
       </>)}

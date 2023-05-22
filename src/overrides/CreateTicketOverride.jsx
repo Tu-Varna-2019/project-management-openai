@@ -11,7 +11,7 @@ export function CreateTicketFunc (props) {
 
     const{
         handleCreateTicketClick,
-        setSwitchCreateTicketPage,
+        handleCloseCreateTicketClick,
         handlePriority,
         priority,
         handleIssueType,
@@ -25,8 +25,7 @@ export function CreateTicketFunc (props) {
         setAsignee,
         asignee,
         handleAsigneeChange,
-        handleOnClickConfirm,
-        isLoading
+        isLoading,
     } = TicketClass();
 
     const {
@@ -47,7 +46,7 @@ export function CreateTicketFunc (props) {
         console.log(DataStore.query(Project));
         },[]);
 
-    const CreateTicketComponentOverride = {
+    const CreateTicketOverride = {
         project_select_field:{
             onChange : (event) => (handlePriority(event)),
             value: projectName,
@@ -80,14 +79,16 @@ export function CreateTicketFunc (props) {
             options: usernames
             },
         create_button:{
-            onClick : (event) => (handleOnClickConfirm(asignee)),
+            onClick : (event) => (handleCreateTicketClick(asignee)),
             isDisabled: !isTitleEmpty,
             isLoading: isLoading
-            }
+            },
+            cancel_button:{
+                onClick: (event) => (handleCloseCreateTicketClick(event))},
     }
 
 
     return {
-        CreateTicketComponentOverride
+        CreateTicketOverride
     }
 }

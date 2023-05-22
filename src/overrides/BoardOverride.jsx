@@ -27,6 +27,7 @@ export function BoardFunc (props) {
         ticketInProgress,
         ticketInReview,
         ticketDone,
+        handleGoToCreateTicketClick,
     } = TicketClass();
 
     const {
@@ -53,7 +54,7 @@ export function BoardFunc (props) {
                 asignee_icon_image: {src: asignee_image_url },
             },
             onClick: () => (
-                navigate("/board",{state:{edited:true,selectedTicket:item}})
+                navigate("/board",{state:{edited:true,selectedTicket:item,project: received_project_name}})
             )
         };}
 
@@ -113,6 +114,8 @@ export function BoardFunc (props) {
             onChange : (event) => (handleTeamsSelectChange(event)),
             options:["all users"],
         },
+        create_ticket_button:{
+            onClick: (event) => (handleGoToCreateTicketClick(event))},
         }
         
     return {
