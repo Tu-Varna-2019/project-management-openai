@@ -11,7 +11,7 @@ import { BadgeProps, CardProps, ImageProps, TextProps, ViewProps } from "@aws-am
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type TicketshortOverridesProps = {
     Ticketshort?: PrimitiveOverrideProps<ViewProps>;
-    "Frame 4"?: PrimitiveOverrideProps<ViewProps>;
+    Frame?: PrimitiveOverrideProps<ViewProps>;
     Card?: PrimitiveOverrideProps<CardProps>;
     asignee_icon_image?: PrimitiveOverrideProps<ImageProps>;
     ticket_id_text?: PrimitiveOverrideProps<TextProps>;

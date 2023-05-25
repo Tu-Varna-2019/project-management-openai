@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Auth } from 'aws-amplify';
 import { DataStore , Storage } from 'aws-amplify';
 import { User } from '../models';
+import { useLocation } from 'react-router-dom';
 
 
 export function User2Class() {
@@ -15,6 +16,7 @@ export function User2Class() {
     const [alertVariant,setAlertVariant] = useState("success");
     const [alertVisibility,setAlertVisibility] = useState("none");
     const [alertDescription,setAlertDescription] = useState("");
+    const location = useLocation();
 
     // Get current authenticated user
     useEffect(() => {
@@ -40,7 +42,18 @@ export function User2Class() {
             })
         }
             fetchUserData();
-    },[setCurrentUser,currentUser.ImageProfile])
+    },[setCurrentUser,currentUser.ImageProfile]);
+
+    // Send success alert if ticket is created/deleted
+    useEffect(() => {
+        try {
+        if (location.state.alert_variant != undefined) {
+        setAlertVariant(location.state.alert_variant);
+        setAlertVisibility(location.state?.alert_show);
+        setAlertDescription(location.state?.alert_description);
+        }
+        } catch(error) {/*do nothing */}
+    },[location.state]);
 
     // Get user sub & image URL to [{}] object
     useEffect(() => {

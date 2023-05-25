@@ -58,6 +58,14 @@
           ],
           "category": "function",
           "resourceName": "ShareNoteLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -99,6 +107,12 @@
   },
   "function": {
     "ShareNoteLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "notifyticketupdatelambda": {
       "build": true,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -182,6 +196,30 @@
         {
           "category": "function",
           "resourceName": "ShareNoteLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifyticketupdatelambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifyticketupdatelambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifyticketupdatelambda_senderEmail": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
         }
       ]
     },

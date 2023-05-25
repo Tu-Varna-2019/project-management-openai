@@ -81,7 +81,7 @@ export default function EditTicket(props) {
         ></Card>
         <View
           padding="0px 0px 0px 0px"
-          width="390.28px"
+          width="395px"
           height="291px"
           display="block"
           gap="unset"
@@ -230,20 +230,6 @@ export default function EditTicket(props) {
             variation="quiet"
             {...getOverrideProps(overrides, "priority_select_field")}
           ></SelectField>
-          <SelectField
-            width="97.28px"
-            height="22.81px"
-            gap="60px"
-            position="absolute"
-            top="188px"
-            left="293px"
-            placeholder=""
-            size="small"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "status_select_field")}
-          ></SelectField>
           <Image
             width="19.62px"
             height="16.59px"
@@ -287,21 +273,21 @@ export default function EditTicket(props) {
             children={ticket?.TicketStatus}
             {...getOverrideProps(overrides, "status_badge")}
           ></Badge>
+          <SelectField
+            width="102px"
+            height="61px"
+            gap="60px"
+            position="absolute"
+            top="165px"
+            left="293px"
+            placeholder=""
+            size="small"
+            isDisabled={false}
+            labelHidden={true}
+            variation="quiet"
+            {...getOverrideProps(overrides, "status_select_field")}
+          ></SelectField>
         </View>
-        <SelectField
-          width="216px"
-          height="23px"
-          gap="60px"
-          position="absolute"
-          top="172px"
-          left="418px"
-          placeholder=""
-          size="small"
-          isDisabled={false}
-          labelHidden={true}
-          variation="quiet"
-          {...getOverrideProps(overrides, "epic_link_select_field")}
-        ></SelectField>
         <Text
           fontFamily="Inter"
           fontSize="16px"
@@ -405,7 +391,7 @@ export default function EditTicket(props) {
         ></Badge>
         <View
           padding="0px 0px 0px 0px"
-          width="413.69px"
+          width="331.69px"
           height="221px"
           display="block"
           gap="unset"
@@ -520,7 +506,7 @@ export default function EditTicket(props) {
             alignItems="unset"
             position="absolute"
             top="63px"
-            left="295px"
+            left="213px"
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
             children={ticket?.CreatedDate}
@@ -542,7 +528,7 @@ export default function EditTicket(props) {
             alignItems="unset"
             position="absolute"
             top="123px"
-            left="295px"
+            left="213px"
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
             children={ticket?.UpdatedDate}
@@ -564,7 +550,7 @@ export default function EditTicket(props) {
             alignItems="unset"
             position="absolute"
             top="184px"
-            left="295px"
+            left="213px"
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
             children={ticket?.ResolvedDate}
@@ -797,6 +783,20 @@ export default function EditTicket(props) {
             {...getOverrideProps(overrides, "reporter_icon_image")}
           ></Image>
         </View>
+        <SelectField
+          width="216px"
+          height="69px"
+          gap="60px"
+          position="absolute"
+          top="143px"
+          left="418px"
+          placeholder=""
+          size="small"
+          isDisabled={false}
+          labelHidden={true}
+          variation="quiet"
+          {...getOverrideProps(overrides, "epic_link_select_field")}
+        ></SelectField>
       </View>
       <Divider
         height="906px"
@@ -808,11 +808,11 @@ export default function EditTicket(props) {
         {...getOverrideProps(overrides, "Divider179382085")}
       ></Divider>
       <SelectField
-        width="216px"
+        width="204px"
         height="unset"
         position="absolute"
         top="137px"
-        left="783px"
+        left="795px"
         placeholder=""
         size="default"
         isDisabled={false}
@@ -865,17 +865,43 @@ export default function EditTicket(props) {
         {...getOverrideProps(overrides, "Divider179402165")}
       ></Divider>
       <StepperField
-        width="142px"
+        width="183px"
         height="41px"
         position="absolute"
-        top="671px"
-        left="1326px"
+        top="663px"
+        left="1287px"
         size="default"
         isDisabled={false}
         labelHidden={true}
         variation="quiet"
         {...getOverrideProps(overrides, "story_point_stepper_field")}
       ></StepperField>
+      <SelectField
+        width="133px"
+        height="42px"
+        position="absolute"
+        top="167px"
+        left="1343px"
+        placeholder=""
+        size="default"
+        isDisabled={false}
+        labelHidden={true}
+        variation="quiet"
+        {...getOverrideProps(overrides, "asignee_select_field")}
+      ></SelectField>
+      <SelectField
+        width="133px"
+        height="42px"
+        position="absolute"
+        top="321px"
+        left="1348px"
+        placeholder=""
+        size="default"
+        isDisabled={false}
+        labelHidden={true}
+        variation="quiet"
+        {...getOverrideProps(overrides, "reporter_select_field")}
+      ></SelectField>
     </View>
   );
 }

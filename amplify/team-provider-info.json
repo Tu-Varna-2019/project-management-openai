@@ -50,6 +50,11 @@
           "senderEmail": "M.Notes@hotmail.com",
           "sendNoteThresholdTableName": "ShareNoteThrottle",
           "sendNoteAttributeDateName": "dateTimeThrottle"
+        },
+        "notifyticketupdatelambda": {
+          "senderEmail": "M.Notes@hotmail.com",
+          "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
+          "s3Key": "amplify-builds/notifyticketupdatelambda-68476f376c5a456a6672-build.zip"
         }
       },
       "storage": {

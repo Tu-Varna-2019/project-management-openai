@@ -46,12 +46,18 @@ export function EditTicketFunc (props) {
         handleStoryPoints,
         handleAddUserToWatch,
         handleAssignToMeClick,
+        handleEpicLinkChange,
         isseTypeOptions,
         priorityOptions,
         statusOptions,
         moreOptions,
         watchedCount,
         watchedAddMeVariant,
+        epicLinkOptions,
+        isLoading,
+        peopleAssign,
+        handleAsigneeChange,
+        handleReporterChange
     } = TicketClass();
 
     const {
@@ -119,6 +125,7 @@ export function EditTicketFunc (props) {
         },
         create_button:{
             onClick: (event) => (handleSaveEditTicketClick(event)),
+            isLoading: isLoading
         },
         status_badge:{
             children: ticketStatus,
@@ -132,10 +139,11 @@ export function EditTicketFunc (props) {
         epic_link_badge:{
             children: epicLink,
         },
-        // # TODO : create a query with Epic Links
-        // epic_link_select_field:{
-
-        // },
+        epic_link_select_field:{
+            onChange : (event) => (handleEpicLinkChange(event)),
+            style:{color:"transparent"},
+            options: epicLinkOptions
+        },
         story_point_stepper_field:{
             onStepChange : (newValue) => (handleStoryPoints(newValue)),
             min:1,
@@ -147,10 +155,10 @@ export function EditTicketFunc (props) {
             children: new Date(createdDate).toISOString().slice(0, 16).replace('T', ' ')
         },
         updated_date_text: {
-            children: updatedDate === "-" ? "-" : new Date(updatedDate).toISOString().slice(0, 16).replace('T', ' ')
+            children:  updatedDate === "-" ? "-" : updatedDate.toISOString().slice(0, 16).replace('T', ' ')
         },
         resolved_date_text: {
-            children: resolvedDate === "-" ? "-" : new Date(resolvedDate).toISOString().slice(0, 16).replace('T', ' ')
+            children: resolvedDate === "-" ? "-" : resolvedDate.toISOString().slice(0, 16).replace('T', ' ')
         },
         more_options_select_field:{
             onChange : (event) => (handleMoreOptionsChange(event)),
@@ -166,6 +174,16 @@ export function EditTicketFunc (props) {
         assign_to_me_button:{
             onClick: (event) => (handleAssignToMeClick(event)),
         },
+        asignee_select_field:{
+            onChange : (event) => (handleAsigneeChange(event)),
+            style:{color:"transparent"},
+            options: peopleAssign
+        },
+        reporter_select_field:{
+            onChange : (event) => (handleReporterChange(event)),
+            style:{color:"transparent"},
+            options: peopleAssign
+        }
     }   
 
     return {

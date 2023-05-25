@@ -6,10 +6,25 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import {
+  getOverrideProps,
+  useStateMutationAction,
+} from "@aws-amplify/ui-react/internal";
 import { Badge, Card, Image, Text, View } from "@aws-amplify/ui-react";
 export default function Ticketshort(props) {
   const { ticket, user, overrides, ...rest } = props;
+  const [frameCursor, setFrameCursor] = useStateMutationAction("pointer");
+  const [cardBackgroundColor, setCardBackgroundColor] =
+    useStateMutationAction(undefined);
+  const ticketshortOnMouseOver = () => {
+    setFrameCursor("pointer");
+  };
+  const cardOnMouseOver = () => {
+    setCardBackgroundColor("rgba(104, 112, 120, 0.19)");
+  };
+  const cardOnMouseLeave = () => {
+    setCardBackgroundColor("rgba(255, 255, 255, 0)");
+  };
   return (
     <View
       width="300px"
@@ -21,6 +36,9 @@ export default function Ticketshort(props) {
       position="relative"
       padding="0px 0px 0px 0px"
       cursor="pointer"
+      onMouseOver={() => {
+        ticketshortOnMouseOver();
+      }}
       {...getOverrideProps(overrides, "Ticketshort")}
       {...rest}
     >
@@ -40,8 +58,8 @@ export default function Ticketshort(props) {
         border="1px SOLID rgba(206,217,254,1)"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
         padding="0px 0px 0px 0px"
-        cursor="pointer"
-        {...getOverrideProps(overrides, "Frame 4")}
+        cursor={frameCursor}
+        {...getOverrideProps(overrides, "Frame")}
       >
         <Card
           width="305px"
@@ -50,6 +68,13 @@ export default function Ticketshort(props) {
           top="0px"
           left="0px"
           variation="outline"
+          backgroundColor={cardBackgroundColor}
+          onMouseOver={() => {
+            cardOnMouseOver();
+          }}
+          onMouseLeave={() => {
+            cardOnMouseLeave();
+          }}
           {...getOverrideProps(overrides, "Card")}
         ></Card>
         <Image

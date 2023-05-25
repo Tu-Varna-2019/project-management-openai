@@ -21,11 +21,10 @@ export declare type EditTicketOverridesProps = {
     "Priority:"?: PrimitiveOverrideProps<TextProps>;
     issue_type_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
-    status_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     issue_type_image?: PrimitiveOverrideProps<ImageProps>;
     priority_image?: PrimitiveOverrideProps<ImageProps>;
     status_badge?: PrimitiveOverrideProps<BadgeProps>;
-    epic_link_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    status_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     ticket_id_text?: PrimitiveOverrideProps<TextProps>;
     epic_link_badge?: PrimitiveOverrideProps<BadgeProps>;
     project_name_text?: PrimitiveOverrideProps<TextProps>;
@@ -53,6 +52,7 @@ export declare type EditTicketOverridesProps = {
     assign_to_me_button?: PrimitiveOverrideProps<ButtonProps>;
     reporter_name_text?: PrimitiveOverrideProps<TextProps>;
     reporter_icon_image?: PrimitiveOverrideProps<ImageProps>;
+    epic_link_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     Divider179382085?: PrimitiveOverrideProps<DividerProps>;
     more_options_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     project_image_name?: PrimitiveOverrideProps<ImageProps>;
@@ -60,6 +60,8 @@ export declare type EditTicketOverridesProps = {
     Divider179402163?: PrimitiveOverrideProps<DividerProps>;
     Divider179402165?: PrimitiveOverrideProps<DividerProps>;
     story_point_stepper_field?: PrimitiveOverrideProps<StepperFieldProps>;
+    asignee_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    reporter_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type EditTicketProps = React.PropsWithChildren<Partial<ViewProps> & {
     project?: Project;

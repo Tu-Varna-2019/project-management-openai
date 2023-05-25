@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useNavigate , useLocation } from 'react-router-dom';
-import { DataStore , Storage } from 'aws-amplify';
+import { DataStore , Storage , API } from 'aws-amplify';
 import { Ticket,User } from '../models';
 import { ProjectClass } from './ProjectClass';
 import { User2Class } from './User2Class';
+import { AWSDateTime } from 'aws-sdk';
 
 const iniTicketValue = {
     Title: "",
@@ -59,12 +60,17 @@ export function TicketClass(props) {
     const [asignee,setAsignee] = useState("");
     const [asigneeName,setAsigneeName] = useState("");
     const [asigneeImageURL,setAsigneeImageURL] = useState("");
+    const [peopleAssign,setPeopleAssign] = useState([]);
+    const [peopleAssignSub,setPeopleAssignSub] = useState([]);
 
     const [imageTicket,setImageTicket] = useState("");
+
     const [epicLink,setEpicLink] = useState("");
+    const [epicLinkOptions,setEpicLinkOptions] = useState([]);
+
     const [createdDate,setCreatedDate] = useState(iniTicketValue.TicketDate);
-    const [updatedDate,setUpdatedDate] = useState(iniTicketValue.TicketDate);
-    const [resolvedDate,setResolvedDate] = useState(iniTicketValue.TicketDate);
+    const [updatedDate,setUpdatedDate] = useState("-");
+    const [resolvedDate,setResolvedDate] = useState("-");
     const [issueType,setIssueType] = useState(iniTicketValue.IssueType);
     const [priority,setPriority] = useState(iniTicketValue.Priority);
     const [ticketStatus,setTicketStatus] = useState("ToDo");
@@ -128,20 +134,85 @@ export function TicketClass(props) {
     const handleStoryPoints = (newValue) => {
         setStoryPoint(newValue);
     };
-
-    const handleAsigneeChange = (event) => {
+    const handleEpicLinkChange = (event) => {
         event.preventDefault();
-        setAsignee(event.target.value);
-    }
+        setEpicLink(event.target.value);
+    };
+    const handleAsigneeChange = async (event) => {
+        event.preventDefault();
+        const {selectedIndex} = event.target;
+        setAsigneeName(event.target.value);
+        setAsignee(peopleAssignSub[selectedIndex]);
+        await DataStore.query(User)
+        .then(data => {
+                data.filter(item => { 
+                    if (item.sub === peopleAssignSub[selectedIndex]) {
+                        Storage.get(
+                            item.ImageProfile,{
+                            level:"public"
+                        }).then(data_url => {
+                            setAsigneeImageURL(data_url);
+                        })}})})
+    };
+
+    const handleReporterChange = async (event) => {
+        event.preventDefault();
+        const {selectedIndex} = event.target;
+        setReporterName(event.target.value);
+        setReporter(peopleAssignSub[selectedIndex]);
+        await DataStore.query(User)
+        .then(data => {
+                data.filter(item => { 
+                    if (item.sub === peopleAssignSub[selectedIndex]) {
+                        Storage.get(
+                            item.ImageProfile,{
+                            level:"public"
+                        }).then(data_url => {
+                            setReporterImageURL(data_url);
+                        })}})})
+    };
 
     const handleMoreOptionsChange = async (event) => {
         event.preventDefault();
+        const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+        const newCreatedDate = new Date(new Date(createdDate).getTime() - timezoneOffset);
+        const newUpdatedDate = new Date(new Date().getTime() - timezoneOffset);
+        const newTicketUpdatedDate = newUpdatedDate.toISOString();
+        const newTicketCreatedDate = newCreatedDate.toISOString();
+        let resolved_date = null;
+
         switch(event.target.value){
             // Move
             case moreOptions[1]:
             break;
             // Clone
             case moreOptions[2]:
+                if (resolvedDate !== "-") {
+                    const newResolvedDate = new Date(new Date(resolvedDate).getTime() - timezoneOffset);
+                    resolved_date = newResolvedDate.toISOString();}
+                    await DataStore.save(
+                        new Ticket({
+                            "Title": title,
+                            "Description": description,
+                            "TicketID": ticketID,
+                            "StoryPoint": storyPoint,
+                            "Watch": watchedUsers,
+                            "Reporter": reporter,
+                            "Asignee": asignee,
+                            "ImageTicket": imageTicket,
+                            "EpicLink": epicLink,
+                            "CreatedDate": newTicketCreatedDate,
+                            "UpdatedDate": newTicketUpdatedDate,
+                            "ResolvedDate": resolved_date,
+                            "projectID": getProjectID,
+                            "IssueType": issueType,
+                            "Priority": priority,
+                            "TicketStatus": ticketStatus,
+                            "Comment": comment
+                        })
+                    );
+                    navigate('/board', { state: { project: selectedProject[0].Name, alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully cloned!` }});
+                    window.location.reload();
             break;
             // Delete
             case moreOptions[3]:
@@ -149,6 +220,8 @@ export function TicketClass(props) {
                 {
                     const modelToDelete = await DataStore.query(Ticket, editTicket.id);
                     DataStore.delete(modelToDelete);
+                    navigate('/board', { state: { project: selectedProject[0].Name, alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully deleted!` }});
+                    window.location.reload();
                 }
             break;
             default: 
@@ -156,6 +229,12 @@ export function TicketClass(props) {
             break;}
     };
 
+    const postData = async (event) => {
+        const response = await API.post('apiopenai','/sns/notifyticketupdate',
+        { body: JSON.stringify({event})});
+        console.log(response);
+        return response;
+    }
        ////////////* Edit ticket //////////////////
 
      // Goto EditTicket component
@@ -164,21 +243,137 @@ export function TicketClass(props) {
         navigate("/board",{state:{edited:false,project: received_project_name}})
     };
 
-    const handleSaveEditTicketClick = (event) => {
+    const handleSaveEditTicketClick = async (event) => {
         event.preventDefault();
-    };
+        setIsLoading(!isLoading);
+        const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+
+        const newCreatedDate = new Date(new Date(createdDate).getTime() - timezoneOffset);
+        const newUpdatedDate = new Date(new Date().getTime() - timezoneOffset);
+        const newTicketUpdatedDate = newUpdatedDate.toISOString();
+        const newTicketCreatedDate = newCreatedDate.toISOString();
+
+        let formattedDate = null;
+        // try to catch if resolved date is eq '-'
+        try {
+            const date = new Date(resolvedDate);
+            formattedDate = date.toISOString();
+        } catch(e){/*do nothing*/}
+        let resolved_date = formattedDate ;
+        // if status is in done state assign current date in resolved
+        if ( ticketStatus === "Done") {
+            const newResolvedCurrentDate = new Date(new Date().getTime() - timezoneOffset);
+            resolved_date = newResolvedCurrentDate.toISOString();}
+
+        try {
+            const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
+            await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
+                item.Title = title;
+                item.Description = description;
+                item.Priority = priority;
+                item.TicketID = ticketID;
+                item.StoryPoint = storyPoint;
+                item.Watch = watchedUsers;
+                item.Reporter = reporter;
+                item.Asignee = asignee;
+                item.ImageTicket = imageTicket;
+                item.EpicLink = epicLink;
+                item.CreatedDate = newTicketCreatedDate;
+                item.UpdatedDate = newTicketUpdatedDate;
+                item.ResolvedDate = resolved_date;
+                item.projectID = getProjectID.toString();
+                item.IssueType = issueType;
+                item.TicketStatus = ticketStatus;
+                item.Comment = comment;
+            }));
+            // check onto which Ticket props have been changed 
+            let changed_props = "";
+            if (title !== editTicket.Ticket)
+                changed_props += `Title: ${editTicket.Ticket} --> ${title} \n`
+
+            if (description !== editTicket.Description)
+                changed_props += `Description: ${editTicket.Description} --> ${description} \n`
+
+            if (priority !== editTicket.Priority)
+                changed_props += `Priority: ${editTicket.Priority} --> ${priority} \n`
+
+            if (storyPoint !== editTicket.StoryPoint)
+                changed_props += `StoryPoint: ${editTicket.StoryPoint} --> ${storyPoint} \n`
+
+            if (reporter !== editTicket.Reporter) {
+                let editTicketReporterName = "";
+                const dts_query = DataStore.query(User)
+                dts_query.then(data => {
+                    data.filter(item => { 
+                        if (item.sub === editTicket.Reporter ) 
+                            editTicketReporterName = item.username ;})
+                }).catch(error => {
+                console.error(error);});
+                changed_props += `Reporter: ${editTicketReporterName} --> ${reporterName} \n`
+            }
+
+            if (asignee !== editTicket.Asignee) {
+                let editTicketAsigneeName = "";
+                const dts_query = DataStore.query(User)
+                dts_query.then(data => {
+                    data.filter(item => { 
+                        if (item.sub === editTicket.Asignee ) 
+                        editTicketAsigneeName = item.username ;})
+                }).catch(error => {
+                console.error(error);});
+            changed_props += `Asignee: ${editTicketAsigneeName} --> ${asigneeName} \n`
+            }
+
+            if (epicLink !== editTicket.EpicLink)
+                changed_props += `Epic Link: ${editTicket.EpicLink} --> ${epicLink} \n`
+
+            if (ticketStatus !== editTicket.TicketStatus)
+                changed_props += `TicketStatus: ${editTicket.TicketStatus} --> ${ticketStatus} \n`
+
+            if (comment !== editTicket.Comment)
+                changed_props += `${editTicket.Comment} --> ${comment} \n`
+
+            const newTicket = {
+                Title : title,
+                Description : description,
+                Priority : priority,
+                TicketID : ticketID,
+                StoryPoint : storyPoint,
+                Reporter : reporterName,
+                Asignee : asigneeName,
+                Watch: watchedUsers,
+                EpicLink : epicLink,
+                CreatedDate : newTicketCreatedDate,
+                UpdatedDate : newTicketUpdatedDate,
+                ResolvedDate : resolved_date,
+                IssueType : issueType,
+                TicketStatus : ticketStatus,
+                Comment : comment,
+            };
+
+            const notify_update_ticket_response = await postData({
+                Changes: changed_props,
+                newTicket
+            });
+            console.log(notify_update_ticket_response);
+             navigate('/board', { state: { project: selectedProject[0].Name, alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response}` }});
+             window.location.reload();
+        } catch (error) {
+            setIsLoading(false);
+            console.log(error);
+            // setErrorNoteMessage("block");
+            // setErrorNoteDescription("App is not supported in this browser's private mode! Please enable cookies!");
+    }};
+
 
     const handleAssignToMeClick = async (event) => {
         event.preventDefault();
-
         await Storage.get(
             currentUser.ImageProfile,{
             level:"public"
         }).then(data_url => {
             setAsigneeImageURL(data_url);
-            setAsigneeName(currentUser.username);
-        })
-
+            setAsigneeName(currentUser.username);})
     };
     // Add user to watch list on ticket change
     const handleAddUserToWatch = (event) => {
@@ -191,21 +386,33 @@ export function TicketClass(props) {
         // else if he isn't added , add him    
         } else {
         setWatchedUsers((prevValue) => prevValue + currentUser.username + ",");
-        setWatchedAddMeVariant("success");
-        }
+        setWatchedAddMeVariant("success");}
     };
-    console.log(`Watched users: ${watchedUsers}`);
+    // Set epic link options , based if user is in edit ticket state
+    useEffect(() => {
+        setEpicLinkOptions( [...new Set(Object.values(tickets).map(obj => obj?.EpicLink)
+        .filter(epicLink => epicLink !== null))] );
+    },[epicLink,setEpicLink,tickets,setTickets,setEpicLinkOptions]);
+
+    // Get asignees&reporters
+        useEffect(() => {
+            const dts_query = DataStore.query(User)
+            dts_query.then(data => {
+                data.filter(item => { 
+                    if (item.sub !== "00000000" ) {
+                        setPeopleAssign(prevList => [...prevList, item.username]);
+                        setPeopleAssignSub(prevList => [...prevList, item.sub]);
+                    }
+                    })
+            }).catch(error => {
+            console.error(error);
+            });
+        },[]); // once defined for a purpose !
+
     // Set values of text field from edited tickets
     useEffect(() => {
             async function fetchUserData() {
                 try {
-                    const story_point_undefined = editTicket.StoryPoint === null ?
-                    0 : editTicket.StoryPoint;
-                    const update_date_undefined = editTicket.UpdatedDate === null ?
-                    "-" : new Date(editTicket.UpdatedDate);
-                    const resolve_date_undefined = editTicket.ResolvedDate === null ?
-                    "-" : new Date(editTicket.ResolvedDate);
-
                     setTitle(editTicket.Title);
                     setDescription(editTicket.Description);
                     setComment(editTicket.Comment);
@@ -213,12 +420,15 @@ export function TicketClass(props) {
                     setIssueType(editTicket.IssueType);
                     setPriority(editTicket.Priority);
                     setTicketStatus(editTicket.TicketStatus);
-                    setStoryPoint(story_point_undefined);
+                    setReporter(editTicket.Reporter);
+                    setAsignee(editTicket.Asignee);
+                    setStoryPoint(editTicket.StoryPoint === null ? 0 : editTicket.StoryPoint);
                     setCreatedDate(new Date(editTicket.CreatedDate));
-                    setUpdatedDate(update_date_undefined);
-                    setResolvedDate(resolve_date_undefined);
+                    setUpdatedDate(editTicket.UpdatedDate === null ? "-" : new Date(editTicket.UpdatedDate));
+                    setResolvedDate(editTicket.ResolvedDate === null ? "-" : new Date(editTicket.ResolvedDate));
                     setEpicLink(editTicket.EpicLink);
                     setWatchedUsers(editTicket.Watch === null ? "" : editTicket.Watch );
+
                     // Get reporter & asignee name & image name
                     await DataStore.query(User)
                     .then(data => {
@@ -242,15 +452,10 @@ export function TicketClass(props) {
                                             item.ImageProfile,{
                                             level:"public"
                                         }).then(data_url => {
-                                            setReporterImageURL(data_url);
-                                    })
-                                }}
-                            })});
-                }catch(error){/*do nothing*/}
-            }
+                                            setReporterImageURL(data_url);})
+                                }}})});}catch(error){/*do nothing*/}}
             fetchUserData();
-    },[location.state]);
-    
+    },[location.state,editTicket]);
     ////////////* Create ticket //////////////////
 
     // Goto CreateTicket component
@@ -268,30 +473,42 @@ export function TicketClass(props) {
         setIsLoading(!isLoading);
 
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
-        const newDate = new Date(new Date().getTime() - timezoneOffset);
-        const newTicketDate = newDate.toISOString();
+        const newCreatedDate = new Date(new Date(createdDate).getTime() - timezoneOffset);
+        const newUpdatedDate = new Date(new Date().getTime() - timezoneOffset);
+        const newTicketUpdatedDate = newUpdatedDate.toISOString();
+        const newTicketCreatedDate = newCreatedDate.toISOString();
+
+        let resolved_date = null;
+        if (resolvedDate !== "-") {
+            const newResolvedDate = new Date(new Date(resolvedDate).getTime() - timezoneOffset);
+            resolved_date = newResolvedDate.toISOString();
+        }
         try {
             await DataStore.save(
                 new Ticket({
                     "Title": title,
                     "Description": description,
-                    "Comment": "Lorem ipsum dolor sit amet",
-                    "StoryPoint": 1,
-                    "Watch": "",
-                    "Reporter": "Lorem ipsum dolor sit amet",
+                    "TicketID": ticketID,
+                    "StoryPoint": storyPoint,
+                    "Watch": watchedUsers,
+                    "Reporter": reporter,
                     "Asignee": asignee,
-                    "EpicLink": "",
-                    "CreatedDate": newTicketDate,
-                    "getProjectID": "",
-                    "userID": "",
+                    "ImageTicket": imageTicket,
+                    "EpicLink": epicLink,
+                    "CreatedDate": newTicketCreatedDate,
+                    "UpdatedDate": newTicketUpdatedDate,
+                    "ResolvedDate": resolved_date,
+                    "projectID": getProjectID,
                     "IssueType": issueType,
                     "Priority": priority,
-                    "TicketStatus": ticketStatus
+                    "TicketStatus": ticketStatus,
+                    "Comment": comment
                 })
             );
-            navigate('/board', { state: { alert_success:'block' , title: title , action: "created !" } });
+            navigate('/board', { state: { project: selectedProject, alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited!` }});
         } catch (error) {
             setIsLoading(false);
+            console.log(error);
             // setErrorNoteMessage("block");
             // setErrorNoteDescription("App is not supported in this browser's private mode! Please enable cookies!");
     }};
@@ -344,7 +561,13 @@ export function TicketClass(props) {
         moreOptions,
         epicLink,
         watchedCount,
-        watchedAddMeVariant
+        watchedAddMeVariant,
+        epicLinkOptions,
+        handleEpicLinkChange,
+        isLoading,
+        peopleAssign,
+        handleAsigneeChange,
+        handleReporterChange
     }
 
 }

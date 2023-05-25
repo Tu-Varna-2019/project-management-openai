@@ -1,0 +1,15 @@
+[
+  {
+    "Action": ["ses:SendEmail"],
+    "Resource": ["arn:aws:ses:eu-west-1:512617552494:identity/*"],
+    "Effect": "Allow"
+  },
+  {
+    "Action": [
+      "ses:VerifyEmailAddress",
+      "ses:GetIdentityVerificationAttributes"
+    ],
+    "Resource": ["*"],
+    "Effect": "Allow"
+  }
+]
