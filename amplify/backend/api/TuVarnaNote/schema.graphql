@@ -16,7 +16,7 @@ type Ticket @model @auth(rules: [{allow: public}]) {
   id: ID!
   Title: String!
   Description: String
-  TicketID: String
+  TicketID: Int!
   StoryPoint: Int
   Watch: String
   Reporter: String!

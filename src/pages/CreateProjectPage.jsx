@@ -16,7 +16,7 @@ export default function CreateProjectPage(props) {
             style={{ position:'relative', display: 'inline-block',overflow: "hidden"}}>
           <CreateProject overrides={CreateProjectOverride} />
           </div>
-          <div style={{ position: 'relative',display: 'block', bottom: 630, right: 0 }}>
+          <div style={{ position: 'relative',display: 'block', bottom: 650, right: -660 , width:625 }}>
             <FileImageUpload/>
           </div></>
     )

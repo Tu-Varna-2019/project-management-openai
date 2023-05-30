@@ -27,9 +27,9 @@ const handleConfirmPassword = (event) => {
   setConfirmPassword(event.target.value);
   };
 
-const handleCancelPassword = (event) => {
+const handleCancelPassword = (event,url) => {
   if (window.confirm("Are you sure you want to leave?"))
-       navigate('/note');};
+       navigate(url);};
 
 const handleResetPassword = async (event) => {
   event.preventDefault();

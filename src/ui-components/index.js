@@ -5,13 +5,17 @@
  **************************************************************************/
 
 export { default as TicketInProgressCollection } from "./TicketInProgressCollection";
+export { default as DeleteAccountKAI } from "./DeleteAccountKAI";
 export { default as Notfound } from "./Notfound";
 export { default as TicketInReviewCollection } from "./TicketInReviewCollection";
+export { default as ResetPasswordKAI } from "./ResetPasswordKAI";
 export { default as CreateTicket } from "./CreateTicket";
 export { default as CreateNotev2 } from "./CreateNotev2";
 export { default as Notebutton } from "./Notebutton";
+export { default as Profile } from "./Profile";
 export { default as Noteremindercard } from "./Noteremindercard";
 export { default as Ticketshort } from "./Ticketshort";
+export { default as EditTicketFull } from "./EditTicketFull";
 export { default as TicketDoneCollection } from "./TicketDoneCollection";
 export { default as TicketToDoCollection } from "./TicketToDoCollection";
 export { default as SelectProject } from "./SelectProject";

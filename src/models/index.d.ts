@@ -78,7 +78,7 @@ type EagerTicket = {
   readonly id: string;
   readonly Title: string;
   readonly Description?: string | null;
-  readonly TicketID?: string | null;
+  readonly TicketID: number;
   readonly StoryPoint?: number | null;
   readonly Watch?: string | null;
   readonly Reporter: string;
@@ -105,7 +105,7 @@ type LazyTicket = {
   readonly id: string;
   readonly Title: string;
   readonly Description?: string | null;
-  readonly TicketID?: string | null;
+  readonly TicketID: number;
   readonly StoryPoint?: number | null;
   readonly Watch?: string | null;
   readonly Reporter: string;

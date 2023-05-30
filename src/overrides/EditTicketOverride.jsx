@@ -1,20 +1,8 @@
 import { TicketClass } from '../classes/TicketClass';
 import { ProjectClass } from '../classes/ProjectClass';
-import { User2Class } from '../classes/User2Class';
-import { ToolbarSelectClass } from '../classes/ToolbarSelectbarClass';
-import BoardPage from '../pages/BoardPage';
-import { useNavigate } from 'react-router-dom';
 
 
 export function EditTicketFunc (props) {
-
-    const {
-        userProfileURL,
-        alertVariant,
-        alertVisibility,
-        alertDescription,
-        userSubImageURL
-    } = User2Class();
 
     const {
         ticketID,
@@ -133,7 +121,7 @@ export function EditTicketFunc (props) {
         },
         status_select_field:{
             onChange : (event) => (handleTicketStatus(event)),
-            style:{color:"transparent"},
+            style:{color:"transparent" , border:"none"},
             options: statusOptions
         },
         epic_link_badge:{
@@ -141,7 +129,7 @@ export function EditTicketFunc (props) {
         },
         epic_link_select_field:{
             onChange : (event) => (handleEpicLinkChange(event)),
-            style:{color:"transparent"},
+            style:{color:"transparent",border:"none"},
             options: epicLinkOptions
         },
         story_point_stepper_field:{
@@ -176,12 +164,12 @@ export function EditTicketFunc (props) {
         },
         asignee_select_field:{
             onChange : (event) => (handleAsigneeChange(event)),
-            style:{color:"transparent"},
+            style:{color:"transparent", border:"none"},
             options: peopleAssign
         },
         reporter_select_field:{
             onChange : (event) => (handleReporterChange(event)),
-            style:{color:"transparent"},
+            style:{color:"transparent", border:"none"},
             options: peopleAssign
         }
     }   

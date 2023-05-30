@@ -1,7 +1,17 @@
+import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
+import { getProjectNameState } from '../states';
+import { User2Class } from "./User2Class";
+import { DataStore } from "aws-amplify";
+import { Ticket } from "../models";
+import { useState } from "react";
 
 export function ToolbarSelectClass() {
+    const {
+        currentUser,
+    } = User2Class();
     const navigate = useNavigate();
+    const [assignedToMe,setAssignedToMe] = useState(["","assigned to me","boards"]);
 
     const handleProjectsSelectChange = (event) => {
         switch(event.target.value){
@@ -14,20 +24,37 @@ export function ToolbarSelectClass() {
                 console.log("default");
             break;}};
 
-    const handleYourWorkSelectChange = (event) => {
+    const handleYourWorkSelectChange = async (event) => {
         switch(event.target.value){
             case "assigned to me":
-                if (window.confirm("Are you sure you want to view all assigned tickets"
-                +"we will redirect you to different page?")) 
-                    navigate('/'); 
+                setAssignedToMe(["","<- back"]);
+                await DataStore.query(Ticket)
+                .then(data => {
+                    data.filter(item => {
+                        console.log(`User: ${currentUser.sub} , Item: ${item.Asignee}`)
+                        if (item.Asignee === currentUser.sub ) 
+                            setAssignedToMe(prevList => [...prevList,`KAI-${item.TicketID} : ${item.Title}`]);
+                    })});
             break;
             case "boards":
-                if (window.confirm("Are you sure you want to switch to all boards"
-                +"we will redirect you to different page?")) 
-                    navigate('/'); 
+                navigate('/board',{ state: { project: getProjectNameState() }});
             break;
-            default: 
-                console.log("default");
+            case "<- back":
+                setAssignedToMe(["","assigned to me","boards"]);
+            break;
+            default:
+                if (event.target.value.startsWith('KAI')) {
+                    const regex = /KAI-(\d+)/;
+                    const match = event.target.value.match(regex);
+                    const getTicketID = match ? match[1] : null;
+                    await DataStore.query(Ticket)
+                    .then(data => {
+                        data.filter(item => {
+                            if( item.TicketID ===  getTicketID)
+                                navigate('/edit-ticket',{ state: { editTicketidFull: item.id }});
+                            })});}
+                else
+                    console.log("default");
             break;}};
 
     const handleTeamsSelectChange = (event) => {
@@ -41,9 +68,23 @@ export function ToolbarSelectClass() {
             console.log("default");
             break;}};
 
+    const handleProfileSelectChange = (event) => {
+        switch(event.target.value){
+            case "Manage account":
+                navigate('/profile'); 
+            break;
+            case "Log out":
+                if (window.confirm("Are you sure you want to sign out ?")) 
+                Auth.signOut().then(() => {
+                    navigate('/');})
+            break;
+            default: 
+            console.log("default");
+            break;}};
+
     return {
         handleProjectsSelectChange,
         handleYourWorkSelectChange,
         handleTeamsSelectChange,
-    }
-}
+        handleProfileSelectChange,
+        assignedToMe}}

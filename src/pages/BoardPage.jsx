@@ -11,11 +11,9 @@ import { EditTicketFunc } from '../overrides/EditTicketOverride';
 export default function BoardPage(props) {
 
   const {
-    handleCreateTicketClick,
     ticketInProgressStyleTop,
     ticketInReviewStyleTop,
     ticketDoneStyleTop,
-    handleCancelEditTicketClick,
   } = TicketClass();
   
   const {
@@ -46,7 +44,8 @@ export default function BoardPage(props) {
           <Board overrides={BoardComponentOverride}/>
         </div>
 
-        <div style={{ position: 'relative' , width:"120px", display: 'block',top: "0px",left: "460px",objectFit: "cover"}}>
+        <div 
+          style={{ position: 'relative' , width:"120px", display: 'block',top: "0px",left: "460px",objectFit: "cover"}}>
           <TicketToDoCollection style={{position: 'absolute', top: "-800px" , left:"-90px" }}
               overrides={BoardTicketToDoOverride}
               overrideItems={customOverrideItems}/>
@@ -70,10 +69,10 @@ export default function BoardPage(props) {
               overrideItems={customOverrideItems}/>
         </div>
         
-        <div style={{ position: 'relative',display: 'block', bottom: 1210, right: 0 }}>
-          {editTicketBoolean &&
+        <div style={{ position: 'relative',display: 'block', bottom: 1277, right: 0 }}>
+            {editTicketBoolean &&
            <EditTicket overrides={EditTicketOverride}/>}
-          {createTicketBoolean &&
+            {createTicketBoolean &&
             <CreateTicket overrides={CreateTicketOverride}/>}
       </div>
       </>)}

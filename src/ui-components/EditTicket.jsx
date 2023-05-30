@@ -173,12 +173,12 @@ export default function EditTicket(props) {
             gap="unset"
             alignItems="unset"
             position="absolute"
-            top="49px"
+            top="57px"
             left="4px"
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
-            children="Type:"
-            {...getOverrideProps(overrides, "Type:")}
+            children="Issue type"
+            {...getOverrideProps(overrides, "Issue type")}
           ></Text>
           <Text
             fontFamily="Inter"
@@ -238,8 +238,8 @@ export default function EditTicket(props) {
             alignItems="unset"
             justifyContent="unset"
             position="absolute"
-            top="50px"
-            left="84px"
+            top="49px"
+            left="104px"
             padding="0px 0px 0px 0px"
             objectFit="cover"
             src={ticket?.IssueType}
@@ -253,8 +253,8 @@ export default function EditTicket(props) {
             alignItems="unset"
             justifyContent="unset"
             position="absolute"
-            top="112px"
-            left="84px"
+            top="111px"
+            left="104px"
             padding="0px 0px 0px 0px"
             objectFit="cover"
             src={ticket?.Priority}

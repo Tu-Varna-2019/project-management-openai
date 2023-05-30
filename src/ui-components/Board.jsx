@@ -252,7 +252,7 @@ export default function Board(props) {
         <View
           padding="0px 0px 0px 0px"
           width="131px"
-          height="59px"
+          height="64px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -286,13 +286,13 @@ export default function Board(props) {
           ></Text>
           <SelectField
             width="131px"
-            height="59px"
+            height="64px"
             label="Your work"
             position="absolute"
             top="0px"
             left="0px"
             placeholder=""
-            size="large"
+            size="default"
             isDisabled={false}
             labelHidden={true}
             variation="quiet"
@@ -302,7 +302,7 @@ export default function Board(props) {
         <View
           padding="0px 0px 0px 0px"
           width="118px"
-          height="59px"
+          height="64px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -336,13 +336,13 @@ export default function Board(props) {
           ></Text>
           <SelectField
             width="118px"
-            height="59px"
+            height="64px"
             label="Your work"
             position="absolute"
             top="0px"
             left="0px"
             placeholder=""
-            size="large"
+            size="default"
             isDisabled={false}
             labelHidden={true}
             variation="quiet"
@@ -352,7 +352,7 @@ export default function Board(props) {
         <View
           padding="0px 0px 0px 0px"
           width="191px"
-          height="59px"
+          height="64px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -385,14 +385,14 @@ export default function Board(props) {
             {...getOverrideProps(overrides, "Issue Templates")}
           ></Text>
           <SelectField
-            width="179.56px"
-            height="59px"
+            width="180px"
+            height="64px"
             label="Your work"
             position="absolute"
             top="0px"
             left="0px"
             placeholder=""
-            size="large"
+            size="default"
             isDisabled={false}
             labelHidden={true}
             variation="quiet"
@@ -518,193 +518,6 @@ export default function Board(props) {
           children="Done"
           {...getOverrideProps(overrides, "Badge178532423")}
         ></Badge>
-        <Card
-          width="327px"
-          height="833px"
-          position="absolute"
-          top="247px"
-          left="0px"
-          variation="elevated"
-          {...getOverrideProps(overrides, "Card")}
-        ></Card>
-        <Text
-          fontFamily="Inter"
-          fontSize="16px"
-          fontWeight="700"
-          color="rgba(0,0,0,1)"
-          lineHeight="24px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="unset"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="297px"
-          left="92px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="My project"
-          {...getOverrideProps(overrides, "project_name_text")}
-        ></Text>
-        <Text
-          fontFamily="Inter"
-          fontSize="16px"
-          fontWeight="700"
-          color="rgba(104,112,120,1)"
-          lineHeight="24px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="unset"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="332px"
-          left="93px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="Software project"
-          {...getOverrideProps(overrides, "Software project")}
-        ></Text>
-        <Image
-          width="44px"
-          height="45px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="304px"
-          left="31px"
-          padding="0px 0px 0px 0px"
-          objectFit="cover"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2021%2F02%2FJira-Emblem.png&f=1&nofb=1&ipt=562cb1cbb88b18989f31a562aca75ae4896610a0da1f2a65ab4281712659dab7&ipo=images"
-          {...getOverrideProps(overrides, "project_image_name")}
-        ></Image>
-        <View
-          padding="0px 0px 0px 0px"
-          width="248px"
-          height="57.02px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="999px"
-          left="calc(50% - 124px - 796px)"
-          {...getOverrideProps(overrides, "Feedback")}
-        >
-          <Badge
-            width="unset"
-            height="33px"
-            position="absolute"
-            top="0px"
-            left="0px"
-            size="default"
-            variation="default"
-            children="We’d love to hear your feedback !"
-            {...getOverrideProps(overrides, "feedback_text")}
-          ></Badge>
-          <Rating
-            width="unset"
-            height="15.02px"
-            position="absolute"
-            top="42px"
-            left="28px"
-            size="default"
-            {...getOverrideProps(overrides, "Rating")}
-          ></Rating>
-        </View>
-        <Divider
-          width="304px"
-          height="1px"
-          position="absolute"
-          top="987px"
-          left="12px"
-          size="small"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider178532437")}
-        ></Divider>
-        <Divider
-          width="304px"
-          height="1px"
-          position="absolute"
-          top="376px"
-          left="16px"
-          size="small"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider178532441")}
-        ></Divider>
-        <Button
-          width="302px"
-          height="63px"
-          gap="15px"
-          position="absolute"
-          top="460px"
-          left="6px"
-          size="default"
-          isDisabled={false}
-          variation="link"
-          children="Roadmap"
-          {...getOverrideProps(overrides, "roadmap_button")}
-        ></Button>
-        <Button
-          width="302px"
-          height="62px"
-          gap="15px"
-          position="absolute"
-          top="682px"
-          left="6px"
-          size="default"
-          isDisabled={false}
-          variation="link"
-          children="Backlog"
-          {...getOverrideProps(overrides, "backlog_button")}
-        ></Button>
-        <Button
-          width="302px"
-          height="62px"
-          gap="15px"
-          position="absolute"
-          top="534px"
-          left="6px"
-          size="default"
-          isDisabled={false}
-          variation="link"
-          children="Active sprints"
-          {...getOverrideProps(overrides, "active_sprints_button")}
-        ></Button>
-        <Button
-          width="302px"
-          height="62px"
-          gap="15px"
-          position="absolute"
-          top="608px"
-          left="6px"
-          size="default"
-          isDisabled={false}
-          variation="link"
-          children="Issues"
-          {...getOverrideProps(overrides, "issues_button")}
-        ></Button>
-        <Button
-          width="307px"
-          height="63px"
-          gap="15px"
-          position="absolute"
-          top="755px"
-          left="5px"
-          size="default"
-          isDisabled={false}
-          variation="link"
-          children="Team calendar"
-          {...getOverrideProps(overrides, "team_calendar_button")}
-        ></Button>
         <View
           padding="0px 0px 0px 0px"
           width="162.08px"
@@ -741,8 +554,8 @@ export default function Board(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 19.1796875,
-                height: 51.2947998046875,
+                width: 19.18017578125,
+                height: 51.294921875,
               }}
               paths={[
                 {
@@ -768,8 +581,8 @@ export default function Board(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 8.099609375,
-                height: 53.674560546875,
+                width: 8.10009765625,
+                height: 53.6748046875,
               }}
               paths={[
                 {
@@ -795,7 +608,7 @@ export default function Board(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 17.5751953125,
+                width: 17.57568359375,
                 height: 39.4365234375,
               }}
               paths={[
@@ -823,7 +636,7 @@ export default function Board(props) {
                 minX: 0,
                 minY: 0,
                 width: 30.642578125,
-                height: 40.3658447265625,
+                height: 40.36572265625,
               }}
               paths={[
                 {
@@ -865,8 +678,8 @@ export default function Board(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 28.732421875,
-                height: 32.8746337890625,
+                width: 28.73193359375,
+                height: 32.87451171875,
               }}
               paths={[
                 {
@@ -892,8 +705,8 @@ export default function Board(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 28.732421875,
-                height: 32.9627685546875,
+                width: 28.73193359375,
+                height: 32.962890625,
               }}
               paths={[
                 {
@@ -918,8 +731,8 @@ export default function Board(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 28.732421875,
-                height: 32.8743896484375,
+                width: 28.73193359375,
+                height: 32.87451171875,
               }}
               paths={[
                 {
@@ -943,7 +756,7 @@ export default function Board(props) {
         <View
           padding="0px 0px 0px 0px"
           width="153.5px"
-          height="59px"
+          height="64px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -976,28 +789,228 @@ export default function Board(props) {
             {...getOverrideProps(overrides, "Teams")}
           ></Text>
           <SelectField
-            width="130.68px"
-            height="59px"
+            width="131px"
+            height="64px"
             label="Your work"
             position="absolute"
             top="0px"
             left="0px"
             placeholder=""
-            size="large"
+            size="default"
             isDisabled={false}
             labelHidden={true}
             variation="quiet"
             {...getOverrideProps(overrides, "teams_select_field")}
           ></SelectField>
         </View>
+        <SelectField
+          width="100px"
+          height="80px"
+          label="Your work"
+          position="absolute"
+          top="32px"
+          left="1820px"
+          placeholder=""
+          size="default"
+          isDisabled={false}
+          labelHidden={true}
+          variation="quiet"
+          {...getOverrideProps(overrides, "profile_select_field")}
+        ></SelectField>
+        <Card
+          width="327px"
+          height="833px"
+          position="absolute"
+          top="247px"
+          left="-11px"
+          variation="elevated"
+          {...getOverrideProps(overrides, "Card")}
+        ></Card>
+        <Text
+          fontFamily="Inter"
+          fontSize="16px"
+          fontWeight="700"
+          color="rgba(0,0,0,1)"
+          lineHeight="24px"
+          textAlign="left"
+          display="block"
+          direction="column"
+          justifyContent="unset"
+          width="unset"
+          height="unset"
+          gap="unset"
+          alignItems="unset"
+          position="absolute"
+          top="297px"
+          left="81px"
+          padding="0px 0px 0px 0px"
+          whiteSpace="pre-wrap"
+          children="My project"
+          {...getOverrideProps(overrides, "project_name_text")}
+        ></Text>
+        <Text
+          fontFamily="Inter"
+          fontSize="16px"
+          fontWeight="700"
+          color="rgba(104,112,120,1)"
+          lineHeight="24px"
+          textAlign="left"
+          display="block"
+          direction="column"
+          justifyContent="unset"
+          width="unset"
+          height="unset"
+          gap="unset"
+          alignItems="unset"
+          position="absolute"
+          top="332px"
+          left="82px"
+          padding="0px 0px 0px 0px"
+          whiteSpace="pre-wrap"
+          children="Software project"
+          {...getOverrideProps(overrides, "Software project")}
+        ></Text>
+        <Image
+          width="44px"
+          height="45px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="304px"
+          left="20px"
+          padding="0px 0px 0px 0px"
+          objectFit="cover"
+          {...getOverrideProps(overrides, "project_image_name")}
+        ></Image>
+        <View
+          padding="0px 0px 0px 0px"
+          width="248px"
+          height="57.02px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="999px"
+          left="calc(50% - 124px - 807px)"
+          {...getOverrideProps(overrides, "Feedback")}
+        >
+          <Badge
+            width="unset"
+            height="33px"
+            position="absolute"
+            top="0px"
+            left="0px"
+            size="default"
+            variation="default"
+            children="We’d love to hear your feedback !"
+            {...getOverrideProps(overrides, "feedback_text")}
+          ></Badge>
+          <Rating
+            width="unset"
+            height="15.02px"
+            position="absolute"
+            top="42px"
+            left="28px"
+            size="default"
+            {...getOverrideProps(overrides, "Rating")}
+          ></Rating>
+        </View>
+        <Divider
+          width="304px"
+          height="1px"
+          position="absolute"
+          top="987px"
+          left="1px"
+          size="small"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "Divider180442991")}
+        ></Divider>
+        <Divider
+          width="304px"
+          height="1px"
+          position="absolute"
+          top="376px"
+          left="5px"
+          size="small"
+          orientation="horizontal"
+          {...getOverrideProps(overrides, "Divider180442992")}
+        ></Divider>
+        <Button
+          width="302px"
+          height="63px"
+          gap="15px"
+          position="absolute"
+          top="460px"
+          left="-5px"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Roadmap"
+          {...getOverrideProps(overrides, "roadmap_button")}
+        ></Button>
+        <Button
+          width="302px"
+          height="62px"
+          gap="15px"
+          position="absolute"
+          top="682px"
+          left="-5px"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Backlog"
+          {...getOverrideProps(overrides, "backlog_button")}
+        ></Button>
+        <Button
+          width="302px"
+          height="62px"
+          gap="15px"
+          position="absolute"
+          top="534px"
+          left="-5px"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Active sprints"
+          {...getOverrideProps(overrides, "active_sprints_button")}
+        ></Button>
+        <Button
+          width="302px"
+          height="62px"
+          gap="15px"
+          position="absolute"
+          top="608px"
+          left="-5px"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Issues"
+          {...getOverrideProps(overrides, "issues_button")}
+        ></Button>
+        <Button
+          width="307px"
+          height="63px"
+          gap="15px"
+          position="absolute"
+          top="755px"
+          left="-6px"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Team calendar"
+          {...getOverrideProps(overrides, "team_calendar_button")}
+        ></Button>
       </View>
       <Alert
         width="1920px"
         height="133px"
         heading="Success"
         position="absolute"
-        top="114px"
-        left="0px"
+        top="113px"
+        left="-1px"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
         variation="success"
         isDismissible={true}

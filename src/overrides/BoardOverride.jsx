@@ -2,8 +2,8 @@ import { TicketClass } from '../classes/TicketClass';
 import { ProjectClass } from '../classes/ProjectClass';
 import { User2Class } from '../classes/User2Class';
 import { ToolbarSelectClass } from '../classes/ToolbarSelectbarClass';
-import BoardPage from '../pages/BoardPage';
 import { useNavigate } from 'react-router-dom';
+import { getDragDropTicketState } from '../states';
 
 
 export function BoardFunc (props) {
@@ -13,13 +13,16 @@ export function BoardFunc (props) {
         alertVariant,
         alertVisibility,
         alertDescription,
-        userSubImageURL
+        userSubImageURL,
+        currentUser,
     } = User2Class();
 
     const {
         handleProjectsSelectChange,
         handleYourWorkSelectChange,
         handleTeamsSelectChange,
+        handleProfileSelectChange,
+        assignedToMe,
     } = ToolbarSelectClass();
 
     const {
@@ -28,6 +31,8 @@ export function BoardFunc (props) {
         ticketInReview,
         ticketDone,
         handleGoToCreateTicketClick,
+        handleHoldMoveTicket,
+        handleReleaseMoveTicket,
     } = TicketClass();
 
     const {
@@ -40,8 +45,7 @@ export function BoardFunc (props) {
         let asignee_image_url = "";
         userSubImageURL.map((data, index) => {
             if (data.sub === item.Asignee)
-            asignee_image_url = data.url;
-        });
+            asignee_image_url = data.url;});
 
         return {
             overrides: {
@@ -52,28 +56,24 @@ export function BoardFunc (props) {
                 issue_type_image: {src: require(`../images/${item.IssueType}.jpeg`)},
                 priority_image: {src: require(`../images/${item.Priority}.jpeg`)},
                 asignee_icon_image: {src: asignee_image_url },
-            },
+                Card: {
+                    draggable: "true",
+                    onDragStart: () => (handleHoldMoveTicket(item.id))}},
             onClick: () => (
-                navigate("/board",{state:{edited:true,selectedTicket:item,project: received_project_name}})
-            )
-        };}
+                navigate("/board",{state:{edited:true,selectedTicket:item,project: received_project_name}}))};}
 
     const BoardTicketToDoOverride={
         TicketToDoCollection:{
-            items: ticketToDo}
-    }
+            items: ticketToDo}}
     const BoardTicketInProgressOverride={
         TicketInProgressCollection:{
-            items:ticketInProgress }
-    }
+            items:ticketInProgress}}
     const BoardTicketInReviewOverride={
         TicketInReviewCollection:{
-            items: ticketInReview}
-    }
+            items: ticketInReview}}
     const BoardTicketDoneOverride={
         TicketDoneCollection:{
-            items:ticketDone }
-    }
+            items:ticketDone}}
 
     const BoardComponentOverride = {
         roadmap_button:{
@@ -97,22 +97,40 @@ export function BoardFunc (props) {
         projects_select_field:{
             style:{color:"transparent"},
             onChange : (event) => (handleProjectsSelectChange(event)),
-            options:["switch project",""],
+            options:["","switch project"],
         },
         your_work_select_field:{
             style:{color:"transparent"},
             onChange : (event) => (handleYourWorkSelectChange(event)),
-            options:["assigned to me","boards"],
+            options: assignedToMe ,
         },
         issue_templates_select_field:{
             style:{color:"transparent"},
             //onChange : (event) => (handleSelectedProjectOnChange(event)),
-            options:["all templates","project templates"],
+            options:["","all templates","project templates"],
+        },
+        profile_select_field: {
+            style:{color:"transparent"},
+            onChange : (event) => (handleProfileSelectChange(event)),
+            options:["",currentUser.username,"Manage account","Log out"],
         },
         teams_select_field:{
             style:{color:"transparent"},
             onChange : (event) => (handleTeamsSelectChange(event)),
-            options:["all users"],
+            options:["","all users"],
+        },
+        todo_card:{
+            onMouseLeave: () => (handleReleaseMoveTicket(getDragDropTicketState(),"ToDo")),
+            // implment when able to change color for todo card coloronDragOver: () => (console.log("drag over")),
+        },
+        in_progress_card:{
+            onMouseLeave: () => (handleReleaseMoveTicket(getDragDropTicketState(),"InProgress"))
+        },
+        in_review_card:{
+            onMouseLeave: () => (handleReleaseMoveTicket(getDragDropTicketState(),"InReview"))
+        },
+        done_card:{
+            onMouseLeave: () => (handleReleaseMoveTicket(getDragDropTicketState(),"Done"))
         },
         create_ticket_button:{
             onClick: (event) => (handleGoToCreateTicketClick(event))},
@@ -124,6 +142,4 @@ export function BoardFunc (props) {
         BoardTicketInProgressOverride,
         BoardTicketInReviewOverride,
         BoardTicketDoneOverride,
-        customOverrideItems
-    }
-}
+        customOverrideItems}}

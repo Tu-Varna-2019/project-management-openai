@@ -1,86 +1,98 @@
-import { Button, Heading , useTheme , Image, Text, View } from '@aws-amplify/ui-react';
-import React, { useState,useEffect } from 'react';
-import { useAuthenticator } from '@aws-amplify/ui-react';
 import { TicketClass } from '../classes/TicketClass';
-import { DataStore } from 'aws-amplify';
-import { ProjectClass } from '../classes/ProjectClass';
-import { Project, User } from '../models';
-import { UserClass } from '../classes/UserClass';
 
 export function CreateTicketFunc (props) {
 
-    const{
-        handleCreateTicketClick,
-        handleCloseCreateTicketClick,
-        handlePriority,
-        priority,
-        handleIssueType,
-        issueType,
-        issueTypesArray,
+    const {
         title,
+        description,
+        issueType,
+        priority,
+        storyPoint,
+        handleDescription,
         isTitleEmpty,
         handleTitle,
-        handleDescription,
-        description,
-        setAsignee,
-        asignee,
-        handleAsigneeChange,
+        asigneeImageURL,
+        epicLink,
+        handleIssueType,
+        handlePriority,
+        handleStoryPoints,
+        handleAddUserToWatch,
+        handleEpicLinkChange,
+        isseTypeOptions,
+        priorityOptions,
+        watchedCount,
+        watchedAddMeVariant,
+        epicLinkOptions,
         isLoading,
+        peopleAssign,
+        getBiggestTicketID,
+        handleAsigneeChange,
+        handleCreateTicketClick,
+        handleCloseCreateTicketClick,
     } = TicketClass();
-
-    const {
-        handleProjectName,
-        projectName,
-        isProjectEmpty,
-    } = ProjectClass();
-
-    const{
-        usernames,
-        setUsernames
-    } = UserClass();
-
-    // Get projects & users
-    useEffect(() => {
-        //setProjects(DataStore.query(Project));
-        //setUsernames(DataStore.query(User));
-        console.log(DataStore.query(Project));
-        },[]);
-
+    
     const CreateTicketOverride = {
-        project_select_field:{
-            onChange : (event) => (handlePriority(event)),
-            value: projectName,
-           // options: projects
+        create_ticket_text:{
+            children: "Create ticket KAI-"+getBiggestTicketID
+        },
+        story_point_stepper_field:{
+            onStepChange : (newValue) => (handleStoryPoints(newValue)),
+            min:1,
+            max:50,
+            step:1,
+            value: storyPoint,
         },
         issue_type_select_field:{
             onChange : (event) => (handleIssueType(event)),
-            value: issueType,
-            options: issueTypesArray
+            options: isseTypeOptions,
+        },
+        issue_type_image: {
+            src: require(`../images/${issueType}.jpeg`)
         },
         priority_select_field:{
             onChange : (event) => (handlePriority(event)),
-            value: issueType,
-            options: ["Low","Medium","High","Critical"]
+            options: priorityOptions,
+        },
+        priority_image: {
+            src: require(`../images/${priority}.jpeg`)
         },
         title_text_field:{
             isRequired: true,
             hasError: isTitleEmpty,
             value: title,
-            errorMessage: "Title must not be empty !",
+            errorMessage: "Title must not be empty!",
             onChange: (event) => (handleTitle(event)),
-            },
-        description_text_field : {
-            onChange: (event) => (handleDescription(event)),
+        },
+        description_text_field:{
             value: description,
-            },
+            onChange: (event) => (handleDescription(event)),
+        },
+        watch_image:{
+            onClick: (event) => (handleAddUserToWatch(event)),
+        },
+        watch_badge:{
+            children: watchedCount,
+            variation: watchedAddMeVariant
+        },
         asignee_select_field:{
             onChange : (event) => (handleAsigneeChange(event)),
-            value: asignee,
-            options: usernames
-            },
+            options: peopleAssign,
+        },
+        asignee_icon_image:{
+            src: asigneeImageURL,
+            top: asigneeImageURL === "" ? "-1000px":"784px",
+        },
+        epic_link_select_field:{
+            onChange : (event) => (handleEpicLinkChange(event)),
+            style:{color:"transparent", border:"none"},
+            options: epicLinkOptions
+        },
+        epic_link_badge:{
+            children: epicLink,
+        },
         create_button:{
-            onClick : (event) => (handleCreateTicketClick(asignee)),
-            isDisabled: !isTitleEmpty,
+            onClick : (event) => (handleCreateTicketClick(event)),
+            isDisabled: isTitleEmpty,
             isLoading: isLoading
             },
             cancel_button:{

@@ -2,14 +2,10 @@ import { useEffect, useState } from 'react'
 import { useLocation,useNavigate } from 'react-router-dom';
 import { DataStore , Storage } from 'aws-amplify';
 import { Project } from '../models';
-import { User2Class } from './User2Class';
+import { getProjectNameState , setProjectNameState } from '../states';
 
 
 export function ProjectClass(props) {
-
-    const {
-        authenticatedUser
-    } = User2Class();
 
     const [projectName,setProjectName] = useState("");
     const [getProjectID,setGetProjectID] = useState("");
@@ -133,16 +129,19 @@ export function ProjectClass(props) {
         event.preventDefault();
         if (selectedProject.length === 0) {
             const default_project_name = Object.values(projectNames);
+            setProjectNameState(default_project_name[0]);
             navigate('/board',{ state: { project: default_project_name[0] }});
-        }else
-            navigate('/board',{ state: { project: selectedProject }});
+        }else{
+            setProjectNameState(selectedProject);
+            navigate('/board',{ state: { project: selectedProject }});}
     };
 
-    const handleSelectedProjectOnChange = (event) => {
+    const handleSelectedProjectOnChange = async (event) => {
         event.preventDefault();
         setSelectedProject(event.target.value);
+        
     };
-
+    
     const handleSelectedCreateOneProjectOnClick = (event) => {
         event.preventDefault();
         setIsCancelButtonLoading(!isCancelButtonLoading);
@@ -173,6 +172,6 @@ export function ProjectClass(props) {
         setImageProjectName,
         imageProjectName,
         imageProjectURL,
-        getProjectID
+        getProjectID,
     }
 }

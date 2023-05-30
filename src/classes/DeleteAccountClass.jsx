@@ -30,9 +30,9 @@ export function DeleteAccountClass() {
         setConfirmPassword(event.target.value);
     };
 
-    const handleCancelPassword = (event) => {
+    const handleCancelPassword = (event,url) => {
         if (window.confirm("Are you sure you want to leave?"))
-            navigate('/');};
+            navigate(url);};
 
     const handleDeleteAccount = async (event) => {
         event.preventDefault();

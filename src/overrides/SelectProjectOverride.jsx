@@ -20,7 +20,6 @@ export function SelectProjectFunc(props) {
         handleSelectedProjectOnClick,
         isCancelButtonLoading,
         handleSelectedCreateOneProjectOnClick,
-        selectedProject
     }= ProjectClass();
 
     // Create user if he doesn't exist in DataStore
@@ -32,7 +31,7 @@ export function SelectProjectFunc(props) {
                 await DataStore.query(User)
                 .then(data => {
                     data.filter(item => {
-                        if(item.sub === authenticatedUser.attributes.sub){
+                        if(item.username === authenticatedUser.attributes.email){
                             does_user_exist = true;
                             setCurrentUser(item);
                             console.log(`User already exists! ${item.sub}`);
@@ -49,7 +48,7 @@ export function SelectProjectFunc(props) {
             }catch(error) {/*do nothing*/}
     }
     fetchUserData();
-    },[authenticatedUser.attributes,setCurrentUser]);
+    },[authenticatedUser,setCurrentUser]);
 
     const SelectProjectOverride={
         select_project_select_field:{

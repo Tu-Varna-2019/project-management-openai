@@ -17,7 +17,7 @@ export declare type EditTicketOverridesProps = {
     Details?: PrimitiveOverrideProps<TextProps>;
     "Status:"?: PrimitiveOverrideProps<TextProps>;
     "Story points"?: PrimitiveOverrideProps<TextProps>;
-    "Type:"?: PrimitiveOverrideProps<TextProps>;
+    "Issue type"?: PrimitiveOverrideProps<TextProps>;
     "Priority:"?: PrimitiveOverrideProps<TextProps>;
     issue_type_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;

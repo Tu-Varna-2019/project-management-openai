@@ -182,8 +182,8 @@ export const schema = {
                 "TicketID": {
                     "name": "TicketID",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
+                    "type": "Int",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "StoryPoint": {
@@ -482,5 +482,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.3",
-    "version": "9d91e3c6dcfda133ea38f1b386d34ebc"
+    "version": "633e3234c657faa92f7edc1cae4752a3"
 };
