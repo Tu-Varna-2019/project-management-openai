@@ -22,7 +22,6 @@ import {
   Rating,
   SearchField,
   SelectField,
-  StepperField,
   Text,
   TextAreaField,
   TextField,
@@ -606,7 +605,7 @@ export default function EditTicketFull(props) {
           gap="15px"
           position="absolute"
           top="462px"
-          left="9px"
+          left="15px"
           size="default"
           isDisabled={false}
           variation="link"
@@ -619,7 +618,7 @@ export default function EditTicketFull(props) {
           gap="15px"
           position="absolute"
           top="684px"
-          left="9px"
+          left="15px"
           size="default"
           isDisabled={false}
           variation="link"
@@ -632,7 +631,7 @@ export default function EditTicketFull(props) {
           gap="15px"
           position="absolute"
           top="536px"
-          left="9px"
+          left="15px"
           size="default"
           isDisabled={false}
           variation="link"
@@ -645,7 +644,7 @@ export default function EditTicketFull(props) {
           gap="15px"
           position="absolute"
           top="610px"
-          left="9px"
+          left="15px"
           size="default"
           isDisabled={false}
           variation="link"
@@ -658,196 +657,13 @@ export default function EditTicketFull(props) {
           gap="15px"
           position="absolute"
           top="757px"
-          left="8px"
+          left="13px"
           size="default"
           isDisabled={false}
           variation="link"
           children="Team calendar"
           {...getOverrideProps(overrides, "team_calendar_button")}
         ></Button>
-        <View
-          padding="0px 0px 0px 0px"
-          width="331px"
-          height="230px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="267px"
-          left="1046px"
-          {...getOverrideProps(overrides, "Details_form")}
-        >
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(0,0,0,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="76px"
-            height="22px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="0px"
-            left="0px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Details"
-            {...getOverrideProps(overrides, "Details")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="17px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="60px"
-            height="33px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="188px"
-            left="4px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Status:"
-            {...getOverrideProps(overrides, "Status:")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="17px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="unset"
-            height="unset"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="61px"
-            left="4px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Issue type"
-            {...getOverrideProps(overrides, "Issue type")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="17px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="unset"
-            height="unset"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="117px"
-            left="4px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Priority:"
-            {...getOverrideProps(overrides, "Priority:")}
-          ></Text>
-          <SelectField
-            width="97.28px"
-            height="22.81px"
-            gap="60px"
-            position="absolute"
-            top="49px"
-            left="229px"
-            placeholder=""
-            size="small"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "issue_type_select_field")}
-          ></SelectField>
-          <SelectField
-            width="97.28px"
-            height="22.81px"
-            gap="60px"
-            position="absolute"
-            top="114px"
-            left="229px"
-            placeholder=""
-            size="small"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "priority_select_field")}
-          ></SelectField>
-          <Image
-            width="19.62px"
-            height="16.59px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            position="absolute"
-            top="53px"
-            left="104px"
-            padding="0px 0px 0px 0px"
-            objectFit="cover"
-            {...getOverrideProps(overrides, "issue_type_image")}
-          ></Image>
-          <Image
-            width="17.17px"
-            height="19.35px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            position="absolute"
-            top="115px"
-            left="104px"
-            padding="0px 0px 0px 0px"
-            objectFit="cover"
-            {...getOverrideProps(overrides, "priority_image")}
-          ></Image>
-          <Badge
-            width="90px"
-            height="48px"
-            position="absolute"
-            top="169px"
-            left="229px"
-            size="default"
-            variation="info"
-            children="ToDo"
-            {...getOverrideProps(overrides, "status_badge")}
-          ></Badge>
-          <SelectField
-            width="102px"
-            height="61px"
-            gap="60px"
-            position="absolute"
-            top="169px"
-            left="229px"
-            placeholder=""
-            size="small"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "status_select_field")}
-          ></SelectField>
-        </View>
         <Text
           fontFamily="Inter"
           fontSize="32px"
@@ -858,26 +674,26 @@ export default function EditTicketFull(props) {
           display="block"
           direction="column"
           justifyContent="unset"
-          width="106.27px"
-          height="18.8px"
+          width="106px"
+          height="35px"
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="291px"
-          left="365px"
+          top="297px"
+          left="377px"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
           children="KAI-"
           {...getOverrideProps(overrides, "ticket_id_text")}
         ></Text>
         <TextField
-          width="602px"
+          width="763px"
           height="73px"
           position="absolute"
-          top="475px"
-          left="349px"
+          top="471px"
+          left="377px"
           label=""
-          placeholder="Placeholder"
+          placeholder=""
           size="default"
           isDisabled={false}
           labelHidden={false}
@@ -888,189 +704,21 @@ export default function EditTicketFull(props) {
           width="31px"
           height="33px"
           position="absolute"
-          top="398px"
-          left="360px"
+          top="360px"
+          left="375px"
           size="default"
           variation="info"
           children="0"
           {...getOverrideProps(overrides, "watch_badge")}
         ></Badge>
-        <View
-          padding="0px 0px 0px 0px"
-          width="331.69px"
-          height="224px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="543px"
-          left="1050px"
-          {...getOverrideProps(overrides, "dates_group")}
-        >
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="700"
-            color="rgba(0,0,0,1)"
-            lineHeight="27px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="100.3px"
-            height="29.84px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="0px"
-            left="0px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Dates"
-            {...getOverrideProps(overrides, "Dates")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="80px"
-            height="31px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="74px"
-            left="4px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Created"
-            {...getOverrideProps(overrides, "Created")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="84px"
-            height="31px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="132px"
-            left="0px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Updated"
-            {...getOverrideProps(overrides, "Updated")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="84px"
-            height="31px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="193px"
-            left="0px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Resolved"
-            {...getOverrideProps(overrides, "Resolved")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="16px"
-            fontWeight="600"
-            color="rgba(0,0,0,1)"
-            lineHeight="16px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="118.69px"
-            height="25.77px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="66px"
-            left="213px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="000000000"
-            {...getOverrideProps(overrides, "created_date_text")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="16px"
-            fontWeight="600"
-            color="rgba(0,0,0,1)"
-            lineHeight="16px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="118.69px"
-            height="25.77px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="126px"
-            left="213px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="000000000"
-            {...getOverrideProps(overrides, "updated_date_text")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="16px"
-            fontWeight="600"
-            color="rgba(0,0,0,1)"
-            lineHeight="16px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="118.69px"
-            height="25.77px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="187px"
-            left="213px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="000000000"
-            {...getOverrideProps(overrides, "resolved_date_text")}
-          ></Text>
-        </View>
         <TextAreaField
-          width="602px"
+          width="763px"
           height="138px"
           label="Description"
           placeholder="Describe the task"
           position="absolute"
-          top="605px"
-          left="349px"
+          top="582px"
+          left="377px"
           size="default"
           isDisabled={false}
           labelHidden={false}
@@ -1078,13 +726,13 @@ export default function EditTicketFull(props) {
           {...getOverrideProps(overrides, "description_text_field")}
         ></TextAreaField>
         <TextAreaField
-          width="602px"
-          height="138px"
+          width="763px"
+          height="135px"
           label="Comments"
           placeholder="Describe the task"
           position="absolute"
-          top="774px"
-          left="346px"
+          top="752px"
+          left="377px"
           size="default"
           isDisabled={false}
           labelHidden={false}
@@ -1092,11 +740,11 @@ export default function EditTicketFull(props) {
           {...getOverrideProps(overrides, "comments_text_field")}
         ></TextAreaField>
         <Button
-          width="260px"
+          width="151px"
           height="44px"
           position="absolute"
-          top="1003px"
-          left="346px"
+          top="421px"
+          left="377px"
           backgroundColor={createUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
@@ -1111,11 +759,11 @@ export default function EditTicketFull(props) {
           {...getOverrideProps(overrides, "create_button")}
         ></Button>
         <Button
-          width="260px"
+          width="151px"
           height="44px"
           position="absolute"
-          top="999px"
-          left="691px"
+          top="421px"
+          left="542px"
           backgroundColor={cancelUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
@@ -1129,264 +777,12 @@ export default function EditTicketFull(props) {
           }}
           {...getOverrideProps(overrides, "cancel_button")}
         ></Button>
-        <View
-          padding="0px 0px 0px 0px"
-          width="424px"
-          height="373px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="272px"
-          left="1479px"
-          {...getOverrideProps(overrides, "people_group")}
-        >
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="76px"
-            height="34px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="67px"
-            left="7px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Asignee"
-            {...getOverrideProps(overrides, "Asignee")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="82px"
-            height="31px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="207px"
-            left="0px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Reporter"
-            {...getOverrideProps(overrides, "Reporter")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(104,112,120,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="82px"
-            height="31px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="342px"
-            left="4px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Epic link"
-            {...getOverrideProps(overrides, "Epic link")}
-          ></Text>
-          <Image
-            width="46.6px"
-            height="47.41px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            position="absolute"
-            top="60px"
-            left="215px"
-            padding="0px 0px 0px 0px"
-            objectFit="cover"
-            {...getOverrideProps(overrides, "asignee_icon_image")}
-          ></Image>
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(0,0,0,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="135px"
-            height="38px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="48px"
-            left="273px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Asignee name"
-            {...getOverrideProps(overrides, "asignee_name_text")}
-          ></Text>
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(0,0,0,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="81.75px"
-            height="23.71px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="0px"
-            left="7px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="People"
-            {...getOverrideProps(overrides, "People")}
-          ></Text>
-          <Button
-            width="184px"
-            height="33px"
-            position="absolute"
-            top="118px"
-            left="240px"
-            size="default"
-            isDisabled={false}
-            variation="link"
-            children="Assign to me"
-            {...getOverrideProps(overrides, "assign_to_me_button")}
-          ></Button>
-          <Text
-            fontFamily="Inter"
-            fontSize="18px"
-            fontWeight="600"
-            color="rgba(0,0,0,1)"
-            lineHeight="18px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="135px"
-            height="34px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="210px"
-            left="279px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Reporter name"
-            {...getOverrideProps(overrides, "reporter_name_text")}
-          ></Text>
-          <Image
-            width="46.6px"
-            height="47.41px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            position="absolute"
-            top="197px"
-            left="215px"
-            padding="0px 0px 0px 0px"
-            objectFit="cover"
-            {...getOverrideProps(overrides, "reporter_icon_image")}
-          ></Image>
-        </View>
-        <View
-          padding="0px 0px 0px 0px"
-          width="199px"
-          height="69px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="593px"
-          left="1694px"
-          {...getOverrideProps(overrides, "epic_link_group")}
-        >
-          <Badge
-            width="199px"
-            height="48px"
-            position="absolute"
-            top="18px"
-            left="0px"
-            size="default"
-            variation="info"
-            children="Epic link"
-            {...getOverrideProps(overrides, "epic_link_badge")}
-          ></Badge>
-          <SelectField
-            width="199px"
-            height="69px"
-            gap="60px"
-            position="absolute"
-            top="0px"
-            left="0px"
-            placeholder=""
-            size="small"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "epic_link_select_field")}
-          ></SelectField>
-        </View>
-        <Divider
-          height="548px"
-          position="absolute"
-          top="250px"
-          left="1437px"
-          size="default"
-          orientation="vertical"
-          {...getOverrideProps(overrides, "Divider180422889")}
-        ></Divider>
-        <Divider
-          height="835px"
-          position="absolute"
-          top="247px"
-          left="996px"
-          size="large"
-          orientation="vertical"
-          {...getOverrideProps(overrides, "Divider180442981")}
-        ></Divider>
-        <Divider
-          width="921px"
-          position="absolute"
-          top="798px"
-          left="998px"
-          size="default"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider180422932")}
-        ></Divider>
         <SelectField
-          width="193px"
+          width="148px"
           height="unset"
           position="absolute"
-          top="294px"
-          left="755px"
+          top="415px"
+          left="992px"
           placeholder=""
           size="default"
           isDisabled={false}
@@ -1398,74 +794,14 @@ export default function EditTicketFull(props) {
           width="unset"
           height="unset"
           position="absolute"
-          top="393px"
-          left="391px"
+          top="355px"
+          left="406px"
           size="default"
           isDisabled={false}
           variation="link"
           children="Watch this issue"
           {...getOverrideProps(overrides, "watch_issue_button")}
         ></Button>
-        <Text
-          fontFamily="Inter"
-          fontSize="17px"
-          fontWeight="600"
-          color="rgba(104,112,120,1)"
-          lineHeight="17px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="121px"
-          height="31px"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="721px"
-          left="1479px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="Story points"
-          {...getOverrideProps(overrides, "Story points")}
-        ></Text>
-        <StepperField
-          width="193px"
-          height="41px"
-          position="absolute"
-          top="716px"
-          left="1694px"
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="quiet"
-          {...getOverrideProps(overrides, "story_point_stepper_field")}
-        ></StepperField>
-        <SelectField
-          width="133px"
-          height="42px"
-          position="absolute"
-          top="322px"
-          left="1753px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="quiet"
-          {...getOverrideProps(overrides, "asignee_select_field")}
-        ></SelectField>
-        <SelectField
-          width="133px"
-          height="42px"
-          position="absolute"
-          top="482px"
-          left="1760px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="quiet"
-          {...getOverrideProps(overrides, "reporter_select_field")}
-        ></SelectField>
         <View
           padding="0px 0px 0px 0px"
           width="162.08px"

@@ -17,6 +17,7 @@ export { default as Noteremindercard } from "./Noteremindercard";
 export { default as Ticketshort } from "./Ticketshort";
 export { default as EditTicketFull } from "./EditTicketFull";
 export { default as TicketDoneCollection } from "./TicketDoneCollection";
+export { default as TicketInfoScroll } from "./TicketInfoScroll";
 export { default as TicketToDoCollection } from "./TicketToDoCollection";
 export { default as SelectProject } from "./SelectProject";
 export { default as DeleteAccount } from "./DeleteAccount";

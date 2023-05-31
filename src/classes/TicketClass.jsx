@@ -5,7 +5,7 @@ import { Ticket,User } from '../models';
 import { ProjectClass } from './ProjectClass';
 import { User2Class } from './User2Class';
 import { getProjectNameState } from '../states';
-import { getDragDropTicketState, setDragDropTicketState } from '../states';
+import { setDragDropTicketState } from '../states';
 
 const iniTicketValue = {
     Title: "",
@@ -17,7 +17,6 @@ const iniTicketValue = {
 const iniErrorValue = {
     isLoading: false,
 };
-
 
 export function TicketClass(props) {
     const {
@@ -168,6 +167,15 @@ export function TicketClass(props) {
                 })})
     };
 
+    const handleSafeTicketImageChange = async (event) => {
+        await Storage.put(
+            event, 
+            'Protected Content', {
+            level: 'protected'
+        });
+        console.log(`Saving file: ${event}`);
+        setImageTicket(event);}
+
     const handleMoreOptionsChange = async (event) => {
         event.preventDefault();
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -176,7 +184,6 @@ export function TicketClass(props) {
         const newTicketUpdatedDate = newUpdatedDate.toISOString();
         const newTicketCreatedDate = newCreatedDate.toISOString();
         let resolved_date = null;
-
         switch(event.target.value){
             // Move
             case moreOptions[1]:
@@ -204,9 +211,7 @@ export function TicketClass(props) {
                             "IssueType": issueType,
                             "Priority": priority,
                             "TicketStatus": ticketStatus,
-                            "Comment": comment
-                        })
-                    );
+                            "Comment": comment}));
                     navigate('/board', { state: { project: getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully cloned!` }});
                     window.location.reload();
             break;
@@ -222,15 +227,13 @@ export function TicketClass(props) {
             break;
             default: 
                 console.log("default");
-            break;}
-    };
+            break;}};
 
     const postData = async (event) => {
         const response = await API.post('apiopenai','/sns/notifyticketupdate',
         { body: JSON.stringify({event})});
         console.log(response);
-        return response;
-    }
+        return response;}
        ////////////* Edit ticket //////////////////
 
      // Goto EditTicket component
@@ -601,5 +604,6 @@ export function TicketClass(props) {
         peopleAssign,
         handleAsigneeChange,
         handleReporterChange,
+        handleSafeTicketImageChange,
         getBiggestTicketID
     }}

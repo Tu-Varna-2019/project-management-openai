@@ -818,11 +818,11 @@ export default function Board(props) {
           {...getOverrideProps(overrides, "profile_select_field")}
         ></SelectField>
         <Card
-          width="327px"
+          width="316px"
           height="833px"
           position="absolute"
           top="247px"
-          left="-11px"
+          left="0px"
           variation="elevated"
           {...getOverrideProps(overrides, "Card")}
         ></Card>
@@ -943,8 +943,8 @@ export default function Board(props) {
           height="63px"
           gap="15px"
           position="absolute"
-          top="460px"
-          left="-5px"
+          top="462px"
+          left="6px"
           size="default"
           isDisabled={false}
           variation="link"
@@ -956,8 +956,8 @@ export default function Board(props) {
           height="62px"
           gap="15px"
           position="absolute"
-          top="682px"
-          left="-5px"
+          top="684px"
+          left="6px"
           size="default"
           isDisabled={false}
           variation="link"
@@ -969,8 +969,8 @@ export default function Board(props) {
           height="62px"
           gap="15px"
           position="absolute"
-          top="534px"
-          left="-5px"
+          top="536px"
+          left="6px"
           size="default"
           isDisabled={false}
           variation="link"
@@ -982,8 +982,8 @@ export default function Board(props) {
           height="62px"
           gap="15px"
           position="absolute"
-          top="608px"
-          left="-5px"
+          top="610px"
+          left="6px"
           size="default"
           isDisabled={false}
           variation="link"
@@ -995,8 +995,8 @@ export default function Board(props) {
           height="63px"
           gap="15px"
           position="absolute"
-          top="755px"
-          left="-6px"
+          top="757px"
+          left="5px"
           size="default"
           isDisabled={false}
           variation="link"

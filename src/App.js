@@ -20,6 +20,7 @@ import ProfilePage from './pages/ProfilePage';
 import { ResetPasswordKAI } from './ui-components';
 import ResetPasswordKAIPage from './pages/ResetPasswordKAIPage';
 import DeleteAccountKAIPage from './pages/DeleteAccountKAIPage';
+import EditTicketFullPage from './pages/EditTicketFullPage';
 
 
 const {
@@ -47,7 +48,7 @@ export default function App() {
           <Route path="/board" element={<BoardPage/>}/>
           <Route path="/profile" element={<ProfilePage/>}/>
           <Route path="/create-project" element={<CreateProjectPage/>}/>
-          <Route path="/edit-ticket" element={<CreateProjectPage/>}/>
+          <Route path="/edit-ticket" element={<EditTicketFullPage/>}/>
           <Route path="/" element={<SelectProjectPage/>}/>
           <Route path='*' element={<NotFound404Page/>}/>
           <Route path="/note" element={<HomePage/>}/>

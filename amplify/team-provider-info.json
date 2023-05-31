@@ -54,7 +54,7 @@
         "notifyticketupdatelambda": {
           "senderEmail": "M.Notes@hotmail.com",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/notifyticketupdatelambda-4453796847463555564b-build.zip"
+          "s3Key": "amplify-builds/notifyticketupdatelambda-484b35516150382b4152-build.zip"
         }
       },
       "storage": {

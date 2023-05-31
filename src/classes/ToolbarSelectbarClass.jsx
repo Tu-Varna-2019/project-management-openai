@@ -50,8 +50,8 @@ export function ToolbarSelectClass() {
                     await DataStore.query(Ticket)
                     .then(data => {
                         data.filter(item => {
-                            if( item.TicketID ===  getTicketID)
-                                navigate('/edit-ticket',{ state: { editTicketidFull: item.id }});
+                            if( item.TicketID ===  parseInt(getTicketID))
+                                navigate("/edit-ticket",{state:{selectedTicket:item,project: getProjectNameState()}});
                             })});}
                 else
                     console.log("default");
