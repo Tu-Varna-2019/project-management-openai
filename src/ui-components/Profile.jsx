@@ -203,7 +203,6 @@ export default function Profile(props) {
             position="relative"
             padding="0px 0px 0px 0px"
             objectFit="cover"
-            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwebstockreview.net%2Fimages%2Fnotification-icon-png-4.png&f=1&nofb=1&ipt=259df9d928323bec9e20e8e6ae4894f17fd4fc732b65a2a58e3ab5e8fc8ada98&ipo=images"
             {...getOverrideProps(overrides, "reminder_icon_image")}
           ></Image>
           <Image
@@ -217,7 +216,6 @@ export default function Profile(props) {
             position="relative"
             padding="0px 0px 0px 0px"
             objectFit="cover"
-            src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpngimg.com%2Fuploads%2Fquestion_mark%2Fquestion_mark_PNG130.png&f=1&nofb=1&ipt=80eb082ba2915fdf4805c3925e746ae65068fe66b2e15c8f6c3d8e6ed5834abd&ipo=images"
             {...getOverrideProps(overrides, "help_icon_image")}
           ></Image>
           <Image
@@ -231,7 +229,6 @@ export default function Profile(props) {
             position="relative"
             padding="0px 0px 0px 0px"
             objectFit="cover"
-            src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fdtafalonso%2Fandroid-lollipop%2F512%2FSettings-icon.png&f=1&nofb=1&ipt=654a723082ce2bbf65e1318335bb081d913befbeaf8738f6c2986ef2080ae725&ipo=images"
             {...getOverrideProps(overrides, "settings_icon_image")}
           ></Image>
           <Image
@@ -245,7 +242,6 @@ export default function Profile(props) {
             position="relative"
             padding="0px 0px 0px 0px"
             objectFit="cover"
-            src={ticket?.ImageTicket}
             {...getOverrideProps(overrides, "profile_icon_image179642350")}
           ></Image>
         </Flex>
@@ -261,7 +257,6 @@ export default function Profile(props) {
           left="85px"
           padding="0px 0px 0px 0px"
           objectFit="cover"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.freebiesupply.com%2Flogos%2Flarge%2F2x%2Faws-ec2-logo-png-transparent.png&f=1&nofb=1&ipt=4b831e1f2fa38b82e4d5320d48c551604d111dee5b0e481f95970b469a094c2e&ipo=images"
           {...getOverrideProps(overrides, "logo 1")}
         ></Image>
         <Text

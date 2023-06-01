@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import '@aws-amplify/ui-react/styles.css';
-import { Board, CreateTicket, EditTicket, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection } from '../ui-components';
+import { Board, CreateTicket, EditTicket, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection, Toolbar } from '../ui-components';
 import '@aws-amplify/ui-react/styles.css';
 import { TicketClass } from '../classes/TicketClass';
 import { BoardFunc } from '../overrides/BoardOverride';
@@ -69,7 +69,11 @@ export default function BoardPage(props) {
               overrideItems={customOverrideItems}/>
         </div>
         
-        <div style={{ position: 'relative',display: 'block', bottom: 1277, right: 0 }}>
+        <div style={{ position: 'relative',display: 'block', bottom: 1200, right: 0 , width:825 }}>
+        <Toolbar/>
+      </div>
+
+        <div style={{ position: 'relative',display: 'block', bottom: 1227, right: 0 }}>
             {editTicketBoolean &&
            <EditTicket overrides={EditTicketOverride}/>}
             {createTicketBoolean &&
