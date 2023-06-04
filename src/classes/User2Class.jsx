@@ -3,7 +3,6 @@ import { Auth } from 'aws-amplify';
 import { DataStore , Storage } from 'aws-amplify';
 import { User } from '../models';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ProjectClass } from './ProjectClass';
 
 
 export function User2Class() {
@@ -28,14 +27,14 @@ export function User2Class() {
             try {
                 const currentCredentials = await  Auth.currentAuthenticatedUser({ bypassCache: true });
                 setAuthenticatedUser(currentCredentials);
-                console.log(`sub: ${currentCredentials.attributes.sub}`);   
                 // Get user from DataStore
                     await DataStore.query(User).then(data => {
                         data.filter(item => {
                             if(item.sub === currentCredentials.attributes.sub)
-                                setCurrentUser(item)})})
-                            }catch(error){console.log(error);}
-        }
+                                setCurrentUser(item);
+                                return item;
+                            })})
+                            }catch(error){console.log(error);}}
         fetchUserData();
     },[])
 
@@ -46,8 +45,7 @@ export function User2Class() {
                 level:"public"
             }).then(data => {
                 setUserProfileURL(data);
-            })
-        }
+            })}
             fetchUserData();
     },[setCurrentUser,currentUser.ImageProfile]);
 
@@ -57,8 +55,7 @@ export function User2Class() {
         if (location.state.alert_variant !== undefined) {
         setAlertVariant(location.state.alert_variant);
         setAlertVisibility(location.state?.alert_show);
-        setAlertDescription(location.state?.alert_description);
-        }
+        setAlertDescription(location.state?.alert_description);}
         } catch(error) {/*do nothing */}
     },[location.state]);
 
@@ -74,14 +71,15 @@ export function User2Class() {
                     }).then(data_url => {
                         setUserSubImageURL( prevList =>[{
                             sub: item.sub,
-                            url: data_url }, ...prevList]);})})
+                            url: data_url }, ...prevList]);});
+                            return item;
+                        })
                     }).catch(error => {console.error(error);});}
             fetchUserData();
     },[])
 
     const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-    };
+        setEmail(event.target.value);};
 
     const handleSaveEmailClick = async (event) => {
         console.log(authenticatedUser.attributes);
@@ -114,7 +112,6 @@ export function User2Class() {
         // check if user isn't using the actual default profile image
         if (currentUser.ImageProfile !== "default_user_profile.png")
             await Storage.remove(currentUser.ImageProfile);
-
         const editUserDataStore = await DataStore.query(User, currentUser.id);
         await DataStore.save(User.copyOf(editUserDataStore, item => {
             item.sub = currentUser.sub;
@@ -127,16 +124,13 @@ export function User2Class() {
 
     const handleGoToChangePassword = (event) => {
         if (window.confirm(`Are you sure you want to goto change password page?`))
-            navigate('/reset-password-kai');
-    };
+            navigate('/reset-password-kai');};
     const handleGoToDeleteAccount = (event) => {
         if (window.confirm(`Are you sure you want to goto delete account page?`))
-            navigate('/delete-account-kai');
-    };
+            navigate('/delete-account-kai');};
     const handleGoToMNotes = (event) => {
         if (window.confirm(`Are you sure you want to switch to MNotes app?`))
-            navigate('/note');
-    };
+            navigate('/note');};
 
     return {
         currentUser,
@@ -156,5 +150,4 @@ export function User2Class() {
         handleGoToChangePassword,
         handleGoToDeleteAccount,
         handleGoToMNotes,
-    }
-}
+    }}

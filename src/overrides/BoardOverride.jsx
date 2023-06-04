@@ -37,7 +37,6 @@ export function BoardFunc (props) {
 
     const {
         received_project_name,
-        imageProjectURL,
     } = ProjectClass();
 
     const navigate = useNavigate();
@@ -45,7 +44,9 @@ export function BoardFunc (props) {
         let asignee_image_url = "";
         userSubImageURL.map((data, index) => {
             if (data.sub === item.Asignee)
-            asignee_image_url = data.url;});
+            asignee_image_url = data.url;
+            return asignee_image_url;
+        });
 
         return {
             overrides: {
@@ -76,49 +77,6 @@ export function BoardFunc (props) {
             items:ticketDone}}
 
     const BoardComponentOverride = {
-        roadmap_button:{
-            onClick: (event) => (console.log("yes"))},
-        active_sprints_button:{
-            onClick: (event) => (console.log("yes2"))},
-        project_name_text:{
-            children: received_project_name
-        },
-        project_image_name:{
-            src: imageProjectURL,
-        },
-        profile_icon_image:{
-            src: userProfileURL
-        },
-        success_alert : { 
-            style:{"display": alertVisibility },
-            children: alertDescription,
-            variant: alertVariant,
-        },
-        projects_select_field:{
-            style:{color:"transparent"},
-            onChange : (event) => (handleProjectsSelectChange(event)),
-            options:["","switch project"],
-        },
-        your_work_select_field:{
-            style:{color:"transparent"},
-            onChange : (event) => (handleYourWorkSelectChange(event)),
-            options: assignedToMe ,
-        },
-        issue_templates_select_field:{
-            style:{color:"transparent"},
-            //onChange : (event) => (handleSelectedProjectOnChange(event)),
-            options:["","all templates","project templates"],
-        },
-        profile_select_field: {
-            style:{color:"transparent"},
-            onChange : (event) => (handleProfileSelectChange(event)),
-            options:["",currentUser.username,"Manage account","Log out"],
-        },
-        teams_select_field:{
-            style:{color:"transparent"},
-            onChange : (event) => (handleTeamsSelectChange(event)),
-            options:["","all users"],
-        },
         todo_card:{
             onMouseLeave: () => (handleReleaseMoveTicket(getDragDropTicketState(),"ToDo")),
             // implment when able to change color for todo card coloronDragOver: () => (console.log("drag over")),

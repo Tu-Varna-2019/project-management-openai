@@ -6,7 +6,10 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import {
+  getOverrideProps,
+  useStateMutationAction,
+} from "@aws-amplify/ui-react/internal";
 import {
   Badge,
   Button,
@@ -18,6 +21,14 @@ import {
 } from "@aws-amplify/ui-react";
 export default function TicketInfoScroll(props) {
   const { overrides, ...rest } = props;
+  const [rectangleOneBackgroundColor, setRectangleOneBackgroundColor] =
+    useStateMutationAction("white");
+  const rectangleOneOnMouseOver = () => {
+    setRectangleOneBackgroundColor("rgba(119, 165, 208, 0.19)");
+  };
+  const rectangleOneOnMouseLeave = () => {
+    setRectangleOneBackgroundColor("rgba(254, 254, 255, 1)");
+  };
   return (
     <View
       width="634px"
@@ -27,7 +38,6 @@ export default function TicketInfoScroll(props) {
       alignItems="unset"
       justifyContent="unset"
       position="relative"
-      border="1px SOLID rgba(0,0,0,1)"
       padding="0px 0px 0px 0px"
       backgroundColor="rgba(255,255,255,1)"
       {...getOverrideProps(overrides, "TicketInfoScroll")}
@@ -45,10 +55,15 @@ export default function TicketInfoScroll(props) {
         bottom="0.52%"
         left="0%"
         right="0%"
-        border="1px SOLID rgba(0,0,0,1)"
         borderRadius="10px"
         padding="0px 0px 0px 0px"
-        backgroundColor="rgba(254,254,255,1)"
+        backgroundColor={rectangleOneBackgroundColor}
+        onMouseOver={() => {
+          rectangleOneOnMouseOver();
+        }}
+        onMouseLeave={() => {
+          rectangleOneOnMouseLeave();
+        }}
         {...getOverrideProps(overrides, "Rectangle 1")}
       ></View>
       <View

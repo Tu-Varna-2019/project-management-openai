@@ -12,14 +12,10 @@ import {
   useStateMutationAction,
 } from "@aws-amplify/ui-react/internal";
 import {
-  Alert,
   Button,
   Card,
-  Flex,
   Icon,
   Image,
-  SearchField,
-  SelectField,
   Text,
   TextField,
   View,
@@ -29,47 +25,47 @@ export default function Profile(props) {
   const [
     deleteUnderScoreaccountUnderScorebuttonBackgroundColor,
     setDeleteUnderScoreaccountUnderScorebuttonBackgroundColor,
-  ] = useStateMutationAction("rgba(242,78,30,1)");
+  ] = useStateMutationAction("rgba(206,219,252,1)");
   const [
     changeUnderScorepasswordUnderScorebuttonBackgroundColor,
     setChangeUnderScorepasswordUnderScorebuttonBackgroundColor,
-  ] = useStateMutationAction("rgba(255,153,0,0.72)");
+  ] = useStateMutationAction("rgba(206,219,252,1)");
   const [
     switchUnderScoremnotesUnderScorebuttonBackgroundColor,
     setSwitchUnderScoremnotesUnderScorebuttonBackgroundColor,
-  ] = useStateMutationAction("rgba(246,133,54,1)");
+  ] = useStateMutationAction("rgba(206,219,252,1)");
   const [
     saveUnderScoreemailUnderScorebuttonBackgroundColor,
     setSaveUnderScoreemailUnderScorebuttonBackgroundColor,
   ] = useStateMutationAction("rgba(255,255,255,1)");
   const deleteUnderScoreaccountUnderScorebuttonOnMouseOver = () => {
     setDeleteUnderScoreaccountUnderScorebuttonBackgroundColor(
-      "rgba(194, 66, 28, 1)"
+      "rgba(35, 47, 62, 0.65)"
     );
   };
   const deleteUnderScoreaccountUnderScorebuttonOnMouseLeave = () => {
     setDeleteUnderScoreaccountUnderScorebuttonBackgroundColor(
-      "rgba(242, 78, 30, 1)"
+      "rgba(206, 219, 252, 1)"
     );
   };
   const changeUnderScorepasswordUnderScorebuttonOnMouseOver = () => {
     setChangeUnderScorepasswordUnderScorebuttonBackgroundColor(
-      "rgba(159, 100, 12, 0.72)"
+      "rgba(35, 47, 62, 0.65)"
     );
   };
   const changeUnderScorepasswordUnderScorebuttonOnMouseLeave = () => {
     setChangeUnderScorepasswordUnderScorebuttonBackgroundColor(
-      "rgba(255, 153, 0, 0.72)"
+      "rgba(206, 219, 252, 1)"
     );
   };
   const switchUnderScoremnotesUnderScorebuttonOnMouseOver = () => {
     setSwitchUnderScoremnotesUnderScorebuttonBackgroundColor(
-      "rgba(173, 95, 40, 1)"
+      "rgba(35, 47, 62, 0.65)"
     );
   };
   const switchUnderScoremnotesUnderScorebuttonOnMouseLeave = () => {
     setSwitchUnderScoremnotesUnderScorebuttonBackgroundColor(
-      "rgba(246, 133, 54, 1)"
+      "rgba(206, 219, 252, 1)"
     );
   };
   const switchUnderScoremnotesUnderScorebuttonOnClick = useNavigateAction({
@@ -116,35 +112,6 @@ export default function Profile(props) {
         {...getOverrideProps(overrides, "Frame")}
       >
         <View
-          width="1921px"
-          height="112px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="0px"
-          left="-1px"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          borderRadius="7px"
-          padding="0px 0px 0px 0px"
-          backgroundColor="rgba(35,47,62,1)"
-          {...getOverrideProps(overrides, "footer_rectangle")}
-        ></View>
-        <SearchField
-          width="415px"
-          height="unset"
-          placeholder="Search"
-          position="absolute"
-          top="38px"
-          left="calc(50% - 207.5px - -359.5px)"
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="default"
-          {...getOverrideProps(overrides, "search_ticket_select_field")}
-        ></SearchField>
-        <View
           width="48px"
           height="38px"
           {...getOverrideProps(overrides, "amplify_logo")}
@@ -164,273 +131,6 @@ export default function Profile(props) {
           src="https://eu-west-1.signin.aws/assets/static/img/signin-background.png"
           {...getOverrideProps(overrides, "aws_image_background_notes")}
         ></Image>
-        <Button
-          width="145px"
-          height="48px"
-          position="absolute"
-          border="1px SOLID rgba(35,47,62,1)"
-          top="40px"
-          left="calc(50% - 71.5px - 125.5px)"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          backgroundColor="rgba(255,255,255,1)"
-          size="default"
-          isDisabled={false}
-          variation="default"
-          children="Create"
-          {...getOverrideProps(overrides, "create_ticket_button")}
-        ></Button>
-        <Flex
-          gap="40px"
-          direction="row"
-          width="unset"
-          height="unset"
-          justifyContent="flex-start"
-          alignItems="center"
-          position="absolute"
-          top="32px"
-          left="1579px"
-          padding="0px 0px 0px 0px"
-          {...getOverrideProps(overrides, "Frame 3")}
-        >
-          <Image
-            width="49px"
-            height="49px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            objectFit="cover"
-            {...getOverrideProps(overrides, "reminder_icon_image")}
-          ></Image>
-          <Image
-            width="51px"
-            height="52px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            objectFit="cover"
-            {...getOverrideProps(overrides, "help_icon_image")}
-          ></Image>
-          <Image
-            width="51px"
-            height="51px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            objectFit="cover"
-            {...getOverrideProps(overrides, "settings_icon_image")}
-          ></Image>
-          <Image
-            width="49px"
-            height="51px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            objectFit="cover"
-            {...getOverrideProps(overrides, "profile_icon_image179642350")}
-          ></Image>
-        </Flex>
-        <Image
-          width="56px"
-          height="70px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="22px"
-          left="85px"
-          padding="0px 0px 0px 0px"
-          objectFit="cover"
-          {...getOverrideProps(overrides, "logo 1")}
-        ></Image>
-        <Text
-          fontFamily="Inter"
-          fontSize="32px"
-          fontWeight="700"
-          color="rgba(255,255,255,1)"
-          lineHeight="48px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="unset"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="33px"
-          left="20px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="KAI"
-          {...getOverrideProps(overrides, "KAI")}
-        ></Text>
-        <View
-          padding="0px 0px 0px 0px"
-          width="131px"
-          height="69px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="34px"
-          left="176px"
-          {...getOverrideProps(overrides, "Your work group179642353")}
-        >
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="700"
-            color="rgba(255,255,255,1)"
-            lineHeight="25.5px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="99px"
-            height="38.43px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="10.02px"
-            left="3px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Your work"
-            {...getOverrideProps(overrides, "Your work")}
-          ></Text>
-          <SelectField
-            width="131px"
-            height="69px"
-            label="Your work"
-            position="absolute"
-            top="0px"
-            left="0px"
-            placeholder=""
-            size="default"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "your_work_select_field")}
-          ></SelectField>
-        </View>
-        <View
-          padding="0px 0px 0px 0px"
-          width="118px"
-          height="69px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="34px"
-          left="307px"
-          {...getOverrideProps(overrides, "Your work group179642356")}
-        >
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="700"
-            color="rgba(255,255,255,1)"
-            lineHeight="25.5px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="99px"
-            height="38.43px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="10.02px"
-            left="3px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Projects"
-            {...getOverrideProps(overrides, "Projects")}
-          ></Text>
-          <SelectField
-            width="118px"
-            height="69px"
-            label="Your work"
-            position="absolute"
-            top="0px"
-            left="0px"
-            placeholder=""
-            size="default"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "projects_select_field")}
-          ></SelectField>
-        </View>
-        <View
-          padding="0px 0px 0px 0px"
-          width="191px"
-          height="69px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="34px"
-          left="425px"
-          {...getOverrideProps(overrides, "Your work group179642359")}
-        >
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="700"
-            color="rgba(255,255,255,1)"
-            lineHeight="25.5px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="187.57px"
-            height="38px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="10px"
-            left="3.43px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Issue Templates"
-            {...getOverrideProps(overrides, "Issue Templates")}
-          ></Text>
-          <SelectField
-            width="180px"
-            height="69px"
-            label="Your work"
-            position="absolute"
-            top="0px"
-            left="0px"
-            placeholder=""
-            size="default"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "issue_templates_select_field")}
-          ></SelectField>
-        </View>
         <Image
           width="1920px"
           height="135px"
@@ -446,70 +146,6 @@ export default function Profile(props) {
           src="https://d1.awsstatic.com/aws-media-series-assets/Site-Merch_AWS-Back-to-Basics_Vid-Series_Hero-BG.c12b4f1f0099e91cbf1dd0b7efbdf53e8e6a8f84.png"
           {...getOverrideProps(overrides, "aws_image_background")}
         ></Image>
-        <View
-          padding="0px 0px 0px 0px"
-          width="153.5px"
-          height="69px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="34px"
-          left="605px"
-          {...getOverrideProps(overrides, "Your work group179642395")}
-        >
-          <Text
-            fontFamily="Inter"
-            fontSize="17px"
-            fontWeight="700"
-            color="rgba(255,255,255,1)"
-            lineHeight="25.5px"
-            textAlign="left"
-            display="block"
-            direction="column"
-            justifyContent="unset"
-            width="136.5px"
-            height="38px"
-            gap="unset"
-            alignItems="unset"
-            position="absolute"
-            top="11px"
-            left="17px"
-            padding="0px 0px 0px 0px"
-            whiteSpace="pre-wrap"
-            children="Teams"
-            {...getOverrideProps(overrides, "Teams")}
-          ></Text>
-          <SelectField
-            width="131px"
-            height="69px"
-            label="Your work"
-            position="absolute"
-            top="0px"
-            left="0px"
-            placeholder=""
-            size="default"
-            isDisabled={false}
-            labelHidden={true}
-            variation="quiet"
-            {...getOverrideProps(overrides, "teams_select_field")}
-          ></SelectField>
-        </View>
-        <SelectField
-          width="100px"
-          height="80px"
-          label="Your work"
-          position="absolute"
-          top="32px"
-          left="1820px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={true}
-          variation="quiet"
-          {...getOverrideProps(overrides, "profile_select_field")}
-        ></SelectField>
         <View
           width="114px"
           height="114px"
@@ -946,20 +582,6 @@ export default function Profile(props) {
           children="Profile and visibility"
           {...getOverrideProps(overrides, "Profile and visibility")}
         ></Text>
-        <Alert
-          width="1920px"
-          height="133px"
-          heading="Success"
-          position="absolute"
-          top="114px"
-          left="-1px"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          variation="success"
-          isDismissible={true}
-          hasIcon={true}
-          children="Description"
-          {...getOverrideProps(overrides, "success_alert")}
-        ></Alert>
         <View
           padding="0px 0px 0px 0px"
           width="798px"
@@ -996,7 +618,7 @@ export default function Profile(props) {
             padding="0px 0px 0px 0px"
             objectFit="cover"
             src={user?.ImageProfile}
-            {...getOverrideProps(overrides, "profile_icon_image179662223")}
+            {...getOverrideProps(overrides, "profile_icon_image")}
           ></Image>
         </View>
         <View

@@ -34,8 +34,9 @@ export function SelectProjectFunc(props) {
                         if(item.username === authenticatedUser.attributes.email){
                             does_user_exist = true;
                             setCurrentUser(item);
-                            console.log(`User already exists! ${item.sub}`);
-                        }})}).catch(error => {console.error(error);});
+                        }
+                        return item;
+                    })}).catch(error => {console.error(error);});
                 // if flag is NOT raised , create user in DataStore !!!
                 if (!does_user_exist) {
                     await DataStore.save(
@@ -43,8 +44,7 @@ export function SelectProjectFunc(props) {
                            "sub": authenticatedUser.attributes.sub,
                             "username": authenticatedUser.attributes.email,
                            "ImageProfile": "default_user_profile.png"
-                       })).then(setCurrentUser);
-                    console.log(`User created!`);}
+                       })).then(setCurrentUser);}
             }catch(error) {/*do nothing*/}
     }
     fetchUserData();

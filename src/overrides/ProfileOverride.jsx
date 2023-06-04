@@ -3,16 +3,10 @@ import { User2Class } from '../classes/User2Class';
 import { FileUploader, ThemeProvider ,createTheme} from '@aws-amplify/ui-react';
 import React from 'react';
 import { studioTheme } from '../ui-components';
-import { TicketClass } from '../classes/TicketClass';
-import { ToolbarSelectClass } from '../classes/ToolbarSelectbarClass';
 
 export function ProfileFunc () {
-
     const {
         userProfileURL,
-        alertVariant,
-        alertVisibility,
-        alertDescription,
         regexEmail,
         email,
         handleEmailChange,
@@ -23,19 +17,8 @@ export function ProfileFunc () {
         handleGoToMNotes
     } = User2Class();
 
-    const {
-        handleProjectsSelectChange,
-        handleYourWorkSelectChange,
-        handleTeamsSelectChange,
-        handleProfileSelectChange,
-    } = ToolbarSelectClass();
-
-    const {
-        handleGoToCreateTicketClick,
-    } = TicketClass();
-
 const ProfileOverride={
-    profile_icon_image179662223: {
+    profile_icon_image: {
         src: userProfileURL
     },
     email_text_field:{
@@ -58,41 +41,6 @@ const ProfileOverride={
     delete_account_button:{
         onClick: (event) => (handleGoToDeleteAccount(event)),
     },
-    success_alert : { 
-        style:{"display": alertVisibility },
-        children: alertDescription,
-        variant: alertVariant,
-    },
-    projects_select_field:{
-        style:{color:"transparent"},
-        onChange : (event) => (handleProjectsSelectChange(event)),
-        options:["","switch project"],
-    },
-    your_work_select_field:{
-        style:{color:"transparent"},
-        onChange : (event) => (handleYourWorkSelectChange(event)),
-        options:["","assigned to me","boards"],
-    },
-    issue_templates_select_field:{
-        style:{color:"transparent"},
-        //onChange : (event) => (handleSelectedProjectOnChange(event)),
-        options:["","all templates","project templates"],
-    },
-    profile_select_field: {
-        style:{color:"transparent"},
-        onChange : (event) => (handleProfileSelectChange(event)),
-        options:["","Manage account","Log out"],
-    },
-    teams_select_field:{
-        style:{color:"transparent"},
-        onChange : (event) => (handleTeamsSelectChange(event)),
-        options:["","all users"],
-    },
-    create_ticket_button:{
-        onClick: (event) => (handleGoToCreateTicketClick(event))},
-    profile_icon_image179642350:{
-            src: userProfileURL
-        },
 }
 
 

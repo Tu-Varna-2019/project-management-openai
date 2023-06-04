@@ -49,6 +49,7 @@ export function ProjectClass(props) {
                         does_project_name_exist = true;
                         console.log(`Name ${projectName} already exists!`);
                         setErrorMessageProjectName(`Name ${projectName} already exists!`);
+                        return item;
                     } )
                 }).catch(error => {
                 console.error(error);
@@ -65,7 +66,6 @@ export function ProjectClass(props) {
     };
     // Get project
     useEffect(() => {
-        console.log(`Selected project: ${received_project_name}`);
         const dts_query = DataStore.query(Project)
         dts_query.then(data => {
         setSelectedProject(data.filter(item => item.Name === received_project_name));
@@ -90,6 +90,7 @@ export function ProjectClass(props) {
             .then(data => {
             data.filter(item => { 
                 setProjectNames(prevItems => [...prevItems, item.Name]);
+                return item.Name;
                 })}).catch(error => {
             console.error(error);});
         }

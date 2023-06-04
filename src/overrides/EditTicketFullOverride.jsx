@@ -1,9 +1,6 @@
 import { TicketClass } from '../classes/TicketClass';
-import { ProjectClass } from '../classes/ProjectClass';
 import { FileUploader } from '@aws-amplify/ui-react';
 import React from 'react';
-import { User2Class } from '../classes/User2Class';
-import { ToolbarSelectClass } from '../classes/ToolbarSelectbarClass';
 
 export function EditTicketFullFunc () {
 
@@ -21,37 +18,13 @@ export function EditTicketFullFunc () {
         handleTitle,
         handleMoreOptionsChange,
         handleAddUserToWatch,
-        handleGoToCreateTicketClick,
         moreOptions,
         watchedCount,
         watchedAddMeVariant,
         isLoading,
     } = TicketClass();
 
-    const {
-        alertDescription,
-        alertVariant,
-        alertVisibility,
-        currentUser,
-    } = User2Class();
-
-    const {
-        handleProjectsSelectChange,
-        handleYourWorkSelectChange,
-        handleTeamsSelectChange,
-        handleProfileSelectChange,
-        assignedToMe,
-    } = ToolbarSelectClass();
-
-    const {
-        received_project_name,
-        imageProjectURL,
-    } = ProjectClass();
-
     const EditTicketFullOverride={
-        project_name_text:{
-            children: received_project_name
-        },
         ticket_id_text: {
             children: "KAI-"+ticketID
         },
@@ -70,9 +43,6 @@ export function EditTicketFullFunc () {
             value: comment,
             onChange: (event) => (handleComment(event)),
         },
-        project_image_name:{
-            src: imageProjectURL
-        },
         cancel_button:{
             onClick: (event) => (handleCloseEditTicketClick(event)),
         },
@@ -90,40 +60,7 @@ export function EditTicketFullFunc () {
         watch_badge:{
             children: watchedCount,
             variation: watchedAddMeVariant
-        },
-        success_alert : { 
-            style:{"display": alertVisibility },
-            children: alertDescription,
-            variant: alertVariant,
-        },
-        projects_select_field:{
-            style:{color:"transparent"},
-            onChange : (event) => (handleProjectsSelectChange(event)),
-            options:["","switch project"],
-        },
-        your_work_select_field:{
-            style:{color:"transparent"},
-            onChange : (event) => (handleYourWorkSelectChange(event)),
-            options: assignedToMe ,
-        },
-        issue_templates_select_field:{
-            style:{color:"transparent"},
-            //onChange : (event) => (handleSelectedProjectOnChange(event)),
-            options:["","all templates","project templates"],
-        },
-        profile_select_field: {
-            style:{color:"transparent"},
-            onChange : (event) => (handleProfileSelectChange(event)),
-            options:["",currentUser.username,"Manage account","Log out"],
-        },
-        teams_select_field:{
-            style:{color:"transparent"},
-            onChange : (event) => (handleTeamsSelectChange(event)),
-            options:["","all users"],
-        },
-        create_ticket_button:{
-            onClick: (event) => (handleGoToCreateTicketClick(event))},
-    }
+        }}
 
     function FileImageTicketUpload () {
         return (

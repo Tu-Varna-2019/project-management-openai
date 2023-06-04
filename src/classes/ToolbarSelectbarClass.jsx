@@ -31,9 +31,9 @@ export function ToolbarSelectClass() {
                 await DataStore.query(Ticket)
                 .then(data => {
                     data.filter(item => {
-                        console.log(`User: ${currentUser.sub} , Item: ${item.Asignee}`)
                         if (item.Asignee === currentUser.sub ) 
                             setAssignedToMe(prevList => [...prevList,`KAI-${item.TicketID} : ${item.Title}`]);
+                            return item;
                     })});
             break;
             case "boards":
@@ -52,6 +52,7 @@ export function ToolbarSelectClass() {
                         data.filter(item => {
                             if( item.TicketID ===  parseInt(getTicketID))
                                 navigate("/edit-ticket",{state:{selectedTicket:item,project: getProjectNameState()}});
+                                return item;
                             })});}
                 else
                     console.log("default");
