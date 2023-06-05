@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation,useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DataStore , Storage } from 'aws-amplify';
 import { Project } from '../models';
 import { getProjectNameState , setProjectNameState } from '../states';
@@ -21,20 +21,16 @@ export function ProjectClass(props) {
     const [imageProjectURL,setImageProjectURL] = useState("");
 
     const navigate = useNavigate();
-    const location = useLocation();
     const isProjectEmpty =  /^\s*$/.test(projectName);
-    const received_project_name = location.state?.project;
 
     const handleProjectName = (event) => {
         event.preventDefault();
         setProjectName(event.target.value);
-        setErrorMessageProjectName("Project name must not be empty !");
-    };
+        setErrorMessageProjectName("Project name must not be empty !");};
 
-    const handleSelectedProject = (event) => {
+    const handleSelectProjectName = (event) => {
         event.preventDefault();
-        setProjectName(event.target.value);
-    };
+        setProjectName(event.target.value);};
 
     const handleConfirmCreateProjectOnClick = async (event) => {
         event.preventDefault();
@@ -49,8 +45,7 @@ export function ProjectClass(props) {
                         does_project_name_exist = true;
                         console.log(`Name ${projectName} already exists!`);
                         setErrorMessageProjectName(`Name ${projectName} already exists!`);
-                        return item;
-                    } )
+                        return item;})
                 }).catch(error => {
                 console.error(error);
                 });
@@ -60,19 +55,18 @@ export function ProjectClass(props) {
                         "Name": projectName,
                         "ImageProject": imageProjectName }));
                 console.log("Project created!");
-                navigate('/');}
-        }
+                navigate('/');}}
         setIsConfirmButtonLoading(false);
     };
     // Get project
     useEffect(() => {
         const dts_query = DataStore.query(Project)
         dts_query.then(data => {
-        setSelectedProject(data.filter(item => item.Name === received_project_name));
+        setSelectedProject(data.filter(item => item.Name === getProjectNameState()));
         }).catch(error => {
         console.error(error);
         });
-    },[setSelectedProject,received_project_name]);
+    },[setSelectedProject]);
     // Get project ID from selectedProject
     useEffect(() => {
         Object.keys(selectedProject)
@@ -103,8 +97,7 @@ export function ProjectClass(props) {
                 getProjectImageName, {
                 level: "protected"
                 }).then(data => {
-                    setImageProjectURL(data);
-                })}
+                    setImageProjectURL(data);})}
             fetchUserData();
     },[setImageProjectURL,getProjectImageName])
 
@@ -113,34 +106,27 @@ export function ProjectClass(props) {
         setIsCancelButtonLoading(!isCancelButtonLoading);
         if (window.confirm("Are you sure you want to leave?"))
             navigate('/');
-        setIsCancelButtonLoading(false);
-    };
+        setIsCancelButtonLoading(false);};
 
     const handleSafeProjectImageChange = async (event) => {
         await Storage.put(
             event, 
             'Protected Content', {
-            level: 'protected'
-        });
-        console.log(`Saving file: ${event}`);
-        setImageProjectName(event);
-    }
+            level: 'protected'});
+        setImageProjectName(event);}
 
     const handleSelectedProjectOnClick = (event) => {
         event.preventDefault();
-        if (selectedProject.length === 0) {
+        if (projectName.length === 0) {
             const default_project_name = Object.values(projectNames);
-            setProjectNameState(default_project_name[0]);
-            navigate('/board',{ state: { project: default_project_name[0] }});
-        }else{
-            setProjectNameState(selectedProject);
-            navigate('/board',{ state: { project: selectedProject }});}
-    };
+            setProjectNameState(default_project_name[0]);}
+        else
+            setProjectNameState(projectName);
+        navigate('/board');};
 
     const handleSelectedProjectOnChange = async (event) => {
         event.preventDefault();
         setSelectedProject(event.target.value);
-        
     };
     
     const handleSelectedCreateOneProjectOnClick = (event) => {
@@ -148,8 +134,7 @@ export function ProjectClass(props) {
         setIsCancelButtonLoading(!isCancelButtonLoading);
         if (window.confirm("Are you sure you want to leave this page?"))
             navigate('/create-project');
-        setIsCancelButtonLoading(false);
-    };
+        setIsCancelButtonLoading(false);};
 
 
     return {
@@ -169,10 +154,10 @@ export function ProjectClass(props) {
         errorMessageProjectName,
         selectedProject,
         setSelectedProject,
-        received_project_name,
         setImageProjectName,
         imageProjectName,
         imageProjectURL,
         getProjectID,
+        handleSelectProjectName
     }
 }

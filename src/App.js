@@ -33,14 +33,8 @@ export default function App() {
     document.title = "KAI";
     console.warn = (message) => {
       if (message.includes('FileUploader has exited Dev Preview and was renamed to StorageManager') 
-          || message.includes("Cookie ")) {
-        // Ignore the specific warning message
-        return;
-      }
-      // For all other warnings, print them to the console
-      console.warn(message);
-    };
-  },[]);
+          || message.includes("Cookie ")) {return;}
+      console.warn(message);};},[]);
   
   return (
     <div className='amplify-container' style={{

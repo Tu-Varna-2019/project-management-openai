@@ -68,7 +68,7 @@ function FileImageUpload () {
        <ThemeProvider theme={theme}>
             <FileUploader
             shouldAutoProceed={false}
-            acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg']}
+            acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
             accessLevel="public"
             maxFileCount={1}
             isResumable={true}

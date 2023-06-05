@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import '@aws-amplify/ui-react/styles.css';
 import { Board, CreateTicket, EditTicket, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection, Toolbar } from '../ui-components';
 import '@aws-amplify/ui-react/styles.css';
-import { TicketClass } from '../classes/TicketClass';
 import { BoardFunc } from '../overrides/BoardOverride';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
 import { EditTicketFunc } from '../overrides/EditTicketOverride';
@@ -11,12 +10,6 @@ import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ProjectVerticalSelectFieldFunc } from '../overrides/ProjectVerticalSelectFieldOverrides';
 
 export default function BoardPage(props) {
-
-  const {
-    ticketInProgressStyleTop,
-    ticketInReviewStyleTop,
-    ticketDoneStyleTop,
-  } = TicketClass();
   const {
     BoardComponentOverride,
     BoardTicketToDoOverride,

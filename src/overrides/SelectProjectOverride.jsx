@@ -11,17 +11,17 @@ export function SelectProjectFunc(props) {
         currentUser,
         setCurrentUser,
         authenticatedUser,
+        setAuthenticatedUser,
     } = User2Class();
 
     const {
         projectNames,
-        handleSelectedProjectOnChange,
+        handleSelectProjectName,
         isConfirmButtonLoading,
         handleSelectedProjectOnClick,
         isCancelButtonLoading,
         handleSelectedCreateOneProjectOnClick,
     }= ProjectClass();
-
     // Create user if he doesn't exist in DataStore
     useEffect(() => {
         async function fetchUserData() {
@@ -33,10 +33,8 @@ export function SelectProjectFunc(props) {
                     data.filter(item => {
                         if(item.username === authenticatedUser.attributes.email){
                             does_user_exist = true;
-                            setCurrentUser(item);
-                        }
-                        return item;
-                    })}).catch(error => {console.error(error);});
+                            setCurrentUser(item);}return item;
+                    })});
                 // if flag is NOT raised , create user in DataStore !!!
                 if (!does_user_exist) {
                     await DataStore.save(
@@ -45,14 +43,13 @@ export function SelectProjectFunc(props) {
                             "username": authenticatedUser.attributes.email,
                            "ImageProfile": "default_user_profile.png"
                        })).then(setCurrentUser);}
-            }catch(error) {/*do nothing*/}
-    }
+            }catch(error) {/*do nothing*/}}
     fetchUserData();
-    },[authenticatedUser,setCurrentUser]);
+    },[authenticatedUser,setAuthenticatedUser,setCurrentUser]);
 
     const SelectProjectOverride={
         select_project_select_field:{
-            onChange : (event) => (handleSelectedProjectOnChange(event)),
+            onChange : (event) => (handleSelectProjectName(event)),
             options: projectNames,
         },
         confirm_button:{
@@ -65,11 +62,8 @@ export function SelectProjectFunc(props) {
         create_one_button:{
             onClick : (event) => (handleSelectedCreateOneProjectOnClick(event)),
             isLoading: isCancelButtonLoading
-        },
-    }
+        },}
 
-    
     return {
         SelectProjectOverride
-    }
-}
+    }}

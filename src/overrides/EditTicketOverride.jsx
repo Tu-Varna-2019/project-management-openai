@@ -1,6 +1,6 @@
 import { TicketClass } from '../classes/TicketClass';
 import { ProjectClass } from '../classes/ProjectClass';
-
+import { getProjectNameState } from '../states';
 
 export function EditTicketFunc (props) {
 
@@ -49,7 +49,6 @@ export function EditTicketFunc (props) {
     } = TicketClass();
 
     const {
-        received_project_name,
         imageProjectURL,
     } = ProjectClass();
 
@@ -59,7 +58,7 @@ export function EditTicketFunc (props) {
 
     const EditTicketOverride={
         project_name_text:{
-            children: received_project_name
+            children: getProjectNameState()
         },
         ticket_id_text: {
             children: "KAI-"+ticketID

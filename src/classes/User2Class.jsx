@@ -20,7 +20,6 @@ export function User2Class() {
     const [alertDescription,setAlertDescription] = useState("");
     const location = useLocation();
     const navigate = useNavigate();
-
     // Get current authenticated user
     useEffect(() => {
         async function fetchUserData() {
@@ -32,57 +31,49 @@ export function User2Class() {
                         data.filter(item => {
                             if(item.sub === currentCredentials.attributes.sub)
                                 setCurrentUser(item);
-                                return item;
-                            })})
+                                return item;})})
                             }catch(error){console.log(error);}}
-        fetchUserData();
-    },[])
-
+        fetchUserData();},[])
     useEffect(() => {
         async function fetchUserData() {
             await Storage.get(
                 currentUser.ImageProfile,{
                 level:"public"
             }).then(data => {
-                setUserProfileURL(data);
-            })}
-            fetchUserData();
+                setUserProfileURL(data);})}
+    fetchUserData();
     },[setCurrentUser,currentUser.ImageProfile]);
 
     // Send success alert if ticket is created/deleted
     useEffect(() => {
         try {
-        if (location.state.alert_variant !== undefined) {
-        setAlertVariant(location.state.alert_variant);
-        setAlertVisibility(location.state?.alert_show);
-        setAlertDescription(location.state?.alert_description);}
+            if (location.state.alert_variant !== undefined) {
+            setAlertVariant(location.state.alert_variant);
+            setAlertVisibility(location.state?.alert_show);
+            setAlertDescription(location.state?.alert_description);}
         } catch(error) {/*do nothing */}
     },[location.state]);
-
     // Get user sub & image URL to [{}] object
     useEffect(() => {
         async function fetchUserData() {
             await DataStore.query(User)
             .then(data => {
-                    data.filter(item => { 
-                     Storage.get(
-                        item.ImageProfile,{
-                        level:"public"
-                    }).then(data_url => {
-                        setUserSubImageURL( prevList =>[{
-                            sub: item.sub,
-                            url: data_url }, ...prevList]);});
-                            return item;
-                        })
-                    }).catch(error => {console.error(error);});}
-            fetchUserData();
-    },[])
+                data.filter(item => { 
+                    Storage.get(
+                    item.ImageProfile,{
+                    level:"public"
+                }).then(data_url => { 
+                    setUserSubImageURL(prevList => 
+                        prevList.some(obj => obj.sub === item.sub) ?
+                        prevList : [{ sub: item.sub, url: data_url }, ...prevList]);
+                    });
+                        })})}
+            fetchUserData();},[])
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);};
 
     const handleSaveEmailClick = async (event) => {
-        console.log(authenticatedUser.attributes);
         try {
             await Auth.verifyUserAttribute(authenticatedUser, 'email');
             await Auth.updateUserAttributes(authenticatedUser, { 'email': email });
@@ -95,20 +86,16 @@ export function User2Class() {
                 item.username = email;
                 item.ImageProfile = currentUser.ImageProfile;
             }));
-            navigate('/profile', { state: { /*project: selectedProject[0].Name,*/ alert_show:'block' , alert_variant: "success", alert_description: `${email} has been successfully edited!` }});
+            navigate('/profile', { state: { alert_show:'block' , alert_variant: "success", alert_description: `${email} has been successfully edited!` }});
             window.location.reload();
         }catch(error) {
-            navigate('/profile', { state: { /*project: selectedProject[0].Name,*/ alert_show:'block' , alert_variant: "error", alert_description: error }});
-            window.location.reload();
-        }
-    };
+            navigate('/profile', { state: { alert_show:'block' , alert_variant: "error", alert_description: error }});
+            window.location.reload();}};
 
     const handleSaveImageClick = async (event) => {
         await Storage.put(
-            event, 
-            'Protected Content', {
-            level: 'protected'
-        });
+            event,{
+            level: 'public'});
         // check if user isn't using the actual default profile image
         if (currentUser.ImageProfile !== "default_user_profile.png")
             await Storage.remove(currentUser.ImageProfile);
@@ -119,8 +106,7 @@ export function User2Class() {
             item.ImageProfile = event;
         }));
         navigate('/profile', { state: { alert_show:'block' , alert_variant: "success", alert_description: `${event} successfully uploaded!` }});
-        window.location.reload();
-    };
+        window.location.reload();};
 
     const handleGoToChangePassword = (event) => {
         if (window.confirm(`Are you sure you want to goto change password page?`))

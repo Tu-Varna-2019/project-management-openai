@@ -1,7 +1,9 @@
 let ProjectNameState = "ProjectNameLocal";
 let DragDropTicketState = "DragDropTicketLocal";
 
-export const getProjectNameState = () => localStorage.getItem(ProjectNameState);
+export const getProjectNameState = () => 
+   localStorage.getItem(ProjectNameState);
+
 export const getDragDropTicketState = () => localStorage.getItem(DragDropTicketState);
 
 export const setProjectNameState = (newProjectNameState) => {

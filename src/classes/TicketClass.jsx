@@ -22,7 +22,6 @@ export function TicketClass(props) {
     const {
         getProjectID,
         selectedProject,
-        received_project_name,
     } = ProjectClass();
     const {
         currentUser
@@ -39,9 +38,6 @@ export function TicketClass(props) {
     const [ticketInReview,setTicketInReview] = useState("");
     const [ticketDone,setTicketDone] = useState("");
     // Ticket style props
-    const ticketInProgressStyleTop = ticketInProgress.length === 0 ? -100 : -35;
-    const ticketInReviewStyleTop = ticketInReview.length === 0 ? -195 : -70;
-    const ticketDoneStyleTop = ticketDone.length === 0 ? -295 : -105;
     const [getBiggestTicketID,setGetBiggestTicketID] = useState(0);
     const [ticketID,setTicketID] = useState("");
     const [title,setTitle] = useState(iniTicketValue.Title);
@@ -81,15 +77,13 @@ export function TicketClass(props) {
     // Regex for empty values
     const isTitleEmpty =  /^\s*$/.test(title);
     const watchedCount = watchedUsers?.match(/,/g) ? watchedUsers.match(/,/g).length : 0 ;
-
     // Get tickets by project
     useEffect(() => {
         const dts_query = DataStore.query(Ticket)
         dts_query.then(data => {
             setTickets(data.filter(item => item.projectID === getProjectID));
         }).catch(error => {
-        console.error(error);
-        });
+        console.error(error);});
     },[selectedProject,getProjectID]);
     // Get ticket statuses
     useEffect(() => {
@@ -143,10 +137,8 @@ export function TicketClass(props) {
                         item.ImageProfile,{
                         level:"public"
                     }).then(data_url => {
-                        setAsigneeImageURL(data_url);
-                    })}
-            return item;})})
-    };
+                        setAsigneeImageURL(data_url);})}
+            return item;})})};
 
     const handleReporterChange = async (event) => {
         event.preventDefault();
@@ -161,19 +153,14 @@ export function TicketClass(props) {
                         item.ImageProfile,{
                         level:"public"
                     }).then(data_url => {
-                        setReporterImageURL(data_url);
-                    })}
-                return item;
-                })})
-    };
+                        setReporterImageURL(data_url);})}
+                return item;})})};
 
     const handleSafeTicketImageChange = async (event) => {
         await Storage.put(
             event, 
             'Protected Content', {
-            level: 'protected'
-        });
-        console.log(`Saving file: ${event}`);
+            level: 'protected'});
         setImageTicket(event);}
 
     const handleMoreOptionsChange = async (event) => {
@@ -225,9 +212,7 @@ export function TicketClass(props) {
                     window.location.reload();
                 }
             break;
-            default: 
-                console.log("default");
-            break;}};
+            default: console.log("default");break;}};
 
     const postData = async (event) => {
         const response = await API.post('apiopenai','/sns/notifyticketupdate',
@@ -235,13 +220,11 @@ export function TicketClass(props) {
         console.log(response);
         return response;}
        ////////////* Edit ticket //////////////////
-
      // Goto EditTicket component
     const handleCloseEditTicketClick = (event) => {
         event.preventDefault();
         navigate("/board",{state:{edited:false,project: getProjectNameState()}})
-    };
-
+};
     const handleSaveEditTicketClick = async (event) => {
         event.preventDefault();
         setIsLoading(!isLoading);
@@ -280,8 +263,7 @@ export function TicketClass(props) {
                 item.projectID = getProjectID.toString();
                 item.IssueType = issueType;
                 item.TicketStatus = ticketStatus;
-                item.Comment = comment;
-            }));
+                item.Comment = comment;}));
             // check onto which Ticket props have been changed 
             let changed_props = "";
             if (title !== editTicket.Ticket)
@@ -339,20 +321,16 @@ export function TicketClass(props) {
                     ResolvedDate : resolved_date,
                     IssueType : issueType,
                     TicketStatus : ticketStatus,
-                    Comment : comment,
-                };
+                    Comment : comment,};
                 notify_update_ticket_response = await postData({
                     Changes: changed_props,
-                    newTicket
-                });
-            }
+                    newTicket});}
             navigate('/board', { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response}` }});
             window.location.reload();
         } catch (error) {
             setIsLoading(false);
             console.log(error);
-            navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
-    }};
+            navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});}};
 
     const handleAssignToMeClick = async (event) => {
         event.preventDefault();
@@ -361,8 +339,7 @@ export function TicketClass(props) {
             level:"public"
         }).then(data_url => {
             setAsigneeImageURL(data_url);
-            setAsigneeName(currentUser.username);})
-    };
+            setAsigneeName(currentUser.username);})};
     // Add user to watch list on ticket change
     const handleAddUserToWatch = (event) => {
         event.preventDefault();
@@ -381,70 +358,65 @@ export function TicketClass(props) {
         setEpicLinkOptions(["",...new Set(Object.values(tickets).map(obj => obj?.EpicLink)
         .filter(epicLink => epicLink !== null))] );
     },[epicLink,setEpicLink,tickets,setTickets,setEpicLinkOptions]);
-
     // Get asignees&reporters
-        useEffect(() => {
-            const dts_query = DataStore.query(User)
-            dts_query.then(data => {
-                data.filter(item => { 
-                    if (item.sub !== "00000000" ) {
-                        setPeopleAssign(prevList => [...prevList, item.username]);
-                        setPeopleAssignSub(prevList => [...prevList, item.sub]);}
-                    return item;})
-                    setPeopleAssign(prevList => ["Unassigned", ...prevList]);
-                    setPeopleAssignSub(prevList => ["00000000", ...prevList]);
-            }).catch(error => {console.error(error);});
-        },[]); // once defined for a purpose !
-
+    useEffect(() => {
+        const dts_query = DataStore.query(User)
+        dts_query.then(data => {
+            data.filter(item => { 
+                if (item.sub !== "00000000" ) {
+                    setPeopleAssign(prevList => [...new Set([...prevList, item.username])]);
+                    setPeopleAssignSub(prevList => [...new Set([...prevList, item.sub])]);}
+                return item;})
+                setPeopleAssign(prevList => ["Unassigned", ...prevList]);
+                setPeopleAssignSub(prevList => ["00000000", ...prevList]);
+        }).catch(error => {console.error(error);});},[]); // once defined for a purpose !
     // Set values of text field from edited tickets
     useEffect(() => {
-            async function fetchUserData() {
-                try {
-                    setTitle(editTicket.Title);
-                    setDescription(editTicket.Description);
-                    setComment(editTicket.Comment);
-                    setTicketID(editTicket.TicketID);
-                    setIssueType(editTicket.IssueType);
-                    setPriority(editTicket.Priority);
-                    setTicketStatus(editTicket.TicketStatus);
-                    setReporter(editTicket.Reporter);
-                    setAsignee(editTicket.Asignee);
-                    setStoryPoint(editTicket.StoryPoint === null ? 0 : editTicket.StoryPoint);
-                    setCreatedDate(new Date(editTicket.CreatedDate));
-                    setUpdatedDate(editTicket.UpdatedDate === null ? "-" : new Date(editTicket.UpdatedDate));
-                    setResolvedDate(editTicket.ResolvedDate === null ? "-" : new Date(editTicket.ResolvedDate));
-                    setEpicLink(editTicket.EpicLink);
-                    setWatchedUsers(editTicket.Watch === null ? "" : editTicket.Watch );
-                    // Get reporter & asignee name & image name
-                    await DataStore.query(User)
-                    .then(data => {
-                        data.filter(item => { 
-                            if (item.sub === editTicket.Asignee) {
-                                setAsigneeName(item.username);
+        async function fetchUserData() {
+            if (editTicket !== ""){
+            try{
+                setTitle(editTicket.Title);
+                setDescription(editTicket.Description);
+                setComment(editTicket.Comment);
+                setTicketID(editTicket.TicketID);
+                setIssueType(editTicket.IssueType);
+                setPriority(editTicket.Priority);
+                setTicketStatus(editTicket.TicketStatus);
+                setReporter(editTicket.Reporter);
+                setAsignee(editTicket.Asignee);
+                setStoryPoint(editTicket.StoryPoint === null ? 0 : editTicket.StoryPoint);
+                setCreatedDate(new Date(editTicket.CreatedDate));
+                setUpdatedDate(editTicket.UpdatedDate === null ? "-" : new Date(editTicket.UpdatedDate));
+                setResolvedDate(editTicket.ResolvedDate === null ? "-" : new Date(editTicket.ResolvedDate));
+                setEpicLink(editTicket.EpicLink);
+                setWatchedUsers(editTicket.Watch === null ? "" : editTicket.Watch );
+                // Get reporter & asignee name & image name
+                await DataStore.query(User)
+                .then(data => {
+                    data.filter(item => { 
+                        if (item.sub === editTicket.Asignee) {
+                            setAsigneeName(item.username);
+                            Storage.get(
+                                item.ImageProfile,{
+                                level:"public"
+                            }).then(data_url => {
+                                setAsigneeImageURL(data_url);
+                                // if the reporter is also the asignee
+                                if (item.sub === editTicket.Reporter){
+                                    setReporterName(item.username);
+                                    setReporterImageURL(data_url);}
+                        })}else {
+                            if (item.sub === editTicket.Reporter) {
+                                setReporterName(item.username);
                                 Storage.get(
                                     item.ImageProfile,{
                                     level:"public"
                                 }).then(data_url => {
-                                    setAsigneeImageURL(data_url);
-                                    // if the reporter is also the asignee
-                                    if (item.sub === editTicket.Reporter){
-                                        console.log("Reporter is same as asignee");
-                                        setReporterName(item.username);
-                                        setReporterImageURL(data_url);}
-                            })}else {
-                                if (item.sub === editTicket.Reporter) {
-                                    setReporterName(item.username);
-                                    Storage.get(
-                                        item.ImageProfile,{
-                                        level:"public"
-                                    }).then(data_url => {
-                                        setReporterImageURL(data_url);})}}
-                                return item;
-                            })});}catch(error){/*do nothing*/}}
-            fetchUserData();
+                                    setReporterImageURL(data_url);})}}
+                            return item;})});}catch(err){/*do nothing */}}}
+        fetchUserData();
     },[location.state,editTicket]);
     ////////////* Create ticket //////////////////
-
         // Get the largest ticket ID by project
         useEffect(() => {
             async function fetchUserData() {
@@ -454,11 +426,9 @@ export function TicketClass(props) {
                         if( item.projectID ===  getProjectID 
                             && getBiggestTicketID < +item.TicketID) {
                             setGetBiggestTicketID(item.TicketID+1);
-                        } return item;})})
-            }
+                        } return item;})})}
             fetchUserData();
         },[getBiggestTicketID,getProjectID]);
-
     // Goto CreateTicket component
     const handleGoToCreateTicketClick = (event) => {
         event.preventDefault();
@@ -469,7 +439,6 @@ export function TicketClass(props) {
         event.preventDefault();
         navigate("/board",{state:{create:false,project: getProjectNameState()}})
     };
-
     const handleCreateTicketClick = async  (event) => {
         event.preventDefault();
         setIsLoading(!isLoading);
@@ -493,7 +462,6 @@ export function TicketClass(props) {
                     "IssueType": issueType,
                     "Priority": priority,
                     "TicketStatus": "ToDo"}));
-
                     // If ticket has been assigned to user , notify !
                     let notify_create_ticket_response = "";
                     if (asigneeName !== "Unassigned") {
@@ -513,24 +481,20 @@ export function TicketClass(props) {
                             IssueType : issueType,
                             TicketStatus : "ToDo",
                             Comment : "None",
-                            Project: received_project_name,
-                        };
+                            Project: getProjectNameState(),};
                         notify_create_ticket_response = await postData({
                             Changes: `New ticket has been assigned to you ${asigneeName}`,
-                            newTicket
-                        });}
+                            newTicket});}
            navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully created! : ${notify_create_ticket_response}` }});
            window.location.reload();
         } catch (error) {
             setIsLoading(false);
             console.log(error);
             navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
-            window.location.reload();
-    }};
+            window.location.reload();}};
 
     const handleHoldMoveTicket = (ticketid) => {
-        setDragDropTicketState(ticketid);
-    };
+        setDragDropTicketState(ticketid);};
 
     const handleReleaseMoveTicket = async (draggedTicketID,boardStatus) => {
         setDragDropTicketState("");
@@ -538,14 +502,12 @@ export function TicketClass(props) {
             const editTicketDataStore = await DataStore.query(Ticket, draggedTicketID);
             if (editTicketDataStore.TicketStatus !== boardStatus) {
                         await DataStore.save(Ticket.copyOf(editTicketDataStore, item_edit_status => {
-                             item_edit_status.TicketStatus = boardStatus;
-                        }));
+                             item_edit_status.TicketStatus = boardStatus;}));
             navigate('/board', { state: { project:getProjectNameState(),
                 alert_show:'block' ,
                 alert_variant: "success",
                 alert_description: `KAI-${editTicketDataStore.TicketID} has been successfully moved to ${boardStatus}`}});
-            window.location.reload();}}
-    };
+            window.location.reload();}}};
 
     return {
         handleCreateTicketClick,
@@ -557,9 +519,6 @@ export function TicketClass(props) {
         ticketInProgress,
         ticketInReview,
         ticketDone,
-        ticketInProgressStyleTop,
-        ticketInReviewStyleTop,
-        ticketDoneStyleTop,
         handleCloseEditTicketClick,
         ticketID,
         title,

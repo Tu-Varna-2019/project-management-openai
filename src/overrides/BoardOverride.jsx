@@ -1,30 +1,13 @@
 import { TicketClass } from '../classes/TicketClass';
-import { ProjectClass } from '../classes/ProjectClass';
 import { User2Class } from '../classes/User2Class';
-import { ToolbarSelectClass } from '../classes/ToolbarSelectbarClass';
 import { useNavigate } from 'react-router-dom';
 import { getDragDropTicketState } from '../states';
 
 
 export function BoardFunc (props) {
-
     const {
-        userProfileURL,
-        alertVariant,
-        alertVisibility,
-        alertDescription,
         userSubImageURL,
-        currentUser,
     } = User2Class();
-
-    const {
-        handleProjectsSelectChange,
-        handleYourWorkSelectChange,
-        handleTeamsSelectChange,
-        handleProfileSelectChange,
-        assignedToMe,
-    } = ToolbarSelectClass();
-
     const {
         ticketToDo,
         ticketInProgress,
@@ -35,19 +18,16 @@ export function BoardFunc (props) {
         handleReleaseMoveTicket,
     } = TicketClass();
 
-    const {
-        received_project_name,
-    } = ProjectClass();
-
     const navigate = useNavigate();
     const customOverrideItems = ({ item, index })  => {
+        console.log(userSubImageURL);
         let asignee_image_url = "";
         userSubImageURL.map((data, index) => {
-            if (data.sub === item.Asignee)
+            if (data.sub === item.Asignee) {
             asignee_image_url = data.url;
-            return asignee_image_url;
+            }
+           return asignee_image_url;
         });
-
         return {
             overrides: {
                 title_ticket_text:{ children: item.Title },
@@ -61,7 +41,7 @@ export function BoardFunc (props) {
                     draggable: "true",
                     onDragStart: () => (handleHoldMoveTicket(item.id))}},
             onClick: () => (
-                navigate("/board",{state:{edited:true,selectedTicket:item,project: received_project_name}}))};}
+                navigate("/board",{state:{edited:true,selectedTicket:item}}))};}
 
     const BoardTicketToDoOverride={
         TicketToDoCollection:{
