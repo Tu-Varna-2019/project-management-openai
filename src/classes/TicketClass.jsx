@@ -501,8 +501,20 @@ export function TicketClass(props) {
         if (draggedTicketID !== "") {
             const editTicketDataStore = await DataStore.query(Ticket, draggedTicketID);
             if (editTicketDataStore.TicketStatus !== boardStatus) {
-                        await DataStore.save(Ticket.copyOf(editTicketDataStore, item_edit_status => {
-                             item_edit_status.TicketStatus = boardStatus;}));
+                const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                const newUpdatedDate = new Date(new Date().getTime() - timezoneOffset);
+                const newTicketUpdatedDate = newUpdatedDate.toISOString();
+                let ticketStatusDone = null;
+                // check if ticket is moved in done board
+                if (boardStatus === "Done") {
+                    const newResolvedCurrentDate = new Date(new Date().getTime() - timezoneOffset);
+                    ticketStatusDone = newResolvedCurrentDate.toISOString();
+                    }
+                await DataStore.save(Ticket.copyOf(editTicketDataStore,item_edit_status => {
+                        item_edit_status.TicketStatus = boardStatus;
+                        item_edit_status.UpdatedDate = newTicketUpdatedDate;
+                        item_edit_status.ResolvedDate = ticketStatusDone;
+                    }));
             navigate('/board', { state: { project:getProjectNameState(),
                 alert_show:'block' ,
                 alert_variant: "success",

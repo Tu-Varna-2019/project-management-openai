@@ -20,12 +20,10 @@ export function BoardFunc (props) {
 
     const navigate = useNavigate();
     const customOverrideItems = ({ item, index })  => {
-        console.log(userSubImageURL);
         let asignee_image_url = "";
         userSubImageURL.map((data, index) => {
-            if (data.sub === item.Asignee) {
+            if (data.sub === item.Asignee) 
             asignee_image_url = data.url;
-            }
            return asignee_image_url;
         });
         return {
@@ -59,7 +57,7 @@ export function BoardFunc (props) {
     const BoardComponentOverride = {
         todo_card:{
             onMouseLeave: () => (handleReleaseMoveTicket(getDragDropTicketState(),"ToDo")),
-            // implment when able to change color for todo card coloronDragOver: () => (console.log("drag over")),
+            // implment when able to change color for todo card color onDragOver: () => (console.log("drag over")),
         },
         in_progress_card:{
             onMouseLeave: () => (handleReleaseMoveTicket(getDragDropTicketState(),"InProgress"))

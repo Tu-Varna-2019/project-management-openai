@@ -67,7 +67,7 @@ export function User2Class() {
                         prevList.some(obj => obj.sub === item.sub) ?
                         prevList : [{ sub: item.sub, url: data_url }, ...prevList]);
                     });
-                        })})}
+                        return item;})})}
             fetchUserData();},[])
 
     const handleEmailChange = (event) => {
