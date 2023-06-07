@@ -29,6 +29,8 @@ export function TicketInfoScrollFunc () {
         handleAsigneeChange,
         handleReporterChange,
         ticketStatusColorVariant,
+        handleDeleteImageChange,
+        attachmentUrls,
     } = TicketClass();
 
     const TicketInfoScrollOverride={
@@ -103,6 +105,56 @@ export function TicketInfoScrollFunc () {
             onChange : (event) => (handleReporterChange(event)),
             style:{color:"transparent", border:"none"},
             options: peopleAssign
+        },
+        attachment_1:{
+            src: attachmentUrls[0],
+            onClick: (event) => (handleDeleteImageChange(0)),
+            alt: attachmentUrls[0] === undefined ? " " : ""
+        },
+        attachment_2:{
+            src: attachmentUrls[1],
+            onClick: (event) => (handleDeleteImageChange(1)),
+            alt: attachmentUrls[1] === undefined ? " " : ""
+        },
+        attachment_3:{
+            src: attachmentUrls[2],
+            onClick: (event) => (handleDeleteImageChange(2)),
+            alt: attachmentUrls[2] === undefined ? " " : ""
+        },
+        attachment_4:{
+            src: attachmentUrls[3],
+            onClick: (event) => (handleDeleteImageChange(3)),
+            alt: attachmentUrls[3] === undefined ? " " : ""
+        },
+        attachment_5:{
+            src: attachmentUrls[4],
+            onClick: (event) => (handleDeleteImageChange(4)),
+            alt: attachmentUrls[4] === undefined ? " " : ""
+        },
+        attachment_6:{
+            src: attachmentUrls[5],
+            onClick: (event) => (handleDeleteImageChange(5)),
+            alt: attachmentUrls[5] === undefined ? " " : ""
+        },
+        attachment_7:{
+            src: attachmentUrls[6],
+            onClick: (event) => (handleDeleteImageChange(6)),
+            alt: attachmentUrls[6] === undefined ? " " : ""
+        },
+        attachment_8:{
+            src: attachmentUrls[7],
+            onClick: (event) => (handleDeleteImageChange(7)),
+            alt: attachmentUrls[7] === undefined ? " " : ""
+        },
+        attachment_9:{
+            src: attachmentUrls[8],
+            onClick: (event) => (handleDeleteImageChange(8)),
+            alt: attachmentUrls[8] === undefined ? " " : ""
+        },
+        attachment_10:{
+            src: attachmentUrls[9],
+            onClick: (event) => (handleDeleteImageChange(9)),
+            alt: attachmentUrls[9] === undefined ? " " : ""
         },
         "Rectangle 1":{
             style:{overflow: 'auto',maxHeight: '500px'}

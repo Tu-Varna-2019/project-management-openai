@@ -55,6 +55,8 @@ export function TicketClass(props) {
     const [peopleAssignSub,setPeopleAssignSub] = useState([]);
 
     const [imageTicket,setImageTicket] = useState("");
+    const [attachmentUrls,setAttachmentUrls] = useState([]);
+    const [attachmentName,setAttachmentName] = useState([]);
     const [epicLink,setEpicLink] = useState("");
     const [epicLinkOptions,setEpicLinkOptions] = useState([]);
     // Dates
@@ -77,6 +79,9 @@ export function TicketClass(props) {
     // Regex for empty values
     const isTitleEmpty =  /^\s*$/.test(title);
     const watchedCount = watchedUsers?.match(/,/g) ? watchedUsers.match(/,/g).length : 0 ;
+    const ticketStatusColorVariant = ticketStatus === "ToDo" ? "error" : 
+    ticketStatus === "InProgress" ? "warning" : 
+    ticketStatus === "InReview" ? "info" : "success" ;
     // Get tickets by project
     useEffect(() => {
         const dts_query = DataStore.query(Ticket)
@@ -135,7 +140,7 @@ export function TicketClass(props) {
                 if (item.sub === peopleAssignSub[selectedIndex]) {
                     Storage.get(
                         item.ImageProfile,{
-                        level:"public"
+                        level:"protected"
                     }).then(data_url => {
                         setAsigneeImageURL(data_url);})}
             return item;})})};
@@ -151,17 +156,55 @@ export function TicketClass(props) {
                 if (item.sub === peopleAssignSub[selectedIndex]) {
                     Storage.get(
                         item.ImageProfile,{
-                        level:"public"
+                        level:"protected"
                     }).then(data_url => {
                         setReporterImageURL(data_url);})}
                 return item;})})};
+
+    // Get all urls by image names , seperated by ,
+    useEffect(() => {
+            if (imageTicket !== "" && attachmentName.length === 0) {
+            const imageNames = imageTicket.split(",");
+            const newDataUrls = [];
+            const newAttachmentNames = [];
+            imageNames.map(async (iter) => {
+                await Storage.get(iter, { 
+                    level: 'protected',
+                }).then(data_url => {
+                    newDataUrls.push(data_url);
+                    newAttachmentNames.push(iter);
+            })})
+            setAttachmentUrls(newDataUrls);
+            setAttachmentName(newAttachmentNames);}
+    },[imageTicket,setImageTicket,location.state]);
 
     const handleSafeTicketImageChange = async (event) => {
         await Storage.put(
             event, 
             'Protected Content', {
             level: 'protected'});
-        setImageTicket(event);}
+        setImageTicket((prevValue) => {
+        const parts = prevValue.split(',');
+            if (parts.length <= 10) {
+                return prevValue + event + ",";
+            } else {
+                window.alert("Error image max count 10!");
+                return prevValue;}})};
+            
+    const handleDeleteImageChange = async (index) => {
+        const deletedImageName = attachmentName[index];
+        if (deletedImageName !== "" && deletedImageName !== undefined) {
+            if(window.confirm(`Are you sure you want to remove: ${deletedImageName} ?`)) {
+                await Storage.remove(deletedImageName, { level: 'protected' });
+                setImageTicket(imageTicket.replace(deletedImageName+",", ""));
+                setAttachmentUrls([]);
+                setAttachmentName([]);
+                const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
+                await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
+                    item.ImageTicket = imageTicket.replace(deletedImageName+",", "")
+            }))
+            window.alert(`${deletedImageName} deleted!`);}}
+    };
 
     const handleMoreOptionsChange = async (event) => {
         event.preventDefault();
@@ -222,7 +265,6 @@ export function TicketClass(props) {
        ////////////* Edit ticket //////////////////
      // Goto EditTicket component
     const handleCloseEditTicketClick = (event) => {
-        event.preventDefault();
         navigate("/board",{state:{edited:false,project: getProjectNameState()}})
 };
     const handleSaveEditTicketClick = async (event) => {
@@ -322,9 +364,13 @@ export function TicketClass(props) {
                     IssueType : issueType,
                     TicketStatus : ticketStatus,
                     Comment : comment,};
+                try {
                 notify_update_ticket_response = await postData({
                     Changes: changed_props,
-                    newTicket});}
+                    newTicket});
+                }catch(err){notify_update_ticket_response="Unable to send message , sorry for the inconvinience!";}
+                }
+               
             navigate('/board', { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response}` }});
             window.location.reload();
         } catch (error) {
@@ -336,7 +382,7 @@ export function TicketClass(props) {
         event.preventDefault();
         await Storage.get(
             currentUser.ImageProfile,{
-            level:"public"
+            level:"protected"
         }).then(data_url => {
             setAsigneeImageURL(data_url);
             setAsigneeName(currentUser.username);})};
@@ -375,9 +421,12 @@ export function TicketClass(props) {
         async function fetchUserData() {
             if (editTicket !== ""){
             try{
+                setAttachmentUrls([]);
+                setAttachmentName([]);
                 setTitle(editTicket.Title);
                 setDescription(editTicket.Description);
                 setComment(editTicket.Comment);
+                setImageTicket(editTicket.ImageTicket === null ? "" : editTicket.ImageTicket);
                 setTicketID(editTicket.TicketID);
                 setIssueType(editTicket.IssueType);
                 setPriority(editTicket.Priority);
@@ -394,26 +443,26 @@ export function TicketClass(props) {
                 await DataStore.query(User)
                 .then(data => {
                     data.filter(item => { 
-                        if (item.sub === editTicket.Asignee) {
-                            setAsigneeName(item.username);
+                    if (item.sub === editTicket.Asignee) {
+                        setAsigneeName(item.username);
+                        Storage.get(
+                            item.ImageProfile,{
+                            level:"protected"
+                        }).then(data_url => {
+                            setAsigneeImageURL(data_url);
+                            // if the reporter is also the asignee
+                            if (item.sub === editTicket.Reporter){
+                                setReporterName(item.username);
+                                setReporterImageURL(data_url);}
+                    })}else {
+                        if (item.sub === editTicket.Reporter) {
+                            setReporterName(item.username);
                             Storage.get(
                                 item.ImageProfile,{
-                                level:"public"
+                                level:"protected"
                             }).then(data_url => {
-                                setAsigneeImageURL(data_url);
-                                // if the reporter is also the asignee
-                                if (item.sub === editTicket.Reporter){
-                                    setReporterName(item.username);
-                                    setReporterImageURL(data_url);}
-                        })}else {
-                            if (item.sub === editTicket.Reporter) {
-                                setReporterName(item.username);
-                                Storage.get(
-                                    item.ImageProfile,{
-                                    level:"public"
-                                }).then(data_url => {
-                                    setReporterImageURL(data_url);})}}
-                            return item;})});}catch(err){/*do nothing */}}}
+                                setReporterImageURL(data_url);})}}
+                        return item;})});}catch(err){/*do nothing */}}}
         fetchUserData();
     },[location.state,editTicket]);
     ////////////* Create ticket //////////////////
@@ -522,7 +571,9 @@ export function TicketClass(props) {
             window.location.reload();}}};
 
     return {
+        attachmentUrls,
         handleCreateTicketClick,
+        handleDeleteImageChange,
         tickets,
         setTickets,
         handleHoldMoveTicket,
@@ -576,5 +627,6 @@ export function TicketClass(props) {
         handleAsigneeChange,
         handleReporterChange,
         handleSafeTicketImageChange,
-        getBiggestTicketID
+        getBiggestTicketID,
+        ticketStatusColorVariant
     }}

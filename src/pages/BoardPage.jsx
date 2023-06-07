@@ -1,13 +1,14 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import '@aws-amplify/ui-react/styles.css';
-import { Board, CreateTicket, EditTicket, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection, Toolbar } from '../ui-components';
+import { Board, CreateTicket, EditTicket, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
 import '@aws-amplify/ui-react/styles.css';
 import { BoardFunc } from '../overrides/BoardOverride';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
 import { EditTicketFunc } from '../overrides/EditTicketOverride';
 import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ProjectVerticalSelectFieldFunc } from '../overrides/ProjectVerticalSelectFieldOverrides';
+import { TicketInfoScrollFunc } from '../overrides/TicketInfoScrollOverride';
 
 export default function BoardPage(props) {
   const {
@@ -19,7 +20,8 @@ export default function BoardPage(props) {
     customOverrideItems
   }= BoardFunc();
   const {
-    EditTicketOverride
+    EditTicketOverride,
+    FileImageTicketUpload
   } = EditTicketFunc();
   const {
     CreateTicketOverride
@@ -27,6 +29,9 @@ export default function BoardPage(props) {
   const {
     ToolbarOverride
   } = ToolbarFunc();
+  const {
+    TicketInfoScrollOverride
+  } = TicketInfoScrollFunc();
   const {
     ProjectVerticalSelectFieldOverride
   } = ProjectVerticalSelectFieldFunc();
@@ -73,8 +78,17 @@ export default function BoardPage(props) {
           <ProjectVerticalSelectField overrides={ProjectVerticalSelectFieldOverride}/>
         </div>
         <div style={{ position: 'absolute',display: 'block', bottom: 0, right: 0 }}>
-            {editTicketBoolean &&
-            <EditTicket overrides={EditTicketOverride}/>}
+            {editTicketBoolean && (
+              <>
+            <EditTicket overrides={EditTicketOverride}/>
+            <div style={{ position: 'absolute',display: 'block', bottom: 130, right: 1000 , width:600 }}>
+            <FileImageTicketUpload/>
+            </div>
+            <div style={{ position: 'absolute',display: 'block', bottom: 150, right: -460 , width:1400 ,  overflow: 'auto', maxHeight: '800px' }}>
+            <TicketInfoScroll overrides={TicketInfoScrollOverride}/>
+            </div>
+            </>
+            )}
             {createTicketBoolean &&
             <CreateTicket overrides={CreateTicketOverride}/>}
       </div>

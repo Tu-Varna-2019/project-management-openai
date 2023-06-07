@@ -30,11 +30,7 @@ const {
 Amplify.configure(awsExports);
 export default function App() {
   useEffect(() => {
-    document.title = "KAI";
-    console.warn = (message) => {
-      if (message.includes('FileUploader has exited Dev Preview and was renamed to StorageManager') 
-          || message.includes("Cookie ")) {return;}
-      console.warn(message);};},[]);
+    document.title = "KAI";},[]);
   
   return (
     <div className='amplify-container' style={{

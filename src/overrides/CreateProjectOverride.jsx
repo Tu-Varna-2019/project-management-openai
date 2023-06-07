@@ -41,7 +41,7 @@ export function CreateProjectFunc(props) {
             <FileUploader
             shouldAutoProceed={false}
             acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
-            accessLevel="public"
+            accessLevel="protected"
             maxFileCount={1}
             //maxSize={300000}
             isResumable={true}

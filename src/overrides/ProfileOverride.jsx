@@ -69,7 +69,7 @@ function FileImageUpload () {
             <FileUploader
             shouldAutoProceed={true}
             acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
-            accessLevel="public"
+            accessLevel="protected"
             maxFileCount={1}
             isResumable={true}
             showImages={false}

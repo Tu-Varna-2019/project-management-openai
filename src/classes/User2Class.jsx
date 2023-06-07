@@ -38,7 +38,7 @@ export function User2Class() {
         async function fetchUserData() {
             await Storage.get(
                 currentUser.ImageProfile,{
-                level:"public"
+                level:"protected"
             }).then(data => {
                 setUserProfileURL(data);})}
     fetchUserData();
@@ -61,7 +61,7 @@ export function User2Class() {
                 data.filter(item => { 
                     Storage.get(
                     item.ImageProfile,{
-                    level:"public"
+                    level:"protected"
                 }).then(data_url => { 
                     setUserSubImageURL(prevList => 
                         prevList.some(obj => obj.sub === item.sub) ?
@@ -97,7 +97,7 @@ export function User2Class() {
             event,{
             level: 'public'});
         // check if user isn't using the actual default profile image
-        if (currentUser.ImageProfile !== "default_user_profile.png")
+        if (currentUser.ImageProfile !== "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png")
             await Storage.remove(currentUser.ImageProfile);
         const editUserDataStore = await DataStore.query(User, currentUser.id);
         await DataStore.save(User.copyOf(editUserDataStore, item => {

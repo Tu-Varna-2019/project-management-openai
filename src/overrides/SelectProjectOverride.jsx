@@ -41,7 +41,7 @@ export function SelectProjectFunc(props) {
                         new User({
                            "sub": authenticatedUser.attributes.sub,
                             "username": authenticatedUser.attributes.email,
-                           "ImageProfile": "default_user_profile.png"
+                           "ImageProfile": "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png"
                        })).then(setCurrentUser);}
             }catch(error) {/*do nothing*/}}
     fetchUserData();

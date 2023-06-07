@@ -65,13 +65,12 @@ export function EditTicketFullFunc () {
     function FileImageTicketUpload () {
         return (
             <FileUploader
-            shouldAutoProceed={false}
+            shouldAutoProceed={true}
             acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
-            accessLevel="public"
-            maxFileCount={1}
-            //maxSize={300000}
+            accessLevel="protected"
+            maxFileCount={10}
             isResumable={true}
-            showImages={true}
+            showImages={false}
             onSuccess={(event) =>{handleSafeTicketImageChange(event.key);}}/>)}
 
     return {
