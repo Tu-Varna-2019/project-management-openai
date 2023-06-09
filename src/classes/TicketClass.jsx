@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useNavigate , useLocation } from 'react-router-dom';
 import { DataStore , Storage , API } from 'aws-amplify';
-import { Ticket,User } from '../models';
+import { Ticket,User , Activity } from '../models';
 import { ProjectClass } from './ProjectClass';
 import { User2Class } from './User2Class';
-import { getProjectNameState } from '../states';
-import { setDragDropTicketState } from '../states';
+import { getProjectNameState,setDragDropTicketState } from '../states';
 
 const iniTicketValue = {
     Title: "",
@@ -73,15 +72,19 @@ export function TicketClass(props) {
     const [watchedAddMeVariant,setWatchedAddMeVariant] = useState("info");
     //Constant values for issue type and priority
     const isseTypeOptions = ["Task","UserStory","Feature","Bug","Subtask","Epic"];
-    const priorityOptions = ["Low","Medium","High","Critical"];
+    const [priorityOptions,setPriorityOptions] = useState(["Low","Medium","High","Critical"]);
     const statusOptions = ["ToDo","InProgress","InReview","Done"];
     const moreOptions = ["","Move","Clone","Delete"];
     // Regex for empty values
     const isTitleEmpty =  /^\s*$/.test(title);
     const watchedCount = watchedUsers?.match(/,/g) ? watchedUsers.match(/,/g).length : 0 ;
+
     const ticketStatusColorVariant = ticketStatus === "ToDo" ? "error" : 
     ticketStatus === "InProgress" ? "warning" : 
     ticketStatus === "InReview" ? "info" : "success" ;
+    const [ticketTaskIDs,setTicketTaskIDs] = useState([""]);
+    const [selectedTaskID,setSelectedTaskID] = useState("");
+
     // Get tickets by project
     useEffect(() => {
         const dts_query = DataStore.query(Ticket)
@@ -89,7 +92,7 @@ export function TicketClass(props) {
             setTickets(data.filter(item => item.projectID === getProjectID));
         }).catch(error => {
         console.error(error);});
-    },[selectedProject,getProjectID]);
+    },[getProjectID]);
     // Get ticket statuses
     useEffect(() => {
         setTicketToDo(Object.values(tickets).filter(item => item.TicketStatus === 'ToDo'));
@@ -110,12 +113,39 @@ export function TicketClass(props) {
         event.preventDefault();
         setComment(event.target.value);
     };
+
     const handlePriority = (event) => {
         event.preventDefault();
-        setPriority(event.target.value);
-    };
-    const handleIssueType = (event) => {
+        if (priorityOptions.length !== ["Low","Medium","High","Critical"].length ) {
+            const selectedIndex = priorityOptions.indexOf(event.target.value);
+            setSelectedTaskID(ticketTaskIDs[selectedIndex]);  
+        } else setPriority(event.target.value);};
+    
+        console.log(issueType);
+
+    const handleIssueType = async (event) => {
         event.preventDefault();
+        const newTaskOption = [];
+        const newTaskIDs = [];
+        const issueTypeTaskSub = event.target.value === "Task" ? "Subtask" : "Task";
+        // Check if issue type is either task or subtask
+        switch(event.target.value) {
+            case "Task":
+            case "Subtask":
+                await DataStore.query(Ticket)
+                .then(data => {
+                    data.filter(item => {
+                        if( item.IssueType === issueTypeTaskSub) {
+                            newTaskOption.push(item.Title);
+                            newTaskIDs.push(item.id);
+                        } return item;})});
+                setPriority("Medium");
+                setTicketTaskIDs(newTaskIDs);
+                setPriorityOptions(newTaskOption);
+                break;
+            default:
+                setPriorityOptions(["Low","Medium","High","Critical"]);
+                break;}
         setIssueType(event.target.value);
     };
     const handleTicketStatus = (event) => {
@@ -163,20 +193,20 @@ export function TicketClass(props) {
 
     // Get all urls by image names , seperated by ,
     useEffect(() => {
-            if (imageTicket !== "" && attachmentName.length === 0) {
-            const imageNames = imageTicket.split(",");
-            const newDataUrls = [];
-            const newAttachmentNames = [];
-            imageNames.map(async (iter) => {
-                await Storage.get(iter, { 
-                    level: 'protected',
-                }).then(data_url => {
-                    newDataUrls.push(data_url);
-                    newAttachmentNames.push(iter);
-            })})
-            setAttachmentUrls(newDataUrls);
-            setAttachmentName(newAttachmentNames);}
-    },[imageTicket,setImageTicket,location.state]);
+        if (imageTicket !== "" && attachmentName.length === 0) {
+        const imageNames = imageTicket.split(",");
+        const newDataUrls = [];
+        const newAttachmentNames = [];
+        imageNames.map(async (iter) => {
+            await Storage.get(iter, { 
+                level: 'protected',
+            }).then(data_url => {
+                newDataUrls.push(data_url);
+                newAttachmentNames.push(iter);
+        })})
+        setAttachmentUrls(newDataUrls);
+        setAttachmentName(newAttachmentNames);}
+    },[imageTicket,setImageTicket,location.state,attachmentName.length]);
 
     const handleSafeTicketImageChange = async (event) => {
         await Storage.put(
@@ -286,26 +316,8 @@ export function TicketClass(props) {
         if ( ticketStatus === "Done") {
             const newResolvedCurrentDate = new Date(new Date().getTime() - timezoneOffset);
             resolved_date = newResolvedCurrentDate.toISOString();}
+        // Save state of editing ticket
         try {
-            const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
-            await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
-                item.Title = title;
-                item.Description = description;
-                item.Priority = priority;
-                item.TicketID = ticketID;
-                item.StoryPoint = storyPoint;
-                item.Watch = watchedUsers;
-                item.Reporter = reporter;
-                item.Asignee = asignee;
-                item.ImageTicket = imageTicket;
-                item.EpicLink = epicLink;
-                item.CreatedDate = newTicketCreatedDate;
-                item.UpdatedDate = newTicketUpdatedDate;
-                item.ResolvedDate = resolved_date;
-                item.projectID = getProjectID.toString();
-                item.IssueType = issueType;
-                item.TicketStatus = ticketStatus;
-                item.Comment = comment;}));
             // check onto which Ticket props have been changed 
             let changed_props = "";
             if (title !== editTicket.Ticket)
@@ -344,6 +356,35 @@ export function TicketClass(props) {
                 changed_props += `TicketStatus: ${editTicket.TicketStatus} --> ${ticketStatus} \n`
             if (comment !== editTicket.Comment)
                 changed_props += `${editTicket.Comment} --> ${comment} \n`
+
+            await DataStore.save(
+                new Activity({
+                    "ModifiedDate": newTicketUpdatedDate,
+                    "Users": [currentUser.id],
+                    "Tickets": [editTicket.id],
+                    "Changes": changed_props
+                }));
+            const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
+            await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
+                item.Title = title;
+                item.Description = description;
+                item.Priority = priority;
+                item.TicketID = ticketID;
+                item.StoryPoint = storyPoint;
+                item.Watch = watchedUsers;
+                item.Reporter = reporter;
+                item.Asignee = asignee;
+                item.ImageTicket = imageTicket;
+                item.EpicLink = epicLink;
+                item.CreatedDate = newTicketCreatedDate;
+                item.UpdatedDate = newTicketUpdatedDate;
+                item.ResolvedDate = resolved_date;
+                item.projectID = getProjectID.toString();
+                item.IssueType = issueType;
+                item.TicketStatus = ticketStatus;
+                item.Comment = comment;
+                item.Subtasks = [selectedTaskID];
+            }));
 
             let notify_update_ticket_response = "";
             if ( watchedUsers !== "" || asigneeName !== "Unassigned") {
@@ -504,7 +545,6 @@ export function TicketClass(props) {
                     "Watch": watchedUsers,
                     "Reporter": currentUser.sub,
                     "Asignee": asignee,
-                    //"ImageTicket": imageTicket,
                     "EpicLink": epicLink,
                     "CreatedDate": newTicketCreatedDate,
                     "projectID": getProjectID,
@@ -628,5 +668,7 @@ export function TicketClass(props) {
         handleReporterChange,
         handleSafeTicketImageChange,
         getBiggestTicketID,
-        ticketStatusColorVariant
+        ticketStatusColorVariant,
+        setSelectedTaskID,
+        selectedTaskID,
     }}

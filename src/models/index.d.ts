@@ -1,10 +1,48 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
 
 
 
 
+
+type EagerActivity = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Activity, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly ModifiedDate: string;
+  readonly Users?: User | null;
+  readonly Tickets?: Ticket | null;
+  readonly Changes: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly activityUsersId?: string | null;
+  readonly activityTicketsId?: string | null;
+}
+
+type LazyActivity = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Activity, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly ModifiedDate: string;
+  readonly Users: AsyncItem<User | undefined>;
+  readonly Tickets: AsyncItem<Ticket | undefined>;
+  readonly Changes: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly activityUsersId?: string | null;
+  readonly activityTicketsId?: string | null;
+}
+
+export declare type Activity = LazyLoading extends LazyLoadingDisabled ? EagerActivity : LazyActivity
+
+export declare const Activity: (new (init: ModelInit<Activity>) => Activity) & {
+  copyOf(source: Activity, mutator: (draft: MutableModel<Activity>) => MutableModel<Activity> | void): Activity;
+}
 
 type EagerProject = {
   readonly [__modelMeta__]: {
@@ -93,6 +131,7 @@ type EagerTicket = {
   readonly Priority: string;
   readonly TicketStatus: string;
   readonly Comment?: string | null;
+  readonly Subtasks?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -120,6 +159,7 @@ type LazyTicket = {
   readonly Priority: string;
   readonly TicketStatus: string;
   readonly Comment?: string | null;
+  readonly Subtasks?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

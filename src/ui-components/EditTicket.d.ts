@@ -22,9 +22,10 @@ export declare type EditTicketOverridesProps = {
     comments_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;
     create_button?: PrimitiveOverrideProps<ButtonProps>;
     cancel_button?: PrimitiveOverrideProps<ButtonProps>;
-    Divider?: PrimitiveOverrideProps<DividerProps>;
+    Divider179382085?: PrimitiveOverrideProps<DividerProps>;
     more_options_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     project_image_name?: PrimitiveOverrideProps<ImageProps>;
+    Divider332416?: PrimitiveOverrideProps<DividerProps>;
 } & EscapeHatchProps;
 export declare type EditTicketProps = React.PropsWithChildren<Partial<ViewProps> & {
     project?: Project;

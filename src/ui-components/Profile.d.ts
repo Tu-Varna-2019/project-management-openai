@@ -47,6 +47,7 @@ export declare type ProfileOverridesProps = {
     save_email_button?: PrimitiveOverrideProps<ButtonProps>;
     email_text_field?: PrimitiveOverrideProps<TextFieldProps>;
     "Email:"?: PrimitiveOverrideProps<TextProps>;
+    clear_activity_button?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
 export declare type ProfileProps = React.PropsWithChildren<Partial<ViewProps> & {
     user?: User;

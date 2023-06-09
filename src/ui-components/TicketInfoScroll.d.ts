@@ -33,6 +33,7 @@ export declare type TicketInfoScrollOverridesProps = {
     priority_image?: PrimitiveOverrideProps<ImageProps>;
     status_badge?: PrimitiveOverrideProps<BadgeProps>;
     status_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    epic_link_group?: PrimitiveOverrideProps<ViewProps>;
     epic_link_badge?: PrimitiveOverrideProps<BadgeProps>;
     epic_link_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     dates_group?: PrimitiveOverrideProps<ViewProps>;

@@ -483,35 +483,49 @@ export default function TicketInfoScroll(props) {
           variation="quiet"
           {...getOverrideProps(overrides, "status_select_field")}
         ></SelectField>
-        <Badge
-          width="150.06px"
-          height="48.76px"
-          position="absolute"
-          top="86.76%"
-          bottom="0.66%"
-          left="65.38%"
-          right="1.71%"
-          size="default"
-          variation="info"
-          children="Epic link"
-          {...getOverrideProps(overrides, "epic_link_badge")}
-        ></Badge>
-        <SelectField
+        <View
+          padding="0px 0px 0px 0px"
           width="166px"
-          height="58px"
-          gap="60px"
+          height="49.83px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
           position="absolute"
-          top="84.65%"
-          bottom="0.38%"
-          left="63.6%"
-          right="0%"
-          placeholder=""
-          size="small"
-          isDisabled={false}
-          labelHidden={true}
-          variation="quiet"
-          {...getOverrideProps(overrides, "epic_link_select_field")}
-        ></SelectField>
+          top="336.17px"
+          left="290px"
+          {...getOverrideProps(overrides, "epic_link_group")}
+        >
+          <Badge
+            width="150.06px"
+            height="48.76px"
+            position="absolute"
+            top="0%"
+            bottom="2.15%"
+            left="4.9%"
+            right="4.7%"
+            size="default"
+            variation="info"
+            children="Epic link"
+            {...getOverrideProps(overrides, "epic_link_badge")}
+          ></Badge>
+          <SelectField
+            width="166px"
+            height="42px"
+            gap="60px"
+            position="absolute"
+            top="15.72%"
+            bottom="0%"
+            left="0%"
+            right="0%"
+            placeholder=""
+            size="small"
+            isDisabled={false}
+            labelHidden={true}
+            variation="quiet"
+            {...getOverrideProps(overrides, "epic_link_select_field")}
+          ></SelectField>
+        </View>
       </View>
       <View
         padding="0px 0px 0px 0px"

@@ -584,37 +584,37 @@ export default function Profile(props) {
         ></Text>
         <View
           padding="0px 0px 0px 0px"
-          width="798px"
-          height="216px"
+          width="760.05px"
+          height="205.73px"
           display="block"
           gap="unset"
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
-          top="330px"
-          left="calc(50% - 399px - 447px)"
+          top="299px"
+          left="calc(50% - 380.02px - 529.98px)"
           {...getOverrideProps(overrides, "image_group")}
         >
           <Card
-            width="798px"
-            height="216px"
+            width="760.05px"
+            height="205.73px"
             position="absolute"
             backgroundColor="rgba(230, 230, 230, 1)"
             top="0px"
-            left="calc(50% - 399px - 0px)"
+            left="calc(50% - 380.02px - 0px)"
             variation="elevated"
             {...getOverrideProps(overrides, "done_card179642365")}
           ></Card>
           <Image
-            width="122px"
-            height="127px"
+            width="116.2px"
+            height="120.96px"
             display="block"
             gap="unset"
             alignItems="unset"
             justifyContent="unset"
             position="absolute"
-            top="44px"
-            left="calc(50% - 61px - -278px)"
+            top="41.91px"
+            left="calc(50% - 58.1px - -264.78px)"
             padding="0px 0px 0px 0px"
             objectFit="cover"
             src={user?.ImageProfile}
@@ -623,33 +623,37 @@ export default function Profile(props) {
         </View>
         <View
           padding="0px 0px 0px 0px"
-          width="680px"
-          height="183.6px"
+          width="752.43px"
+          height="174.87px"
           display="block"
           gap="unset"
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
-          top="780px"
-          left="calc(50% - 340px - 0px)"
+          top="804.7px"
+          left="calc(50% - 376.21px - 527.17px)"
           {...getOverrideProps(overrides, "options_group")}
         >
           <Card
-            width="678.3px"
-            height="183.6px"
+            width="750.55px"
+            height="174.87px"
             position="absolute"
             backgroundColor="rgba(255,255,255,0.61)"
-            top="0px"
-            left="calc(50% - 339.15px - -0.85px)"
+            top="0%"
+            bottom="0%"
+            left="0.25%"
+            right="0%"
             variation="elevated"
             {...getOverrideProps(overrides, "done_card179692303")}
           ></Card>
           <Button
-            width="678.3px"
-            height="61.2px"
+            width="750.55px"
+            height="58.29px"
             position="absolute"
-            top="122.4px"
-            left="calc(50% - 339.15px - 0px)"
+            top="66.67%"
+            bottom="0%"
+            left="0.13%"
+            right="0.12%"
             backgroundColor={
               deleteUnderScoreaccountUnderScorebuttonBackgroundColor
             }
@@ -668,11 +672,13 @@ export default function Profile(props) {
             {...getOverrideProps(overrides, "delete_account_button")}
           ></Button>
           <Button
-            width="678.3px"
-            height="61.2px"
+            width="750.55px"
+            height="58.29px"
             position="absolute"
-            top="0px"
-            left="calc(50% - 339.15px - 0.85px)"
+            top="0%"
+            bottom="66.67%"
+            left="0%"
+            right="0.25%"
             backgroundColor={
               changeUnderScorepasswordUnderScorebuttonBackgroundColor
             }
@@ -691,11 +697,13 @@ export default function Profile(props) {
             {...getOverrideProps(overrides, "change_password_button")}
           ></Button>
           <Button
-            width="678.3px"
-            height="61.2px"
+            width="750.55px"
+            height="58.29px"
             position="absolute"
-            top="61.2px"
-            left="calc(50% - 339.15px - 0px)"
+            top="33.33%"
+            bottom="33.33%"
+            left="0.13%"
+            right="0.12%"
             backgroundColor={
               switchUnderScoremnotesUnderScorebuttonBackgroundColor
             }
@@ -719,33 +727,33 @@ export default function Profile(props) {
         </View>
         <View
           padding="0px 0px 0px 0px"
-          width="799px"
-          height="216px"
+          width="761px"
+          height="205.73px"
           display="block"
           gap="unset"
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
-          top="330px"
-          left="calc(50% - 399.5px - -404.5px)"
+          top="562.78px"
+          left="calc(50% - 380.5px - 530.5px)"
           {...getOverrideProps(overrides, "email_group")}
         >
           <Card
-            width="798px"
-            height="216px"
+            width="760.05px"
+            height="205.73px"
             position="absolute"
             backgroundColor="rgba(230, 230, 230, 1)"
             top="0px"
-            left="calc(50% - 399px - -0.5px)"
+            left="calc(50% - 380.02px - -0.48px)"
             variation="elevated"
             {...getOverrideProps(overrides, "done_card179692275")}
           ></Card>
           <Button
-            width="798px"
-            height="54px"
+            width="760.05px"
+            height="51.43px"
             position="absolute"
-            top="162px"
-            left="calc(50% - 399px - 0.5px)"
+            top="154.3px"
+            left="calc(50% - 380.02px - 0.48px)"
             backgroundColor={saveUnderScoreemailUnderScorebuttonBackgroundColor}
             size="default"
             isDisabled={false}
@@ -764,8 +772,8 @@ export default function Profile(props) {
           width="350px"
           height="40px"
           position="absolute"
-          top="387px"
-          left="calc(50% - 175px - -466px)"
+          top="634px"
+          left="calc(50% - 175px - 457px)"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           backgroundColor="rgba(255,255,255,1)"
           placeholder=""
@@ -785,18 +793,32 @@ export default function Profile(props) {
           display="block"
           direction="column"
           justifyContent="unset"
-          width="unset"
-          height="unset"
+          width="121px"
+          height="37px"
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="387px"
-          left="1134px"
+          top="634px"
+          left="166px"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
           children="Email:"
           {...getOverrideProps(overrides, "Email:")}
         ></Text>
+        <Button
+          width="517px"
+          height="57px"
+          position="absolute"
+          top="923px"
+          left="calc(50% - 258.5px - -488.5px)"
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          backgroundColor="rgba(183,201,252,1)"
+          size="default"
+          isDisabled={false}
+          variation="link"
+          children="Clear all activity"
+          {...getOverrideProps(overrides, "clear_activity_button")}
+        ></Button>
       </View>
     </View>
   );

@@ -56,6 +56,9 @@ export function TicketInfoScrollFunc () {
             onChange : (event) => (handleIssueType(event)),
             options: isseTypeOptions,
         },
+        "Priority:":{
+            children: issueType === "Task" ? "Subtask" : issueType === "Subtask" ? "Task" : "Priority",
+        },
         priority_select_field:{
             onChange : (event) => (handlePriority(event)),
             options: priorityOptions,

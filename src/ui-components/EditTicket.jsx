@@ -236,7 +236,7 @@ export default function EditTicket(props) {
         left="979px"
         size="small"
         orientation="vertical"
-        {...getOverrideProps(overrides, "Divider")}
+        {...getOverrideProps(overrides, "Divider179382085")}
       ></Divider>
       <SelectField
         width="204px"
@@ -265,6 +265,16 @@ export default function EditTicket(props) {
         objectFit="cover"
         {...getOverrideProps(overrides, "project_image_name")}
       ></Image>
+      <Divider
+        width="635px"
+        height="1px"
+        position="absolute"
+        top="724px"
+        left="991px"
+        size="small"
+        orientation="horizontal"
+        {...getOverrideProps(overrides, "Divider332416")}
+      ></Divider>
     </View>
   );
 }

@@ -21,11 +21,17 @@ import ResetPasswordKAIPage from './pages/ResetPasswordKAIPage';
 import DeleteAccountKAIPage from './pages/DeleteAccountKAIPage';
 import EditTicketFullPage from './pages/EditTicketFullPage';
 
-
 const {
     AppComponentOverride,
     logoURL
 } = AppFunc();
+// Ignore Fileuploader warning
+const warn = console.warn;
+console.warn = function(message) {
+    if (message.indexOf('FileUploader has exited Dev Preview and was renamed to') === -1) {
+        warn.apply(console, arguments);
+    }
+}
 
 Amplify.configure(awsExports);
 export default function App() {
