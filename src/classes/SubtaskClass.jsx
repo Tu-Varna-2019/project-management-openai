@@ -1,32 +1,33 @@
-// import { useEffect, useState } from "react"
-// import { DataStore } from "aws-amplify";
-// import { Ticket } from "../models";
-// import { TicketClass } from "./TicketClass";
+import React,{ useEffect, useState } from "react"
+import { TicketContext } from "../contexts/TicketContext";
+import { DataStore } from "aws-amplify";
+import { Ticket } from "../models";
 
+export function SubtaskClass(props) {
+    const {
+        subtasks,
+        setSubtasks,
+    } = React.useContext(TicketContext);
 
-// export function Subtasklass(props) {
+    const [ticketSubtasks,setTicketSubtasks] = useState([]);
+    useEffect(() => {
+        if (subtasks && Array.isArray(subtasks)) {
+          Promise.all(subtasks.map(sub => DataStore.query(Ticket, sub)))
+            .then(newTicketSubs => {
+              const validSubs = newTicketSubs.filter(item => item !== undefined);
+              setTicketSubtasks(validSubs);
+            });
+        } else setTicketSubtasks([]);
+      }, [subtasks]);
+      
 
-//     const {
-//         ticketID,
-//         setSelectedTaskID,
-//     } = TicketClass();
+    const unlinkSubtaskClick = (sub_id) => {
+        const removedSubtask = subtasks.filter(item => item !== sub_id);
+        setSubtasks(removedSubtask);
+    };
 
-//     const [ticketSubtasks,setTicketSubtasks] = useState([]);
-//     useEffect(() => {
-//         async function fetchUser(){
-//             await DataStore.query(Ticket)
-//             .then(data => {
-//                 data.filter( async item => {
-//                     if (item.TicketID === ticketID ) {
-//                         const subtasks = await DataStore.query(Ticket, item.id);
-//                         //console.log(subtasks);
-//                         setTicketSubtasks(prevList => [...prevList, subtasks]);
-//                     return item;}})
-//         }).catch(error => {console.error(error);});}
-//         fetchUser();
-//     },[setSelectedTaskID,ticketID]);
-
-//     return {
-//         ticketSubtasks
-//     }
-// }
+    return {
+        ticketSubtasks,
+        unlinkSubtaskClick
+    }
+}

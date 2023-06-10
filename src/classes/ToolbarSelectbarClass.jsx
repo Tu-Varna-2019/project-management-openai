@@ -1,15 +1,15 @@
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { getProjectNameState } from '../states';
-import { User2Class } from "./User2Class";
 import { DataStore } from "aws-amplify";
 import { Ticket } from "../models";
-import { useState } from "react";
+import React,{ useState } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 export function ToolbarSelectClass() {
     const {
         currentUser,
-    } = User2Class();
+    } = React.useContext(UserContext);
     const navigate = useNavigate();
     const [assignedToMe,setAssignedToMe] = useState(["","assigned to me","boards"]);
 

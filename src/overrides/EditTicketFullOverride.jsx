@@ -1,6 +1,6 @@
-import { TicketClass } from '../classes/TicketClass';
 import { FileUploader } from '@aws-amplify/ui-react';
 import React from 'react';
+import { TicketContext } from '../contexts/TicketContext';
 
 export function EditTicketFullFunc () {
 
@@ -22,7 +22,7 @@ export function EditTicketFullFunc () {
         watchedCount,
         watchedAddMeVariant,
         isLoading,
-    } = TicketClass();
+    } = React.useContext(TicketContext);
 
     const EditTicketFullOverride={
         ticket_id_text: {

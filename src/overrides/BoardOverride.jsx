@@ -1,13 +1,14 @@
-import { TicketClass } from '../classes/TicketClass';
-import { User2Class } from '../classes/User2Class';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getDragDropTicketState } from '../states';
+import { TicketContext } from '../contexts/TicketContext';
+import { UserContext } from '../contexts/UserContext';
 
 
 export function BoardFunc (props) {
     const {
         userSubImageURL,
-    } = User2Class();
+    } = React.useContext(UserContext);
     const {
         ticketToDo,
         ticketInProgress,
@@ -16,7 +17,7 @@ export function BoardFunc (props) {
         handleGoToCreateTicketClick,
         handleHoldMoveTicket,
         handleReleaseMoveTicket,
-    } = TicketClass();
+    } = React.useContext(TicketContext);
 
     const navigate = useNavigate();
     const customOverrideItems = ({ item, index })  => {

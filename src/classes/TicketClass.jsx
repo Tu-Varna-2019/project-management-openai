@@ -20,7 +20,6 @@ const iniErrorValue = {
 export function TicketClass(props) {
     const {
         getProjectID,
-        selectedProject,
     } = ProjectClass();
     const {
         currentUser
@@ -30,6 +29,7 @@ export function TicketClass(props) {
     const navigate = useNavigate();
     // Ticket/s
     const editTicket = location.state ? location.state.selectedTicket : "";
+    const [subtasks,setSubtasks] = useState([]);
     const [tickets,setTickets] = useState("");
     // Ticket by statuses
     const [ticketToDo,setTicketToDo] = useState("");
@@ -38,7 +38,7 @@ export function TicketClass(props) {
     const [ticketDone,setTicketDone] = useState("");
     // Ticket style props
     const [getBiggestTicketID,setGetBiggestTicketID] = useState(0);
-    const [ticketID,setTicketID] = useState("");
+    const [ticketID,setTicketID] = useState(0);
     const [title,setTitle] = useState(iniTicketValue.Title);
     const [description,setDescription] = useState(iniTicketValue.Description);
     const [comment,setComment] = useState(iniTicketValue.Description);
@@ -70,6 +70,9 @@ export function TicketClass(props) {
     // Watch selected users
     const [watchedUsers,setWatchedUsers] = useState("");
     const [watchedAddMeVariant,setWatchedAddMeVariant] = useState("info");
+
+    const [ticketTaskIDs,setTicketTaskIDs] = useState([""]);
+    const [selectedTaskID,setSelectedTaskID] = useState("");
     //Constant values for issue type and priority
     const isseTypeOptions = ["Task","UserStory","Feature","Bug","Subtask","Epic"];
     const [priorityOptions,setPriorityOptions] = useState(["Low","Medium","High","Critical"]);
@@ -82,17 +85,16 @@ export function TicketClass(props) {
     const ticketStatusColorVariant = ticketStatus === "ToDo" ? "error" : 
     ticketStatus === "InProgress" ? "warning" : 
     ticketStatus === "InReview" ? "info" : "success" ;
-    const [ticketTaskIDs,setTicketTaskIDs] = useState([""]);
-    const [selectedTaskID,setSelectedTaskID] = useState("");
 
     // Get tickets by project
     useEffect(() => {
-        const dts_query = DataStore.query(Ticket)
-        dts_query.then(data => {
-            setTickets(data.filter(item => item.projectID === getProjectID));
-        }).catch(error => {
-        console.error(error);});
-    },[getProjectID]);
+        async function fetchUserData() {
+            await DataStore.query(Ticket)
+            .then(data => {
+                setTickets(data.filter(item => item.projectID === getProjectID));
+            }).catch(error => {
+            console.error(error);});}
+        fetchUserData();},[getProjectID]);
     // Get ticket statuses
     useEffect(() => {
         setTicketToDo(Object.values(tickets).filter(item => item.TicketStatus === 'ToDo'));
@@ -100,6 +102,105 @@ export function TicketClass(props) {
         setTicketInReview(Object.values(tickets).filter(item => item.TicketStatus === 'InReview'));
         setTicketDone(Object.values(tickets).filter(item => item.TicketStatus === 'Done'));
     },[tickets]);
+    // Set epic link options , based if user is in edit ticket state
+    useEffect(() => {
+        setEpicLinkOptions(["",...new Set(Object.values(tickets).map(obj => obj?.EpicLink)
+        .filter(epicLink => epicLink !== null))] );
+    },[epicLink,setEpicLink,tickets,setTickets,setEpicLinkOptions]);
+    // Get asignees&reporters
+    useEffect(() => {
+        async function fetchUser() {
+        await DataStore.query(User)
+        .then(data => {
+            data.filter(item => { 
+                if (item.sub !== "00000000" ) {
+                    setPeopleAssign(prevList => [...new Set([...prevList, item.username])]);
+                    setPeopleAssignSub(prevList => [...new Set([...prevList, item.sub])]);}
+                return item;})
+                setPeopleAssign(prevList => ["Unassigned", ...prevList]);
+                setPeopleAssignSub(prevList => ["00000000", ...prevList]);
+        }).catch(error => {console.error(error);});}
+        fetchUser();
+    },[]); // once defined for a purpose !
+    // Set values of text field from edited tickets
+    useEffect(() => {
+        async function fetchUserData() {
+            if (editTicket !== ""){
+            try{
+                setAttachmentUrls([]);
+                setAttachmentName([]);
+                setSubtasks(editTicket.Subtasks);
+                setTitle(editTicket.Title);
+                setDescription(editTicket.Description);
+                setComment(editTicket.Comment);
+                setImageTicket(editTicket.ImageTicket === null ? "" : editTicket.ImageTicket);
+                setTicketID(editTicket.TicketID);
+                setIssueType(editTicket.IssueType);
+                setPriority(editTicket.Priority);
+                setTicketStatus(editTicket.TicketStatus);
+                setReporter(editTicket.Reporter);
+                setAsignee(editTicket.Asignee);
+                setStoryPoint(editTicket.StoryPoint === null ? 0 : editTicket.StoryPoint);
+                setCreatedDate(new Date(editTicket.CreatedDate));
+                setUpdatedDate(editTicket.UpdatedDate === null ? "-" : new Date(editTicket.UpdatedDate));
+                setResolvedDate(editTicket.ResolvedDate === null ? "-" : new Date(editTicket.ResolvedDate));
+                setEpicLink(editTicket.EpicLink);
+                setWatchedUsers(editTicket.Watch === null ? "" : editTicket.Watch );
+                // Get reporter & asignee name & image name
+                await DataStore.query(User)
+                .then(data => {
+                data.filter(item => { 
+                if (item.sub === editTicket.Asignee) {
+                    setAsigneeName(item.username);
+                    Storage.get(
+                        item.ImageProfile,{
+                        level:"protected"
+                    }).then(data_url => {
+                        setAsigneeImageURL(data_url);
+                        // if the reporter is also the asignee
+                        if (item.sub === editTicket.Reporter){
+                            setReporterName(item.username);
+                            setReporterImageURL(data_url);}
+                })}else {
+                    if (item.sub === editTicket.Reporter) {
+                        setReporterName(item.username);
+                        Storage.get(
+                            item.ImageProfile,{
+                            level:"protected"
+                        }).then(data_url => {
+                            setReporterImageURL(data_url);})}}
+                    return item;})});}catch(err){/*do nothing */}}}
+        fetchUserData();
+    },[location.state,editTicket]);
+    ////////////* Create ticket //////////////////
+    // Get the largest ticket ID by project
+    useEffect(() => {
+        async function fetchUserData() {
+            await DataStore.query(Ticket)
+            .then(data => {
+                data.filter(item => {
+                    if( item.projectID ===  getProjectID 
+                        && getBiggestTicketID < +item.TicketID) {
+                        setGetBiggestTicketID(item.TicketID+1);
+                    } return item;})})}
+        fetchUserData();
+    },[getBiggestTicketID,getProjectID]);
+    // Get all urls by image names , seperated by ,
+    useEffect(() => {
+        if (imageTicket !== "" && attachmentName.length === 0) {
+        const imageNames = imageTicket.split(",");
+        const newDataUrls = [];
+        const newAttachmentNames = [];
+        imageNames.map(async (iter) => {
+            await Storage.get(iter, { 
+                level: 'protected',
+            }).then(data_url => {
+                newDataUrls.push(data_url);
+                newAttachmentNames.push(iter);
+        })})
+        setAttachmentUrls(newDataUrls);
+        setAttachmentName(newAttachmentNames);}
+    },[imageTicket,setImageTicket,location.state,attachmentName.length]);
 
     const handleTitle = (event) => {
         event.preventDefault();
@@ -120,14 +221,13 @@ export function TicketClass(props) {
             const selectedIndex = priorityOptions.indexOf(event.target.value);
             setSelectedTaskID(ticketTaskIDs[selectedIndex]);  
         } else setPriority(event.target.value);};
-    
-        console.log(issueType);
 
     const handleIssueType = async (event) => {
         event.preventDefault();
         const newTaskOption = [];
         const newTaskIDs = [];
-        const issueTypeTaskSub = event.target.value === "Task" ? "Subtask" : "Task";
+        const issueTypeTaskSub = event.target.value === "Task" ?
+        "Subtask" : "Task";
         // Check if issue type is either task or subtask
         switch(event.target.value) {
             case "Task":
@@ -190,24 +290,6 @@ export function TicketClass(props) {
                     }).then(data_url => {
                         setReporterImageURL(data_url);})}
                 return item;})})};
-
-    // Get all urls by image names , seperated by ,
-    useEffect(() => {
-        if (imageTicket !== "" && attachmentName.length === 0) {
-        const imageNames = imageTicket.split(",");
-        const newDataUrls = [];
-        const newAttachmentNames = [];
-        imageNames.map(async (iter) => {
-            await Storage.get(iter, { 
-                level: 'protected',
-            }).then(data_url => {
-                newDataUrls.push(data_url);
-                newAttachmentNames.push(iter);
-        })})
-        setAttachmentUrls(newDataUrls);
-        setAttachmentName(newAttachmentNames);}
-    },[imageTicket,setImageTicket,location.state,attachmentName.length]);
-
     const handleSafeTicketImageChange = async (event) => {
         await Storage.put(
             event, 
@@ -231,8 +313,7 @@ export function TicketClass(props) {
                 setAttachmentName([]);
                 const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
                 await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
-                    item.ImageTicket = imageTicket.replace(deletedImageName+",", "")
-            }))
+                    item.ImageTicket = imageTicket.replace(deletedImageName+",", "")}))
             window.alert(`${deletedImageName} deleted!`);}}
     };
 
@@ -292,42 +373,42 @@ export function TicketClass(props) {
         { body: JSON.stringify({event})});
         console.log(response);
         return response;}
-       ////////////* Edit ticket //////////////////
+
      // Goto EditTicket component
     const handleCloseEditTicketClick = (event) => {
-        navigate("/board",{state:{edited:false,project: getProjectNameState()}})
-};
-    const handleSaveEditTicketClick = async (event) => {
-        event.preventDefault();
-        setIsLoading(!isLoading);
-        const timezoneOffset = new Date().getTimezoneOffset() * 60000;
-        const newCreatedDate = new Date(new Date(createdDate).getTime() - timezoneOffset);
-        const newUpdatedDate = new Date(new Date().getTime() - timezoneOffset);
-        const newTicketUpdatedDate = newUpdatedDate.toISOString();
-        const newTicketCreatedDate = newCreatedDate.toISOString();
-        let formattedDate = null;
-        // try to catch if resolved date is eq '-'
-        try {
-            const date = new Date(resolvedDate);
-            formattedDate = date.toISOString();
-        } catch(e){/*do nothing*/}
-        let resolved_date = formattedDate ;
-        // if status is in done state assign current date in resolved
-        if ( ticketStatus === "Done") {
-            const newResolvedCurrentDate = new Date(new Date().getTime() - timezoneOffset);
-            resolved_date = newResolvedCurrentDate.toISOString();}
-        // Save state of editing ticket
-        try {
-            // check onto which Ticket props have been changed 
-            let changed_props = "";
-            if (title !== editTicket.Ticket)
-                changed_props += `Title: ${editTicket.Ticket} --> ${title} \n`
-            if (description !== editTicket.Description)
-                changed_props += `Description: ${editTicket.Description} --> ${description} \n`
-            if (priority !== editTicket.Priority)
-                changed_props += `Priority: ${editTicket.Priority} --> ${priority} \n`
-            if (storyPoint !== editTicket.StoryPoint)
-                changed_props += `StoryPoint: ${editTicket.StoryPoint} --> ${storyPoint} \n`
+        navigate("/board",{state:{edited:false,project: getProjectNameState()}})};
+
+const handleSaveEditTicketClick = async (event) => {
+    event.preventDefault();
+    setIsLoading(!isLoading);
+    const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+    const newCreatedDate = new Date(new Date(createdDate).getTime() - timezoneOffset);
+    const newUpdatedDate = new Date(new Date().getTime() - timezoneOffset);
+    const newTicketUpdatedDate = newUpdatedDate.toISOString();
+    const newTicketCreatedDate = newCreatedDate.toISOString();
+    let formattedDate = null;
+    // try to catch if resolved date is eq '-'
+    try {
+        const date = new Date(resolvedDate);
+        formattedDate = date.toISOString();
+    } catch(e){/*do nothing*/}
+    let resolved_date = formattedDate ;
+    // if status is in done state assign current date in resolved
+    if ( ticketStatus === "Done") {
+        const newResolvedCurrentDate = new Date(new Date().getTime() - timezoneOffset);
+        resolved_date = newResolvedCurrentDate.toISOString();}
+    // Save state of editing ticket
+    try {
+        // check onto which Ticket props have been changed 
+        let changed_props = "";
+        if (title !== editTicket.Ticket)
+            changed_props += `Title: ${editTicket.Ticket} --> ${title} \n`
+        if (description !== editTicket.Description)
+            changed_props += `Description: ${editTicket.Description} --> ${description} \n`
+        if (priority !== editTicket.Priority)
+            changed_props += `Priority: ${editTicket.Priority} --> ${priority} \n`
+        if (storyPoint !== editTicket.StoryPoint)
+            changed_props += `StoryPoint: ${editTicket.StoryPoint} --> ${storyPoint} \n`
             if (reporter !== editTicket.Reporter) {
                 let editTicketReporterName = "";
                 const dts_query = DataStore.query(User)
@@ -350,74 +431,75 @@ export function TicketClass(props) {
                 console.error(error);});
             changed_props += `Asignee: ${editTicketAsigneeName} --> ${asigneeName} \n`
             }
-            if (epicLink !== editTicket.EpicLink)
-                changed_props += `Epic Link: ${editTicket.EpicLink} --> ${epicLink} \n`
-            if (ticketStatus !== editTicket.TicketStatus)
-                changed_props += `TicketStatus: ${editTicket.TicketStatus} --> ${ticketStatus} \n`
-            if (comment !== editTicket.Comment)
-                changed_props += `${editTicket.Comment} --> ${comment} \n`
+        if (epicLink !== editTicket.EpicLink)
+            changed_props += `Epic Link: ${editTicket.EpicLink} --> ${epicLink} \n`
+        if (ticketStatus !== editTicket.TicketStatus)
+            changed_props += `TicketStatus: ${editTicket.TicketStatus} --> ${ticketStatus} \n`
+        if (comment !== editTicket.Comment)
+            changed_props += `${editTicket.Comment} --> ${comment} \n`
 
-            await DataStore.save(
-                new Activity({
-                    "ModifiedDate": newTicketUpdatedDate,
-                    "Users": [currentUser.id],
-                    "Tickets": [editTicket.id],
-                    "Changes": changed_props
-                }));
-            const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
-            await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
-                item.Title = title;
-                item.Description = description;
-                item.Priority = priority;
-                item.TicketID = ticketID;
-                item.StoryPoint = storyPoint;
-                item.Watch = watchedUsers;
-                item.Reporter = reporter;
-                item.Asignee = asignee;
-                item.ImageTicket = imageTicket;
-                item.EpicLink = epicLink;
-                item.CreatedDate = newTicketCreatedDate;
-                item.UpdatedDate = newTicketUpdatedDate;
-                item.ResolvedDate = resolved_date;
-                item.projectID = getProjectID.toString();
-                item.IssueType = issueType;
-                item.TicketStatus = ticketStatus;
-                item.Comment = comment;
-                item.Subtasks = [selectedTaskID];
+        await DataStore.save(
+            new Activity({
+                "ModifiedDate": newTicketUpdatedDate,
+                "Users": [currentUser.id],
+                "Tickets": [editTicket.id],
+                "Changes": changed_props
             }));
-
-            let notify_update_ticket_response = "";
-            if ( watchedUsers !== "" || asigneeName !== "Unassigned") {
-                const concatenateWatchUserWithAsignee = !watchedUsers.includes(asigneeName+",") ? watchedUsers + asigneeName+"," : watchedUsers==="" ? asigneeName+"," : "" ;
-                const newTicket = {
-                    Title : title,
-                    Description : description,
-                    Priority : priority,
-                    TicketID : ticketID,
-                    StoryPoint : storyPoint,
-                    Reporter : reporterName,
-                    Asignee : asigneeName,
-                    Watch: concatenateWatchUserWithAsignee,
-                    EpicLink : epicLink,
-                    CreatedDate : newTicketCreatedDate,
-                    UpdatedDate : newTicketUpdatedDate,
-                    ResolvedDate : resolved_date,
-                    IssueType : issueType,
-                    TicketStatus : ticketStatus,
-                    Comment : comment,};
-                try {
-                notify_update_ticket_response = await postData({
-                    Changes: changed_props,
-                    newTicket});
-                }catch(err){notify_update_ticket_response="Unable to send message , sorry for the inconvinience!";}
-                }
-               
-            navigate('/board', { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response}` }});
-            window.location.reload();
-        } catch (error) {
-            setIsLoading(false);
-            console.log(error);
-            navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});}};
+        const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
+        await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
+            item.Title = title;
+            item.Description = description;
+            item.Priority = priority;
+            item.TicketID = ticketID;
+            item.StoryPoint = storyPoint;
+            item.Watch = watchedUsers;
+            item.Reporter = reporter;
+            item.Asignee = asignee;
+            item.ImageTicket = imageTicket;
+            item.EpicLink = epicLink;
+            item.CreatedDate = newTicketCreatedDate;
+            item.UpdatedDate = newTicketUpdatedDate;
+            item.ResolvedDate = resolved_date;
+            item.projectID = getProjectID.toString();
+            item.IssueType = issueType;
+            item.TicketStatus = ticketStatus;
+            item.Comment = comment;
+            item.Subtasks = [
+                ...(item.Subtasks ? item.Subtasks : []), 
+                ...(selectedTaskID ? [selectedTaskID] : [])
+              ];
+        }));
+        let notify_update_ticket_response = "";
+        if ( watchedUsers !== "" || asigneeName !== "Unassigned") {
+            const concatenateWatchUserWithAsignee = !watchedUsers.includes(asigneeName+",") ? watchedUsers + asigneeName+"," : watchedUsers==="" ? asigneeName+"," : "" ;
+            const newTicket = {
+                Title : title,
+                Description : description,
+                Priority : priority,
+                TicketID : ticketID,
+                StoryPoint : storyPoint,
+                Reporter : reporterName,
+                Asignee : asigneeName,
+                Watch: concatenateWatchUserWithAsignee,
+                EpicLink : epicLink,
+                CreatedDate : newTicketCreatedDate,
+                UpdatedDate : newTicketUpdatedDate,
+                ResolvedDate : resolved_date,
+                IssueType : issueType,
+                TicketStatus : ticketStatus,
+                Comment : comment};
+            try {
+            notify_update_ticket_response = await postData({
+                Changes: changed_props,
+                newTicket});
+            }catch(err){notify_update_ticket_response="Unable to send message , sorry for the inconvinience!";}
+        }
+        navigate('/board', { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response}` }});
+        window.location.reload();
+    } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+        navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});}};
 
     const handleAssignToMeClick = async (event) => {
         event.preventDefault();
@@ -430,8 +512,7 @@ export function TicketClass(props) {
     // Add user to watch list on ticket change
     const handleAddUserToWatch = (event) => {
         event.preventDefault();
-        // if the user has already added himself in watched ,
-        // remove him
+        // if the user has already added himself in watched ,remove him
         if (watchedAddMeVariant === "success") {
             setWatchedUsers(watchedUsers.replace(/[^,]+,$/, ""));
             setWatchedAddMeVariant("info");
@@ -440,85 +521,6 @@ export function TicketClass(props) {
         setWatchedUsers((prevValue) => prevValue + currentUser.username + ",");
         setWatchedAddMeVariant("success");}
     };
-    // Set epic link options , based if user is in edit ticket state
-    useEffect(() => {
-        setEpicLinkOptions(["",...new Set(Object.values(tickets).map(obj => obj?.EpicLink)
-        .filter(epicLink => epicLink !== null))] );
-    },[epicLink,setEpicLink,tickets,setTickets,setEpicLinkOptions]);
-    // Get asignees&reporters
-    useEffect(() => {
-        const dts_query = DataStore.query(User)
-        dts_query.then(data => {
-            data.filter(item => { 
-                if (item.sub !== "00000000" ) {
-                    setPeopleAssign(prevList => [...new Set([...prevList, item.username])]);
-                    setPeopleAssignSub(prevList => [...new Set([...prevList, item.sub])]);}
-                return item;})
-                setPeopleAssign(prevList => ["Unassigned", ...prevList]);
-                setPeopleAssignSub(prevList => ["00000000", ...prevList]);
-        }).catch(error => {console.error(error);});},[]); // once defined for a purpose !
-    // Set values of text field from edited tickets
-    useEffect(() => {
-        async function fetchUserData() {
-            if (editTicket !== ""){
-            try{
-                setAttachmentUrls([]);
-                setAttachmentName([]);
-                setTitle(editTicket.Title);
-                setDescription(editTicket.Description);
-                setComment(editTicket.Comment);
-                setImageTicket(editTicket.ImageTicket === null ? "" : editTicket.ImageTicket);
-                setTicketID(editTicket.TicketID);
-                setIssueType(editTicket.IssueType);
-                setPriority(editTicket.Priority);
-                setTicketStatus(editTicket.TicketStatus);
-                setReporter(editTicket.Reporter);
-                setAsignee(editTicket.Asignee);
-                setStoryPoint(editTicket.StoryPoint === null ? 0 : editTicket.StoryPoint);
-                setCreatedDate(new Date(editTicket.CreatedDate));
-                setUpdatedDate(editTicket.UpdatedDate === null ? "-" : new Date(editTicket.UpdatedDate));
-                setResolvedDate(editTicket.ResolvedDate === null ? "-" : new Date(editTicket.ResolvedDate));
-                setEpicLink(editTicket.EpicLink);
-                setWatchedUsers(editTicket.Watch === null ? "" : editTicket.Watch );
-                // Get reporter & asignee name & image name
-                await DataStore.query(User)
-                .then(data => {
-                    data.filter(item => { 
-                    if (item.sub === editTicket.Asignee) {
-                        setAsigneeName(item.username);
-                        Storage.get(
-                            item.ImageProfile,{
-                            level:"protected"
-                        }).then(data_url => {
-                            setAsigneeImageURL(data_url);
-                            // if the reporter is also the asignee
-                            if (item.sub === editTicket.Reporter){
-                                setReporterName(item.username);
-                                setReporterImageURL(data_url);}
-                    })}else {
-                        if (item.sub === editTicket.Reporter) {
-                            setReporterName(item.username);
-                            Storage.get(
-                                item.ImageProfile,{
-                                level:"protected"
-                            }).then(data_url => {
-                                setReporterImageURL(data_url);})}}
-                        return item;})});}catch(err){/*do nothing */}}}
-        fetchUserData();
-    },[location.state,editTicket]);
-    ////////////* Create ticket //////////////////
-        // Get the largest ticket ID by project
-        useEffect(() => {
-            async function fetchUserData() {
-                await DataStore.query(Ticket)
-                .then(data => {
-                    data.filter(item => {
-                        if( item.projectID ===  getProjectID 
-                            && getBiggestTicketID < +item.TicketID) {
-                            setGetBiggestTicketID(item.TicketID+1);
-                        } return item;})})}
-            fetchUserData();
-        },[getBiggestTicketID,getProjectID]);
     // Goto CreateTicket component
     const handleGoToCreateTicketClick = (event) => {
         event.preventDefault();
@@ -611,6 +613,8 @@ export function TicketClass(props) {
             window.location.reload();}}};
 
     return {
+        subtasks,
+        setSubtasks,
         attachmentUrls,
         handleCreateTicketClick,
         handleDeleteImageChange,

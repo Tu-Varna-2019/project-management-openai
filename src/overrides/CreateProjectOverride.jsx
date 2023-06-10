@@ -2,6 +2,7 @@ import '@aws-amplify/ui-react/styles.css';
 import React from 'react';
 import { ProjectClass } from '../classes/ProjectClass';
 import { FileUploader } from '@aws-amplify/ui-react';
+import { ProjectContext } from '../contexts/ProjectContext';
 
 export function CreateProjectFunc(props) {
 
@@ -15,7 +16,7 @@ export function CreateProjectFunc(props) {
         isCancelButtonLoading,
         handleSafeProjectImageChange,
         errorMessageProjectName
-    } = ProjectClass();
+    } = React.useContext(ProjectContext);
 
     const CreateProjectOverride= {
         project_name_text_field:{

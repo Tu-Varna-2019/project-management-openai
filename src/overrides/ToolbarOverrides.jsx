@@ -1,13 +1,13 @@
-import { TicketClass } from '../classes/TicketClass';
-import { User2Class } from '../classes/User2Class';
-import { ToolbarSelectClass } from '../classes/ToolbarSelectbarClass';
-
+import React from 'react';
+import { TicketContext } from '../contexts/TicketContext';
+import { UserContext } from '../contexts/UserContext';
+import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
 
 export function ToolbarFunc (props) {
 
     const {
         handleGoToCreateTicketClick,
-    } = TicketClass();
+    } = React.useContext(TicketContext);
 
     const {
         handleProjectsSelectChange,
@@ -15,7 +15,7 @@ export function ToolbarFunc (props) {
         handleTeamsSelectChange,
         handleProfileSelectChange,
         assignedToMe,
-    } = ToolbarSelectClass();
+    } = React.useContext(ToolbarSelectContext);
 
     const {
         userProfileURL,
@@ -23,7 +23,7 @@ export function ToolbarFunc (props) {
         alertVisibility,
         alertDescription,
         currentUser,
-    } = User2Class();
+    } = React.useContext(UserContext);
 
     
     const ToolbarOverride={

@@ -1,4 +1,5 @@
-import { TicketClass } from '../classes/TicketClass';
+import React from 'react';
+import { TicketContext } from '../contexts/TicketContext';
 
 export function CreateTicketFunc (props) {
 
@@ -29,7 +30,7 @@ export function CreateTicketFunc (props) {
         handleAsigneeChange,
         handleCreateTicketClick,
         handleCloseCreateTicketClick,
-    } = TicketClass();
+    } = React.useContext(TicketContext);
     
     const CreateTicketOverride = {
         create_ticket_text:{

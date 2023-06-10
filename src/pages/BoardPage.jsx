@@ -2,7 +2,6 @@ import React from 'react'
 import { useLocation } from 'react-router-dom';
 import '@aws-amplify/ui-react/styles.css';
 import { Board, ChildTicketShortCollection, CreateTicket, EditTicket, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
-import '@aws-amplify/ui-react/styles.css';
 import { BoardFunc } from '../overrides/BoardOverride';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
 import { EditTicketFunc } from '../overrides/EditTicketOverride';
@@ -50,8 +49,8 @@ export default function BoardPage(props) {
         <div className='amplify-container'
           style={{ position:'relative', display: 'inline-block',overflow: "hidden",top: "-50px",left: "0px"}}>
           <Board overrides={BoardComponentOverride}/>
-        
-        <div 
+
+        <div
           style={{ position: 'absolute' , width:"120px", display: 'block',top: "1040px",left: "460px",objectFit: "cover"}}>
           <TicketToDoCollection style={{position: 'absolute', bottom: "50px" , left:"-90px" }}
               overrides={BoardTicketToDoOverride}
@@ -75,7 +74,7 @@ export default function BoardPage(props) {
               overrides={BoardTicketDoneOverride}
               overrideItems={customOverrideItems}/>
         </div>
-        
+
         <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1095, width:825 }}>
         <Toolbar overrides={ToolbarOverride}/>
         </div>
@@ -93,7 +92,7 @@ export default function BoardPage(props) {
             <TicketInfoScroll overrides={TicketInfoScrollOverride}/>
             </div>
             <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "700px",left: "1250px",objectFit: "cover"}}>
-          <ChildTicketShortCollection style={{position: 'absolute',  bottom: "-60px", left: "-250px" }}
+          <ChildTicketShortCollection style={{position: 'absolute',  bottom: "-220px", left: "-250px" }}
               overrides={ChildTicketShortCollectionOverride}
               overrideItems={ChildTicketShortOverride}/>
           </div>

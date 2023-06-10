@@ -1,9 +1,9 @@
 import '@aws-amplify/ui-react/styles.css';
-import { useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
 import { User } from '../models';
 import { ProjectClass } from '../classes/ProjectClass';
-import { User2Class } from '../classes/User2Class';
+import { UserContext } from '../contexts/UserContext';
 
 export function SelectProjectFunc(props) {
 
@@ -12,7 +12,7 @@ export function SelectProjectFunc(props) {
         setCurrentUser,
         authenticatedUser,
         setAuthenticatedUser,
-    } = User2Class();
+    } = React.useContext(UserContext);
 
     const {
         projectNames,

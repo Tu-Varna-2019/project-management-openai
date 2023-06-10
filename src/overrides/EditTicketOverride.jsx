@@ -1,8 +1,8 @@
-import { TicketClass } from '../classes/TicketClass';
-import { ProjectClass } from '../classes/ProjectClass';
 import { getProjectNameState } from '../states';
 import { FileUploader } from '@aws-amplify/ui-react';
 import React from 'react';
+import { TicketContext } from '../contexts/TicketContext';
+import { ProjectContext } from '../contexts/ProjectContext';
 
 export function EditTicketFunc (props) {
 
@@ -24,11 +24,11 @@ export function EditTicketFunc (props) {
         watchedCount,
         watchedAddMeVariant,
         isLoading,
-    } = TicketClass();
+    } = React.useContext(TicketContext);
 
     const {
         imageProjectURL,
-    } = ProjectClass();
+    } = React.useContext(ProjectContext);
 
     const EditTicketOverride={
         project_name_text:{

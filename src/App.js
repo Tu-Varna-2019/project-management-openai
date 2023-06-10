@@ -20,6 +20,11 @@ import ProfilePage from './pages/ProfilePage';
 import ResetPasswordKAIPage from './pages/ResetPasswordKAIPage';
 import DeleteAccountKAIPage from './pages/DeleteAccountKAIPage';
 import EditTicketFullPage from './pages/EditTicketFullPage';
+import { TicketProvider } from './providers/TicketProvider';
+import { UserProvider } from './providers/UserProvider';
+import { ProjectProvider } from './providers/ProjectProvider';
+import { ToolbarSelectProvider } from './providers/ToolbarSelectProvider';
+import { SubtaskProvider } from './providers/SubtaskProvider';
 
 const {
     AppComponentOverride,
@@ -30,8 +35,7 @@ const warn = console.warn;
 console.warn = function(message) {
     if (message.indexOf('FileUploader has exited Dev Preview and was renamed to') === -1) {
         warn.apply(console, arguments);
-    }
-}
+    }}
 
 Amplify.configure(awsExports);
 export default function App() {
@@ -46,7 +50,12 @@ export default function App() {
       <link rel="icon" href={logoURL} />
       </Helmet><Card variation="elevated">
         <Authenticator components={AppComponentOverride}>
-    <BrowserRouter>
+      <BrowserRouter>
+      <TicketProvider>
+      <UserProvider>
+      <ProjectProvider>
+      <ToolbarSelectProvider>
+      <SubtaskProvider>
       <Routes>
         <Route path="/board" element={<BoardPage/>}/>
         <Route path="/profile" element={<ProfilePage/>}/>
@@ -64,6 +73,11 @@ export default function App() {
         <Route path='/reset-password-kai' element={<ResetPasswordKAIPage/>}/>
         <Route path='/delete-account-kai' element={<DeleteAccountKAIPage/>}/>
       </Routes>
+      </SubtaskProvider>
+      </ToolbarSelectProvider>
+      </ProjectProvider>
+      </UserProvider>
+      </TicketProvider>
     </BrowserRouter></Authenticator></Card></div>);
   }
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);

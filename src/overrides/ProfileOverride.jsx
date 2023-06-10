@@ -1,8 +1,8 @@
 import '@aws-amplify/ui-react/styles.css';
-import { User2Class } from '../classes/User2Class';
 import { FileUploader, ThemeProvider ,createTheme} from '@aws-amplify/ui-react';
 import React from 'react';
 import { studioTheme } from '../ui-components';
+import { UserContext } from '../contexts/UserContext';
 
 export function ProfileFunc () {
     const {
@@ -15,7 +15,7 @@ export function ProfileFunc () {
         handleGoToChangePassword,
         handleGoToDeleteAccount,
         handleGoToMNotes
-    } = User2Class();
+    } = React.useContext(UserContext);
 
 const ProfileOverride={
     profile_icon_image: {

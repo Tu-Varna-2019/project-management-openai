@@ -1,4 +1,5 @@
-import { TicketClass } from '../classes/TicketClass';
+import { TicketContext } from '../contexts/TicketContext';
+import React from 'react';
 
 export function TicketInfoScrollFunc () {
 
@@ -31,7 +32,7 @@ export function TicketInfoScrollFunc () {
         ticketStatusColorVariant,
         handleDeleteImageChange,
         attachmentUrls,
-    } = TicketClass();
+    } = React.useContext(TicketContext);
 
     const TicketInfoScrollOverride={
         asignee_name_text:{
