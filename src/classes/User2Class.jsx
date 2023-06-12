@@ -14,12 +14,20 @@ export function User2Class() {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     // User with image url dicionary
     const [userSubImageURL,setUserSubImageURL] = useState([{}]);
+    const [userIDName,setUserIDName] = useState([{}]);
     // Alert
     const [alertVariant,setAlertVariant] = useState("success");
     const [alertVisibility,setAlertVisibility] = useState("none");
     const [alertDescription,setAlertDescription] = useState("");
     const location = useLocation();
     const navigate = useNavigate();
+    let selectedUserID = "";
+    let selectedUsername = "";
+    try {
+    selectedUserID = location.state.selectedUserID;
+    selectedUsername = location.state.selectedUserName;
+    }catch(err)
+    { selectedUserID = currentUser.id ; selectedUsername = currentUser.username;}
     // Get current authenticated user
     useEffect(() => {
         async function fetchUserData() {
@@ -62,7 +70,11 @@ export function User2Class() {
                     Storage.get(
                     item.ImageProfile,{
                     level:"protected"
-                }).then(data_url => { 
+                }).then(data_url => {
+                    setUserIDName(prevList => 
+                        prevList.some(obj => obj.sub === item.sub 
+                            || item.sub === "00000000") ?
+                        prevList : [{ id: item.id, name: item.username}, ...prevList]);
                     setUserSubImageURL(prevList => 
                         prevList.some(obj => obj.sub === item.sub) ?
                         prevList : [{ sub: item.sub, url: data_url }, ...prevList]);
@@ -119,6 +131,11 @@ export function User2Class() {
             navigate('/note');};
 
     return {
+        userIDName,
+        selectedUsername,
+        selectedUserID,
+        location,
+        navigate,
         currentUser,
         setCurrentUser,
         authenticatedUser,

@@ -7,6 +7,8 @@ export function SubtaskClass(props) {
     const {
         subtasks,
         setSubtasks,
+        deletedTaskID,
+        setDeletedTaskID
     } = React.useContext(TicketContext);
 
     const [ticketSubtasks,setTicketSubtasks] = useState([]);
@@ -24,6 +26,7 @@ export function SubtaskClass(props) {
     const unlinkSubtaskClick = (sub_id) => {
         const removedSubtask = subtasks.filter(item => item !== sub_id);
         setSubtasks(removedSubtask);
+        setDeletedTaskID(prevState => [...prevState,sub_id]);
     };
 
     return {

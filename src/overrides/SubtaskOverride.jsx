@@ -10,6 +10,7 @@ export function SubtaskFunc (props) {
     } = React.useContext(SubtaskContext);
     const {
         userSubImageURL,
+        navigate,
     } = React.useContext(UserContext);
 
     const ChildTicketShortCollectionOverride={
@@ -18,7 +19,7 @@ export function SubtaskFunc (props) {
         
     const ChildTicketShortOverride = ({ item, index })  => {
         let asignee_image_url = userSubImageURL.find(data =>
-             data.sub === item.Asignee)?.url || "";
+            data.sub === item.Asignee)?.url || "";
         return {
             overrides: {
                 title_text:{ children: item.Title },
@@ -27,6 +28,7 @@ export function SubtaskFunc (props) {
                 issue_type_image: {src: require(`../images/${item.IssueType}.jpeg`)},
                 priority_image: {src: require(`../images/${item.Priority}.jpeg`)},
                 asignee_icon_image: {src: asignee_image_url },
+                "Rectangle 1":{onClick: () => (navigate("/edit-ticket",{state:{selectedTicket:item}}))},
                 unlink_task_button:{
                     onClick: () => (
                         unlinkSubtaskClick(item.id))},

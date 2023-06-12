@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
 
 
 
@@ -13,13 +13,11 @@ type EagerActivity = {
   };
   readonly id: string;
   readonly ModifiedDate: string;
-  readonly Users?: User | null;
-  readonly Tickets?: Ticket | null;
   readonly Changes: string;
+  readonly UserID: string;
+  readonly TicketID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly activityUsersId?: string | null;
-  readonly activityTicketsId?: string | null;
 }
 
 type LazyActivity = {
@@ -29,13 +27,11 @@ type LazyActivity = {
   };
   readonly id: string;
   readonly ModifiedDate: string;
-  readonly Users: AsyncItem<User | undefined>;
-  readonly Tickets: AsyncItem<Ticket | undefined>;
   readonly Changes: string;
+  readonly UserID: string;
+  readonly TicketID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly activityUsersId?: string | null;
-  readonly activityTicketsId?: string | null;
 }
 
 export declare type Activity = LazyLoading extends LazyLoadingDisabled ? EagerActivity : LazyActivity

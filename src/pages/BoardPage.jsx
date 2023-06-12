@@ -92,7 +92,7 @@ export default function BoardPage(props) {
             <TicketInfoScroll overrides={TicketInfoScrollOverride}/>
             </div>
             <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "700px",left: "1250px",objectFit: "cover"}}>
-          <ChildTicketShortCollection style={{position: 'absolute',  bottom: "-220px", left: "-250px" }}
+              <ChildTicketShortCollection style={{position: 'absolute',  bottom: "-220px", left: "-250px" }}
               overrides={ChildTicketShortCollectionOverride}
               overrideItems={ChildTicketShortOverride}/>
           </div>

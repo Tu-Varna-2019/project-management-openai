@@ -25,17 +25,19 @@ import { UserProvider } from './providers/UserProvider';
 import { ProjectProvider } from './providers/ProjectProvider';
 import { ToolbarSelectProvider } from './providers/ToolbarSelectProvider';
 import { SubtaskProvider } from './providers/SubtaskProvider';
+import { ActivityProvider } from './providers/ActivityProvider';
 
 const {
     AppComponentOverride,
     logoURL
 } = AppFunc();
 // Ignore Fileuploader warning
-const warn = console.warn;
+const originalWarn = console.warn;
 console.warn = function(message) {
-    if (message.indexOf('FileUploader has exited Dev Preview and was renamed to') === -1) {
-        warn.apply(console, arguments);
-    }}
+    if (message.indexOf('FileUploader has exited Dev Preview and was renamed to') === -1 &&
+        message.indexOf('DataStore') === -1 )
+        originalWarn.apply(console, arguments);
+};
 
 Amplify.configure(awsExports);
 export default function App() {
@@ -55,6 +57,7 @@ export default function App() {
       <UserProvider>
       <ProjectProvider>
       <ToolbarSelectProvider>
+      <ActivityProvider>
       <SubtaskProvider>
       <Routes>
         <Route path="/board" element={<BoardPage/>}/>
@@ -74,6 +77,7 @@ export default function App() {
         <Route path='/delete-account-kai' element={<DeleteAccountKAIPage/>}/>
       </Routes>
       </SubtaskProvider>
+      </ActivityProvider>
       </ToolbarSelectProvider>
       </ProjectProvider>
       </UserProvider>

@@ -4,7 +4,7 @@ import { DataStore , Storage , API } from 'aws-amplify';
 import { Ticket,User , Activity } from '../models';
 import { ProjectClass } from './ProjectClass';
 import { User2Class } from './User2Class';
-import { getProjectNameState,setDragDropTicketState } from '../states';
+import { getDragDropTicketState, getProjectNameState,setDragDropTicketState } from '../states';
 
 const iniTicketValue = {
     Title: "",
@@ -73,6 +73,7 @@ export function TicketClass(props) {
 
     const [ticketTaskIDs,setTicketTaskIDs] = useState([""]);
     const [selectedTaskID,setSelectedTaskID] = useState("");
+    const [deletedTaskID,setDeletedTaskID] = useState([]);
     //Constant values for issue type and priority
     const isseTypeOptions = ["Task","UserStory","Feature","Bug","Subtask","Epic"];
     const [priorityOptions,setPriorityOptions] = useState(["Low","Medium","High","Critical"]);
@@ -217,7 +218,8 @@ export function TicketClass(props) {
 
     const handlePriority = (event) => {
         event.preventDefault();
-        if (priorityOptions.length !== ["Low","Medium","High","Critical"].length ) {
+        // check if task ids is empty without empty str
+        if (ticketTaskIDs.some(item => item.trim() !== "") ) {
             const selectedIndex = priorityOptions.indexOf(event.target.value);
             setSelectedTaskID(ticketTaskIDs[selectedIndex]);  
         } else setPriority(event.target.value);};
@@ -235,11 +237,14 @@ export function TicketClass(props) {
                 await DataStore.query(Ticket)
                 .then(data => {
                     data.filter(item => {
-                        if( item.IssueType === issueTypeTaskSub) {
+                        if( item.IssueType === issueTypeTaskSub 
+                            && (!subtasks || !subtasks.includes(item.id)) ) {
                             newTaskOption.push(item.Title);
                             newTaskIDs.push(item.id);
                         } return item;})});
                 setPriority("Medium");
+                newTaskIDs.unshift("");
+                newTaskOption.unshift("");
                 setTicketTaskIDs(newTaskIDs);
                 setPriorityOptions(newTaskOption);
                 break;
@@ -438,13 +443,6 @@ const handleSaveEditTicketClick = async (event) => {
         if (comment !== editTicket.Comment)
             changed_props += `${editTicket.Comment} --> ${comment} \n`
 
-        await DataStore.save(
-            new Activity({
-                "ModifiedDate": newTicketUpdatedDate,
-                "Users": [currentUser.id],
-                "Tickets": [editTicket.id],
-                "Changes": changed_props
-            }));
         const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
         await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
             item.Title = title;
@@ -464,11 +462,41 @@ const handleSaveEditTicketClick = async (event) => {
             item.IssueType = issueType;
             item.TicketStatus = ticketStatus;
             item.Comment = comment;
-            item.Subtasks = [
-                ...(item.Subtasks ? item.Subtasks : []), 
-                ...(selectedTaskID ? [selectedTaskID] : [])
-              ];
+            if (subtasks!== null) {
+            if (selectedTaskID.trim() !== "")
+                item.Subtasks = [...subtasks, selectedTaskID];
+            else 
+                item.Subtasks = [...subtasks];}
         }));
+
+        await DataStore.save(
+            new Activity({
+                "ModifiedDate": newTicketUpdatedDate,
+                "UserID": currentUser.id,
+                "TicketID": editTicket.id,
+                "Changes": changed_props
+            }));
+        // Check if subtask is Task or Subtask to also update the linked ticket
+        // ADD
+        if (selectedTaskID.trim() !== "") {
+            const editParentChildTaskDataStore = await DataStore.query(Ticket, selectedTaskID);
+            await DataStore.save(Ticket.copyOf(editParentChildTaskDataStore, item => {
+                if (item.Subtasks === null) 
+                    item.Subtasks = [editTicket.id];
+                    else {
+                    const uniqueSubtasks = new Set([...item.Subtasks,editTicket.id]);
+                    item.Subtasks = [...uniqueSubtasks];}}));
+        }
+        // DELETE
+        if (deletedTaskID.length > 0 ) {
+        deletedTaskID.map(async (deleted_id) => {
+            const editParentChildTaskDataStore = await DataStore.query(Ticket, deleted_id);
+            await DataStore.save(Ticket.copyOf(editParentChildTaskDataStore, item => {
+                if (item.Subtasks !== null) 
+                    item.Subtasks = item.Subtasks.filter(subs => subs !== editTicket.id);
+            }));
+        })}
+        
         let notify_update_ticket_response = "";
         if ( watchedUsers !== "" || asigneeName !== "Unassigned") {
             const concatenateWatchUserWithAsignee = !watchedUsers.includes(asigneeName+",") ? watchedUsers + asigneeName+"," : watchedUsers==="" ? asigneeName+"," : "" ;
@@ -499,7 +527,8 @@ const handleSaveEditTicketClick = async (event) => {
     } catch (error) {
         setIsLoading(false);
         console.log(error);
-        navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});}};
+       navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
+    }};
 
     const handleAssignToMeClick = async (event) => {
         event.preventDefault();
@@ -588,6 +617,7 @@ const handleSaveEditTicketClick = async (event) => {
         setDragDropTicketState(ticketid);};
 
     const handleReleaseMoveTicket = async (draggedTicketID,boardStatus) => {
+        const getEditedTicketID = getDragDropTicketState();
         setDragDropTicketState("");
         if (draggedTicketID !== "") {
             const editTicketDataStore = await DataStore.query(Ticket, draggedTicketID);
@@ -599,8 +629,16 @@ const handleSaveEditTicketClick = async (event) => {
                 // check if ticket is moved in done board
                 if (boardStatus === "Done") {
                     const newResolvedCurrentDate = new Date(new Date().getTime() - timezoneOffset);
-                    ticketStatusDone = newResolvedCurrentDate.toISOString();
-                    }
+                    ticketStatusDone = newResolvedCurrentDate.toISOString();}
+
+                await DataStore.save(
+                    new Activity({
+                        "ModifiedDate": newTicketUpdatedDate,
+                        "UserID": currentUser.id,
+                        "TicketID": getEditedTicketID,
+                        "Changes": `TicketStatus: ${ticketStatus} --> ${boardStatus} \n`
+                    }));
+                
                 await DataStore.save(Ticket.copyOf(editTicketDataStore,item_edit_status => {
                         item_edit_status.TicketStatus = boardStatus;
                         item_edit_status.UpdatedDate = newTicketUpdatedDate;
@@ -675,4 +713,6 @@ const handleSaveEditTicketClick = async (event) => {
         ticketStatusColorVariant,
         setSelectedTaskID,
         selectedTaskID,
+        deletedTaskID,
+        setDeletedTaskID
     }}

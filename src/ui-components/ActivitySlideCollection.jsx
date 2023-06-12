@@ -30,17 +30,7 @@ export default function ActivitySlideCollection(props) {
       setItems(itemsProp);
       return;
     }
-    async function setItemsFromDataStore() {
-      var loaded = await Promise.all(
-        itemsDataStore.map(async (item) => ({
-          ...item,
-          Users: await item.Users,
-          Tickets: await item.Tickets,
-        }))
-      );
-      setItems(loaded);
-    }
-    setItemsFromDataStore();
+    setItems(itemsDataStore);
   }, [itemsProp, itemsDataStore]);
   return (
     <Collection

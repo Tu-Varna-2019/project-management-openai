@@ -15,6 +15,7 @@ export function ToolbarFunc (props) {
         handleTeamsSelectChange,
         handleProfileSelectChange,
         assignedToMe,
+        allUsers,
     } = React.useContext(ToolbarSelectContext);
 
     const {
@@ -25,7 +26,6 @@ export function ToolbarFunc (props) {
         currentUser,
     } = React.useContext(UserContext);
 
-    
     const ToolbarOverride={
         profile_icon_image:{
             src: userProfileURL
@@ -58,7 +58,7 @@ export function ToolbarFunc (props) {
         teams_select_field:{
             style:{color:"transparent"},
             onChange : (event) => (handleTeamsSelectChange(event)),
-            options:["","all users"],
+            options:allUsers,
         },
         create_ticket_button:{
             onClick: (event) => (handleGoToCreateTicketClick(event))},

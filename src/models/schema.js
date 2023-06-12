@@ -17,44 +17,22 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "Users": {
-                    "name": "Users",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": [
-                            "id"
-                        ],
-                        "targetNames": [
-                            "activityUsersId"
-                        ]
-                    }
-                },
-                "Tickets": {
-                    "name": "Tickets",
-                    "isArray": false,
-                    "type": {
-                        "model": "Ticket"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": [
-                            "id"
-                        ],
-                        "targetNames": [
-                            "activityTicketsId"
-                        ]
-                    }
-                },
                 "Changes": {
                     "name": "Changes",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "UserID": {
+                    "name": "UserID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "TicketID": {
+                    "name": "TicketID",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -75,20 +53,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "activityUsersId": {
-                    "name": "activityUsersId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "activityTicketsId": {
-                    "name": "activityTicketsId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -642,5 +606,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.3",
-    "version": "f20fcdbd44a072f90855141d8bb5919c"
+    "version": "cb6b9e146241210a79340df83ecd6352"
 };

@@ -1,5 +1,4 @@
 import { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
 import { getProjectNameState } from '../states';
 import { DataStore } from "aws-amplify";
 import { Ticket } from "../models";
@@ -9,9 +8,12 @@ import { UserContext } from "../contexts/UserContext";
 export function ToolbarSelectClass() {
     const {
         currentUser,
+        userIDName,
+        navigate,
     } = React.useContext(UserContext);
-    const navigate = useNavigate();
+    
     const [assignedToMe,setAssignedToMe] = useState(["","assigned to me","boards"]);
+    const [allUsers,setAllUsers] = useState(["","all users"]);
 
     const handleProjectsSelectChange = (event) => {
         switch(event.target.value){
@@ -34,8 +36,7 @@ export function ToolbarSelectClass() {
                         if (item.Asignee === currentUser.sub ) 
                             setAssignedToMe(prevList => [...prevList,`KAI-${item.TicketID} : ${item.Title}`]);
                             return item;
-                    })});
-            break;
+                    })});break;
             case "boards":
                 navigate('/board',{ state: { project: getProjectNameState() }});
             break;
@@ -50,23 +51,32 @@ export function ToolbarSelectClass() {
                     await DataStore.query(Ticket)
                     .then(data => {
                         data.filter(item => {
-                            if( item.TicketID ===  parseInt(getTicketID))
-                                navigate("/edit-ticket",{state:{selectedTicket:item,project: getProjectNameState()}});
-                                return item;
-                            })});}
-                else
-                    console.log("default");
+                        if( item.TicketID ===  parseInt(getTicketID))
+                            navigate("/edit-ticket",
+                            {state:{selectedTicket:item,project: getProjectNameState()}});
+                            return item;
+                        })});}
+                else console.log("default");
             break;}};
+
 
     const handleTeamsSelectChange = (event) => {
         switch(event.target.value){
-            case "switch project":
-                if (window.confirm("Are you sure you want to switch to different project"
-                +"we will redirect you to different page?")) 
-                    navigate('/'); 
+            case "all users":
+                setAllUsers(["","<- back"]);
+                userIDName.map(item =>{
+                if (item.name)
+                    setAllUsers(prevList => [...prevList,item.name]);});
             break;
-            default: 
-            console.log("default");
+            case "<- back":
+                setAllUsers(["","all users"]);
+                break;
+            default:
+            if (event.target.value.includes('@')) {
+                const selectedUserID = userIDName[event.target.selectedIndex-2].id;
+                navigate('/profile', { 
+                    state: { selectedUserID: selectedUserID ,
+                             selectedUserName: event.target.value }});}
             break;}};
 
     const handleProfileSelectChange = (event) => {
@@ -84,6 +94,7 @@ export function ToolbarSelectClass() {
             break;}};
 
     return {
+        allUsers,
         handleProjectsSelectChange,
         handleYourWorkSelectChange,
         handleTeamsSelectChange,

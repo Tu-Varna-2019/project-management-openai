@@ -1,9 +1,9 @@
 type Activity @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   ModifiedDate: AWSDateTime!
-  Users: User @hasOne
-  Tickets: Ticket @hasOne
   Changes: String!
+  UserID: String!
+  TicketID: String!
 }
 
 type Project @model @auth(rules: [{allow: public}, {allow: private}]) {
