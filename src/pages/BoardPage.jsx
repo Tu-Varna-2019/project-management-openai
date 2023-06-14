@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import '@aws-amplify/ui-react/styles.css';
-import { Board, ChildTicketShortCollection, CreateTicket, EditTicket, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
+import { Board, ChildTicketShortCollection, CreateIssueTemplate, CreateTicket, CreateTicketScroll, EditIssueTemplate, EditTicket, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
 import { BoardFunc } from '../overrides/BoardOverride';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
 import { EditTicketFunc } from '../overrides/EditTicketOverride';
@@ -9,6 +9,11 @@ import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ProjectVerticalSelectFieldFunc } from '../overrides/ProjectVerticalSelectFieldOverrides';
 import { TicketInfoScrollFunc } from '../overrides/TicketInfoScrollOverride';
 import { SubtaskFunc } from '../overrides/SubtaskOverride';
+import { CreateTicketScrollFunc } from '../overrides/CreateTicketScrollOverride';
+import { CreateIssueTemplateFunc } from '../overrides/CreateIssueTemplateOverride';
+import { EditIssueTemplateFunc } from '../overrides/EditIssueTemplateOverride';
+
+
 
 export default function BoardPage(props) {
   const {
@@ -39,11 +44,21 @@ export default function BoardPage(props) {
     ChildTicketShortOverride,
     ChildTicketShortCollectionOverride
   } = SubtaskFunc();
+  const {
+    CreateIssueTemplateOverride,
+  } = CreateIssueTemplateFunc();
+const {
+  CreateTicketScrollOverride,
+} = CreateTicketScrollFunc();
+const {
+  EditIssueTemplateOverride,
+} = EditIssueTemplateFunc();
 
     const location = useLocation();
     const editTicketBoolean = location.state ? location.state.edited : false;
     const createTicketBoolean = location.state ? location.state.create : false;
-
+    const createIssueTemplateBoolean = location.state ? location.state.create_it : false;
+    const editIssueTemplateBoolean = location.state ? location.state.edited_it : false;
     return(
       <>
         <div className='amplify-container'
@@ -97,8 +112,20 @@ export default function BoardPage(props) {
               overrideItems={ChildTicketShortOverride}/>
           </div>
             </>)}
-            {createTicketBoolean &&
-            <CreateTicket overrides={CreateTicketOverride}/>}
+            {createTicketBoolean && (
+            <>
+            <CreateTicket overrides={CreateTicketOverride}/>
+            <div style={{ position: 'absolute',display: 'block', bottom: 360, right: -150 , width:1350 ,  overflow: 'auto', maxHeight: '600px' }}>
+            <CreateTicketScroll overrides={CreateTicketScrollOverride}/>
+            </div>
+            <div style={{ position: 'absolute',display: 'block', bottom: 140, right: 680 , width:500 }}>
+            <FileImageTicketUpload/>
+            </div>
+            </>)}
+            {createIssueTemplateBoolean && (
+            <CreateIssueTemplate overrides={CreateIssueTemplateOverride}/>)}
+            {editIssueTemplateBoolean && (
+            <EditIssueTemplate overrides={EditIssueTemplateOverride}/>)}
       </div>
       </div>
       </>)}

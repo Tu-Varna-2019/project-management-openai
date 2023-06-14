@@ -21,6 +21,19 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/openai/ticketTemplateCreate": {
+      "name": "/openai/ticketTemplateCreate",
+      "lambdaFunction": "TicketCreationTemplateLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }

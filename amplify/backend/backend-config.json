@@ -66,6 +66,14 @@
           ],
           "category": "function",
           "resourceName": "notifyticketupdatelambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -107,6 +115,12 @@
   },
   "function": {
     "ShareNoteLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "TicketCreationTemplateLambda": {
       "build": true,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -196,6 +210,46 @@
         {
           "category": "function",
           "resourceName": "ShareNoteLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_model": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_openaiApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_regionName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
         }
       ]
     },
@@ -302,6 +356,13 @@
           "resourceName": "Pinpoint"
         }
       ]
+    }
+  },
+  "predictions": {
+    "TextToAudio": {
+      "convertType": "speechGenerator",
+      "providerPlugin": "awscloudformation",
+      "service": "Polly"
     }
   },
   "storage": {

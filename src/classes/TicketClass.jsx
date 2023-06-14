@@ -651,6 +651,13 @@ const handleSaveEditTicketClick = async (event) => {
             window.location.reload();}}};
 
     return {
+        location,
+        setTitle,
+        setDescription,
+        setComment,
+        setPriority,
+        setStoryPoint,
+        setIssueType,
         subtasks,
         setSubtasks,
         attachmentUrls,

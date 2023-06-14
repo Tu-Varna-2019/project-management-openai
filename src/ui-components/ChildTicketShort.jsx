@@ -147,10 +147,10 @@ export default function ChildTicketShort(props) {
       ></Text>
       <Text
         fontFamily="Inter"
-        fontSize="14px"
+        fontSize="16px"
         fontWeight="700"
         color="rgba(0,0,0,1)"
-        lineHeight="21px"
+        lineHeight="24px"
         textAlign="left"
         display="block"
         direction="column"

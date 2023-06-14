@@ -806,16 +806,16 @@ export default function Profile(props) {
           {...getOverrideProps(overrides, "Email:")}
         ></Text>
         <Button
-          width="517px"
-          height="57px"
+          width="519px"
+          height="59px"
           position="absolute"
-          top="923px"
-          left="calc(50% - 258.5px - -488.5px)"
+          top="926px"
+          left="calc(50% - 258.5px - -518.5px)"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           backgroundColor="rgba(183,201,252,1)"
           size="default"
           isDisabled={false}
-          variation="link"
+          variation="default"
           children="Clear all activity"
           {...getOverrideProps(overrides, "clear_activity_button")}
         ></Button>

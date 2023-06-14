@@ -1,6 +1,5 @@
 import '@aws-amplify/ui-react/styles.css';
 import React from 'react';
-import { ProjectClass } from '../classes/ProjectClass';
 import { FileUploader } from '@aws-amplify/ui-react';
 import { ProjectContext } from '../contexts/ProjectContext';
 

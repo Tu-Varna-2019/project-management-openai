@@ -39,6 +39,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "TicketCreationTemplateLambda": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "notifyticketupdatelambda": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
@@ -52,6 +59,13 @@ export type AmplifyDependentResourcesAttributes = {
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
+    }
+  },
+  "predictions": {
+    "TextToAudio": {
+      "language": "string",
+      "region": "string",
+      "voice": "string"
     }
   },
   "storage": {

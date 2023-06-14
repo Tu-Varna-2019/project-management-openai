@@ -56,6 +56,7 @@ export function TicketInfoScrollFunc () {
         issue_type_select_field:{
             onChange : (event) => (handleIssueType(event)),
             options: isseTypeOptions,
+            value: issueType,
         },
         "Priority:":{
             children: issueType === "Task" ? "Subtask" : issueType === "Subtask" ? "Task" : "Priority",
@@ -164,6 +165,7 @@ export function TicketInfoScrollFunc () {
             style:{overflow: 'auto',maxHeight: '500px'}
         }
     }
+
 
     return {
         TicketInfoScrollOverride,

@@ -14,6 +14,7 @@ export function ToolbarFunc (props) {
         handleYourWorkSelectChange,
         handleTeamsSelectChange,
         handleProfileSelectChange,
+        handleIssueTemplateSelectChange,
         assignedToMe,
         allUsers,
     } = React.useContext(ToolbarSelectContext);
@@ -47,8 +48,8 @@ export function ToolbarFunc (props) {
         },
         issue_templates_select_field:{
             style:{color:"transparent"},
-            //onChange : (event) => (handleSelectedProjectOnChange(event)),
-            options:["","all templates","project templates"],
+            onChange : (event) => (handleIssueTemplateSelectChange(event)),
+            options:["","create one","project templates"],
         },
         profile_select_field: {
             style:{color:"transparent"},

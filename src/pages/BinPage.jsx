@@ -11,7 +11,7 @@ export default function BinPage(props) {
     BinNoteCollectionOverride
   } = BinFunc();
 
-    return (  
+    return (
         <>
         <div  
           style={{position: 'relative',display: 'inline-block',overflow: "hidden"}}>

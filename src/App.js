@@ -26,6 +26,7 @@ import { ProjectProvider } from './providers/ProjectProvider';
 import { ToolbarSelectProvider } from './providers/ToolbarSelectProvider';
 import { SubtaskProvider } from './providers/SubtaskProvider';
 import { ActivityProvider } from './providers/ActivityProvider';
+import { IssueTemplateProvider } from './providers/IssueTemplateProvider';
 
 const {
     AppComponentOverride,
@@ -56,6 +57,7 @@ export default function App() {
       <TicketProvider>
       <UserProvider>
       <ProjectProvider>
+      <IssueTemplateProvider>
       <ToolbarSelectProvider>
       <ActivityProvider>
       <SubtaskProvider>
@@ -79,6 +81,7 @@ export default function App() {
       </SubtaskProvider>
       </ActivityProvider>
       </ToolbarSelectProvider>
+      </IssueTemplateProvider>
       </ProjectProvider>
       </UserProvider>
       </TicketProvider>

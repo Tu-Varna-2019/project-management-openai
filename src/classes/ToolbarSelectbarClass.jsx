@@ -59,6 +59,19 @@ export function ToolbarSelectClass() {
                 else console.log("default");
             break;}};
 
+    const handleIssueTemplateSelectChange = (event) => {
+        switch(event.target.value){
+            case "create one":
+                navigate("/board",{state:{create_it:true,project: getProjectNameState()}})
+                break;
+            case "project templates":
+                navigate("/board",{state:{edited_it:true,project: getProjectNameState()}})
+                break;
+            default:
+                console.log("default");
+                break;
+        }
+    };
 
     const handleTeamsSelectChange = (event) => {
         switch(event.target.value){
@@ -99,4 +112,5 @@ export function ToolbarSelectClass() {
         handleYourWorkSelectChange,
         handleTeamsSelectChange,
         handleProfileSelectChange,
+        handleIssueTemplateSelectChange,
         assignedToMe}}

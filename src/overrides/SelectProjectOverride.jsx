@@ -13,7 +13,6 @@ export function SelectProjectFunc(props) {
         authenticatedUser,
         setAuthenticatedUser,
     } = React.useContext(UserContext);
-
     const {
         projectNames,
         handleSelectProjectName,
@@ -37,14 +36,13 @@ export function SelectProjectFunc(props) {
                     })});
                 // if flag is NOT raised , create user in DataStore !!!
                 if (!does_user_exist) {
-                    await DataStore.save(
-                        new User({
-                           "sub": authenticatedUser.attributes.sub,
-                            "username": authenticatedUser.attributes.email,
-                           "ImageProfile": "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png"
-                       })).then(setCurrentUser);}
-            }catch(error) {/*do nothing*/}}
-    fetchUserData();
+                await DataStore.save(
+                    new User({
+                        "sub": authenticatedUser.attributes.sub,
+                        "username": authenticatedUser.attributes.email,
+                        "ImageProfile": "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png"
+                    })).then(setCurrentUser);}
+            }catch(error) {/*do nothing*/}}fetchUserData();
     },[authenticatedUser,setAuthenticatedUser,setCurrentUser]);
 
     const SelectProjectOverride={
@@ -62,7 +60,7 @@ export function SelectProjectFunc(props) {
         create_one_button:{
             onClick : (event) => (handleSelectedCreateOneProjectOnClick(event)),
             isLoading: isCancelButtonLoading
-        },}
+        }}
 
     return {
         SelectProjectOverride

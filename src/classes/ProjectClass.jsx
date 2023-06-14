@@ -11,6 +11,7 @@ export function ProjectClass(props) {
     const [getProjectID,setGetProjectID] = useState("");
     const [getProjectImageName,setGetProjectImageName] = useState("");
     const [projectNames,setProjectNames] = useState([]);
+    const [projectIDs,setProjectIDs] = useState([]);
     const [selectedProject,setSelectedProject] = useState("");
 
     const [isConfirmButtonLoading,setIsConfirmButtonLoading] = useState(false);
@@ -84,6 +85,7 @@ export function ProjectClass(props) {
             .then(data => {
             data.filter(item => { 
                 setProjectNames(prevItems => [...prevItems, item.Name]);
+                setProjectIDs(prevItems => [...prevItems, item.id]);
                 return item.Name;
                 })}).catch(error => {
             console.error(error);});
@@ -143,6 +145,7 @@ export function ProjectClass(props) {
         isProjectEmpty,
         setProjectNames,
         projectNames,
+        projectIDs,
         isConfirmButtonLoading,
         isCancelButtonLoading,
         handleSelectedProjectOnChange,
@@ -159,5 +162,4 @@ export function ProjectClass(props) {
         imageProjectURL,
         getProjectID,
         handleSelectProjectName
-    }
-}
+    }}

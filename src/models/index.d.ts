@@ -6,6 +6,44 @@ import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/
 
 
 
+type EagerIssueTemplate = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<IssueTemplate, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Title?: string | null;
+  readonly Description: string;
+  readonly Comment?: string | null;
+  readonly StoryPoint?: number | null;
+  readonly IssueType: string;
+  readonly projectID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyIssueTemplate = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<IssueTemplate, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Title?: string | null;
+  readonly Description: string;
+  readonly Comment?: string | null;
+  readonly StoryPoint?: number | null;
+  readonly IssueType: string;
+  readonly projectID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type IssueTemplate = LazyLoading extends LazyLoadingDisabled ? EagerIssueTemplate : LazyIssueTemplate
+
+export declare const IssueTemplate: (new (init: ModelInit<IssueTemplate>) => IssueTemplate) & {
+  copyOf(source: IssueTemplate, mutator: (draft: MutableModel<IssueTemplate>) => MutableModel<IssueTemplate> | void): IssueTemplate;
+}
+
 type EagerActivity = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Activity, 'id'>;
@@ -49,6 +87,7 @@ type EagerProject = {
   readonly Name: string;
   readonly OProjectMTickets?: (Ticket | null)[] | null;
   readonly ImageProject?: string | null;
+  readonly IssueTemplates?: (IssueTemplate | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -62,6 +101,7 @@ type LazyProject = {
   readonly Name: string;
   readonly OProjectMTickets: AsyncCollection<Ticket>;
   readonly ImageProject?: string | null;
+  readonly IssueTemplates: AsyncCollection<IssueTemplate>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

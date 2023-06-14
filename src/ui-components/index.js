@@ -12,6 +12,7 @@ export { default as TicketInReviewCollection } from "./TicketInReviewCollection"
 export { default as ChildTicketShort } from "./ChildTicketShort";
 export { default as ResetPasswordKAI } from "./ResetPasswordKAI";
 export { default as CreateTicket } from "./CreateTicket";
+export { default as EditIssueTemplate } from "./EditIssueTemplate";
 export { default as ChildTicketShortCollection } from "./ChildTicketShortCollection";
 export { default as ActivitySlide } from "./ActivitySlide";
 export { default as CreateNotev2 } from "./CreateNotev2";
@@ -40,5 +41,7 @@ export { default as Bin } from "./Bin";
 export { default as TicketshortCollection } from "./TicketshortCollection";
 export { default as HomeV2Mobile } from "./HomeV2Mobile";
 export { default as HomeV2 } from "./HomeV2";
+export { default as CreateTicketScroll } from "./CreateTicketScroll";
+export { default as CreateIssueTemplate } from "./CreateIssueTemplate";
 export { default as studioTheme } from "./studioTheme";
 export { default as ReminderNoteForm } from "./ReminderNoteForm";

@@ -11,16 +11,11 @@ import {
   useStateMutationAction,
 } from "@aws-amplify/ui-react/internal";
 import {
-  Badge,
   Button,
   Card,
   Divider,
-  Image,
   SelectField,
-  StepperField,
   Text,
-  TextAreaField,
-  TextField,
   View,
 } from "@aws-amplify/ui-react";
 export default function CreateTicket(props) {
@@ -62,35 +57,35 @@ export default function CreateTicket(props) {
     >
       <View
         padding="0px 0px 0px 0px"
-        width="508px"
-        height="1016px"
+        width="563px"
+        height="1031px"
         display="block"
         gap="unset"
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
-        top="18px"
-        left="calc(50% - 254px - 0px)"
+        top="26px"
+        left="calc(50% - 281.5px - -27.5px)"
         {...getOverrideProps(overrides, "create_ticket_group")}
       >
         <Card
-          width="508px"
-          height="1016px"
+          width="563px"
+          height="1031px"
           position="absolute"
           padding="15px 15px 15px 15px"
           top="0px"
-          left="calc(50% - 254px - 0px)"
+          left="calc(50% - 281.5px - 0px)"
           border="1px SOLID rgba(0,0,0,1)"
           variation="elevated"
           {...getOverrideProps(overrides, "Card")}
         ></Card>
         <Button
-          width="150px"
-          height="64px"
+          width="136px"
+          height="59.32px"
           position="absolute"
           border="1px SOLID rgba(0,0,0,1)"
-          top="925px"
-          left="35px"
+          top="940px"
+          left="398px"
           backgroundColor={createUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
@@ -105,12 +100,12 @@ export default function CreateTicket(props) {
           {...getOverrideProps(overrides, "create_button")}
         ></Button>
         <Button
-          width="156px"
-          height="64px"
+          width="142px"
+          height="59.32px"
           position="absolute"
           border="1px SOLID rgba(0,0,0,1)"
-          top="925px"
-          right="31px"
+          top="940px"
+          right="184px"
           backgroundColor={cancelUnderScorebuttonBackgroundColor}
           size="default"
           isDisabled={false}
@@ -124,127 +119,21 @@ export default function CreateTicket(props) {
           }}
           {...getOverrideProps(overrides, "cancel_button")}
         ></Button>
-        <TextField
-          width="440px"
-          height="unset"
-          label="Title"
-          placeholder="Add short summary ..."
-          position="absolute"
-          top="411px"
-          left="35px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "title_text_field")}
-        ></TextField>
-        <Image
-          width="51px"
-          height="34px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="496px"
-          left="387px"
-          padding="0px 0px 0px 0px"
-          objectFit="cover"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F000%2F576%2F515%2Foriginal%2Feye-icon-vector-illustration.jpg&f=1&nofb=1&ipt=71a67a38b009e7c9f4a346f6d3a9e176f6d453e6b9500133baaa0a235d81b997&ipo=images"
-          {...getOverrideProps(overrides, "watch_image")}
-        ></Image>
-        <Badge
-          width="unset"
-          height="unset"
-          position="absolute"
-          top="501px"
-          left="441px"
-          size="default"
-          variation="info"
-          children="0"
-          {...getOverrideProps(overrides, "watch_badge")}
-        ></Badge>
-        <TextAreaField
-          width="442px"
-          height="138px"
-          label="Description"
-          placeholder="Describe the task"
-          position="absolute"
-          top="553px"
-          left="34px"
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "description_text_field")}
-        ></TextAreaField>
-        <SelectField
-          width="212px"
-          height="unset"
-          label="Issue type"
-          position="absolute"
-          top="140px"
-          left="42px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "issue_type_select_field")}
-        ></SelectField>
-        <SelectField
-          width="212px"
-          height="unset"
-          label="Priority"
-          position="absolute"
-          top="140px"
-          left="270px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "priority_select_field")}
-        ></SelectField>
-        <SelectField
-          width="359px"
-          height="unset"
-          label="Asignee"
-          position="absolute"
-          top="755px"
-          left="110px"
-          placeholder=""
-          size="default"
-          isDisabled={false}
-          labelHidden={false}
-          variation="default"
-          {...getOverrideProps(overrides, "asignee_select_field")}
-        ></SelectField>
         <Divider
-          width="440px"
-          height="1px"
+          width="498px"
+          height="1.02px"
           position="absolute"
-          top="379px"
-          left="35px"
-          size="small"
-          orientation="horizontal"
-          {...getOverrideProps(overrides, "Divider178752242")}
-        ></Divider>
-        <Divider
-          width="447px"
-          height="1px"
-          position="absolute"
-          top="886px"
+          top="921px"
           left="35px"
           size="small"
           orientation="horizontal"
           {...getOverrideProps(overrides, "Divider178752283")}
         ></Divider>
         <Divider
-          width="441px"
-          height="1px"
+          width="499px"
+          height="1.02px"
           position="absolute"
-          top="92px"
+          top="78px"
           left="34px"
           size="small"
           orientation="horizontal"
@@ -273,108 +162,40 @@ export default function CreateTicket(props) {
         children="Create ticket KAI-"
         {...getOverrideProps(overrides, "create_ticket_text")}
       ></Text>
-      <StepperField
-        width="205px"
-        height="41px"
-        position="absolute"
-        top="309px"
-        left="750px"
-        size="default"
-        isDisabled={false}
-        labelHidden={true}
-        variation="default"
-        {...getOverrideProps(overrides, "story_point_stepper_field")}
-      ></StepperField>
       <Text
         fontFamily="Inter"
-        fontSize="16px"
-        fontWeight="400"
-        color="rgba(0,0,0,1)"
-        lineHeight="24px"
-        textAlign="left"
+        fontSize="18px"
+        fontWeight="700"
+        color="rgba(246,133,54,1)"
+        lineHeight="27px"
+        textAlign="center"
         display="block"
         direction="column"
         justifyContent="unset"
-        width="unset"
-        height="unset"
+        width="82px"
+        height="25px"
         gap="unset"
         alignItems="unset"
         position="absolute"
-        top="278px"
-        left="750px"
+        top="971px"
+        left="764px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Story Point"
-        {...getOverrideProps(overrides, "Story Point")}
+        children="More"
+        {...getOverrideProps(overrides, "More")}
       ></Text>
-      <Image
-        width="25px"
-        height="25px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="197px"
-        left="922px"
-        padding="0px 0px 0px 0px"
-        objectFit="cover"
-        {...getOverrideProps(overrides, "issue_type_image")}
-      ></Image>
-      <Image
-        width="21px"
-        height="30px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="195px"
-        left="1152px"
-        padding="0px 0px 0px 0px"
-        objectFit="cover"
-        {...getOverrideProps(overrides, "priority_image")}
-      ></Image>
-      <Image
-        width="60px"
-        height="61px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="784px"
-        left="743px"
-        padding="0px 0px 0px 0px"
-        objectFit="cover"
-        {...getOverrideProps(overrides, "asignee_icon_image")}
-      ></Image>
-      <Badge
-        width="216px"
-        height="48px"
-        position="absolute"
-        top="302px"
-        left="973px"
-        size="default"
-        variation="info"
-        justifyContent="center"
-        fontSize={16}
-        children="Epic link"
-        {...getOverrideProps(overrides, "epic_link_badge")}
-      ></Badge>
       <SelectField
-        width="216px"
-        height="73px"
-        gap="60px"
+        width="143px"
+        height="unset"
         position="absolute"
-        top="302px"
-        left="974px"
+        top="967.37px"
+        left="743px"
         placeholder=""
-        size="small"
+        size="default"
         isDisabled={false}
         labelHidden={true}
         variation="quiet"
-        {...getOverrideProps(overrides, "epic_link_select_field")}
+        {...getOverrideProps(overrides, "ai_options_select_field")}
       ></SelectField>
     </View>
   );
