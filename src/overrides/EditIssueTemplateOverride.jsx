@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { ProjectContext } from "../contexts/ProjectContext";
 import { IssueTemplateContext } from "../contexts/IssueTemplateContext";
-import { CreateTicketScrollFunc } from "./CreateTicketScrollOverride";
-import { TicketInfoScrollFunc } from "./TicketInfoScrollOverride";
 import { CreateIssueTemplateFunc } from "./CreateIssueTemplateOverride";
 
 export function EditIssueTemplateFunc(props) {
@@ -12,34 +10,47 @@ export function EditIssueTemplateFunc(props) {
         handleClosedEditTicketClick,
         handleSaveITClick,
         handleEditITSelectProjectName,
+        ITNames,
+        handleSelectEditITChange,
         ITIDIndex,
     } = useContext(IssueTemplateContext);
     const {
         projectNames,
     } = useContext(ProjectContext);
 
-    const {CreateTicketScrollOverride} = CreateTicketScrollFunc();
     const {CreateIssueTemplateOverride} = CreateIssueTemplateFunc();
-    const {TicketInfoScrollOverride} = TicketInfoScrollFunc();
-    const {issue_template_select_field} = CreateTicketScrollOverride;
-    const {title_text_field,description_text_field,comments_text_field} = CreateIssueTemplateOverride;
+    const {title_text_field,
+        description_text_field,
+        comments_text_field,
+        story_point_stepper_field,
+        issue_type_image,
+        issue_type_select_field,
+        ai_options_select_field
+    } = CreateIssueTemplateOverride;
 
     const EditIssueTemplateOverride = {
-       // ...TicketInfoScrollOverride,
+        title_text_field,
+        description_text_field,
+        comments_text_field,
+        story_point_stepper_field,
+        issue_type_image,
+        issue_type_select_field,
+        ai_options_select_field,
+        issue_template_select_field:{
+            options: ITNames,
+            onChange: (event) => (handleSelectEditITChange(event)),
+        },
         project_select_field:{
             onChange : (event) => (handleEditITSelectProjectName(event)),
             options: projectNames,
         },
         save_button:{
             onClick : (event) => (handleSaveITClick(event)),
-            isDisabled: isITTitleEmpty,
+            isDisabled: isITTitleEmpty ||ITIDIndex === -1 ,
             isLoading: loadingCreateIT
             },
         cancel_button:{
-            onClick: (event) => (handleClosedEditTicketClick(event))},
-        issue_template_select_field,
-        title_text_field,
-    }
+            onClick: (event) => (handleClosedEditTicketClick(event))},}
 
     return {
         EditIssueTemplateOverride

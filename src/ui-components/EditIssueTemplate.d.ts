@@ -31,7 +31,6 @@ export declare type EditIssueTemplateOverridesProps = {
     project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     issue_template_text1412756?: PrimitiveOverrideProps<TextProps>;
     issue_template_text1412774?: PrimitiveOverrideProps<TextProps>;
-    project_image_name?: PrimitiveOverrideProps<ImageProps>;
 } & EscapeHatchProps;
 export declare type EditIssueTemplateProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: EditIssueTemplateOverridesProps | undefined | null;

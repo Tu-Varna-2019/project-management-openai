@@ -13,6 +13,4 @@ export default function SelectProjectPage(props) {
     return (  
         <>
         <SelectProject overrides={SelectProjectOverride}/>
-        </>
-        )
-    }
+        </>)}

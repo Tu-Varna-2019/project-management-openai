@@ -6,6 +6,8 @@ import { TicketContext } from "../contexts/TicketContext";
 
 export function CreateIssueTemplateFunc(props) {
     const {
+        aiOptions,
+        handleCreateTicketAIOptionsChange,
         ITTitle,
         ITDescription,
         ITComment,
@@ -47,6 +49,7 @@ export function CreateIssueTemplateFunc(props) {
         issue_type_select_field:{
             onChange : (event) => (handleITIssueType(event)),
             options: isseTypeOptions,
+            value: ITIssueType,
         },
         issue_type_image: {
             src: require(`../images/${ITIssueType}.jpeg`)
@@ -61,6 +64,11 @@ export function CreateIssueTemplateFunc(props) {
         project_image_name:{
             src: imageProjectURL
         },
+        ai_options_select_field:{
+            options: aiOptions,
+            onChange: (event) => (handleCreateTicketAIOptionsChange(event,"issueTemplate")),
+            style:{color:"transparent"},
+        },
         create_button:{
             onClick : (event) => (handleCreateITClick(event)),
             isDisabled: isITTitleEmpty,
@@ -72,5 +80,4 @@ export function CreateIssueTemplateFunc(props) {
 
     return {
         CreateIssueTemplateOverride
-    }
-}
+    }}

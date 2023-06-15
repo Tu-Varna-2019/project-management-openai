@@ -18,6 +18,4 @@ export default function CreateProjectPage(props) {
           </div>
           <div style={{ position: 'relative',display: 'block', bottom: 650, right: -660 , width:625 }}>
             <FileImageUpload/>
-          </div></>
-    )
-    }
+          </div></>)}

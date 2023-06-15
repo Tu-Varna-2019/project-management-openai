@@ -1,10 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { ProjectContext } from "../contexts/ProjectContext";
 import { IssueTemplate } from "../models";
-import { DataStore } from "aws-amplify";
+import { DataStore,API} from "aws-amplify";
 import { TicketContext } from "../contexts/TicketContext";
 import { UserContext } from "../contexts/UserContext";
 import { getProjectNameState } from "../states";
+import {
+    Predictions,
+  } from '@aws-amplify/predictions';
 
 export function IssueTemplateClass(props) {
 
@@ -13,6 +16,15 @@ export function IssueTemplateClass(props) {
         projectIDs,
     } = useContext(ProjectContext);
     const {
+        title,
+        description,
+        comment,
+        issueType,
+        priority,
+        storyPoint,
+        asigneeName,
+        reporterName,
+        epicLink,
         location,
         setTitle,
         setDescription,
@@ -35,10 +47,17 @@ export function IssueTemplateClass(props) {
     const [ITIDIndex,setITIDIndex] = useState(-1);
     const isITTitleEmpty =  /^\s*$/.test(ITTitle);
     const editIssueTemplate = location.state ? location.state.edited_it : false;
+    const [aiOptions,setAiOptions] = useState(["","Summarize","Generate template","Text to speech"]);
+    const [audioTSpeech,setAudioTSpeech] = useState();
     // Get issue templates by project
     useEffect(() => {
         setITNames([""]);
         setITIDs([""]);
+        setITTitle("");
+        setITDescription("");
+        setITComment("");
+        setITStoryPoint("");
+        setITIssueType("Task");
         async function fetchUserData() {
             if (!editIssueTemplate) {
                 await DataStore.query(IssueTemplate)
@@ -50,6 +69,11 @@ export function IssueTemplateClass(props) {
             }).catch(error => {console.error(error);});}}
         fetchUserData();
     },[getProjectID,editIssueTemplate]);
+
+    useEffect(() => {
+        if (audioTSpeech && audioTSpeech.paused ) 
+            audioTSpeech.play();
+    },[setAudioTSpeech,audioTSpeech])
 
     const handleITTitle = (event) => {
         event.preventDefault();
@@ -113,8 +137,8 @@ export function IssueTemplateClass(props) {
                 item.StoryPoint = ITStoryPoint;
                 item.IssueType = ITIssueType;
             }));
-           navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully edited!` }});
-           window.location.reload();
+          navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully edited!` }});
+          window.location.reload();
         } catch (error) {
             setLoadingCreateIT(false);
             console.log(error);
@@ -131,8 +155,18 @@ export function IssueTemplateClass(props) {
         setComment(selectedTemplate.Comment);
         setIssueType(selectedTemplate.IssueType);
         setStoryPoint(selectedTemplate.StoryPoint);
-        }
-    };
+        }};
+
+    const handleSelectEditITChange = async (event) => {
+        if (event.target.value !== "") {
+        const selectedTemplate = await DataStore.query(IssueTemplate,ITIDs[event.target.selectedIndex]);
+        setITIDIndex(event.target.selectedIndex);
+        setITTitle(selectedTemplate.Title);
+        setITDescription(selectedTemplate.Description);
+        setITComment(selectedTemplate.Comment);
+        setITIssueType(selectedTemplate.IssueType);
+        setITStoryPoint(selectedTemplate.StoryPoint);
+        }};
 
     const handleEditITSelectProjectName = async (event) => {
         setITNames([""]);
@@ -143,6 +177,94 @@ export function IssueTemplateClass(props) {
            setITNames(prevList => [...prevList,`${item.Title} : ${item.IssueType}`]);
            setITIDs(prevList => [...prevList,item.id]);}
         })));};
+
+    const handleCreateTicketAIOptionsChange = async (event,templateType) => {
+        event.preventDefault();
+        let openai_response = "";
+        const issueTypeChoice = templateType === "ticket" ?
+        issueType : ITIssueType;
+        try {
+        switch(event.target.value) {
+            case "Summarize":
+
+                break;
+            case "Generate template":
+                if (issueTypeChoice !== "") {
+                openai_response = await postGenerateTemplate({
+                    IssueType: issueTypeChoice,
+                    TicketFields: "Title,Description,Comment"
+                });
+                const openaiTitle = openai_response.match(/(?<=Title:).*(?=Description:)/s)?.[0]?.trim();
+                const openaiDescription = openai_response.match(/(?<=Description:).*(?=Comment:)/s)?.[0]?.trim();
+                const openaiComment = openai_response.match(/(?<=Comment:).*/s)?.[0]?.trim();
+                if (openaiTitle === undefined || openaiDescription === undefined || openaiComment === undefined){
+                    console.log("undefined!");
+                    return handleCreateTicketAIOptionsChange(event,templateType);
+                }else{
+                if (templateType === "ticket") {
+                    setTitle(openaiTitle);
+                    setDescription(openaiDescription);
+                    setComment(openaiComment);}
+                else {
+                    setITTitle(openaiTitle);
+                    setITDescription(openaiDescription);
+                    setITComment(openaiComment);}
+                }}
+                break;
+            case "Stop audio":
+                if (audioTSpeech) {
+                    if (!audioTSpeech.paused) 
+                    audioTSpeech.pause();
+                }
+                setAiOptions(["","Summarize","Generate template","Text to speech"])
+                break;
+            case "Text to speech":
+                if (templateType === "ticket") {
+                Predictions.convert({
+                    textToSpeech: {
+                      source: {
+                        text: 
+                        `Title: ${title} .
+                        Description: ${description} .
+                        Comment: ${comment} .
+                        Priority: ${priority} .
+                        IssueType: ${issueType} .
+                        StoryPoint: ${storyPoint} .
+                        Asignee: ${asigneeName} .
+                        Reporter: ${reporterName} .
+                        EpicLink: ${epicLink} .`
+                      },
+                    //  voiceId: "Amy" // default configured on aws-exports.js 
+                    // list of different options are here https://docs.aws.amazon.com/polly/latest/dg/voicelist.html
+                    }}).then(result => { 
+                    const audio = new Audio(result.speech.url);
+                    audio.play();}).catch(err => console.log({ err }));
+                }else {
+                    Predictions.convert({
+                        textToSpeech: {
+                          source: {
+                            text: 
+                            `Title: ${ITTitle} .
+                            Description: ${ITDescription} .
+                            Comment: ${ITComment} .
+                            IssueType: ${ITIssueType} .
+                            StoryPoint: ${ITStoryPoint} .`
+                          }}}).then(result => {
+                        const audio = new Audio(result.speech.url);
+                        setAudioTSpeech(audio);
+                        setAiOptions(["","Summarize","Generate template","Text to speech","Stop audio"])
+                    }).catch(err => console.log({ err }));}
+                break;
+            default:
+                console.log("default");
+                break;}
+        }catch(err){console.log(err)}};
+
+    const postGenerateTemplate = async (event) => {
+        const response = await API.post('apiopenai','/openai/ticketTemplateCreate',
+        { body: JSON.stringify({event}) });
+        console.log(response);
+        return response;}
 
     return {
         ITIDIndex,
@@ -166,4 +288,7 @@ export function IssueTemplateClass(props) {
         handleClosedEditTicketClick,
         handleSaveITClick,
         handleEditITSelectProjectName,
+        handleSelectEditITChange,
+        handleCreateTicketAIOptionsChange,
+        aiOptions,
     }}

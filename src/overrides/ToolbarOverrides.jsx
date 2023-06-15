@@ -67,5 +67,4 @@ export function ToolbarFunc (props) {
 
     return {
         ToolbarOverride
-    }
-}
+    }}

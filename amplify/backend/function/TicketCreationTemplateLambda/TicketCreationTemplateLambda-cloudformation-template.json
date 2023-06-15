@@ -96,7 +96,7 @@
             "Arn"
           ]
         },
-        "Runtime": "python3.8",
+        "Runtime": "python3.9",
         "Layers": [
           "arn:aws:lambda:eu-west-1:512617552494:layer:OpenAI-AWS-Lambda-Layer:4"
         ],

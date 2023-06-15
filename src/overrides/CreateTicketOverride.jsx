@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { TicketContext } from '../contexts/TicketContext';
+import { IssueTemplateContext } from '../contexts/IssueTemplateContext';
 
 
 export function CreateTicketFunc (props) {
@@ -11,13 +12,19 @@ export function CreateTicketFunc (props) {
         handleCreateTicketClick,
         handleCloseCreateTicketClick,
     } = React.useContext(TicketContext);
+    const {
+        aiOptions,
+        handleCreateTicketAIOptionsChange,
+    } = useContext(IssueTemplateContext);
     
     const CreateTicketOverride = {
         create_ticket_text:{
             children: "Create ticket KAI-"+getBiggestTicketID
         },
         ai_options_select_field:{
-            
+            options: aiOptions,
+            onChange: (event) => (handleCreateTicketAIOptionsChange(event,"ticket")),
+            style:{color:"transparent"},
         },
         create_button:{
             onClick : (event) => (handleCreateTicketClick(event)),

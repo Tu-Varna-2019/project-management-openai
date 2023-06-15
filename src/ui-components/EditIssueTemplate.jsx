@@ -360,20 +360,6 @@ export default function EditIssueTemplate(props) {
         children="Project"
         {...getOverrideProps(overrides, "issue_template_text1412774")}
       ></Text>
-      <Image
-        width="25px"
-        height="25px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="171px"
-        left="1189px"
-        padding="0px 0px 0px 0px"
-        objectFit="cover"
-        {...getOverrideProps(overrides, "project_image_name")}
-      ></Image>
     </View>
   );
 }

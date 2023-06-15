@@ -56,7 +56,7 @@ export function TicketInfoScrollFunc () {
         issue_type_select_field:{
             onChange : (event) => (handleIssueType(event)),
             options: isseTypeOptions,
-            value: issueType,
+           value: issueType,
         },
         "Priority:":{
             children: issueType === "Task" ? "Subtask" : issueType === "Subtask" ? "Task" : "Priority",
@@ -64,6 +64,7 @@ export function TicketInfoScrollFunc () {
         priority_select_field:{
             onChange : (event) => (handlePriority(event)),
             options: priorityOptions,
+            //value: priority,
         },
         status_badge:{
             children: ticketStatus,
@@ -163,8 +164,7 @@ export function TicketInfoScrollFunc () {
         },
         "Rectangle 1":{
             style:{overflow: 'auto',maxHeight: '500px'}
-        }
-    }
+        }}
 
 
     return {

@@ -82,7 +82,6 @@ export function TicketClass(props) {
     // Regex for empty values
     const isTitleEmpty =  /^\s*$/.test(title);
     const watchedCount = watchedUsers?.match(/,/g) ? watchedUsers.match(/,/g).length : 0 ;
-
     const ticketStatusColorVariant = ticketStatus === "ToDo" ? "error" : 
     ticketStatus === "InProgress" ? "warning" : 
     ticketStatus === "InReview" ? "info" : "success" ;
@@ -132,8 +131,8 @@ export function TicketClass(props) {
                 setAttachmentName([]);
                 setSubtasks(editTicket.Subtasks);
                 setTitle(editTicket.Title);
-                setDescription(editTicket.Description);
-                setComment(editTicket.Comment);
+                setDescription(editTicket.Description === null ? "": editTicket.Description);
+                setComment(editTicket.Comment === null ? "": editTicket.Comment);
                 setImageTicket(editTicket.ImageTicket === null ? "" : editTicket.ImageTicket);
                 setTicketID(editTicket.TicketID);
                 setIssueType(editTicket.IssueType);
@@ -173,16 +172,16 @@ export function TicketClass(props) {
                     return item;})});}catch(err){/*do nothing */}}}
         fetchUserData();
     },[location.state,editTicket]);
-    ////////////* Create ticket //////////////////
+
     // Get the largest ticket ID by project
     useEffect(() => {
         async function fetchUserData() {
             await DataStore.query(Ticket)
             .then(data => {
                 data.filter(item => {
-                    if( item.projectID ===  getProjectID 
-                        && getBiggestTicketID < +item.TicketID) {
-                        setGetBiggestTicketID(item.TicketID+1);
+                if( item.projectID ===  getProjectID 
+                    && getBiggestTicketID < +item.TicketID) {
+                    setGetBiggestTicketID(item.TicketID+1);
                     } return item;})})}
         fetchUserData();
     },[getBiggestTicketID,getProjectID]);
@@ -226,6 +225,7 @@ export function TicketClass(props) {
 
     const handleIssueType = async (event) => {
         event.preventDefault();
+        setIssueType(event.target.value);
         const newTaskOption = [];
         const newTaskIDs = [];
         const issueTypeTaskSub = event.target.value === "Task" ?
@@ -237,11 +237,11 @@ export function TicketClass(props) {
                 await DataStore.query(Ticket)
                 .then(data => {
                     data.filter(item => {
-                        if( item.IssueType === issueTypeTaskSub 
-                            && (!subtasks || !subtasks.includes(item.id)) ) {
-                            newTaskOption.push(item.Title);
-                            newTaskIDs.push(item.id);
-                        } return item;})});
+                    if( item.IssueType === issueTypeTaskSub 
+                        && (!subtasks || !subtasks.includes(item.id)) ) {
+                        newTaskOption.push(item.Title);
+                        newTaskIDs.push(item.id);
+                    } return item;})});
                 setPriority("Medium");
                 newTaskIDs.unshift("");
                 newTaskOption.unshift("");
@@ -251,7 +251,6 @@ export function TicketClass(props) {
             default:
                 setPriorityOptions(["Low","Medium","High","Critical"]);
                 break;}
-        setIssueType(event.target.value);
     };
     const handleTicketStatus = (event) => {
         event.preventDefault();
@@ -295,6 +294,7 @@ export function TicketClass(props) {
                     }).then(data_url => {
                         setReporterImageURL(data_url);})}
                 return item;})})};
+
     const handleSafeTicketImageChange = async (event) => {
         await Storage.put(
             event, 
@@ -653,12 +653,16 @@ const handleSaveEditTicketClick = async (event) => {
     return {
         location,
         setTitle,
+        setTicketStatus,
+        setWatchedUsers,
+        setWatchedAddMeVariant,
         setDescription,
         setComment,
         setPriority,
         setStoryPoint,
         setIssueType,
         subtasks,
+        setEpicLink,
         setSubtasks,
         attachmentUrls,
         handleCreateTicketClick,

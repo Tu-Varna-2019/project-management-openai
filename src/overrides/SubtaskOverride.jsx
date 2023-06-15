@@ -32,8 +32,7 @@ export function SubtaskFunc (props) {
                 unlink_task_button:{
                     onClick: () => (
                         unlinkSubtaskClick(item.id))},
-        }}
-    }
+        }}}
 
     return {
         ChildTicketShortCollectionOverride,

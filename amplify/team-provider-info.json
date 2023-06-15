@@ -62,7 +62,7 @@
           "openaiApiKey": "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",
           "regionName": "eu-west-1",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketCreationTemplateLambda-52515a514f3344756a7a-build.zip"
+          "s3Key": "amplify-builds/TicketCreationTemplateLambda-6f585836716357735750-build.zip"
         }
       },
       "storage": {
