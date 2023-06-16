@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
-import { useNavigate , useLocation } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react'
 import { DataStore , Storage , API } from 'aws-amplify';
 import { Ticket,User , Activity } from '../models';
-import { ProjectClass } from './ProjectClass';
+import { getDragDropTicketState, getNotificationCountState, getNotificationsState, getProjectNameState,setDragDropTicketState, setNotificationCountState, setNotificationsState } from '../states';
+import { ProjectContext } from '../contexts/ProjectContext';
+import { PISprintContext } from '../contexts/PISprintContext';
 import { User2Class } from './User2Class';
-import { getDragDropTicketState, getProjectNameState,setDragDropTicketState } from '../states';
 
 const iniTicketValue = {
     Title: "",
@@ -20,13 +20,16 @@ const iniErrorValue = {
 export function TicketClass(props) {
     const {
         getProjectID,
-    } = ProjectClass();
+        navigate,
+        location,
+    } = useContext(ProjectContext);
     const {
         currentUser
     } = User2Class();
+    const {
+        sprintID,
+    } = useContext(PISprintContext);
 
-    const location = useLocation();
-    const navigate = useNavigate();
     // Ticket/s
     const editTicket = location.state ? location.state.selectedTicket : "";
     const [subtasks,setSubtasks] = useState([]);
@@ -86,15 +89,27 @@ export function TicketClass(props) {
     ticketStatus === "InProgress" ? "warning" : 
     ticketStatus === "InReview" ? "info" : "success" ;
 
+    const [notifications,setNotifications] = useState([""]);
+    const [notificationCount,setNotificationCount] = useState(0);
+
+    useEffect(() => {
+        if (getNotificationCountState() !== null 
+            && getNotificationsState() !== null) {
+        const splitNotifSelectField = getNotificationsState().split(",");
+        setNotifications(splitNotifSelectField);
+        setNotificationCount(getNotificationCountState());
+            }
+    },[]);
+
     // Get tickets by project
     useEffect(() => {
         async function fetchUserData() {
             await DataStore.query(Ticket)
             .then(data => {
-                setTickets(data.filter(item => item.projectID === getProjectID));
-            }).catch(error => {
-            console.error(error);});}
-        fetchUserData();},[getProjectID]);
+                setTickets(data.filter(item => item.projectID === getProjectID 
+                    && item.sprintID === sprintID));
+            }).catch(error => {console.error(error);});}
+        fetchUserData();},[getProjectID,sprintID]);
     // Get ticket statuses
     useEffect(() => {
         setTicketToDo(Object.values(tickets).filter(item => item.TicketStatus === 'ToDo'));
@@ -179,12 +194,12 @@ export function TicketClass(props) {
             await DataStore.query(Ticket)
             .then(data => {
                 data.filter(item => {
-                if( item.projectID ===  getProjectID 
-                    && getBiggestTicketID < +item.TicketID) {
+                if( item.projectID ===  getProjectID && item.sprintID === sprintID
+                    && getBiggestTicketID <= +item.TicketID) {
                     setGetBiggestTicketID(item.TicketID+1);
                     } return item;})})}
         fetchUserData();
-    },[getBiggestTicketID,getProjectID]);
+    },[getBiggestTicketID,getProjectID,sprintID]);
     // Get all urls by image names , seperated by ,
     useEffect(() => {
         if (imageTicket !== "" && attachmentName.length === 0) {
@@ -228,6 +243,7 @@ export function TicketClass(props) {
         setIssueType(event.target.value);
         const newTaskOption = [];
         const newTaskIDs = [];
+        const isEditedTicketID = editTicket === undefined ? "" : editTicket.id;
         const issueTypeTaskSub = event.target.value === "Task" ?
         "Subtask" : "Task";
         // Check if issue type is either task or subtask
@@ -237,7 +253,7 @@ export function TicketClass(props) {
                 await DataStore.query(Ticket)
                 .then(data => {
                     data.filter(item => {
-                    if( item.IssueType === issueTypeTaskSub 
+                    if( item.IssueType === issueTypeTaskSub && item.id !== isEditedTicketID
                         && (!subtasks || !subtasks.includes(item.id)) ) {
                         newTaskOption.push(item.Title);
                         newTaskIDs.push(item.id);
@@ -321,7 +337,7 @@ export function TicketClass(props) {
                     item.ImageTicket = imageTicket.replace(deletedImageName+",", "")}))
             window.alert(`${deletedImageName} deleted!`);}}
     };
-
+   
     const handleMoreOptionsChange = async (event) => {
         event.preventDefault();
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -357,7 +373,9 @@ export function TicketClass(props) {
                             "IssueType": issueType,
                             "Priority": priority,
                             "TicketStatus": ticketStatus,
-                            "Comment": comment}));
+                            "Comment": comment,
+                            "sprintID": sprintID
+                        }));
                     navigate('/board', { state: { project: getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully cloned!` }});
                     window.location.reload();
             break;
@@ -522,8 +540,8 @@ const handleSaveEditTicketClick = async (event) => {
                 newTicket});
             }catch(err){notify_update_ticket_response="Unable to send message , sorry for the inconvinience!";}
         }
-        navigate('/board', { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response}` }});
-        window.location.reload();
+        navigate('/board', { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response} ` }});
+       window.location.reload();
     } catch (error) {
         setIsLoading(false);
         console.log(error);
@@ -581,7 +599,9 @@ const handleSaveEditTicketClick = async (event) => {
                     "projectID": getProjectID,
                     "IssueType": issueType,
                     "Priority": priority,
-                    "TicketStatus": "ToDo"}));
+                    "TicketStatus": "ToDo",
+                    "sprintID": sprintID
+                }));
                     // If ticket has been assigned to user , notify !
                     let notify_create_ticket_response = "";
                     if (asigneeName !== "Unassigned") {
@@ -601,7 +621,8 @@ const handleSaveEditTicketClick = async (event) => {
                             IssueType : issueType,
                             TicketStatus : "ToDo",
                             Comment : "None",
-                            Project: getProjectNameState(),};
+                            Project: getProjectNameState(),
+                        };
                         notify_create_ticket_response = await postData({
                             Changes: `New ticket has been assigned to you ${asigneeName}`,
                             newTicket});}
@@ -638,7 +659,12 @@ const handleSaveEditTicketClick = async (event) => {
                         "TicketID": getEditedTicketID,
                         "Changes": `TicketStatus: ${ticketStatus} --> ${boardStatus} \n`
                     }));
-                
+
+                const isNotifStateNull = getNotificationsState() === null ? "" : getNotificationsState() ;
+                setNotificationsState(`${isNotifStateNull},${currentUser.username} : ${editTicketDataStore.Title} : ${ticketStatus} --> ${boardStatus}`);
+
+                setNotificationCountState(+getNotificationCountState() + 1);
+
                 await DataStore.save(Ticket.copyOf(editTicketDataStore,item_edit_status => {
                         item_edit_status.TicketStatus = boardStatus;
                         item_edit_status.UpdatedDate = newTicketUpdatedDate;
@@ -648,10 +674,20 @@ const handleSaveEditTicketClick = async (event) => {
                 alert_show:'block' ,
                 alert_variant: "success",
                 alert_description: `KAI-${editTicketDataStore.TicketID} has been successfully moved to ${boardStatus}`}});
-            window.location.reload();}}};
+            window.location.reload();
+        }}};
+
+    const handleResetNotificationClick = (event) => {
+        setNotifications([""]);
+        setNotificationsState("");
+        setNotificationCount(0);
+        setNotificationCountState(0);
+    }
 
     return {
-        location,
+        handleResetNotificationClick,
+        notifications,
+        notificationCount,
         setTitle,
         setTicketStatus,
         setWatchedUsers,

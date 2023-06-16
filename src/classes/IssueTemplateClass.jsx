@@ -3,7 +3,6 @@ import { ProjectContext } from "../contexts/ProjectContext";
 import { IssueTemplate } from "../models";
 import { DataStore,API} from "aws-amplify";
 import { TicketContext } from "../contexts/TicketContext";
-import { UserContext } from "../contexts/UserContext";
 import { getProjectNameState } from "../states";
 import {
     Predictions,
@@ -25,7 +24,6 @@ export function IssueTemplateClass(props) {
         asigneeName,
         reporterName,
         epicLink,
-        location,
         setTitle,
         setDescription,
         setComment,
@@ -33,8 +31,9 @@ export function IssueTemplateClass(props) {
         setStoryPoint,
     } = useContext(TicketContext);
     const {
+        location,
         navigate,
-    } = useContext(UserContext);
+    } = useContext(ProjectContext);
 
     const [ITTitle,setITTitle] = useState("");
     const [ITDescription,setITDescription] = useState("");

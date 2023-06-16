@@ -1,16 +1,18 @@
-import React,{ useEffect, useState } from "react"
+import React,{ useContext, useEffect, useState } from "react"
 import { DataStore,Storage } from "aws-amplify";
 import { Activity, Ticket, User } from "../models";
 import { UserContext } from "../contexts/UserContext";
 import { getProjectNameState } from "../states";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 export function ActivityClass(props) {
     const {
         selectedUserID,
+    } = React.useContext(UserContext);
+    const {
         location,
         navigate
-    } = React.useContext(UserContext);
-
+    } = useContext(ProjectContext);
 
     const [activity,setActivity] = useState([]);
     const [activityTicket,setActivityTicket] = useState([]);

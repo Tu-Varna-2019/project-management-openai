@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Auth } from 'aws-amplify';
 import { DataStore , Storage } from 'aws-amplify';
 import { User } from '../models';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { ProjectContext } from '../contexts/ProjectContext';
 
 
 export function User2Class() {
+
+    const {
+        location,
+        navigate,
+    } = useContext(ProjectContext);
 
     const [currentUser,setCurrentUser] = useState("");
     const [authenticatedUser,setAuthenticatedUser] = useState("");
@@ -19,8 +24,7 @@ export function User2Class() {
     const [alertVariant,setAlertVariant] = useState("success");
     const [alertVisibility,setAlertVisibility] = useState("none");
     const [alertDescription,setAlertDescription] = useState("");
-    const location = useLocation();
-    const navigate = useNavigate();
+
     let selectedUserID = "";
     let selectedUsername = "";
     try {
@@ -134,8 +138,6 @@ export function User2Class() {
         userIDName,
         selectedUsername,
         selectedUserID,
-        location,
-        navigate,
         currentUser,
         setCurrentUser,
         authenticatedUser,

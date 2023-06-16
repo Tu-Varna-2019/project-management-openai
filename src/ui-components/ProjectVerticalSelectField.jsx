@@ -14,6 +14,7 @@ import {
   Divider,
   Image,
   Rating,
+  SelectField,
   Text,
   View,
 } from "@aws-amplify/ui-react";
@@ -155,26 +156,23 @@ export default function ProjectVerticalSelectField(props) {
         orientation="horizontal"
         {...getOverrideProps(overrides, "Divider180442992")}
       ></Divider>
-      <Button
-        width="302px"
-        height="63px"
-        gap="15px"
+      <Divider
+        width="304px"
+        height="1px"
         position="absolute"
-        top="215px"
-        left="6px"
-        size="default"
-        isDisabled={false}
-        variation="link"
-        children="Roadmap"
-        {...getOverrideProps(overrides, "roadmap_button")}
-      ></Button>
+        top="350px"
+        left="5px"
+        size="small"
+        orientation="horizontal"
+        {...getOverrideProps(overrides, "Divider1893069")}
+      ></Divider>
       <Button
         width="302px"
         height="62px"
         gap="15px"
         position="absolute"
-        top="437px"
-        left="6px"
+        top="654px"
+        left="10px"
         size="default"
         isDisabled={false}
         variation="link"
@@ -186,27 +184,86 @@ export default function ProjectVerticalSelectField(props) {
         height="62px"
         gap="15px"
         position="absolute"
-        top="289px"
-        left="6px"
+        top="592px"
+        left="9px"
         size="default"
         isDisabled={false}
         variation="link"
         children="Active sprints"
         {...getOverrideProps(overrides, "active_sprints_button")}
       ></Button>
-      <Button
-        width="302px"
-        height="62px"
-        gap="15px"
+      <SelectField
+        width="300px"
+        height="unset"
+        label="Select PI"
         position="absolute"
-        top="363px"
-        left="6px"
+        top="386px"
+        left="7px"
+        placeholder=""
         size="default"
         isDisabled={false}
-        variation="link"
-        children="Issues"
-        {...getOverrideProps(overrides, "issues_button")}
-      ></Button>
+        labelHidden={false}
+        variation="quiet"
+        {...getOverrideProps(overrides, "select_pi_select_field")}
+      ></SelectField>
+      <SelectField
+        width="300px"
+        height="unset"
+        label="Select Sprint"
+        position="absolute"
+        top="496px"
+        left="7px"
+        placeholder=""
+        size="default"
+        isDisabled={false}
+        labelHidden={false}
+        variation="quiet"
+        {...getOverrideProps(overrides, "select_sprint_select_field")}
+      ></SelectField>
+      <Text
+        fontFamily="Inter"
+        fontSize="32px"
+        fontWeight="700"
+        color="rgba(101,147,209,1)"
+        lineHeight="48px"
+        textAlign="left"
+        display="block"
+        direction="column"
+        justifyContent="unset"
+        width="293px"
+        height="51px"
+        gap="unset"
+        alignItems="unset"
+        position="absolute"
+        top="169px"
+        left="16px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children="PI "
+        {...getOverrideProps(overrides, "PI_text")}
+      ></Text>
+      <Text
+        fontFamily="Inter"
+        fontSize="32px"
+        fontWeight="700"
+        color="rgba(101,147,209,1)"
+        lineHeight="48px"
+        textAlign="left"
+        display="block"
+        direction="column"
+        justifyContent="unset"
+        width="293px"
+        height="51px"
+        gap="unset"
+        alignItems="unset"
+        position="absolute"
+        top="240px"
+        left="16px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children="Sprint"
+        {...getOverrideProps(overrides, "Sprint_text")}
+      ></Text>
     </View>
   );
 }

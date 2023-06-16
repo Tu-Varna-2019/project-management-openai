@@ -1,6 +1,6 @@
 import React from "react";
-import { UserContext } from "../contexts/UserContext";
 import { ActivityContext } from "../contexts/ActivityContext";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 export function ActivityFunc (props) {
     const {
@@ -13,7 +13,7 @@ export function ActivityFunc (props) {
     } = React.useContext(ActivityContext);
     const {
         navigate,
-    } = React.useContext(UserContext);
+    } = React.useContext(ProjectContext);
 
     const ActivityCollectionOverride={
         ActivitySlideCollection:{

@@ -1,9 +1,10 @@
 import '@aws-amplify/ui-react/styles.css';
-import React,{ useEffect } from 'react';
+import React,{ useContext, useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
 import { User } from '../models';
 import { ProjectClass } from '../classes/ProjectClass';
 import { UserContext } from '../contexts/UserContext';
+import { ProjectContext } from '../contexts/ProjectContext';
 
 export function SelectProjectFunc(props) {
 
@@ -20,7 +21,7 @@ export function SelectProjectFunc(props) {
         handleSelectedProjectOnClick,
         isCancelButtonLoading,
         handleSelectedCreateOneProjectOnClick,
-    }= ProjectClass();
+    }= useContext(ProjectContext);
     // Create user if he doesn't exist in DataStore
     useEffect(() => {
         async function fetchUserData() {

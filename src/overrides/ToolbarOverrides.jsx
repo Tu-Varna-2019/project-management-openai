@@ -2,11 +2,15 @@ import React, { useContext } from 'react';
 import { TicketContext } from '../contexts/TicketContext';
 import { UserContext } from '../contexts/UserContext';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
+import { PISprintContext } from '../contexts/PISprintContext';
 
 export function ToolbarFunc (props) {
 
     const {
         handleGoToCreateTicketClick,
+        notificationCount,
+        notifications,
+        handleResetNotificationClick,
     } = React.useContext(TicketContext);
 
     const {
@@ -28,6 +32,10 @@ export function ToolbarFunc (props) {
         setAlertVisibility,
     } = useContext(UserContext);
 
+    const {
+        sprintID,
+    } = useContext(PISprintContext);
+
     const ToolbarOverride={
         profile_icon_image:{
             src: userProfileURL
@@ -37,6 +45,14 @@ export function ToolbarFunc (props) {
             children: alertDescription,
             variant: alertVariant,
             onDismiss : (event) => (setAlertVisibility("none")),
+        },
+        notify_count_badge:{
+            children: notificationCount
+        },
+        notify_select_field:{
+            style:{color:"transparent"},
+            onChange : (event) => (handleResetNotificationClick(event)),
+            options:notifications
         },
         projects_select_field:{
             style:{color:"transparent"},
@@ -64,7 +80,9 @@ export function ToolbarFunc (props) {
             options:allUsers,
         },
         create_ticket_button:{
-            onClick: (event) => (handleGoToCreateTicketClick(event))},
+            onClick: (event) => (handleGoToCreateTicketClick(event)),
+            isDisabled: sprintID === 0
+        },
         }
 
     return {

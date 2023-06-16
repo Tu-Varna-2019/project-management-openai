@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { BadgeProps, ButtonProps, CardProps, DividerProps, ImageProps, RatingProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { BadgeProps, ButtonProps, CardProps, DividerProps, ImageProps, RatingProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ProjectVerticalSelectFieldOverridesProps = {
     ProjectVerticalSelectField?: PrimitiveOverrideProps<ViewProps>;
@@ -19,10 +19,13 @@ export declare type ProjectVerticalSelectFieldOverridesProps = {
     Rating?: PrimitiveOverrideProps<RatingProps>;
     Divider180442991?: PrimitiveOverrideProps<DividerProps>;
     Divider180442992?: PrimitiveOverrideProps<DividerProps>;
-    roadmap_button?: PrimitiveOverrideProps<ButtonProps>;
+    Divider1893069?: PrimitiveOverrideProps<DividerProps>;
     backlog_button?: PrimitiveOverrideProps<ButtonProps>;
     active_sprints_button?: PrimitiveOverrideProps<ButtonProps>;
-    issues_button?: PrimitiveOverrideProps<ButtonProps>;
+    select_pi_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    select_sprint_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    PI_text?: PrimitiveOverrideProps<TextProps>;
+    Sprint_text?: PrimitiveOverrideProps<TextProps>;
 } & EscapeHatchProps;
 export declare type ProjectVerticalSelectFieldProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: ProjectVerticalSelectFieldOverridesProps | undefined | null;

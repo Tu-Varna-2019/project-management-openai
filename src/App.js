@@ -27,6 +27,8 @@ import { ToolbarSelectProvider } from './providers/ToolbarSelectProvider';
 import { SubtaskProvider } from './providers/SubtaskProvider';
 import { ActivityProvider } from './providers/ActivityProvider';
 import { IssueTemplateProvider } from './providers/IssueTemplateProvider';
+import BacklogPage from './pages/BacklogPage';
+import { PISprintProvider } from './providers/PISprintProvider';
 
 const {
     AppComponentOverride,
@@ -54,15 +56,17 @@ export default function App() {
       </Helmet><Card variation="elevated">
         <Authenticator components={AppComponentOverride}>
       <BrowserRouter>
+      <ProjectProvider>
+      <PISprintProvider>
       <TicketProvider>
       <UserProvider>
-      <ProjectProvider>
       <IssueTemplateProvider>
       <ToolbarSelectProvider>
       <ActivityProvider>
       <SubtaskProvider>
       <Routes>
         <Route path="/board" element={<BoardPage/>}/>
+        <Route path="/backlog" element={<BacklogPage/>}/>
         <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/create-project" element={<CreateProjectPage/>}/>
         <Route path="/edit-ticket" element={<EditTicketFullPage/>}/>
@@ -82,9 +86,10 @@ export default function App() {
       </ActivityProvider>
       </ToolbarSelectProvider>
       </IssueTemplateProvider>
-      </ProjectProvider>
       </UserProvider>
       </TicketProvider>
+      </PISprintProvider>
+      </ProjectProvider>
     </BrowserRouter></Authenticator></Card></div>);
   }
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);

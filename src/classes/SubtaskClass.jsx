@@ -7,7 +7,6 @@ export function SubtaskClass(props) {
     const {
         subtasks,
         setSubtasks,
-        deletedTaskID,
         setDeletedTaskID
     } = React.useContext(TicketContext);
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { DataStore , Storage } from 'aws-amplify';
 import { Project } from '../models';
-import { getProjectNameState , setProjectNameState } from '../states';
+import { getProjectNameState , setPINumState, setProjectNameState, setSprintNumState } from '../states';
 
 
 export function ProjectClass(props) {
@@ -22,6 +22,7 @@ export function ProjectClass(props) {
     const [imageProjectURL,setImageProjectURL] = useState("");
 
     const navigate = useNavigate();
+    const location = useLocation();
     const isProjectEmpty =  /^\s*$/.test(projectName);
 
     const handleProjectName = (event) => {
@@ -119,12 +120,16 @@ export function ProjectClass(props) {
 
     const handleSelectedProjectOnClick = (event) => {
         event.preventDefault();
+        setPINumState(0);
+        setSprintNumState(0);
         if (projectName.length === 0) {
             const default_project_name = Object.values(projectNames);
             setProjectNameState(default_project_name[0]);}
         else
             setProjectNameState(projectName);
-        navigate('/board');};
+            navigate('/board');
+            window.location.reload();
+    };
 
     const handleSelectedProjectOnChange = async (event) => {
         event.preventDefault();
@@ -140,6 +145,8 @@ export function ProjectClass(props) {
 
 
     return {
+        navigate,
+        location,
         handleProjectName,
         projectName,
         isProjectEmpty,

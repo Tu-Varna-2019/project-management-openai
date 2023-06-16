@@ -3,6 +3,7 @@ import { TicketInfoScrollFunc } from "./TicketInfoScrollOverride"
 import { IssueTemplateContext } from "../contexts/IssueTemplateContext";
 import { EditTicketFunc } from './EditTicketOverride';
 import { TicketContext } from "../contexts/TicketContext";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 
 export function CreateTicketScrollFunc(props) {
@@ -12,7 +13,6 @@ export function CreateTicketScrollFunc(props) {
     } = useContext(IssueTemplateContext);
 
     const {
-        location,
         setTitle,
         setDescription,
         setComment,
@@ -24,6 +24,10 @@ export function CreateTicketScrollFunc(props) {
         setWatchedUsers,
         setWatchedAddMeVariant,
     } = useContext(TicketContext);
+
+    const {
+        location
+    } = useContext(ProjectContext);
 
    const {TicketInfoScrollOverride} = TicketInfoScrollFunc();
    const {EditTicketOverride} = EditTicketFunc();

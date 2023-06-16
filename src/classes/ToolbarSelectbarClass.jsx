@@ -1,16 +1,19 @@
 import { Auth } from "aws-amplify";
-import { getProjectNameState } from '../states';
+import { getProjectNameState, setPINumState, setSprintNumState } from '../states';
 import { DataStore } from "aws-amplify";
 import { Ticket } from "../models";
-import React,{ useState } from "react";
+import React,{ useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 export function ToolbarSelectClass() {
     const {
         currentUser,
         userIDName,
-        navigate,
     } = React.useContext(UserContext);
+    const {
+        navigate
+    } = useContext(ProjectContext);
     
     const [assignedToMe,setAssignedToMe] = useState(["","assigned to me","boards"]);
     const [allUsers,setAllUsers] = useState(["","all users"]);
@@ -18,9 +21,11 @@ export function ToolbarSelectClass() {
     const handleProjectsSelectChange = (event) => {
         switch(event.target.value){
             case "switch project":
-                if (window.confirm("Are you sure you want to switch to different project"
-                +"we will redirect you to different page?")) 
-                    navigate('/'); 
+                if (window.confirm("Are you sure you want to switch to different project? "
+                +"we will redirect you to different page?")) {
+                setPINumState(0);
+                setSprintNumState(0);
+                navigate('/');}
             break;
             default: 
                 console.log("default");
