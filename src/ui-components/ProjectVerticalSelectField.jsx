@@ -207,19 +207,6 @@ export default function ProjectVerticalSelectField(props) {
         children="Issues"
         {...getOverrideProps(overrides, "issues_button")}
       ></Button>
-      <Button
-        width="307px"
-        height="63px"
-        gap="15px"
-        position="absolute"
-        top="510px"
-        left="5px"
-        size="default"
-        isDisabled={false}
-        variation="link"
-        children="Team calendar"
-        {...getOverrideProps(overrides, "team_calendar_button")}
-      ></Button>
     </View>
   );
 }

@@ -6,6 +6,7 @@
 
 export { default as TicketInProgressCollection } from "./TicketInProgressCollection";
 export { default as DeleteAccountKAI } from "./DeleteAccountKAI";
+export { default as Backlog } from "./Backlog";
 export { default as Notfound } from "./Notfound";
 export { default as ActivitySlideCollection } from "./ActivitySlideCollection";
 export { default as TicketInReviewCollection } from "./TicketInReviewCollection";
@@ -32,9 +33,11 @@ export { default as NoteremindercardCollection } from "./NoteremindercardCollect
 export { default as Notetitlebutton } from "./Notetitlebutton";
 export { default as Editnotecard } from "./Editnotecard";
 export { default as TicketInfoScroll } from "./TicketInfoScroll";
+export { default as SearchResultMatch } from "./SearchResultMatch";
 export { default as ProjectVerticalSelectField } from "./ProjectVerticalSelectField";
 export { default as EditTicket } from "./EditTicket";
 export { default as CreateProject } from "./CreateProject";
+export { default as SearchResultMatchCollection } from "./SearchResultMatchCollection";
 export { default as Board } from "./Board";
 export { default as ResetPassword } from "./ResetPassword";
 export { default as Bin } from "./Bin";

@@ -95,7 +95,7 @@ export function ToolbarSelectClass() {
     const handleProfileSelectChange = (event) => {
         switch(event.target.value){
             case "Manage account":
-                navigate('/profile'); 
+                navigate('/profile');
             break;
             case "Log out":
                 if (window.confirm("Are you sure you want to sign out ?")) 

@@ -57,7 +57,7 @@ export function User2Class() {
         try {
             if (location.state.alert_variant !== undefined) {
             setAlertVariant(location.state.alert_variant);
-            setAlertVisibility(location.state?.alert_show);
+            setAlertVisibility(location.state? location.state.alert_show : "none");
             setAlertDescription(location.state?.alert_description);}
         } catch(error) {/*do nothing */}
     },[location.state]);
@@ -153,4 +153,5 @@ export function User2Class() {
         handleGoToChangePassword,
         handleGoToDeleteAccount,
         handleGoToMNotes,
+        setAlertVisibility,
     }}

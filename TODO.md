@@ -4,7 +4,7 @@
 [X].Use logger instead of print in lambda handler code
 [X].Create task data model
 [X].Create functionality to create subtasks from ticket
-[X].Add a functionality to summarize ticket
+[ ].Add a functionality to summarize ticket
 [X].Add notification on ticket
 [].Create Questions&Answers AI model
 [].Create mobile version (display size , etc.)

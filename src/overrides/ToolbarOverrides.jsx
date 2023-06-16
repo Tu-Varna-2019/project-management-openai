@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { TicketContext } from '../contexts/TicketContext';
 import { UserContext } from '../contexts/UserContext';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
@@ -25,7 +25,8 @@ export function ToolbarFunc (props) {
         alertVisibility,
         alertDescription,
         currentUser,
-    } = React.useContext(UserContext);
+        setAlertVisibility,
+    } = useContext(UserContext);
 
     const ToolbarOverride={
         profile_icon_image:{
@@ -35,6 +36,7 @@ export function ToolbarFunc (props) {
             style:{"display": alertVisibility },
             children: alertDescription,
             variant: alertVariant,
+            onDismiss : (event) => (setAlertVisibility("none")),
         },
         projects_select_field:{
             style:{color:"transparent"},

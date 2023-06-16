@@ -2,12 +2,15 @@ import React,{ useEffect, useState } from "react"
 import { DataStore,Storage } from "aws-amplify";
 import { Activity, Ticket, User } from "../models";
 import { UserContext } from "../contexts/UserContext";
+import { getProjectNameState } from "../states";
 
 export function ActivityClass(props) {
     const {
         selectedUserID,
         location,
+        navigate
     } = React.useContext(UserContext);
+
 
     const [activity,setActivity] = useState([]);
     const [activityTicket,setActivityTicket] = useState([]);
@@ -35,6 +38,9 @@ export function ActivityClass(props) {
                             ImageURL: url,}));})}
                         
                     const tickets = await DataStore.query(Ticket, activityIter.TicketID);
+                    if (!tickets)
+                    console.log("Error!");
+                    else {
                     setActivityPriorityImage(
                         prevState => ([...prevState,tickets.Priority,]));
                         setActivityTicketID(
@@ -43,6 +49,7 @@ export function ActivityClass(props) {
                             prevState => ([...prevState,tickets.IssueType,]));
                         setActivityTicket(
                             prevState => ([...prevState,tickets,]));
+                        }
                     newActivity.push(activityIter);
                 }
             } setActivity(newActivity);
@@ -55,8 +62,12 @@ export function ActivityClass(props) {
             if (window.confirm(`Are you sure you want to delete your activity?`)) {
                 for (let activityIter of activity) {
                     const modelToDelete = await DataStore.query(Activity, activityIter.id);
-                    DataStore.delete(modelToDelete);}}}
+                    DataStore.delete(modelToDelete);}
+                    navigate('/profile', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `Activities cleared!` }});
+                    window.location.reload();
+                }}
         setClearActivityBtnLoading(false);
+
     }
 
 

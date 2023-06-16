@@ -6,17 +6,15 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { AlertProps, ButtonProps, FlexProps, ImageProps, SearchFieldProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { AlertProps, BadgeProps, ButtonProps, ImageProps, SearchFieldProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ToolbarOverridesProps = {
     Toolbar?: PrimitiveOverrideProps<ViewProps>;
     footer_rectangle?: PrimitiveOverrideProps<ViewProps>;
     search_ticket_select_field?: PrimitiveOverrideProps<SearchFieldProps>;
     create_ticket_button?: PrimitiveOverrideProps<ButtonProps>;
-    "Frame 3"?: PrimitiveOverrideProps<FlexProps>;
     reminder_icon_image?: PrimitiveOverrideProps<ImageProps>;
     help_icon_image?: PrimitiveOverrideProps<ImageProps>;
-    settings_icon_image?: PrimitiveOverrideProps<ImageProps>;
     profile_icon_image?: PrimitiveOverrideProps<ImageProps>;
     "logo 1"?: PrimitiveOverrideProps<ImageProps>;
     KAI?: PrimitiveOverrideProps<TextProps>;
@@ -33,7 +31,9 @@ export declare type ToolbarOverridesProps = {
     Teams?: PrimitiveOverrideProps<TextProps>;
     teams_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     profile_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    notify_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     success_alert?: PrimitiveOverrideProps<AlertProps>;
+    notify_count_badge?: PrimitiveOverrideProps<BadgeProps>;
 } & EscapeHatchProps;
 export declare type ToolbarProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: ToolbarOverridesProps | undefined | null;

@@ -23,7 +23,6 @@ export declare type ProjectVerticalSelectFieldOverridesProps = {
     backlog_button?: PrimitiveOverrideProps<ButtonProps>;
     active_sprints_button?: PrimitiveOverrideProps<ButtonProps>;
     issues_button?: PrimitiveOverrideProps<ButtonProps>;
-    team_calendar_button?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
 export declare type ProjectVerticalSelectFieldProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: ProjectVerticalSelectFieldOverridesProps | undefined | null;

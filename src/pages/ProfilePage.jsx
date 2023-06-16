@@ -37,7 +37,7 @@ export default function ProfilePage(props) {
       <div style={{ position: 'absolute',display: 'block', bottom: 585, right: 1330 , width:530  }}>
         <FileImageUpload />
       </div>}
-      <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "200px",left: "1350px",objectFit: "cover"}}>
+      <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "200px",left: "1380px",objectFit: "cover"}}>
         <ActivitySlideCollection style={{position: 'absolute',  bottom: "-650px", left: "-155px" }}
           overrides={ActivityCollectionOverride}
           overrideItems={ActivityOverride}/>

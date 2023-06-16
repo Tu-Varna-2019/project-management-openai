@@ -9,8 +9,8 @@ import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import {
   Alert,
+  Badge,
   Button,
-  Flex,
   Image,
   SearchField,
   SelectField,
@@ -60,6 +60,7 @@ export default function Toolbar(props) {
         isDisabled={false}
         labelHidden={true}
         variation="default"
+        backgroundColor="white"
         {...getOverrideProps(overrides, "search_ticket_select_field")}
       ></SearchField>
       <Button
@@ -77,74 +78,49 @@ export default function Toolbar(props) {
         children="Create"
         {...getOverrideProps(overrides, "create_ticket_button")}
       ></Button>
-      <Flex
-        gap="40px"
-        direction="row"
-        width="unset"
-        height="unset"
-        justifyContent="flex-start"
-        alignItems="center"
+      <Image
+        width="49px"
+        height="49px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
         position="absolute"
-        top="32px"
-        left="1580px"
+        top="39.5px"
+        left="1670px"
         padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Frame 3")}
-      >
-        <Image
-          width="49px"
-          height="49px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          shrink="0"
-          position="relative"
-          padding="0px 0px 0px 0px"
-          objectFit="cover"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwebstockreview.net%2Fimages%2Fnotification-icon-png-4.png&f=1&nofb=1&ipt=259df9d928323bec9e20e8e6ae4894f17fd4fc732b65a2a58e3ab5e8fc8ada98&ipo=images"
-          {...getOverrideProps(overrides, "reminder_icon_image")}
-        ></Image>
-        <Image
-          width="51px"
-          height="52px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          shrink="0"
-          position="relative"
-          padding="0px 0px 0px 0px"
-          objectFit="cover"
-          {...getOverrideProps(overrides, "help_icon_image")}
-        ></Image>
-        <Image
-          width="51px"
-          height="51px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          shrink="0"
-          position="relative"
-          padding="0px 0px 0px 0px"
-          objectFit="cover"
-          src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fdtafalonso%2Fandroid-lollipop%2F512%2FSettings-icon.png&f=1&nofb=1&ipt=654a723082ce2bbf65e1318335bb081d913befbeaf8738f6c2986ef2080ae725&ipo=images"
-          {...getOverrideProps(overrides, "settings_icon_image")}
-        ></Image>
-        <Image
-          width="49px"
-          height="51px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          shrink="0"
-          position="relative"
-          padding="0px 0px 0px 0px"
-          objectFit="cover"
-          {...getOverrideProps(overrides, "profile_icon_image")}
-        ></Image>
-      </Flex>
+        objectFit="cover"
+        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fpaomedia%2Fsmall-n-flat%2F1024%2Fbell-icon.png&f=1&nofb=1&ipt=bad24e084ced30d8bc26351af749aec06912617f276152536c85b66acb5aaf27&ipo=images"
+        {...getOverrideProps(overrides, "reminder_icon_image")}
+      ></Image>
+      <Image
+        width="51px"
+        height="52px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="38px"
+        left="1759px"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        {...getOverrideProps(overrides, "help_icon_image")}
+      ></Image>
+      <Image
+        width="49px"
+        height="51px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="38.5px"
+        left="1850px"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        {...getOverrideProps(overrides, "profile_icon_image")}
+      ></Image>
       <Image
         width="56px"
         height="70px"
@@ -396,6 +372,20 @@ export default function Toolbar(props) {
         variation="quiet"
         {...getOverrideProps(overrides, "profile_select_field")}
       ></SelectField>
+      <SelectField
+        width="100px"
+        height="80px"
+        label="Your work"
+        position="absolute"
+        top="33px"
+        left="1644px"
+        placeholder=""
+        size="default"
+        isDisabled={false}
+        labelHidden={true}
+        variation="quiet"
+        {...getOverrideProps(overrides, "notify_select_field")}
+      ></SelectField>
       <Alert
         width="1920px"
         height="123px"
@@ -410,6 +400,18 @@ export default function Toolbar(props) {
         children="Description"
         {...getOverrideProps(overrides, "success_alert")}
       ></Alert>
+      <Badge
+        width="32px"
+        height="23px"
+        position="absolute"
+        backgroundColor="rgba(255,255,255,1)"
+        top="72px"
+        left="1703px"
+        size="default"
+        variation="default"
+        children="1"
+        {...getOverrideProps(overrides, "notify_count_badge")}
+      ></Badge>
     </View>
   );
 }

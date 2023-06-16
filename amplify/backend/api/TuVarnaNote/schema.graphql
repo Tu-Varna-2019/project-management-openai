@@ -1,3 +1,19 @@
+type Sprint @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  StartDate: AWSDateTime!
+  EndDate: AWSDateTime
+  Number: Int!
+  piID: ID! @index(name: "byPI")
+  Tickets: [Ticket] @hasMany(indexName: "bySprint", fields: ["id"])
+}
+
+type PI @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Number: Int!
+  projectID: ID! @index(name: "byProject")
+  Sprints: [Sprint] @hasMany(indexName: "byPI", fields: ["id"])
+}
+
 type IssueTemplate @model @auth(rules: [{allow: public}]) {
   id: ID!
   Title: String
@@ -22,6 +38,7 @@ type Project @model @auth(rules: [{allow: public}, {allow: private}]) {
   OProjectMTickets: [Ticket] @hasMany(indexName: "byProject", fields: ["id"])
   ImageProject: String
   IssueTemplates: [IssueTemplate] @hasMany(indexName: "byProject", fields: ["id"])
+  PIS: [PI] @hasMany(indexName: "byProject", fields: ["id"])
 }
 
 type User @model @auth(rules: [{allow: public}, {allow: private}]) {
@@ -45,12 +62,13 @@ type Ticket @model @auth(rules: [{allow: public}, {allow: private}]) {
   CreatedDate: AWSDateTime!
   UpdatedDate: AWSDateTime
   ResolvedDate: AWSDateTime
-  projectID: ID! @index(name: "byProject")
+  Subtasks: [String]
   IssueType: String!
   Priority: String!
   TicketStatus: String!
   Comment: String
-  Subtasks: [String]
+  sprintID: ID! @index(name: "bySprint")
+  projectID: ID! @index(name: "byProject")
 }
 
 type NoteV2 @model @auth(rules: [{allow: public}, {allow: private}, {allow: groups, groups: ["eu-west-1_ojmQnge33_Google"], operations: [read, create, update, delete]}, {allow: owner}]) {

@@ -6,6 +6,74 @@ import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/
 
 
 
+type EagerSprint = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Sprint, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly StartDate: string;
+  readonly EndDate?: string | null;
+  readonly Number: number;
+  readonly piID: string;
+  readonly Tickets?: (Ticket | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazySprint = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Sprint, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly StartDate: string;
+  readonly EndDate?: string | null;
+  readonly Number: number;
+  readonly piID: string;
+  readonly Tickets: AsyncCollection<Ticket>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Sprint = LazyLoading extends LazyLoadingDisabled ? EagerSprint : LazySprint
+
+export declare const Sprint: (new (init: ModelInit<Sprint>) => Sprint) & {
+  copyOf(source: Sprint, mutator: (draft: MutableModel<Sprint>) => MutableModel<Sprint> | void): Sprint;
+}
+
+type EagerPI = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<PI, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Number: number;
+  readonly projectID: string;
+  readonly Sprints?: (Sprint | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyPI = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<PI, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Number: number;
+  readonly projectID: string;
+  readonly Sprints: AsyncCollection<Sprint>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type PI = LazyLoading extends LazyLoadingDisabled ? EagerPI : LazyPI
+
+export declare const PI: (new (init: ModelInit<PI>) => PI) & {
+  copyOf(source: PI, mutator: (draft: MutableModel<PI>) => MutableModel<PI> | void): PI;
+}
+
 type EagerIssueTemplate = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<IssueTemplate, 'id'>;
@@ -88,6 +156,7 @@ type EagerProject = {
   readonly OProjectMTickets?: (Ticket | null)[] | null;
   readonly ImageProject?: string | null;
   readonly IssueTemplates?: (IssueTemplate | null)[] | null;
+  readonly PIS?: (PI | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -102,6 +171,7 @@ type LazyProject = {
   readonly OProjectMTickets: AsyncCollection<Ticket>;
   readonly ImageProject?: string | null;
   readonly IssueTemplates: AsyncCollection<IssueTemplate>;
+  readonly PIS: AsyncCollection<PI>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -162,12 +232,13 @@ type EagerTicket = {
   readonly CreatedDate: string;
   readonly UpdatedDate?: string | null;
   readonly ResolvedDate?: string | null;
-  readonly projectID: string;
+  readonly Subtasks?: (string | null)[] | null;
   readonly IssueType: string;
   readonly Priority: string;
   readonly TicketStatus: string;
   readonly Comment?: string | null;
-  readonly Subtasks?: (string | null)[] | null;
+  readonly sprintID: string;
+  readonly projectID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -190,12 +261,13 @@ type LazyTicket = {
   readonly CreatedDate: string;
   readonly UpdatedDate?: string | null;
   readonly ResolvedDate?: string | null;
-  readonly projectID: string;
+  readonly Subtasks?: (string | null)[] | null;
   readonly IssueType: string;
   readonly Priority: string;
   readonly TicketStatus: string;
   readonly Comment?: string | null;
-  readonly Subtasks?: (string | null)[] | null;
+  readonly sprintID: string;
+  readonly projectID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
