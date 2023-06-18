@@ -1,8 +1,8 @@
 import { getProjectNameState } from '../states';
-import { FileUploader } from '@aws-amplify/ui-react';
 import React from 'react';
 import { TicketContext } from '../contexts/TicketContext';
 import { ProjectContext } from '../contexts/ProjectContext';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export function EditTicketFunc (props) {
 
@@ -24,10 +24,12 @@ export function EditTicketFunc (props) {
         watchedCount,
         watchedAddMeVariant,
         isLoading,
+        editTicket,
     } = React.useContext(TicketContext);
 
     const {
         imageProjectURL,
+        navigate,
     } = React.useContext(ProjectContext);
 
     const EditTicketOverride={
@@ -35,7 +37,8 @@ export function EditTicketFunc (props) {
             children: getProjectNameState()
         },
         ticket_id_text: {
-            children: "KAI-"+ticketID
+            children: "KAI-"+ticketID,
+            onClick: (event) => (navigate("/edit-ticket",{state:{selectedTicket:editTicket}})),
         },
         title_text_field:{
             isRequired: true,
@@ -76,14 +79,12 @@ export function EditTicketFunc (props) {
 
         function FileImageTicketUpload () {
         return (
-            <FileUploader
-            shouldAutoProceed={false}
+            <StorageManager
             acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
             accessLevel="public"
             maxFileCount={10}
-            isResumable={true}
-            showImages={false}
-            onSuccess={(event) =>{handleSafeTicketImageChange(event.key);}}/>)} 
+            processFile={handleSafeTicketImageChange}
+          />)} 
 
     return {
         EditTicketOverride,

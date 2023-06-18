@@ -40,6 +40,7 @@ export { default as CreateProject } from "./CreateProject";
 export { default as SearchResultMatchCollection } from "./SearchResultMatchCollection";
 export { default as Board } from "./Board";
 export { default as ResetPassword } from "./ResetPassword";
+export { default as EditProject } from "./EditProject";
 export { default as Bin } from "./Bin";
 export { default as TicketshortCollection } from "./TicketshortCollection";
 export { default as HomeV2Mobile } from "./HomeV2Mobile";

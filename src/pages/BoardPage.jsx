@@ -1,5 +1,4 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useContext } from 'react'
 import '@aws-amplify/ui-react/styles.css';
 import { Board, ChildTicketShortCollection, CreateIssueTemplate, CreateTicket, CreateTicketScroll, EditIssueTemplate, EditTicket, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
 import { BoardFunc } from '../overrides/BoardOverride';
@@ -12,6 +11,7 @@ import { SubtaskFunc } from '../overrides/SubtaskOverride';
 import { CreateTicketScrollFunc } from '../overrides/CreateTicketScrollOverride';
 import { CreateIssueTemplateFunc } from '../overrides/CreateIssueTemplateOverride';
 import { EditIssueTemplateFunc } from '../overrides/EditIssueTemplateOverride';
+import { ProjectContext } from '../contexts/ProjectContext';
 
 
 
@@ -22,7 +22,11 @@ export default function BoardPage(props) {
     BoardTicketInProgressOverride,
     BoardTicketInReviewOverride,
     BoardTicketDoneOverride,
-    customOverrideItems
+    customOverrideItems,
+    isTicketToDoEmptyTop,
+    isTicketInProgressEmptyTop,
+    isTicketInReviewEmptyTop,
+    isTicketDoneEmptyTop,
   }= BoardFunc();
   const {
     EditTicketOverride,
@@ -53,8 +57,10 @@ const {
 const {
   EditIssueTemplateOverride,
 } = EditIssueTemplateFunc();
+const {
+  location,
+} = useContext(ProjectContext);
 
-    const location = useLocation();
     const editTicketBoolean = location.state ? location.state.edited : false;
     const createTicketBoolean = location.state ? location.state.create : false;
     const createIssueTemplateBoolean = location.state ? location.state.create_it : false;
@@ -66,25 +72,25 @@ const {
           <Board overrides={BoardComponentOverride}/>
 
         <div
-          style={{ position: 'absolute' , width:"120px", display: 'block',top: "1040px",left: "460px",objectFit: "cover"}}>
+          style={{ position: 'absolute' , width:"120px", display: 'block',top: isTicketToDoEmptyTop,left: "460px",objectFit: "cover"}}>
           <TicketToDoCollection style={{position: 'absolute', bottom: "50px" , left:"-90px" }}
               overrides={BoardTicketToDoOverride}
               overrideItems={customOverrideItems}/>
         </div>
 
-        <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "1040px",left: "850px",objectFit: "cover"}}>
+        <div style={{ position: 'absolute' , width:"120px", display: 'block',top: isTicketInProgressEmptyTop,left: "850px",objectFit: "cover"}}>
           <TicketInProgressCollection style={{position: 'absolute',  bottom: "50px", left: "-90px" }}
               overrides={BoardTicketInProgressOverride}
               overrideItems={customOverrideItems}/>
         </div>
 
-        <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "1040px",left: "1240px",objectFit: "cover"}}>
+        <div style={{ position: 'absolute' , width:"120px", display: 'block',top: isTicketInReviewEmptyTop,left: "1240px",objectFit: "cover"}}>
           <TicketInReviewCollection style={{position: 'absolute',  bottom: "50px", left: "-90px" }}
               overrides={BoardTicketInReviewOverride}
               overrideItems={customOverrideItems}/>
         </div>
 
-        <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "1040px",left: "1630px",objectFit: "cover"}}>
+        <div style={{ position: 'absolute' , width:"120px", display: 'block',top: isTicketDoneEmptyTop,left: "1630px",objectFit: "cover"}}>
           <TicketDoneCollection style={{position: 'absolute',  bottom: "50px", left: "-90px" }}
               overrides={BoardTicketDoneOverride}
               overrideItems={customOverrideItems}/>
@@ -93,6 +99,7 @@ const {
         <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1095, width:825 }}>
         <Toolbar overrides={ToolbarOverride}/>
         </div>
+
         <div style={{ position: 'absolute',display: 'block', bottom: -10, right: 1600 , width:300 }}>
           <ProjectVerticalSelectField overrides={ProjectVerticalSelectFieldOverride}/>
         </div>

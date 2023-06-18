@@ -27,6 +27,13 @@ export function ToolbarSelectClass() {
                 setSprintNumState(0);
                 navigate('/');}
             break;
+            case "edit project":
+                if (window.confirm("Are you sure you want to switch to different project? "
+                +"we will redirect you to different page?")) {
+                setPINumState(0);
+                setSprintNumState(0);
+                navigate('/edit-project');}
+            break;
             default: 
                 console.log("default");
             break;}};

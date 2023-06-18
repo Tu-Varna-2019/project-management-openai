@@ -1,6 +1,6 @@
-import { FileUploader } from '@aws-amplify/ui-react';
 import React from 'react';
 import { TicketContext } from '../contexts/TicketContext';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export function EditTicketFullFunc () {
 
@@ -64,14 +64,12 @@ export function EditTicketFullFunc () {
 
     function FileImageTicketUpload () {
         return (
-            <FileUploader
-            shouldAutoProceed={true}
+            <StorageManager
             acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
-            accessLevel="protected"
+            accessLevel="public"
             maxFileCount={10}
-            isResumable={true}
-            showImages={false}
-            onSuccess={(event) =>{handleSafeTicketImageChange(event.key);}}/>)}
+            processFile={handleSafeTicketImageChange}
+          />)}
 
     return {
         EditTicketFullOverride,

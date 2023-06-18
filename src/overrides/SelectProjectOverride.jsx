@@ -2,7 +2,6 @@ import '@aws-amplify/ui-react/styles.css';
 import React,{ useContext, useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
 import { User } from '../models';
-import { ProjectClass } from '../classes/ProjectClass';
 import { UserContext } from '../contexts/UserContext';
 import { ProjectContext } from '../contexts/ProjectContext';
 
@@ -15,6 +14,7 @@ export function SelectProjectFunc(props) {
         setAuthenticatedUser,
     } = React.useContext(UserContext);
     const {
+        projectName,
         projectNames,
         handleSelectProjectName,
         isConfirmButtonLoading,
@@ -26,15 +26,16 @@ export function SelectProjectFunc(props) {
     useEffect(() => {
         async function fetchUserData() {
             try {
-                let does_user_exist = false;
+                let does_user_exist;
                 // Query if user exists in sub
-                await DataStore.query(User)
-                .then(data => {
-                    data.filter(item => {
-                        if(item.username === authenticatedUser.attributes.email){
-                            does_user_exist = true;
-                            setCurrentUser(item);}return item;
-                    })});
+                const data = await DataStore.query(User);
+                for(let i=0; i<data.length; i++) {
+                    if(data[i].username === authenticatedUser.attributes.email 
+                        || authenticatedUser.attributes.sub === data[i].sub){
+                            does_user_exist = data[i];
+                        break;
+                    }
+                }
                 // if flag is NOT raised , create user in DataStore !!!
                 if (!does_user_exist) {
                 await DataStore.save(
@@ -50,6 +51,7 @@ export function SelectProjectFunc(props) {
         select_project_select_field:{
             onChange : (event) => (handleSelectProjectName(event)),
             options: projectNames,
+            value: projectName
         },
         confirm_button:{
             onClick : (event) => (handleSelectedProjectOnClick(event)),

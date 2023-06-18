@@ -18,14 +18,13 @@ export declare type ProjectVerticalSelectFieldOverridesProps = {
     feedback_text?: PrimitiveOverrideProps<BadgeProps>;
     Rating?: PrimitiveOverrideProps<RatingProps>;
     Divider180442991?: PrimitiveOverrideProps<DividerProps>;
-    Divider180442992?: PrimitiveOverrideProps<DividerProps>;
-    Divider1893069?: PrimitiveOverrideProps<DividerProps>;
+    Divider2402644?: PrimitiveOverrideProps<DividerProps>;
     backlog_button?: PrimitiveOverrideProps<ButtonProps>;
     active_sprints_button?: PrimitiveOverrideProps<ButtonProps>;
-    select_pi_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
-    select_sprint_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     PI_text?: PrimitiveOverrideProps<TextProps>;
     Sprint_text?: PrimitiveOverrideProps<TextProps>;
+    select_sprint_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    select_pi_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type ProjectVerticalSelectFieldProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: ProjectVerticalSelectFieldOverridesProps | undefined | null;

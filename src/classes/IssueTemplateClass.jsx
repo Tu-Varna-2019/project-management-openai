@@ -72,7 +72,7 @@ export function IssueTemplateClass(props) {
     useEffect(() => {
         if (audioTSpeech && audioTSpeech.paused ) 
             audioTSpeech.play();
-    },[setAudioTSpeech,audioTSpeech])
+    },[setAudioTSpeech,audioTSpeech]);
 
     const handleITTitle = (event) => {
         event.preventDefault();
@@ -237,7 +237,9 @@ export function IssueTemplateClass(props) {
                     // list of different options are here https://docs.aws.amazon.com/polly/latest/dg/voicelist.html
                     }}).then(result => { 
                     const audio = new Audio(result.speech.url);
-                    audio.play();}).catch(err => console.log({ err }));
+                    setAudioTSpeech(audio);
+                    setAiOptions(["","Summarize","Generate template","Text to speech","Stop audio"])
+                }).catch(err => console.log({ err }));
                 }else {
                     Predictions.convert({
                         textToSpeech: {

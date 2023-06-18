@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
-import { DataStore , Storage , API } from 'aws-amplify';
+import { DataStore , Storage , API, Auth } from 'aws-amplify';
 import { Ticket,User , Activity } from '../models';
 import { getDragDropTicketState, getNotificationCountState, getNotificationsState, getProjectNameState,setDragDropTicketState, setNotificationCountState, setNotificationsState } from '../states';
 import { ProjectContext } from '../contexts/ProjectContext';
 import { PISprintContext } from '../contexts/PISprintContext';
 import { User2Class } from './User2Class';
+import { v4 as uuidv4 } from 'uuid';
 
 const iniTicketValue = {
     Title: "",
@@ -24,7 +25,7 @@ export function TicketClass(props) {
         location,
     } = useContext(ProjectContext);
     const {
-        currentUser
+        currentUser,
     } = User2Class();
     const {
         sprintID,
@@ -100,7 +101,6 @@ export function TicketClass(props) {
         setNotificationCount(getNotificationCountState());
             }
     },[]);
-
     // Get tickets by project
     useEffect(() => {
         async function fetchUserData() {
@@ -117,10 +117,12 @@ export function TicketClass(props) {
         setTicketInReview(Object.values(tickets).filter(item => item.TicketStatus === 'InReview'));
         setTicketDone(Object.values(tickets).filter(item => item.TicketStatus === 'Done'));
     },[tickets]);
+
     // Set epic link options , based if user is in edit ticket state
     useEffect(() => {
-        setEpicLinkOptions(["",...new Set(Object.values(tickets).map(obj => obj?.EpicLink)
-        .filter(epicLink => epicLink !== null))] );
+        setEpicLinkOptions(["",Object.keys(tickets)
+        .filter(key => tickets[key].IssueType === 'Epic')
+        .map(key => `KAI-${tickets[key].TicketID}: ${tickets[key].Title}`)]);
     },[epicLink,setEpicLink,tickets,setTickets,setEpicLinkOptions]);
     // Get asignees&reporters
     useEffect(() => {
@@ -207,8 +209,10 @@ export function TicketClass(props) {
         const newDataUrls = [];
         const newAttachmentNames = [];
         imageNames.map(async (iter) => {
-            await Storage.get(iter, { 
-                level: 'protected',
+            const credentials = await Auth.currentCredentials();
+            await Storage.vault.get(iter, { 
+                level: 'public',
+                identityId: credentials.identityId
             }).then(data_url => {
                 newDataUrls.push(data_url);
                 newAttachmentNames.push(iter);
@@ -311,19 +315,24 @@ export function TicketClass(props) {
                         setReporterImageURL(data_url);})}
                 return item;})})};
 
-    const handleSafeTicketImageChange = async (event) => {
-        await Storage.put(
-            event, 
-            'Protected Content', {
-            level: 'protected'});
-        setImageTicket((prevValue) => {
-        const parts = prevValue.split(',');
-            if (parts.length <= 10) {
-                return prevValue + event + ",";
-            } else {
-                window.alert("Error image max count 10!");
-                return prevValue;}})};
-            
+    const handleSafeTicketImageChange = async ({ file }) => {
+        const fileExtension = file.name.split('.').pop();
+        return file
+          .arrayBuffer()
+          .then((filebuffer) => window.crypto.subtle.digest('SHA-1', filebuffer))
+          .then((hashBuffer) => {
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map((a) => a.toString(16).padStart(2, '0')).join('');
+            let randomString = Math.random().toString(36).substring(2, 15);
+            setImageTicket((prevValue) => {
+              const parts = prevValue.split(',');
+              if (parts.length <= 10) {
+                return prevValue + `${hashHex}${randomString}.${fileExtension},`;
+              } else 
+                window.alert("Error image max count 10!");});
+            return { file, key: `${hashHex}${randomString}.${fileExtension}` };});
+    }
+        
     const handleDeleteImageChange = async (index) => {
         const deletedImageName = attachmentName[index];
         if (deletedImageName !== "" && deletedImageName !== undefined) {
@@ -374,7 +383,8 @@ export function TicketClass(props) {
                             "Priority": priority,
                             "TicketStatus": ticketStatus,
                             "Comment": comment,
-                            "sprintID": sprintID
+                            "sprintID": sprintID,
+                            "Subtasks": subtasks,
                         }));
                     navigate('/board', { state: { project: getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully cloned!` }});
                     window.location.reload();
@@ -424,7 +434,7 @@ const handleSaveEditTicketClick = async (event) => {
     try {
         // check onto which Ticket props have been changed 
         let changed_props = "";
-        if (title !== editTicket.Ticket)
+        if (title !== editTicket.Ticket && editTicket.Ticket !== undefined)
             changed_props += `Title: ${editTicket.Ticket} --> ${title} \n`
         if (description !== editTicket.Description)
             changed_props += `Description: ${editTicket.Description} --> ${description} \n`
@@ -486,14 +496,6 @@ const handleSaveEditTicketClick = async (event) => {
             else 
                 item.Subtasks = [...subtasks];}
         }));
-
-        await DataStore.save(
-            new Activity({
-                "ModifiedDate": newTicketUpdatedDate,
-                "UserID": currentUser.id,
-                "TicketID": editTicket.id,
-                "Changes": changed_props
-            }));
         // Check if subtask is Task or Subtask to also update the linked ticket
         // ADD
         if (selectedTaskID.trim() !== "") {
@@ -509,11 +511,26 @@ const handleSaveEditTicketClick = async (event) => {
         if (deletedTaskID.length > 0 ) {
         deletedTaskID.map(async (deleted_id) => {
             const editParentChildTaskDataStore = await DataStore.query(Ticket, deleted_id);
+            changed_props +=`Unlinked ${editParentChildTaskDataStore.IssueType} --> ${editParentChildTaskDataStore.Title}\n`;
             await DataStore.save(Ticket.copyOf(editParentChildTaskDataStore, item => {
                 if (item.Subtasks !== null) 
                     item.Subtasks = item.Subtasks.filter(subs => subs !== editTicket.id);
             }));
         })}
+
+        // Include task/subtask into activity if added or deleted
+        if (selectedTaskID.trim() !== "" && subtasks !== null) {
+            const LinkedTaskSubtask = await DataStore.query(Ticket,selectedTaskID);
+            changed_props +=`Linked ${LinkedTaskSubtask.IssueType} --> ${LinkedTaskSubtask.Title}`;
+            }
+            if (changed_props !== ""){
+            await DataStore.save(
+                new Activity({
+                    "ModifiedDate": newTicketUpdatedDate,
+                    "UserID": currentUser.id,
+                    "TicketID": editTicket.id,
+                    "Changes": changed_props
+                }));}
         
         let notify_update_ticket_response = "";
         if ( watchedUsers !== "" || asigneeName !== "Unassigned") {
@@ -554,6 +571,7 @@ const handleSaveEditTicketClick = async (event) => {
             currentUser.ImageProfile,{
             level:"protected"
         }).then(data_url => {
+            setAsignee(peopleAssignSub[peopleAssign.indexOf(currentUser.username)]);
             setAsigneeImageURL(data_url);
             setAsigneeName(currentUser.username);})};
     // Add user to watch list on ticket change
@@ -595,12 +613,14 @@ const handleSaveEditTicketClick = async (event) => {
                     "Reporter": currentUser.sub,
                     "Asignee": asignee,
                     "EpicLink": epicLink,
+                    "ImageTicket": imageTicket,
                     "CreatedDate": newTicketCreatedDate,
                     "projectID": getProjectID,
                     "IssueType": issueType,
                     "Priority": priority,
                     "TicketStatus": "ToDo",
-                    "sprintID": sprintID
+                    "sprintID": sprintID,
+                    "Subtasks": subtasks,
                 }));
                     // If ticket has been assigned to user , notify !
                     let notify_create_ticket_response = "";

@@ -41,6 +41,7 @@ export default function ProjectVerticalSelectField(props) {
         position="absolute"
         top="0px"
         left="0px"
+        borderRadius="35px"
         variation="elevated"
         {...getOverrideProps(overrides, "Card")}
       ></Card>
@@ -150,29 +151,19 @@ export default function ProjectVerticalSelectField(props) {
         width="304px"
         height="1px"
         position="absolute"
-        top="129px"
-        left="5px"
+        top="201px"
+        left="4px"
         size="small"
         orientation="horizontal"
-        {...getOverrideProps(overrides, "Divider180442992")}
-      ></Divider>
-      <Divider
-        width="304px"
-        height="1px"
-        position="absolute"
-        top="350px"
-        left="5px"
-        size="small"
-        orientation="horizontal"
-        {...getOverrideProps(overrides, "Divider1893069")}
+        {...getOverrideProps(overrides, "Divider2402644")}
       ></Divider>
       <Button
-        width="302px"
-        height="62px"
-        gap="15px"
+        width="309px"
+        height="61px"
         position="absolute"
-        top="654px"
-        left="10px"
+        borderRadius="20px"
+        top="646px"
+        left="0px"
         size="default"
         isDisabled={false}
         variation="link"
@@ -180,63 +171,35 @@ export default function ProjectVerticalSelectField(props) {
         {...getOverrideProps(overrides, "backlog_button")}
       ></Button>
       <Button
-        width="302px"
-        height="62px"
-        gap="15px"
+        width="311px"
+        height="61px"
         position="absolute"
-        top="592px"
-        left="9px"
+        borderRadius="20px"
+        top="540px"
+        left="-3px"
         size="default"
         isDisabled={false}
         variation="link"
         children="Active sprints"
         {...getOverrideProps(overrides, "active_sprints_button")}
       ></Button>
-      <SelectField
-        width="300px"
-        height="unset"
-        label="Select PI"
-        position="absolute"
-        top="386px"
-        left="7px"
-        placeholder=""
-        size="default"
-        isDisabled={false}
-        labelHidden={false}
-        variation="quiet"
-        {...getOverrideProps(overrides, "select_pi_select_field")}
-      ></SelectField>
-      <SelectField
-        width="300px"
-        height="unset"
-        label="Select Sprint"
-        position="absolute"
-        top="496px"
-        left="7px"
-        placeholder=""
-        size="default"
-        isDisabled={false}
-        labelHidden={false}
-        variation="quiet"
-        {...getOverrideProps(overrides, "select_sprint_select_field")}
-      ></SelectField>
       <Text
         fontFamily="Inter"
-        fontSize="32px"
+        fontSize="16px"
         fontWeight="700"
-        color="rgba(101,147,209,1)"
-        lineHeight="48px"
+        color="rgba(104,112,120,1)"
+        lineHeight="24px"
         textAlign="left"
         display="block"
         direction="column"
         justifyContent="unset"
-        width="293px"
-        height="51px"
+        width="unset"
+        height="unset"
         gap="unset"
         alignItems="unset"
         position="absolute"
-        top="169px"
-        left="16px"
+        top="120px"
+        left="81px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
         children="PI "
@@ -244,26 +207,54 @@ export default function ProjectVerticalSelectField(props) {
       ></Text>
       <Text
         fontFamily="Inter"
-        fontSize="32px"
+        fontSize="16px"
         fontWeight="700"
-        color="rgba(101,147,209,1)"
-        lineHeight="48px"
+        color="rgba(104,112,120,1)"
+        lineHeight="24px"
         textAlign="left"
         display="block"
         direction="column"
         justifyContent="unset"
-        width="293px"
-        height="51px"
+        width="unset"
+        height="unset"
         gap="unset"
         alignItems="unset"
         position="absolute"
-        top="240px"
-        left="16px"
+        top="151px"
+        left="81px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
         children="Sprint"
         {...getOverrideProps(overrides, "Sprint_text")}
       ></Text>
+      <SelectField
+        width="300px"
+        height="unset"
+        label="Select Sprint"
+        position="absolute"
+        top="396px"
+        left="3px"
+        placeholder=""
+        size="default"
+        isDisabled={false}
+        labelHidden={false}
+        variation="quiet"
+        {...getOverrideProps(overrides, "select_sprint_select_field")}
+      ></SelectField>
+      <SelectField
+        width="300px"
+        height="unset"
+        label="Select PI"
+        position="absolute"
+        top="244px"
+        left="3px"
+        placeholder=""
+        size="default"
+        isDisabled={false}
+        labelHidden={false}
+        variation="quiet"
+        {...getOverrideProps(overrides, "select_pi_select_field")}
+      ></SelectField>
     </View>
   );
 }

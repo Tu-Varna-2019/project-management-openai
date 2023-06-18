@@ -66,7 +66,7 @@ export default function Board(props) {
           padding="11px 11px 11px 11px"
           backgroundColor="rgba(230, 230, 230, 1)"
           top="285px"
-          left="375px"
+          left="376px"
           border="none"
           variation="elevated"
           {...getOverrideProps(overrides, "todo_card")}
@@ -90,7 +90,7 @@ export default function Board(props) {
           padding="11px 11px 11px 11px"
           backgroundColor="rgba(230, 230, 230, 1)"
           top="285px"
-          left="1153px"
+          left="1154px"
           border="none"
           variation="elevated"
           {...getOverrideProps(overrides, "in_review_card")}
@@ -147,7 +147,7 @@ export default function Board(props) {
           variation="default"
           fontSize="20px"
           justifyContent="center"
-          children="In progress"
+          children="In Progress"
           {...getOverrideProps(overrides, "Badge178532415")}
         ></Badge>
         <Badge
@@ -161,7 +161,7 @@ export default function Board(props) {
           variation="default"
           fontSize="20px"
           justifyContent="center"
-          children="In review"
+          children="In Review"
           {...getOverrideProps(overrides, "Badge178532419")}
         ></Badge>
         <Badge

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { DataStore , Storage } from 'aws-amplify';
+import { Auth, DataStore , Storage } from 'aws-amplify';
 import { Project } from '../models';
 import { getProjectNameState , setPINumState, setProjectNameState, setSprintNumState } from '../states';
 
@@ -8,10 +8,12 @@ import { getProjectNameState , setPINumState, setProjectNameState, setSprintNumS
 export function ProjectClass(props) {
 
     const [projectName,setProjectName] = useState("");
+    const [initialProjectName,setInitialProjectName] = useState("");
     const [getProjectID,setGetProjectID] = useState("");
     const [getProjectImageName,setGetProjectImageName] = useState("");
     const [projectNames,setProjectNames] = useState([]);
     const [projectIDs,setProjectIDs] = useState([]);
+    const [selectedProjectID,setSelectedProjectID] = useState("");
     const [selectedProject,setSelectedProject] = useState("");
 
     const [isConfirmButtonLoading,setIsConfirmButtonLoading] = useState(false);
@@ -32,7 +34,10 @@ export function ProjectClass(props) {
 
     const handleSelectProjectName = (event) => {
         event.preventDefault();
-        setProjectName(event.target.value);};
+        setProjectName(event.target.value);
+        setInitialProjectName(event.target.value);
+        setSelectedProjectID(projectIDs[event.target.selectedIndex]);
+    };
 
     const handleConfirmCreateProjectOnClick = async (event) => {
         event.preventDefault();
@@ -60,6 +65,46 @@ export function ProjectClass(props) {
                 navigate('/');}}
         setIsConfirmButtonLoading(false);
     };
+
+    const handleSaveEditProjectClick = async (event) => {
+        event.preventDefault();
+        setIsConfirmButtonLoading(!isConfirmButtonLoading);
+            // Check if project with the following name already exists
+            let does_project_name_exist = false;
+            await DataStore.query(Project)
+            .then(data => {
+                data.filter(item => {
+                    if (item.Name === projectName 
+                        && item.Name !== initialProjectName) {
+                        does_project_name_exist = true;
+                        setErrorMessageProjectName(`Name ${projectName} already exists!`);}
+                        return item;})
+                }).catch(error => {console.error(error);});
+
+            if (!does_project_name_exist) {
+                const editProjectDataStore = await DataStore.query(Project,selectedProjectID);
+                await DataStore.save(Project.copyOf(editProjectDataStore, item => {
+                    item.Name = projectName;
+                    item.ImageProject = imageProjectName;
+                }));
+                navigate('/');
+                window.location.reload();
+            }
+        setIsConfirmButtonLoading(false);
+    };
+
+    const handleDeleteProjectClick = async (event) => {
+        event.preventDefault();
+        setIsConfirmButtonLoading(!isConfirmButtonLoading);
+            if (window.confirm(`Are you sure you want to delete the selected project: ${projectName}`)) {
+            const modelToDelete = await DataStore.query(Project, selectedProjectID);
+            await DataStore.delete(modelToDelete);
+            navigate('/');
+            window.location.reload();
+            }
+        setIsConfirmButtonLoading(false);
+    };
+
     // Get project
     useEffect(() => {
         const dts_query = DataStore.query(Project)
@@ -96,9 +141,11 @@ export function ProjectClass(props) {
     // Get Image URL
     useEffect(() => {
         async function fetchUserData() {
-            await Storage.get(
+            const credentials = await Auth.currentCredentials();
+            await Storage.vault.get(
                 getProjectImageName, {
-                level: "protected"
+                level: "protected",
+                identityId: credentials.identityId
                 }).then(data => {
                     setImageProjectURL(data);})}
             fetchUserData();
@@ -111,12 +158,19 @@ export function ProjectClass(props) {
             navigate('/');
         setIsCancelButtonLoading(false);};
 
-    const handleSafeProjectImageChange = async (event) => {
-        await Storage.put(
-            event, 
-            'Protected Content', {
-            level: 'protected'});
-        setImageProjectName(event);}
+    const handleSafeProjectImageChange = async ({ file }) => {
+        const fileExtension = file.name.split('.').pop();
+        return file
+          .arrayBuffer()
+          .then((filebuffer) => window.crypto.subtle.digest('SHA-1', filebuffer))
+          .then(async (hashBuffer) => {
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map((a) => a.toString(16).padStart(2, '0')).join('');
+            let randomString = Math.random().toString(36).substring(2, 15);
+
+      setImageProjectName(`${hashHex}${randomString}.${fileExtension}`);
+      return { file, key: `${hashHex}${randomString}.${fileExtension}`};});
+    }
 
     const handleSelectedProjectOnClick = (event) => {
         event.preventDefault();
@@ -149,6 +203,7 @@ export function ProjectClass(props) {
         location,
         handleProjectName,
         projectName,
+        initialProjectName,
         isProjectEmpty,
         setProjectNames,
         projectNames,
@@ -168,5 +223,7 @@ export function ProjectClass(props) {
         imageProjectName,
         imageProjectURL,
         getProjectID,
-        handleSelectProjectName
+        handleSelectProjectName,
+        handleSaveEditProjectClick,
+        handleDeleteProjectClick,
     }}

@@ -40,6 +40,7 @@ export function ToolbarFunc (props) {
         profile_icon_image:{
             src: userProfileURL
         },
+        
         success_alert : { 
             style:{"display": alertVisibility },
             children: alertDescription,
@@ -50,14 +51,14 @@ export function ToolbarFunc (props) {
             children: notificationCount
         },
         notify_select_field:{
-            style:{color:"transparent"},
+            style:{ borderBottom:"none",color:"transparent"},
             onChange : (event) => (handleResetNotificationClick(event)),
             options:notifications
         },
         projects_select_field:{
             style:{color:"transparent"},
             onChange : (event) => (handleProjectsSelectChange(event)),
-            options:["","switch project"],
+            options:["","switch project","edit project"],
         },
         your_work_select_field:{
             style:{color:"transparent"},
@@ -70,7 +71,7 @@ export function ToolbarFunc (props) {
             options:["","create one","project templates"],
         },
         profile_select_field: {
-            style:{color:"transparent"},
+            style:{borderBottom:"none",color:"transparent"},
             onChange : (event) => (handleProfileSelectChange(event)),
             options:["",currentUser.username,"Manage account","Log out"],
         },

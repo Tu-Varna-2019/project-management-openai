@@ -83,28 +83,6 @@ export default function EditTicket(props) {
           fontSize="16px"
           fontWeight="700"
           color="rgba(104,112,120,1)"
-          lineHeight="16px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="106.27px"
-          height="18.8px"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="111px"
-          left="112px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children={`${"KAI-"}${ticket?.id}`}
-          {...getOverrideProps(overrides, "ticket_id_text")}
-        ></Text>
-        <Text
-          fontFamily="Inter"
-          fontSize="16px"
-          fontWeight="700"
-          color="rgba(104,112,120,1)"
           lineHeight="24px"
           textAlign="left"
           display="block"
@@ -275,6 +253,19 @@ export default function EditTicket(props) {
         orientation="horizontal"
         {...getOverrideProps(overrides, "Divider332416")}
       ></Divider>
+      <Button
+        width="83px"
+        height="40px"
+        position="absolute"
+        top="188px"
+        left="386px"
+        size="default"
+        isDisabled={false}
+        variation="link"
+        color="rgba(246, 133, 54, 1)"
+        children="KAI-"
+        {...getOverrideProps(overrides, "ticket_id_text")}
+      ></Button>
     </View>
   );
 }

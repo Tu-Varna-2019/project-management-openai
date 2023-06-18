@@ -1,5 +1,6 @@
 import { TicketContext } from '../contexts/TicketContext';
 import React from 'react';
+import { CreateTicketFunc } from './CreateTicketOverride';
 
 export function TicketInfoScrollFunc () {
 
@@ -34,7 +35,11 @@ export function TicketInfoScrollFunc () {
         attachmentUrls,
     } = React.useContext(TicketContext);
 
+    const {CreateTicketOverride} = CreateTicketFunc();
+    const {ai_options_select_field} = CreateTicketOverride;
+
     const TicketInfoScrollOverride={
+        ai_options_select_field,
         asignee_name_text:{
             children: asigneeName
         },

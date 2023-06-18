@@ -48,9 +48,11 @@ export function User2Class() {
         fetchUserData();},[])
     useEffect(() => {
         async function fetchUserData() {
-            await Storage.get(
+            const credentials = await Auth.currentCredentials();
+            await Storage.vault.get(
                 currentUser.ImageProfile,{
-                level:"protected"
+                level:"protected",
+                identityId: credentials.identityId
             }).then(data => {
                 setUserProfileURL(data);})}
     fetchUserData();
@@ -108,22 +110,30 @@ export function User2Class() {
             navigate('/profile', { state: { alert_show:'block' , alert_variant: "error", alert_description: error }});
             window.location.reload();}};
 
-    const handleSaveImageClick = async (event) => {
-        await Storage.put(
-            event,{
-            level: 'public'});
-        // check if user isn't using the actual default profile image
-        if (currentUser.ImageProfile !== "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png")
+    const handleSaveImageClick = async ({ file }) => {
+            const fileExtension = file.name.split('.').pop();
+            if (currentUser.ImageProfile !== "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png")
             await Storage.remove(currentUser.ImageProfile);
-        const editUserDataStore = await DataStore.query(User, currentUser.id);
-        await DataStore.save(User.copyOf(editUserDataStore, item => {
-            item.sub = currentUser.sub;
-            item.username = currentUser.username;
-            item.ImageProfile = event;
-        }));
-        navigate('/profile', { state: { alert_show:'block' , alert_variant: "success", alert_description: `${event} successfully uploaded!` }});
-        window.location.reload();};
+            const editUserDataStore = await DataStore.query(User, currentUser.id);
+            return file
+              .arrayBuffer()
+              .then((filebuffer) => window.crypto.subtle.digest('SHA-1', filebuffer))
+              .then(async (hashBuffer) => {
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map((a) => a.toString(16).padStart(2, '0')).join('');
+                let randomString = Math.random().toString(36).substring(2, 15);
+        // check if user isn't using the actual default profile image
+            await DataStore.save(User.copyOf(editUserDataStore, item => {
+                item.ImageProfile = `${hashHex}${randomString}.${fileExtension}`;}));
 
+          return { file, key: `${hashHex}${randomString}.${fileExtension}` };
+        });
+  }
+
+  const handleReloadUploadSuccImage = () =>{
+    navigate('/profile', { state: { alert_show:'block' , alert_variant: "success",selectedUserID:currentUser.id, alert_description: `Image successfully uploaded!` }});
+    window.location.reload();
+  };
     const handleGoToChangePassword = (event) => {
         if (window.confirm(`Are you sure you want to goto change password page?`))
             navigate('/reset-password-kai');};
@@ -156,4 +166,5 @@ export function User2Class() {
         handleGoToDeleteAccount,
         handleGoToMNotes,
         setAlertVisibility,
+        handleReloadUploadSuccImage,
     }}

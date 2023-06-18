@@ -1,7 +1,7 @@
 import '@aws-amplify/ui-react/styles.css';
 import React from 'react';
-import { FileUploader } from '@aws-amplify/ui-react';
 import { ProjectContext } from '../contexts/ProjectContext';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export function CreateProjectFunc(props) {
 
@@ -38,22 +38,16 @@ export function CreateProjectFunc(props) {
 
       function FileImageUpload () {
         return (
-            <FileUploader
-            shouldAutoProceed={false}
-            acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
+            <StorageManager
+            acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png','.svg']}
             accessLevel="protected"
             maxFileCount={1}
-            //maxSize={300000}
-            isResumable={true}
-            showImages={true}
-            onSuccess={(event) =>{handleSafeProjectImageChange(event.key);}}
-        />
+            processFile={handleSafeProjectImageChange}
+          />
         )}
 
         
         return {
             CreateProjectOverride,
             FileImageUpload
-        }
-  
-}
+        }}

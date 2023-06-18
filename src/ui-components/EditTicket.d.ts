@@ -13,7 +13,6 @@ export declare type EditTicketOverridesProps = {
     EditTicket?: PrimitiveOverrideProps<ViewProps>;
     edit_ticket_group?: PrimitiveOverrideProps<ViewProps>;
     Card?: PrimitiveOverrideProps<CardProps>;
-    ticket_id_text?: PrimitiveOverrideProps<TextProps>;
     project_name_text?: PrimitiveOverrideProps<TextProps>;
     title_text_field?: PrimitiveOverrideProps<TextFieldProps>;
     watch_image?: PrimitiveOverrideProps<ImageProps>;
@@ -26,6 +25,7 @@ export declare type EditTicketOverridesProps = {
     more_options_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     project_image_name?: PrimitiveOverrideProps<ImageProps>;
     Divider332416?: PrimitiveOverrideProps<DividerProps>;
+    ticket_id_text?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
 export declare type EditTicketProps = React.PropsWithChildren<Partial<ViewProps> & {
     project?: Project;

@@ -7,15 +7,7 @@
 /* eslint-disable */
 import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import {
-  Badge,
-  Card,
-  Icon,
-  Image,
-  SelectField,
-  Text,
-  View,
-} from "@aws-amplify/ui-react";
+import { Badge, Card, Icon, Image, View } from "@aws-amplify/ui-react";
 export default function Backlog(props) {
   const { overrides, ...rest } = props;
   return (
@@ -297,78 +289,14 @@ export default function Backlog(props) {
           ></Icon>
         </View>
       </View>
-      <Text
-        fontFamily="Inter"
-        fontSize="48px"
-        fontWeight="700"
-        color="rgba(255,255,255,1)"
-        lineHeight="72px"
-        textAlign="left"
-        display="block"
-        direction="column"
-        justifyContent="unset"
-        width="unset"
-        height="unset"
-        gap="unset"
-        alignItems="unset"
-        position="absolute"
-        top="138px"
-        left="calc(50% - 22.5px - -778.5px)"
-        padding="0px 0px 0px 0px"
-        whiteSpace="pre-wrap"
-        children="PI"
-        {...getOverrideProps(overrides, "PI")}
-      ></Text>
-      <Badge
-        width="301px"
-        height="36px"
-        position="absolute"
-        backgroundColor="rgba(230,230,230,1)"
-        top="202px"
-        left="calc(50% - 150.5px - 439.5px)"
-        size="default"
-        variation="default"
-        fontSize={20}
-        justifyContent="center"
-        children="Sprint 1"
-        {...getOverrideProps(overrides, "sprint1_badge")}
-      ></Badge>
-      <Badge
-        width="301px"
-        height="36px"
-        position="absolute"
-        backgroundColor="rgba(230,230,230,1)"
-        top="202px"
-        left="calc(50% - 150.5px - 47.5px)"
-        size="default"
-        variation="default"
-        fontSize={20}
-        justifyContent="center"
-        children="Sprint 2"
-        {...getOverrideProps(overrides, "sprint2_badge")}
-      ></Badge>
-      <Badge
-        width="301px"
-        height="36px"
-        position="absolute"
-        backgroundColor="rgba(230,230,230,1)"
-        top="202px"
-        left="calc(50% - 150.5px - -344.5px)"
-        size="default"
-        variation="default"
-        fontSize={20}
-        justifyContent="center"
-        children="Backlog"
-        {...getOverrideProps(overrides, "backlog_badge")}
-      ></Badge>
       <Card
         width="301px"
         height="779px"
         position="absolute"
         padding="11px 11px 11px 11px"
         backgroundColor="rgba(230, 230, 230, 1)"
-        top="293px"
-        left="372px"
+        top="280px"
+        left="376px"
         border="none"
         variation="elevated"
         {...getOverrideProps(overrides, "sprint1_card")}
@@ -379,7 +307,7 @@ export default function Backlog(props) {
         position="absolute"
         padding="11px 11px 11px 11px"
         backgroundColor="rgba(230, 230, 230, 1)"
-        top="293px"
+        top="280px"
         left="764px"
         border="none"
         variation="elevated"
@@ -391,54 +319,80 @@ export default function Backlog(props) {
         position="absolute"
         padding="11px 11px 11px 11px"
         backgroundColor="rgba(230, 230, 230, 1)"
-        top="293px"
-        left="1156px"
+        top="280px"
+        left="1154px"
         border="none"
         variation="elevated"
-        {...getOverrideProps(overrides, "backlog_card")}
+        {...getOverrideProps(overrides, "sprint3_card")}
       ></Card>
-      <SelectField
-        width="131px"
-        height="64px"
-        label="Your work"
-        position="absolute"
-        top="152px"
-        left="1675px"
-        placeholder=""
-        size="default"
-        isDisabled={false}
-        labelHidden={true}
-        variation="quiet"
-        {...getOverrideProps(overrides, "PI_select_field")}
-      ></SelectField>
-      <SelectField
+      <Card
         width="301px"
-        height="64px"
-        label="Your work"
+        height="779px"
         position="absolute"
-        top="181px"
-        left="372px"
-        placeholder=""
-        size="default"
-        isDisabled={false}
-        labelHidden={true}
-        variation="quiet"
-        {...getOverrideProps(overrides, "sprint1_select_field")}
-      ></SelectField>
-      <SelectField
-        width="301px"
-        height="64px"
-        label="Your work"
+        padding="11px 11px 11px 11px"
+        backgroundColor="rgba(230, 230, 230, 1)"
+        top="280px"
+        left="1542px"
+        border="none"
+        variation="elevated"
+        {...getOverrideProps(overrides, "sprint4_card")}
+      ></Card>
+      <Badge
+        width="302px"
+        height="36px"
         position="absolute"
-        top="185px"
-        left="764px"
-        placeholder=""
+        backgroundColor="rgba(230,230,230,1)"
+        top="191px"
+        left="calc(50% - 151px - 435px)"
         size="default"
-        isDisabled={false}
-        labelHidden={true}
-        variation="quiet"
-        {...getOverrideProps(overrides, "sprint2_select_field")}
-      ></SelectField>
+        variation="default"
+        fontSize={20}
+        justifyContent="center"
+        children="Sprint 1"
+        {...getOverrideProps(overrides, "Badge2402682")}
+      ></Badge>
+      <Badge
+        width="302px"
+        height="36px"
+        position="absolute"
+        backgroundColor="rgba(230,230,230,1)"
+        top="191px"
+        left="calc(50% - 151px - 48px)"
+        size="default"
+        variation="default"
+        justifyContent="center"
+        fontSize={20}
+        children="Sprint 2"
+        {...getOverrideProps(overrides, "Badge2402683")}
+      ></Badge>
+      <Badge
+        width="302px"
+        height="36px"
+        position="absolute"
+        backgroundColor="rgba(230,230,230,1)"
+        top="191px"
+        left="calc(50% - 151px - -341px)"
+        size="default"
+        variation="default"
+        justifyContent="center"
+        fontSize={20}
+        children="Sprint 3"
+        {...getOverrideProps(overrides, "Badge2402684")}
+      ></Badge>
+      <Badge
+        width="302px"
+        height="36px"
+        position="absolute"
+        backgroundColor="rgba(230,230,230,1)"
+        top="191px"
+        left="calc(50% - 151px - -730px)"
+        size="default"
+        variation="default"
+        justifyContent="center"
+        fontSize={20}
+        children="Sprint 4"
+        {...getOverrideProps(overrides, "Badge2402685")}
+      ></Badge>
     </View>
   );
 }

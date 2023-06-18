@@ -8,6 +8,7 @@ import { ProjectContext } from "../contexts/ProjectContext";
 export function ActivityClass(props) {
     const {
         selectedUserID,
+        currentUser
     } = React.useContext(UserContext);
     const {
         location,
@@ -40,9 +41,7 @@ export function ActivityClass(props) {
                             ImageURL: url,}));})}
                         
                     const tickets = await DataStore.query(Ticket, activityIter.TicketID);
-                    if (!tickets)
-                    console.log("Error!");
-                    else {
+                    if (tickets) {
                     setActivityPriorityImage(
                         prevState => ([...prevState,tickets.Priority,]));
                         setActivityTicketID(
@@ -65,7 +64,7 @@ export function ActivityClass(props) {
                 for (let activityIter of activity) {
                     const modelToDelete = await DataStore.query(Activity, activityIter.id);
                     DataStore.delete(modelToDelete);}
-                    navigate('/profile', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `Activities cleared!` }});
+                    navigate('/profile', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `Activities cleared!`,selectedUserID:currentUser.id }});
                     window.location.reload();
                 }}
         setClearActivityBtnLoading(false);

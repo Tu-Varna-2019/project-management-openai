@@ -58,6 +58,8 @@ export declare type TicketInfoScrollOverridesProps = {
     story_point_stepper_field?: PrimitiveOverrideProps<StepperFieldProps>;
     asignee_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     reporter_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    ai_options_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    More?: PrimitiveOverrideProps<TextProps>;
 } & EscapeHatchProps;
 export declare type TicketInfoScrollProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: TicketInfoScrollOverridesProps | undefined | null;

@@ -29,6 +29,7 @@ import { ActivityProvider } from './providers/ActivityProvider';
 import { IssueTemplateProvider } from './providers/IssueTemplateProvider';
 import BacklogPage from './pages/BacklogPage';
 import { PISprintProvider } from './providers/PISprintProvider';
+import EditProjectPage from './pages/EditProjectPage';
 
 const {
     AppComponentOverride,
@@ -49,11 +50,11 @@ export default function App() {
   
   return (
     <div className='amplify-container' style={{
-      display: 'flex',alignItems: 'center',
-      justifyContent: 'center' }}>
-      <Helmet>
+      display: 'flex',alignItems: 'center', flexDirection: "column",overflow:"auto",
+      justifyContent: 'space-between' }}>
+      <Card><Helmet>
       <link rel="icon" href={logoURL} />
-      </Helmet><Card variation="elevated">
+      </Helmet>
         <Authenticator components={AppComponentOverride}>
       <BrowserRouter>
       <ProjectProvider>
@@ -69,6 +70,7 @@ export default function App() {
         <Route path="/backlog" element={<BacklogPage/>}/>
         <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/create-project" element={<CreateProjectPage/>}/>
+        <Route path="/edit-project" element={<EditProjectPage/>}/>
         <Route path="/edit-ticket" element={<EditTicketFullPage/>}/>
         <Route path="/" element={<SelectProjectPage/>}/>
         <Route path='*' element={<NotFound404Page/>}/>

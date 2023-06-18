@@ -1,8 +1,8 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
 import { getDragDropTicketState } from '../states';
 import { TicketContext } from '../contexts/TicketContext';
 import { UserContext } from '../contexts/UserContext';
+import { ProjectContext } from '../contexts/ProjectContext';
 
 
 export function BoardFunc (props) {
@@ -19,7 +19,10 @@ export function BoardFunc (props) {
         handleReleaseMoveTicket,
     } = React.useContext(TicketContext);
 
-    const navigate = useNavigate();
+    const {
+        navigate
+    } = useContext(ProjectContext);
+    
     const customOverrideItems = ({ item, index })  => {
         let asignee_image_url = "";
         userSubImageURL.map((data, index) => {
@@ -41,6 +44,11 @@ export function BoardFunc (props) {
                     onDragStart: () => (handleHoldMoveTicket(item.id))}},
             onClick: () => (
                 navigate("/board",{state:{edited:true,selectedTicket:item}}))};}
+
+    const isTicketToDoEmptyTop = ticketToDo.length === 0 ? "950px" : "1040px";
+    const isTicketInProgressEmptyTop = ticketInProgress.length === 0 ? "950px" : "1040px";
+    const isTicketInReviewEmptyTop = ticketInReview.length === 0 ? "950px" : "1040px";
+    const isTicketDoneEmptyTop = ticketDone.length === 0 ? "950px" : "1040px";
 
     const BoardTicketToDoOverride={
         TicketToDoCollection:{
@@ -74,6 +82,10 @@ export function BoardFunc (props) {
         }
         
     return {
+        isTicketToDoEmptyTop,
+        isTicketInProgressEmptyTop,
+        isTicketInReviewEmptyTop,
+        isTicketDoneEmptyTop,
         BoardComponentOverride,
         BoardTicketToDoOverride,
         BoardTicketInProgressOverride,

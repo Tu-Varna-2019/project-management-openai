@@ -4,6 +4,7 @@ import React from 'react';
 import { studioTheme } from '../ui-components';
 import { UserContext } from '../contexts/UserContext';
 import { ActivityContext } from '../contexts/ActivityContext';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export function ProfileFunc () {
     const {
@@ -18,7 +19,8 @@ export function ProfileFunc () {
         handleSaveImageClick,
         handleGoToChangePassword,
         handleGoToDeleteAccount,
-        handleGoToMNotes
+        handleGoToMNotes,
+        handleReloadUploadSuccImage
     } = React.useContext(UserContext);
     const {
         handleClearActivityClick,
@@ -63,39 +65,15 @@ const ProfileOverride={
     }
 }
 
-
-const theme = createTheme({
-    name: 'my-theme',
-    tokens: {
-      colors: {value:"red"},
-      borderWidths: {
-        small: { value: '2px' },
-        medium: { value: '4px' },
-        large: { value: '8px' },
-      },
-      radii: {
-        xs: { value: '1rem' },
-        small: { value: '2rem' },
-        medium: { value: '2rem' },
-        large: { value: '2rem' },
-        xl: { value: '3rem' },
-      },
-    },
-  },studioTheme)
-
 function FileImageUpload () {
     return (
-       <ThemeProvider theme={theme}>
-            <FileUploader
-            shouldAutoProceed={true}
-            acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png']}
+            <StorageManager
+            acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png','.svg']}
             accessLevel="protected"
             maxFileCount={1}
-            isResumable={true}
-            showImages={false}
-            variation='drop'
-            onSuccess={(event) =>{handleSaveImageClick(event.key);}}/>
-        </ThemeProvider>
+            processFile={handleSaveImageClick}
+            onUploadSuccess={handleReloadUploadSuccImage}
+          />
     )}
 
 return {

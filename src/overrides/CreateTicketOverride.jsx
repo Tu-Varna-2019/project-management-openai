@@ -38,5 +38,4 @@ export function CreateTicketFunc (props) {
 
     return {
         CreateTicketOverride
-    }
-}
+    }}

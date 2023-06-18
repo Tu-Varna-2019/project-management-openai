@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { BadgeProps, CardProps, IconProps, ImageProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { BadgeProps, CardProps, IconProps, ImageProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type BacklogOverridesProps = {
     Backlog?: PrimitiveOverrideProps<ViewProps>;
@@ -22,16 +22,14 @@ export declare type BacklogOverridesProps = {
     Vector1782670?: PrimitiveOverrideProps<IconProps>;
     Vector_2?: PrimitiveOverrideProps<IconProps>;
     Vector_3?: PrimitiveOverrideProps<IconProps>;
-    PI?: PrimitiveOverrideProps<TextProps>;
-    sprint1_badge?: PrimitiveOverrideProps<BadgeProps>;
-    sprint2_badge?: PrimitiveOverrideProps<BadgeProps>;
-    backlog_badge?: PrimitiveOverrideProps<BadgeProps>;
     sprint1_card?: PrimitiveOverrideProps<CardProps>;
     sprint2_card?: PrimitiveOverrideProps<CardProps>;
-    backlog_card?: PrimitiveOverrideProps<CardProps>;
-    PI_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
-    sprint1_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
-    sprint2_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    sprint3_card?: PrimitiveOverrideProps<CardProps>;
+    sprint4_card?: PrimitiveOverrideProps<CardProps>;
+    Badge2402682?: PrimitiveOverrideProps<BadgeProps>;
+    Badge2402683?: PrimitiveOverrideProps<BadgeProps>;
+    Badge2402684?: PrimitiveOverrideProps<BadgeProps>;
+    Badge2402685?: PrimitiveOverrideProps<BadgeProps>;
 } & EscapeHatchProps;
 export declare type BacklogProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: BacklogOverridesProps | undefined | null;

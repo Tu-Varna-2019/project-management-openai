@@ -8,6 +8,7 @@
 import * as React from "react";
 import {
   getOverrideProps,
+  useNavigateAction,
   useStateMutationAction,
 } from "@aws-amplify/ui-react/internal";
 import {
@@ -29,6 +30,10 @@ export default function SelectProject(props) {
     createUnderScoreoneUnderScorebuttonBackgroundColor,
     setCreateUnderScoreoneUnderScorebuttonBackgroundColor,
   ] = useStateMutationAction("rgba(246,133,54,1)");
+  const [
+    editUnderScoreprojectUnderScoreimageBackgroundColor,
+    setEditUnderScoreprojectUnderScoreimageBackgroundColor,
+  ] = useStateMutationAction(undefined);
   const confirmUnderScorebuttonOnMouseOver = () => {
     setConfirmUnderScorebuttonBackgroundColor("rgba(188, 116, 9, 1)");
   };
@@ -45,6 +50,18 @@ export default function SelectProject(props) {
       "rgba(255, 153, 0, 1)"
     );
   };
+  const editUnderScoreprojectUnderScoreimageOnMouseOver = () => {
+    setEditUnderScoreprojectUnderScoreimageBackgroundColor(
+      "rgba(246, 133, 54, 1)"
+    );
+  };
+  const editUnderScoreprojectUnderScoreimageOnMouseLeave = () => {
+    setEditUnderScoreprojectUnderScoreimageBackgroundColor("white");
+  };
+  const editUnderScoreprojectUnderScoreimageOnClick = useNavigateAction({
+    type: "url",
+    url: "/edit-project",
+  });
   return (
     <View
       width="1924px"
@@ -170,12 +187,12 @@ export default function SelectProject(props) {
         ></Divider>
       </View>
       <SelectField
-        width="362px"
+        width="435px"
         height="unset"
         label="Select Project"
         position="absolute"
         top="450px"
-        left="calc(50% - 181px - 0px)"
+        left="calc(50% - 217.5px - 63.5px)"
         placeholder=""
         size="default"
         isDisabled={false}
@@ -225,6 +242,31 @@ export default function SelectProject(props) {
         children="or"
         {...getOverrideProps(overrides, "or")}
       ></Text>
+      <Image
+        width="68px"
+        height="64px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="458px"
+        left="1172px"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn4.vectorstock.com%2Fi%2F1000x1000%2F09%2F73%2Fedit-icon-vector-22390973.jpg&f=1&nofb=1&ipt=33bd8451919294d1c0eac29d61786e8d93bd16ed0ebcdcd386ac208f8fb1a78b&ipo=images"
+        backgroundColor={editUnderScoreprojectUnderScoreimageBackgroundColor}
+        onMouseOver={() => {
+          editUnderScoreprojectUnderScoreimageOnMouseOver();
+        }}
+        onMouseLeave={() => {
+          editUnderScoreprojectUnderScoreimageOnMouseLeave();
+        }}
+        onClick={() => {
+          editUnderScoreprojectUnderScoreimageOnClick();
+        }}
+        {...getOverrideProps(overrides, "edit_project_image")}
+      ></Image>
     </View>
   );
 }

@@ -6,20 +6,22 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { ButtonProps, CardProps, DividerProps, ImageProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { ButtonProps, CardProps, DividerProps, ImageProps, SelectFieldProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type CreateProjectOverridesProps = {
-    CreateProject?: PrimitiveOverrideProps<ViewProps>;
+export declare type EditProjectOverridesProps = {
+    EditProject?: PrimitiveOverrideProps<ViewProps>;
     aws_image_background_notes?: PrimitiveOverrideProps<ImageProps>;
     Card?: PrimitiveOverrideProps<CardProps>;
     create_project_group?: PrimitiveOverrideProps<ViewProps>;
-    create_button?: PrimitiveOverrideProps<ButtonProps>;
+    save_button?: PrimitiveOverrideProps<ButtonProps>;
     cancel_button?: PrimitiveOverrideProps<ButtonProps>;
     project_name_text_field?: PrimitiveOverrideProps<TextFieldProps>;
-    "Create project"?: PrimitiveOverrideProps<TextProps>;
+    "Edit project"?: PrimitiveOverrideProps<TextProps>;
     Divider?: PrimitiveOverrideProps<DividerProps>;
+    select_project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    delete_project_image?: PrimitiveOverrideProps<ImageProps>;
 } & EscapeHatchProps;
-export declare type CreateProjectProps = React.PropsWithChildren<Partial<ViewProps> & {
-    overrides?: CreateProjectOverridesProps | undefined | null;
+export declare type EditProjectProps = React.PropsWithChildren<Partial<ViewProps> & {
+    overrides?: EditProjectOverridesProps | undefined | null;
 }>;
-export default function CreateProject(props: CreateProjectProps): React.ReactElement;
+export default function EditProject(props: EditProjectProps): React.ReactElement;
