@@ -6,7 +6,10 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import {
+  getOverrideProps,
+  useStateMutationAction,
+} from "@aws-amplify/ui-react/internal";
 import {
   Badge,
   Divider,
@@ -20,6 +23,13 @@ import {
 } from "@aws-amplify/ui-react";
 export default function CreateTicketScroll(props) {
   const { overrides, ...rest } = props;
+  const [
+    watchUnderScoreimageBackgroundColor,
+    setWatchUnderScoreimageBackgroundColor,
+  ] = useStateMutationAction(undefined);
+  const watchUnderScoreimageOnMouseOver = () => {
+    setWatchUnderScoreimageBackgroundColor("rgba(184, 206, 249, 1)");
+  };
   return (
     <View
       width="528px"
@@ -157,6 +167,8 @@ export default function CreateTicketScroll(props) {
             isDisabled={false}
             labelHidden={true}
             variation="quiet"
+            border="none"
+            color="transparent"
             {...getOverrideProps(overrides, "asignee_select_field")}
           ></SelectField>
         </View>
@@ -336,6 +348,7 @@ export default function CreateTicketScroll(props) {
               right="4.7%"
               size="default"
               variation="info"
+              justifyContent="center"
               children="Epic link"
               {...getOverrideProps(overrides, "epic_link_badge")}
             ></Badge>
@@ -353,6 +366,7 @@ export default function CreateTicketScroll(props) {
               isDisabled={false}
               labelHidden={true}
               variation="quiet"
+              color="transparent"
               {...getOverrideProps(overrides, "epic_link_select_field")}
             ></SelectField>
           </View>
@@ -409,6 +423,7 @@ export default function CreateTicketScroll(props) {
           isDisabled={false}
           labelHidden={true}
           variation="quiet"
+          borderBottom="none"
           {...getOverrideProps(overrides, "issue_template_select_field")}
         ></SelectField>
         <Text
@@ -467,6 +482,10 @@ export default function CreateTicketScroll(props) {
         padding="0px 0px 0px 0px"
         objectFit="cover"
         src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F000%2F576%2F515%2Foriginal%2Feye-icon-vector-illustration.jpg&f=1&nofb=1&ipt=71a67a38b009e7c9f4a346f6d3a9e176f6d453e6b9500133baaa0a235d81b997&ipo=images"
+        backgroundColor={watchUnderScoreimageBackgroundColor}
+        onMouseOver={() => {
+          watchUnderScoreimageOnMouseOver();
+        }}
         {...getOverrideProps(overrides, "watch_image")}
       ></Image>
       <Badge

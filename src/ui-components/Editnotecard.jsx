@@ -197,8 +197,8 @@ export default function Editnotecard(props) {
         viewBox={{
           minX: 0,
           minY: 0,
-          width: 597.0009765625,
-          height: 0.50421142578125,
+          width: 597.000732421875,
+          height: 0.5041999816894531,
         }}
         paths={[
           {

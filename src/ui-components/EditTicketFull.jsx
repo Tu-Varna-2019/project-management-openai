@@ -292,7 +292,7 @@ export default function EditTicketFull(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 19.1796875,
+                width: 19.18017578125,
                 height: 51.294921875,
               }}
               paths={[
@@ -319,7 +319,7 @@ export default function EditTicketFull(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 8.099609375,
+                width: 8.10009765625,
                 height: 53.6748046875,
               }}
               paths={[
@@ -346,7 +346,7 @@ export default function EditTicketFull(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 17.5751953125,
+                width: 17.57568359375,
                 height: 39.4365234375,
               }}
               paths={[
@@ -416,7 +416,7 @@ export default function EditTicketFull(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 28.732421875,
+                width: 28.73193359375,
                 height: 32.87451171875,
               }}
               paths={[
@@ -443,7 +443,7 @@ export default function EditTicketFull(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 28.732421875,
+                width: 28.73193359375,
                 height: 32.962890625,
               }}
               paths={[
@@ -469,7 +469,7 @@ export default function EditTicketFull(props) {
               viewBox={{
                 minX: 0,
                 minY: 0,
-                width: 28.732421875,
+                width: 28.73193359375,
                 height: 32.87451171875,
               }}
               paths={[

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { DataStore , Storage , API, Auth } from 'aws-amplify';
-import { Ticket,User , Activity } from '../models';
+import { Ticket,User , Activity, PI, Sprint } from '../models';
 import { getDragDropTicketState, getNotificationCountState, getNotificationsState, getProjectNameState,setDragDropTicketState, setNotificationCountState, setNotificationsState } from '../states';
 import { ProjectContext } from '../contexts/ProjectContext';
 import { PISprintContext } from '../contexts/PISprintContext';
@@ -29,6 +29,9 @@ export function TicketClass(props) {
     } = User2Class();
     const {
         sprintID,
+        PIID,
+        setPIID,
+        setPINum,
     } = useContext(PISprintContext);
 
     // Ticket/s
@@ -93,14 +96,57 @@ export function TicketClass(props) {
     const [notifications,setNotifications] = useState([""]);
     const [notificationCount,setNotificationCount] = useState(0);
 
+    // PI Sprint for backlog page
+    const [sprint1,setSprint1] = useState([]);
+    const [sprint2,setSprint2] = useState([]);
+    const [sprint3,setSprint3] = useState([]);
+    const [sprint4,setSprint4] = useState([]);
+
+    useEffect(() => {
+        async function fetchPISprints() {
+            setSprint1([]);
+            setSprint2([]);
+            setSprint3([]);
+            setSprint4([]);
+            try {
+            await DataStore.query(PI,PIID).then(PIObj => {
+                PIObj.Sprints.values.then(sprintsArray => {
+                    sprintsArray.forEach( async item => {
+                    await DataStore.query(Sprint,item.id)
+                    .then(sprintIter => {
+                    const ticketArr = [];
+                    sprintIter.Tickets.values.then(TicketsArray => {
+                        TicketsArray.forEach( async itemT => {
+                            await DataStore.query(Ticket,itemT.id)
+                            .then(TicketsIter => {
+                            ticketArr.push(TicketsIter);
+                            switch (sprintIter.Number) {
+                                case 1:
+                                    setSprint1(ticketArr);
+                                    break;
+                                case 2:
+                                    setSprint2(ticketArr);
+                                    break;
+                                case 3:
+                                    setSprint3(ticketArr);
+                                    break;
+                                case 4:
+                                    setSprint4(ticketArr);
+                                    break;
+                                    default:
+                                        break;}})})})})})})
+                                    });}catch(err){/* */}
+                                }
+        fetchPISprints();
+    },[PIID,setPIID,setPINum]);
+
     useEffect(() => {
         if (getNotificationCountState() !== null 
             && getNotificationsState() !== null) {
         const splitNotifSelectField = getNotificationsState().split(",");
         setNotifications(splitNotifSelectField);
         setNotificationCount(getNotificationCountState());
-            }
-    },[]);
+            }},[]);
     // Get tickets by project
     useEffect(() => {
         async function fetchUserData() {
@@ -406,7 +452,12 @@ export function TicketClass(props) {
 
      // Goto EditTicket component
     const handleCloseEditTicketClick = (event) => {
-        navigate("/board",{state:{edited:false,project: getProjectNameState()}})};
+        const editTicketBoard = location.state ? location.state.edited : false;
+        if (editTicketBoard)
+        navigate("/board",{state:{edited:false,project: getProjectNameState()}})
+        else
+        navigate("/backlog",{state:{edited_bg:false,project: getProjectNameState()}})
+    };
 
 const handleSaveEditTicketClick = async (event) => {
     event.preventDefault();
@@ -554,7 +605,9 @@ const handleSaveEditTicketClick = async (event) => {
                 newTicket});
             }catch(err){notify_update_ticket_response="Unable to send message , sorry for the inconvinience!";}
         }
-        navigate('/board', { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response} ` }});
+        const editTicketBoard = location.state ? location.state.edited : false;
+        const routePath = editTicketBoard === true ? '/board' : '/backlog';
+        navigate(routePath, { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response} ` }});
        window.location.reload();
     } catch (error) {
         setIsLoading(false);
@@ -702,6 +755,10 @@ const handleSaveEditTicketClick = async (event) => {
     }
 
     return {
+        sprint1,
+        sprint2,
+        sprint3,
+        sprint4,
         handleResetNotificationClick,
         notifications,
         notificationCount,

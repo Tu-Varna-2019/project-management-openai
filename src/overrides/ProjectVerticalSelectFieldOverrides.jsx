@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProjectContext } from '../contexts/ProjectContext';
-import { getPINumState, getProjectNameState, getSprintNumState } from '../states';
+import { getProjectNameState } from '../states';
 import { PISprintContext } from '../contexts/PISprintContext';
 
 export function ProjectVerticalSelectFieldFunc (props) {

@@ -47,7 +47,7 @@ export default function Backlog(props) {
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
-        top="116px"
+        top="112px"
         left="0px"
         padding="0px 0px 0px 0px"
         objectFit="cover"
@@ -90,8 +90,8 @@ export default function Backlog(props) {
             viewBox={{
               minX: 0,
               minY: 0,
-              width: 19.1796875,
-              height: 51.294677734375,
+              width: 19.18017578125,
+              height: 51.294921875,
             }}
             paths={[
               {
@@ -117,8 +117,8 @@ export default function Backlog(props) {
             viewBox={{
               minX: 0,
               minY: 0,
-              width: 8.099609375,
-              height: 53.674560546875,
+              width: 8.0999755859375,
+              height: 53.6748046875,
             }}
             paths={[
               {
@@ -144,7 +144,7 @@ export default function Backlog(props) {
             viewBox={{
               minX: 0,
               minY: 0,
-              width: 17.5751953125,
+              width: 17.5755615234375,
               height: 39.4365234375,
             }}
             paths={[
@@ -171,7 +171,7 @@ export default function Backlog(props) {
             viewBox={{
               minX: 0,
               minY: 0,
-              width: 30.642578125,
+              width: 30.6424560546875,
               height: 40.36572265625,
             }}
             paths={[
@@ -214,7 +214,7 @@ export default function Backlog(props) {
             viewBox={{
               minX: 0,
               minY: 0,
-              width: 28.732421875,
+              width: 28.73193359375,
               height: 32.87451171875,
             }}
             paths={[
@@ -241,7 +241,7 @@ export default function Backlog(props) {
             viewBox={{
               minX: 0,
               minY: 0,
-              width: 28.732421875,
+              width: 28.732177734375,
               height: 32.962890625,
             }}
             paths={[
@@ -267,8 +267,8 @@ export default function Backlog(props) {
             viewBox={{
               minX: 0,
               minY: 0,
-              width: 28.732421875,
-              height: 32.874267578125,
+              width: 28.73193359375,
+              height: 32.87451171875,
             }}
             paths={[
               {

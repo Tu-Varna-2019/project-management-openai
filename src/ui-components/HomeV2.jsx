@@ -399,7 +399,7 @@ export default function HomeV2(props) {
                 viewBox={{
                   minX: 0,
                   minY: 0,
-                  width: 36.350830078125,
+                  width: 36.35107421875,
                   height: 25,
                 }}
                 paths={[
@@ -442,7 +442,7 @@ export default function HomeV2(props) {
                 viewBox={{
                   minX: 0,
                   minY: 0,
-                  width: 21.022216796875,
+                  width: 21.0224609375,
                   height: 16.66668701171875,
                 }}
                 paths={[
@@ -493,12 +493,7 @@ export default function HomeV2(props) {
               <Icon
                 width="21.02px"
                 height="25px"
-                viewBox={{
-                  minX: 0,
-                  minY: 0,
-                  width: 21.022216796875,
-                  height: 25,
-                }}
+                viewBox={{ minX: 0, minY: 0, width: 21.0224609375, height: 25 }}
                 paths={[
                   {
                     d: "M0 0L15.8942 25L21.0222 25L5.12158 0L0 0Z",
@@ -956,7 +951,7 @@ export default function HomeV2(props) {
           viewBox={{
             minX: 0,
             minY: 0,
-            width: 597.000732421875,
+            width: 597.00048828125,
             height: 0.5041961669921875,
           }}
           paths={[
