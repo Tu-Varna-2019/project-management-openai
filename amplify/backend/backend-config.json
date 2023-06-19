@@ -74,6 +74,22 @@
           ],
           "category": "function",
           "resourceName": "TicketCreationTemplateLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -121,6 +137,18 @@
       "service": "Lambda"
     },
     "TicketCreationTemplateLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "TicketSummarizeLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "TicketTranslateLambda": {
       "build": true,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -250,6 +278,86 @@
         {
           "category": "function",
           "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_model": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_openaiApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_regionName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_model": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_openaiApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_regionName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
         }
       ]
     },

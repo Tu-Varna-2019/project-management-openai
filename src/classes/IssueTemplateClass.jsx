@@ -46,8 +46,9 @@ export function IssueTemplateClass(props) {
     const [ITIDIndex,setITIDIndex] = useState(-1);
     const isITTitleEmpty =  /^\s*$/.test(ITTitle);
     const editIssueTemplate = location.state ? location.state.edited_it : false;
-    const [aiOptions,setAiOptions] = useState(["","Summarize","Generate template","Text to speech"]);
+    const [aiOptions,setAiOptions] = useState(["","Translate to Bulgarian","Summarize","Generate template","Text to speech"]);
     const [audioTSpeech,setAudioTSpeech] = useState();
+    const [openaiProgBar,setOpenaiProgBar] = useState(false);
     // Get issue templates by project
     useEffect(() => {
         setITNames([""]);
@@ -121,7 +122,7 @@ export function IssueTemplateClass(props) {
     }};
     // Close EditIssueTemplate component
     const handleClosedEditTicketClick = (event) => {
-            event.preventDefault();
+            event.preventDefault();   
             navigate("/board",{state:{edited_it:false,project: getProjectNameState()}})
     };
     const handleSaveITClick = async  (event) => {
@@ -179,13 +180,81 @@ export function IssueTemplateClass(props) {
 
     const handleCreateTicketAIOptionsChange = async (event,templateType) => {
         event.preventDefault();
+        setOpenaiProgBar(!openaiProgBar);
         let openai_response = "";
         const issueTypeChoice = templateType === "ticket" ?
         issueType : ITIssueType;
         try {
         switch(event.target.value) {
-            case "Summarize":
+            case "Translate to Bulgarian":
+                if (issueTypeChoice !== "") {
+                    const title_summarize = templateType === "ticket" ? title : ITTitle;
+                    const description_summarize = templateType === "ticket" ? description : ITDescription;
+                    const comment_summarize = templateType === "ticket" ? comment : ITComment;
 
+                    openai_response = await postTranslate({
+                        Title: title_summarize,
+                        Description: description_summarize,
+                        Comment: comment_summarize,
+                        TicketFields: "Title,Description,Comment"
+                    });
+                    try {
+                    openai_response = JSON.parse(openai_response);}catch(err){/* */}
+                    
+                    const openaiTitle = openai_response.Title;
+                    const openaiDescription = openai_response.Description;
+                    const openaiComment = openai_response.Comment;
+    
+                    if (openaiTitle === undefined || openaiDescription === undefined || openaiComment === undefined
+                        || openaiTitle.trim() === "" || openaiDescription.trim() === "" || openaiComment.trim() === ""){
+                        console.log("undefined!");
+                        return handleCreateTicketAIOptionsChange(event,templateType);
+                    }else{
+                        setOpenaiProgBar(false);
+                    if (templateType === "ticket") {
+                        setTitle(openaiTitle);
+                        setDescription(openaiDescription);
+                        setComment(openaiComment);}
+                    else {
+                        setITTitle(openaiTitle);
+                        setITDescription(openaiDescription);
+                        setITComment(openaiComment);}
+                    }}
+                break;
+            case "Summarize":
+                if (issueTypeChoice !== "") {
+                    const title_summarize = templateType === "ticket" ? title : ITTitle;
+                    const description_summarize = templateType === "ticket" ? description : ITDescription;
+                    const comment_summarize = templateType === "ticket" ? comment : ITComment;
+
+                    openai_response = await postSummarize({
+                        Title: title_summarize,
+                        Description: description_summarize,
+                        Comment: comment_summarize,
+                        TicketFields: "Title,Description,Comment"
+                    });
+                    try {
+                    openai_response = JSON.parse(openai_response);}catch(err){/* */}
+                    
+                    const openaiTitle = openai_response.Title;
+                    const openaiDescription = openai_response.Description;
+                    const openaiComment = openai_response.Comment;
+    
+                    if (openaiTitle === undefined || openaiDescription === undefined || openaiComment === undefined
+                        || openaiTitle.trim() === "" || openaiDescription.trim() === "" || openaiComment.trim() === ""){
+                        console.log("undefined!");
+                        return handleCreateTicketAIOptionsChange(event,templateType);
+                    }else{
+                        setOpenaiProgBar(false);
+                    if (templateType === "ticket") {
+                        setTitle(openaiTitle);
+                        setDescription(openaiDescription);
+                        setComment(openaiComment);}
+                    else {
+                        setITTitle(openaiTitle);
+                        setITDescription(openaiDescription);
+                        setITComment(openaiComment);}
+                    }}
                 break;
             case "Generate template":
                 if (issueTypeChoice !== "") {
@@ -193,13 +262,19 @@ export function IssueTemplateClass(props) {
                     IssueType: issueTypeChoice,
                     TicketFields: "Title,Description,Comment"
                 });
-                const openaiTitle = openai_response.match(/(?<=Title:).*(?=Description:)/s)?.[0]?.trim();
-                const openaiDescription = openai_response.match(/(?<=Description:).*(?=Comment:)/s)?.[0]?.trim();
-                const openaiComment = openai_response.match(/(?<=Comment:).*/s)?.[0]?.trim();
-                if (openaiTitle === undefined || openaiDescription === undefined || openaiComment === undefined){
+                try {
+                openai_response = JSON.parse(openai_response);}catch(err){/** */}
+
+                const openaiTitle = openai_response.Title;
+                const openaiDescription = openai_response.Description;
+                const openaiComment = openai_response.Comment;
+
+                if (openaiTitle === undefined || openaiDescription === undefined || openaiComment === undefined
+                    || openaiTitle.trim() === "" || openaiDescription.trim() === "" || openaiComment.trim() === ""){
                     console.log("undefined!");
                     return handleCreateTicketAIOptionsChange(event,templateType);
                 }else{
+                    setOpenaiProgBar(false);
                 if (templateType === "ticket") {
                     setTitle(openaiTitle);
                     setDescription(openaiDescription);
@@ -211,13 +286,15 @@ export function IssueTemplateClass(props) {
                 }}
                 break;
             case "Stop audio":
+                setOpenaiProgBar(false);
                 if (audioTSpeech) {
                     if (!audioTSpeech.paused) 
                     audioTSpeech.pause();
                 }
-                setAiOptions(["","Summarize","Generate template","Text to speech"])
+                setAiOptions(["","Translate to Bulgarian","Summarize","Generate template","Text to speech"])
                 break;
             case "Text to speech":
+                setOpenaiProgBar(false);
                 if (templateType === "ticket") {
                 Predictions.convert({
                     textToSpeech: {
@@ -238,7 +315,7 @@ export function IssueTemplateClass(props) {
                     }}).then(result => { 
                     const audio = new Audio(result.speech.url);
                     setAudioTSpeech(audio);
-                    setAiOptions(["","Summarize","Generate template","Text to speech","Stop audio"])
+                    setAiOptions(["","Translate to Bulgarian","Summarize","Generate template","Text to speech","Stop audio"])
                 }).catch(err => console.log({ err }));
                 }else {
                     Predictions.convert({
@@ -253,18 +330,40 @@ export function IssueTemplateClass(props) {
                           }}}).then(result => {
                         const audio = new Audio(result.speech.url);
                         setAudioTSpeech(audio);
-                        setAiOptions(["","Summarize","Generate template","Text to speech","Stop audio"])
+                        setAiOptions(["","Translate to Bulgarian","Summarize","Generate template","Text to speech","Stop audio"])
                     }).catch(err => console.log({ err }));}
                 break;
             default:
                 console.log("default");
+                setOpenaiProgBar(false);
                 break;}
         }catch(err){console.log(err)}};
 
     const postGenerateTemplate = async (event) => {
-        const response = await API.post('apiopenai','/openai/ticketTemplateCreate',
+        let response ="";
+        try {
+        response = await API.post('apiopenai','/openai/ticketTemplateCreate',
         { body: JSON.stringify({event}) });
         console.log(response);
+        }catch(err){console.log(err);}
+        return response;}
+
+    const postSummarize = async (event) => {
+        let response ="";
+        try {
+        response = await API.post('apiopenai','/openai/ticketSummarize',
+        { body: JSON.stringify({event}) });
+        console.log(response);
+        }catch(err){console.log(err);}
+        return response;}
+
+    const postTranslate = async (event) => {
+        let response ="";
+        try {
+        response = await API.post('apiopenai','/openai/ticketTranslate',
+        { body: JSON.stringify({event}) });
+        console.log(response);
+        }catch(err){console.log(err);}
         return response;}
 
     return {
@@ -292,4 +391,5 @@ export function IssueTemplateClass(props) {
         handleSelectEditITChange,
         handleCreateTicketAIOptionsChange,
         aiOptions,
+        openaiProgBar,
     }}

@@ -29,6 +29,9 @@ export function CreateIssueTemplateFunc(props) {
     const {
         isseTypeOptions
     } = useContext(TicketContext);
+    const {
+        openaiProgBar
+    } = useContext(IssueTemplateContext);
 
     const CreateIssueTemplateOverride = {
         title_text_field:{
@@ -75,7 +78,9 @@ export function CreateIssueTemplateFunc(props) {
             isLoading: loadingCreateIT
             },
         cancel_button:{
-            onClick: (event) => (handleClosedCreateITClick(event))},
+            onClick: (event) => (handleClosedCreateITClick(event)),
+            isDisabled : openaiProgBar
+        },
     }
 
     return {

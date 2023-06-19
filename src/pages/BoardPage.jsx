@@ -13,7 +13,8 @@ import { CreateIssueTemplateFunc } from '../overrides/CreateIssueTemplateOverrid
 import { EditIssueTemplateFunc } from '../overrides/EditIssueTemplateOverride';
 import { ProjectContext } from '../contexts/ProjectContext';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
-
+import { Loader, useTheme } from '@aws-amplify/ui-react';
+import { IssueTemplateContext } from '../contexts/IssueTemplateContext';
 
 
 export default function BoardPage(props) {
@@ -66,12 +67,17 @@ const {
 const {
   showSearchRect
 } = useContext(ToolbarSelectContext);
+const {
+  openaiProgBar
+} = useContext(IssueTemplateContext);
 
 
     const editTicketBoolean = location.state ? location.state.edited : false;
     const createTicketBoolean = location.state ? location.state.create : false;
     const createIssueTemplateBoolean = location.state ? location.state.create_it : false;
     const editIssueTemplateBoolean = location.state ? location.state.edited_it : false;
+    
+    const openAIProgBarBottom = editTicketBoolean === true ? 400 : createIssueTemplateBoolean === true ? 240 : 200;
     return(
       <>
         <div className='amplify-container'
@@ -137,6 +143,8 @@ const {
               overrides={ChildTicketShortCollectionOverride}
               overrideItems={ChildTicketShortOverride}/>
           </div>
+
+
             </>)}
             {createTicketBoolean && (
             <>
@@ -147,11 +155,34 @@ const {
             <div style={{ position: 'absolute',display: 'block', bottom: 140, right: 680 , width:500 }}>
             <FileImageTicketUpload/>
             </div>
+            
+            {openaiProgBar && (
+            <div style={{ position: 'absolute',display: 'block', bottom: 1200, right: 690 , width:480 }}>
+            <Loader />
+            <Loader variation="linear" />
+            </div>
+            )}
             </>)}
             {createIssueTemplateBoolean && (
             <CreateIssueTemplate overrides={CreateIssueTemplateOverride}/>)}
+            {openaiProgBar && (
+            <div style={{ position: 'absolute',display: 'block', bottom: 240, right: 690 , width:480 }}>
+            <Loader />
+            <Loader variation="linear" />
+            </div>
+            )}
+
             {editIssueTemplateBoolean && (
-            <EditIssueTemplate overrides={EditIssueTemplateOverride}/>)}
+            <>
+            <EditIssueTemplate overrides={EditIssueTemplateOverride}/>
+            {openaiProgBar && (
+            <div style={{ position: 'absolute',display: 'block', bottom: 200, right: 690 , width:480 }}>
+            <Loader />
+            <Loader variation="linear" />
+            </div>
+            )}
+            </>
+            )}
       </div>
       </div>
       </>)}

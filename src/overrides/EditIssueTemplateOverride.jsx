@@ -13,6 +13,7 @@ export function EditIssueTemplateFunc(props) {
         ITNames,
         handleSelectEditITChange,
         ITIDIndex,
+        openaiProgBar
     } = useContext(IssueTemplateContext);
     const {
         projectNames,
@@ -50,7 +51,10 @@ export function EditIssueTemplateFunc(props) {
             isLoading: loadingCreateIT
             },
         cancel_button:{
-            onClick: (event) => (handleClosedEditTicketClick(event))},}
+            onClick: (event) => (handleClosedEditTicketClick(event)),
+            isDisabled : openaiProgBar
+        },
+        }
 
     return {
         EditIssueTemplateOverride

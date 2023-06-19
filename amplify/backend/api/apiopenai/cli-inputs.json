@@ -34,6 +34,32 @@
           "delete"
         ]
       }
+    },
+    "/openai/ticketTranslate": {
+      "name": "/openai/ticketTranslate",
+      "lambdaFunction": "TicketTranslateLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/openai/ticketSummarize": {
+      "name": "/openai/ticketSummarize",
+      "lambdaFunction": "TicketSummarizeLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }

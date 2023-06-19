@@ -167,7 +167,7 @@ export default function ProjectVerticalSelectField(props) {
         size="default"
         isDisabled={false}
         variation="link"
-        children="Backlog"
+        children="All sprints"
         {...getOverrideProps(overrides, "backlog_button")}
       ></Button>
       <Button

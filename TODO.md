@@ -6,8 +6,9 @@
 [X].Create functionality to create subtasks from ticket
 [X].Add notification on ticket
 [X].Add search bar functionality
-[ ].Add a functionality to summarize ticket
 [ ].Prompt engineer chatGPT request (e.g Summirize a text triblock ''' {user input} ''') - https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/
+[ ].Add a functionality to summarize ticket
+[ ]. Add TCs
 [ ].Create a documentation
 
 ## Not comitted

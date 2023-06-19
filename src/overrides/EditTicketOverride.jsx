@@ -1,8 +1,9 @@
 import { getProjectNameState } from '../states';
-import React from 'react';
+import React, { useContext } from 'react';
 import { TicketContext } from '../contexts/TicketContext';
 import { ProjectContext } from '../contexts/ProjectContext';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { IssueTemplateContext } from '../contexts/IssueTemplateContext';
 
 export function EditTicketFunc (props) {
 
@@ -31,6 +32,9 @@ export function EditTicketFunc (props) {
         imageProjectURL,
         navigate,
     } = React.useContext(ProjectContext);
+    const {
+        openaiProgBar
+    } = useContext(IssueTemplateContext);
 
     const EditTicketOverride={
         project_name_text:{
@@ -60,6 +64,7 @@ export function EditTicketFunc (props) {
         },
         cancel_button:{
             onClick: (event) => (handleCloseEditTicketClick(event)),
+            isDisabled : openaiProgBar
         },
         create_button:{
             onClick: (event) => (handleSaveEditTicketClick(event)),

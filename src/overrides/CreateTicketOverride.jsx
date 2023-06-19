@@ -15,6 +15,7 @@ export function CreateTicketFunc (props) {
     const {
         aiOptions,
         handleCreateTicketAIOptionsChange,
+        openaiProgBar
     } = useContext(IssueTemplateContext);
     
     const CreateTicketOverride = {
@@ -32,7 +33,9 @@ export function CreateTicketFunc (props) {
             isLoading: isLoading
             },
         cancel_button:{
-            onClick: (event) => (handleCloseCreateTicketClick(event))},
+            onClick: (event) => (handleCloseCreateTicketClick(event)),
+            isDisabled : openaiProgBar
+        },
     }
 
 
