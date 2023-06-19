@@ -11,10 +11,10 @@ import { ImageProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type SearchResultMatchOverridesProps = {
     SearchResultMatch?: PrimitiveOverrideProps<ViewProps>;
-    "Rectangle 1"?: PrimitiveOverrideProps<ViewProps>;
     issue_type_image?: PrimitiveOverrideProps<ImageProps>;
     ticket_id_text?: PrimitiveOverrideProps<TextProps>;
     title_text?: PrimitiveOverrideProps<TextProps>;
+    "Rectangle 1"?: PrimitiveOverrideProps<ViewProps>;
 } & EscapeHatchProps;
 export declare type SearchResultMatchProps = React.PropsWithChildren<Partial<ViewProps> & {
     ticket?: Ticket;

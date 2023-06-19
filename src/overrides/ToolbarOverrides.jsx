@@ -3,6 +3,8 @@ import { TicketContext } from '../contexts/TicketContext';
 import { UserContext } from '../contexts/UserContext';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
 import { PISprintContext } from '../contexts/PISprintContext';
+import { ProjectContext } from '../contexts/ProjectContext';
+import { getProjectNameState } from '../states';
 
 export function ToolbarFunc (props) {
 
@@ -21,6 +23,10 @@ export function ToolbarFunc (props) {
         handleIssueTemplateSelectChange,
         assignedToMe,
         allUsers,
+        searchTicket,
+        handleClearSearchTicket,
+        handleSearchTicketChange,
+        matchedTickets,
     } = React.useContext(ToolbarSelectContext);
 
     const {
@@ -35,12 +41,19 @@ export function ToolbarFunc (props) {
     const {
         sprintID,
     } = useContext(PISprintContext);
+    const {
+        navigate
+    } = useContext(ProjectContext);
 
     const ToolbarOverride={
         profile_icon_image:{
             src: userProfileURL
         },
-        
+        search_ticket_select_field:{
+            onChange : (event) => (handleSearchTicketChange(event)),
+            onClear : (event) => (handleClearSearchTicket(event)),
+            value: searchTicket
+        },
         success_alert : { 
             style:{"display": alertVisibility },
             children: alertDescription,
@@ -85,7 +98,24 @@ export function ToolbarFunc (props) {
             isDisabled: sprintID === 0
         },
         }
+        
+        const SearchTicketOverride={
+            SearchResultMatchCollection:{
+                items: matchedTickets }}
+
+        const OverrideSearchTicketItems = ({ item, index })  => {
+            return {
+                overrides: {
+                    title_text:{ children: item.Title },
+                    ticket_id_text: {children: "KAI-"+item.TicketID},
+                    issue_type_image: {src: require(`../images/${item.IssueType}.jpeg`)},
+                    },
+                onClick: () => (
+                    navigate("/edit-ticket",
+                            {state:{selectedTicket:item,project: getProjectNameState()}}))};}
 
     return {
-        ToolbarOverride
+        ToolbarOverride,
+        SearchTicketOverride,
+        OverrideSearchTicketItems,
     }}

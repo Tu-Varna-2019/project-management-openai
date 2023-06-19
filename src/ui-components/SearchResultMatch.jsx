@@ -14,7 +14,7 @@ import { Image, Text, View } from "@aws-amplify/ui-react";
 export default function SearchResultMatch(props) {
   const { ticket, overrides, ...rest } = props;
   const [rectangleOneBackgroundColor, setRectangleOneBackgroundColor] =
-    useStateMutationAction("rgba(254,254,255,1)");
+    useStateMutationAction("rgba(35,47,62,0.3)");
   const rectangleOneOnMouseLeave = () => {
     setRectangleOneBackgroundColor("rgba(255, 255, 255, 0)");
   };
@@ -23,7 +23,7 @@ export default function SearchResultMatch(props) {
   };
   return (
     <View
-      width="362px"
+      width="350px"
       height="36px"
       display="block"
       gap="unset"
@@ -32,35 +32,10 @@ export default function SearchResultMatch(props) {
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      backgroundColor="rgba(255,255,255,1)"
+      backgroundColor="rgba(48,64,80,1)"
       {...getOverrideProps(overrides, "SearchResultMatch")}
       {...rest}
     >
-      <View
-        width="362px"
-        height="36px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="0%"
-        bottom="0%"
-        left="0%"
-        right="0%"
-        border="1px SOLID rgba(35,47,62,1)"
-        borderRadius="10px"
-        padding="0px 0px 0px 0px"
-        backgroundColor={rectangleOneBackgroundColor}
-        cursor="pointer"
-        onMouseLeave={() => {
-          rectangleOneOnMouseLeave();
-        }}
-        onMouseOver={() => {
-          rectangleOneOnMouseOver();
-        }}
-        {...getOverrideProps(overrides, "Rectangle 1")}
-      ></View>
       <Image
         width="7.61%"
         height="56.1%"
@@ -81,13 +56,13 @@ export default function SearchResultMatch(props) {
         fontFamily="Inter"
         fontSize="14px"
         fontWeight="700"
-        color="rgba(104,112,120,1)"
+        color="rgba(255,255,255,1)"
         lineHeight="14px"
         textAlign="left"
         display="block"
         direction="column"
         justifyContent="unset"
-        width="77.71px"
+        width="75.14px"
         height="16.68px"
         gap="unset"
         alignItems="unset"
@@ -105,13 +80,13 @@ export default function SearchResultMatch(props) {
         fontFamily="Inter"
         fontSize="14px"
         fontWeight="700"
-        color="rgba(0,0,0,1)"
+        color="rgba(255,255,255,1)"
         lineHeight="21px"
         textAlign="left"
         display="block"
         direction="column"
         justifyContent="unset"
-        width="200.67px"
+        width="194.02px"
         height="19.32px"
         gap="unset"
         alignItems="unset"
@@ -125,6 +100,30 @@ export default function SearchResultMatch(props) {
         children={ticket?.Title}
         {...getOverrideProps(overrides, "title_text")}
       ></Text>
+      <View
+        width="350px"
+        height="36px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="0%"
+        bottom="0%"
+        left="0%"
+        right="0%"
+        borderRadius="10px"
+        padding="0px 0px 0px 0px"
+        backgroundColor={rectangleOneBackgroundColor}
+        cursor="pointer"
+        onMouseLeave={() => {
+          rectangleOneOnMouseLeave();
+        }}
+        onMouseOver={() => {
+          rectangleOneOnMouseOver();
+        }}
+        {...getOverrideProps(overrides, "Rectangle 1")}
+      ></View>
     </View>
   );
 }

@@ -19,8 +19,6 @@ export function PISprintClass() {
     const [sprintID,setSprintID] = useState("");
     const [sprintNum,setSprintNum] = useState(0);
     const [sprintNumbers,setSprintNumbers] = useState(["","create one"]);
-    const [sprintStartDate,setSprintStartDate] = useState(new Date());
-    const [sprintEndDate,setSprintEndDate] = useState(new Date());
 
     useEffect(() => {
         setPINum(getPINumState());
@@ -149,9 +147,8 @@ export function PISprintClass() {
     const handleSelectSprintNumberChange = async (event) => {
         switch(event.target.value) {
             case "create one":
-                if (window.confirm(`Are you sure you want to create another sprint ${getBiggestSprintNum+1}`)) {
+                if (window.confirm(`Are you sure you want to create another sprint ${getBiggestSprintNum+1}`)) 
                     handleCreateSprint(getBiggestSprintNum+1);
-                }
                 break;
             default:
                 if (event.target.value !== ""){
@@ -160,8 +157,7 @@ export function PISprintClass() {
                 await DataStore.query(Sprint)
                 .then(data => { data.filter(item => {
                     if (item.Number === parseInt(event.target.value)) {
-                    setSprintID(item.id);}
-                })
+                    setSprintID(item.id);}})
                 });}
                 break;}
     };

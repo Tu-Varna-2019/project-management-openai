@@ -5,7 +5,7 @@ import { getDragDropTicketState, getNotificationCountState, getNotificationsStat
 import { ProjectContext } from '../contexts/ProjectContext';
 import { PISprintContext } from '../contexts/PISprintContext';
 import { User2Class } from './User2Class';
-import { v4 as uuidv4 } from 'uuid';
+
 
 const iniTicketValue = {
     Title: "",
@@ -34,7 +34,7 @@ export function TicketClass(props) {
     // Ticket/s
     const editTicket = location.state ? location.state.selectedTicket : "";
     const [subtasks,setSubtasks] = useState([]);
-    const [tickets,setTickets] = useState("");
+    const [tickets,setTickets] = useState([]);
     // Ticket by statuses
     const [ticketToDo,setTicketToDo] = useState("");
     const [ticketInProgress,setTicketInProgress] = useState("");
@@ -82,7 +82,7 @@ export function TicketClass(props) {
     const isseTypeOptions = ["Task","UserStory","Feature","Bug","Subtask","Epic"];
     const [priorityOptions,setPriorityOptions] = useState(["Low","Medium","High","Critical"]);
     const statusOptions = ["ToDo","InProgress","InReview","Done"];
-    const moreOptions = ["","Move","Clone","Delete"];
+    const moreOptions = ["","Clone","Delete"];
     // Regex for empty values
     const isTitleEmpty =  /^\s*$/.test(title);
     const watchedCount = watchedUsers?.match(/,/g) ? watchedUsers.match(/,/g).length : 0 ;
@@ -356,11 +356,8 @@ export function TicketClass(props) {
         const newTicketCreatedDate = newCreatedDate.toISOString();
         let resolved_date = null;
         switch(event.target.value){
-            // Move
-            case moreOptions[1]:
-            break;
             // Clone
-            case moreOptions[2]:
+            case moreOptions[1]:
                 if (resolvedDate !== "-") {
                     const newResolvedDate = new Date(new Date(resolvedDate).getTime() - timezoneOffset);
                     resolved_date = newResolvedDate.toISOString();}
@@ -390,7 +387,7 @@ export function TicketClass(props) {
                     window.location.reload();
             break;
             // Delete
-            case moreOptions[3]:
+            case moreOptions[2]:
                 if (window.confirm("Are you sure you want to delete the selected ticket ?")) 
                 {
                     const modelToDelete = await DataStore.query(Ticket, editTicket.id);

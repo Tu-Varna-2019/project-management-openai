@@ -2,9 +2,11 @@ import { Auth } from "aws-amplify";
 import { getProjectNameState, setPINumState, setSprintNumState } from '../states';
 import { DataStore } from "aws-amplify";
 import { Ticket } from "../models";
-import React,{ useContext, useState } from "react";
+import React,{ useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { ProjectContext } from "../contexts/ProjectContext";
+import { TicketContext } from "../contexts/TicketContext";
+import fuzzysearch from 'fuzzysearch';
 
 export function ToolbarSelectClass() {
     const {
@@ -14,9 +16,15 @@ export function ToolbarSelectClass() {
     const {
         navigate
     } = useContext(ProjectContext);
+    const {
+        tickets
+    } = useContext(TicketContext);
     
     const [assignedToMe,setAssignedToMe] = useState(["","assigned to me","boards"]);
     const [allUsers,setAllUsers] = useState(["","all users"]);
+    const [searchTicket,setSearchTicket] = useState("");
+    const [matchedTickets,setMatchedTickets] = useState([]);
+    const showSearchRect = matchedTickets.length === 0;
 
     const handleProjectsSelectChange = (event) => {
         switch(event.target.value){
@@ -118,7 +126,31 @@ export function ToolbarSelectClass() {
             console.log("default");
             break;}};
 
+    const handleClearSearchTicket = (event) => {
+        setSearchTicket("");
+    };
+
+const handleSearchTicketChange = (event) => {
+    setSearchTicket(event.target.value);
+};
+
+useEffect(() => {
+    if (searchTicket === "")
+       setMatchedTickets([]);
+    else {
+    const typed_value = searchTicket;
+    const newResults = tickets.filter(item =>
+        fuzzysearch(typed_value.toLowerCase(), item.Title.toLowerCase())
+    );
+    setMatchedTickets(newResults);}
+},[tickets,searchTicket,setSearchTicket])
+
     return {
+        showSearchRect,
+        handleClearSearchTicket,
+        handleSearchTicketChange,
+        matchedTickets,
+        searchTicket,
         allUsers,
         handleProjectsSelectChange,
         handleYourWorkSelectChange,

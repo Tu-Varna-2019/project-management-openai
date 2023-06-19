@@ -14,7 +14,6 @@ export declare type ToolbarOverridesProps = {
     search_ticket_select_field?: PrimitiveOverrideProps<SearchFieldProps>;
     create_ticket_button?: PrimitiveOverrideProps<ButtonProps>;
     reminder_icon_image?: PrimitiveOverrideProps<ImageProps>;
-    help_icon_image?: PrimitiveOverrideProps<ImageProps>;
     profile_icon_image?: PrimitiveOverrideProps<ImageProps>;
     "logo 1"?: PrimitiveOverrideProps<ImageProps>;
     KAI?: PrimitiveOverrideProps<TextProps>;

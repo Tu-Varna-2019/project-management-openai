@@ -36,8 +36,9 @@ export default function SearchResultMatchCollection(props) {
   return (
     <Collection
       type="list"
-      isSearchable={true}
+      isPaginated={true}
       searchPlaceholder="Search..."
+      itemsPerPage={3}
       direction="column"
       justifyContent="center"
       items={items || []}

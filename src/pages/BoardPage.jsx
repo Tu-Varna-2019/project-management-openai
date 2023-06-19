@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Board, ChildTicketShortCollection, CreateIssueTemplate, CreateTicket, CreateTicketScroll, EditIssueTemplate, EditTicket, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
+import { Board, ChildTicketShortCollection, CreateIssueTemplate, CreateTicket, CreateTicketScroll, EditIssueTemplate, EditTicket, ProjectVerticalSelectField, SearchBoxRect, SearchResultMatch, SearchResultMatchCollection, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
 import { BoardFunc } from '../overrides/BoardOverride';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
 import { EditTicketFunc } from '../overrides/EditTicketOverride';
@@ -12,6 +12,7 @@ import { CreateTicketScrollFunc } from '../overrides/CreateTicketScrollOverride'
 import { CreateIssueTemplateFunc } from '../overrides/CreateIssueTemplateOverride';
 import { EditIssueTemplateFunc } from '../overrides/EditIssueTemplateOverride';
 import { ProjectContext } from '../contexts/ProjectContext';
+import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
 
 
 
@@ -36,7 +37,9 @@ export default function BoardPage(props) {
     CreateTicketOverride
   }= CreateTicketFunc();
   const {
-    ToolbarOverride
+    ToolbarOverride,
+    SearchTicketOverride,
+    OverrideSearchTicketItems,
   } = ToolbarFunc();
   const {
     TicketInfoScrollOverride
@@ -60,6 +63,10 @@ const {
 const {
   location,
 } = useContext(ProjectContext);
+const {
+  showSearchRect
+} = useContext(ToolbarSelectContext);
+
 
     const editTicketBoolean = location.state ? location.state.edited : false;
     const createTicketBoolean = location.state ? location.state.create : false;
@@ -98,6 +105,18 @@ const {
 
         <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1095, width:825 }}>
         <Toolbar overrides={ToolbarOverride}/>
+        </div>
+
+        {!showSearchRect && (
+        <div style={{position: 'absolute', bottom: "825px" , left:"1100px" }}>
+          <SearchBoxRect/>
+        </div>
+        )}
+        <div
+          style={{ position: 'absolute' , width:"120px", display: 'block',bottom: "990px",left: "1350px",objectFit: "cover"}}>
+          <SearchResultMatchCollection style={{position: 'absolute',bottom:"-150px", left:"-235px" }}
+              overrides={SearchTicketOverride}
+              overrideItems={OverrideSearchTicketItems}/>
         </div>
 
         <div style={{ position: 'absolute',display: 'block', bottom: -10, right: 1600 , width:300 }}>

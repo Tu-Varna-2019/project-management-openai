@@ -37,7 +37,7 @@ export function ProjectVerticalSelectFieldFunc (props) {
         backlog_button:{
             onClick: (event) => (navigate("/backlog"))},
         active_sprints_button:{
-            onClick: (event) => (console.log("yes2"))},
+            onClick: (event) => (navigate("/board"))},
         project_name_text:{
             children: getProjectNameState()
         },

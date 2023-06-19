@@ -85,6 +85,7 @@ export function ProjectClass(props) {
                 const editProjectDataStore = await DataStore.query(Project,selectedProjectID);
                 await DataStore.save(Project.copyOf(editProjectDataStore, item => {
                     item.Name = projectName;
+                    if (imageProjectName !== "")
                     item.ImageProject = imageProjectName;
                 }));
                 navigate('/');

@@ -86,26 +86,12 @@ export default function Toolbar(props) {
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
-        top="39.5px"
-        left="1670px"
+        top="39px"
+        left="1734px"
         padding="0px 0px 0px 0px"
         objectFit="cover"
         src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fpaomedia%2Fsmall-n-flat%2F1024%2Fbell-icon.png&f=1&nofb=1&ipt=bad24e084ced30d8bc26351af749aec06912617f276152536c85b66acb5aaf27&ipo=images"
         {...getOverrideProps(overrides, "reminder_icon_image")}
-      ></Image>
-      <Image
-        width="51px"
-        height="52px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="38px"
-        left="1759px"
-        padding="0px 0px 0px 0px"
-        objectFit="cover"
-        {...getOverrideProps(overrides, "help_icon_image")}
       ></Image>
       <Image
         width="49px"
@@ -377,8 +363,8 @@ export default function Toolbar(props) {
         height="80px"
         label="Your work"
         position="absolute"
-        top="33px"
-        left="1644px"
+        top="32px"
+        left="1714px"
         placeholder=""
         size="default"
         isDisabled={false}
@@ -405,8 +391,8 @@ export default function Toolbar(props) {
         height="23px"
         position="absolute"
         backgroundColor="rgba(255,255,255,1)"
-        top="72px"
-        left="1703px"
+        top="71.5px"
+        left="1767px"
         size="default"
         variation="default"
         children="1"

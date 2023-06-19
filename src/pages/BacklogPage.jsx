@@ -1,15 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Backlog, ProjectVerticalSelectField, TicketToDoCollection, Toolbar } from "../ui-components";
-import { ProfileFunc } from '../overrides/ProfileOverride';
+import { Backlog, ProjectVerticalSelectField, SearchBoxRect, SearchResultMatchCollection, TicketToDoCollection, Toolbar } from "../ui-components";
 import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ProjectVerticalSelectFieldFunc } from '../overrides/ProjectVerticalSelectFieldOverrides';
 import { BoardFunc } from '../overrides/BoardOverride';
+import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
 
 export default function BacklogPage(props) {
-  const {
-    ToolbarOverride
-  } = ToolbarFunc();
   const {
     ProjectVerticalSelectFieldOverride
   } = ProjectVerticalSelectFieldFunc();
@@ -17,10 +14,19 @@ export default function BacklogPage(props) {
     customOverrideItems
   }= BoardFunc();
 
+  const {
+    showSearchRect
+  } = useContext(ToolbarSelectContext);
+  const {
+    ToolbarOverride,
+    SearchTicketOverride,
+    OverrideSearchTicketItems,
+  } = ToolbarFunc();
+
     return(
       <>
       <div className='amplify-container'
-            style={{ position:'relative', display: 'inline-block',overflow: "hidden"}}>
+        style={{ position:'relative', display: 'inline-block',overflow: "hidden",top: "-50px",left: "0px"}}>
       <Backlog/>
 {/* 
       <div
@@ -42,9 +48,22 @@ export default function BacklogPage(props) {
               overrideItems={customOverrideItems}/>
         </div> */}
 
-      <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1095, width:825  }}>
+<div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1095, width:825 }}>
         <Toolbar overrides={ToolbarOverride}/>
-      </div>
+        </div>
+
+        {!showSearchRect && (
+        <div style={{position: 'absolute', bottom: "825px" , left:"1100px" }}>
+          <SearchBoxRect/>
+        </div>
+        )}
+        <div
+          style={{ position: 'absolute' , width:"120px", display: 'block',bottom: "990px",left: "1350px",objectFit: "cover"}}>
+          <SearchResultMatchCollection style={{position: 'absolute',bottom:"-150px", left:"-235px" }}
+              overrides={SearchTicketOverride}
+              overrideItems={OverrideSearchTicketItems}/>
+        </div>
+
       <div style={{ position: 'absolute',display: 'block', bottom: -10, right: 1600 , width:300 }}>
           <ProjectVerticalSelectField overrides={ProjectVerticalSelectFieldOverride}/>
         </div>

@@ -28,6 +28,7 @@ export { default as SelectProject } from "./SelectProject";
 export { default as DeleteAccount } from "./DeleteAccount";
 export { default as Reminder } from "./Reminder";
 export { default as NotetitlebuttonCollection } from "./NotetitlebuttonCollection";
+export { default as SearchBoxRect } from "./SearchBoxRect";
 export { default as Toolbar } from "./Toolbar";
 export { default as NoteremindercardCollection } from "./NoteremindercardCollection";
 export { default as Notetitlebutton } from "./Notetitlebutton";
