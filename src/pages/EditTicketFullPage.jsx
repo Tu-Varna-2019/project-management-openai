@@ -7,6 +7,8 @@ import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ProjectVerticalSelectFieldFunc } from '../overrides/ProjectVerticalSelectFieldOverrides';
 import { SubtaskFunc } from '../overrides/SubtaskOverride';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
+import { Loader } from '@aws-amplify/ui-react';
+import { IssueTemplateContext } from '../contexts/IssueTemplateContext';
 
 export default function EditTicketFullPage(props) {
   const {
@@ -31,6 +33,9 @@ export default function EditTicketFullPage(props) {
     SearchTicketOverride,
     OverrideSearchTicketItems,
   } = ToolbarFunc();
+  const {
+    openaiProgBar
+  } = useContext(IssueTemplateContext);
 
     return(
       <>
@@ -68,5 +73,11 @@ export default function EditTicketFullPage(props) {
           overrides={ChildTicketShortCollectionOverride}
           overrideItems={ChildTicketShortOverride}/>
       </div>
+      {openaiProgBar && (
+            <div style={{ position: 'absolute',display: 'block', bottom: 220, right: 950 , width:480 }}>
+            <Loader />
+            <Loader variation="linear" />
+            </div>
+      )}
       </div>
       </>)}

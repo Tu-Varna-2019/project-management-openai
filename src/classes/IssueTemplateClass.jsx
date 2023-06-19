@@ -191,7 +191,8 @@ export function IssueTemplateClass(props) {
                     const title_summarize = templateType === "ticket" ? title : ITTitle;
                     const description_summarize = templateType === "ticket" ? description : ITDescription;
                     const comment_summarize = templateType === "ticket" ? comment : ITComment;
-
+                    
+                    if (title_summarize.trim() !== "" && description_summarize.trim() !== "" && comment_summarize.trim() !== "") {
                     openai_response = await postTranslate({
                         Title: title_summarize,
                         Description: description_summarize,
@@ -210,7 +211,6 @@ export function IssueTemplateClass(props) {
                         console.log("undefined!");
                         return handleCreateTicketAIOptionsChange(event,templateType);
                     }else{
-                        setOpenaiProgBar(false);
                     if (templateType === "ticket") {
                         setTitle(openaiTitle);
                         setDescription(openaiDescription);
@@ -219,14 +219,15 @@ export function IssueTemplateClass(props) {
                         setITTitle(openaiTitle);
                         setITDescription(openaiDescription);
                         setITComment(openaiComment);}
-                    }}
+                    }}}
+                setOpenaiProgBar(false);
                 break;
             case "Summarize":
                 if (issueTypeChoice !== "") {
                     const title_summarize = templateType === "ticket" ? title : ITTitle;
                     const description_summarize = templateType === "ticket" ? description : ITDescription;
                     const comment_summarize = templateType === "ticket" ? comment : ITComment;
-
+                    if (title_summarize.trim() !== "" && description_summarize.trim() !== "" && comment_summarize.trim() !== "") {
                     openai_response = await postSummarize({
                         Title: title_summarize,
                         Description: description_summarize,
@@ -254,7 +255,8 @@ export function IssueTemplateClass(props) {
                         setITTitle(openaiTitle);
                         setITDescription(openaiDescription);
                         setITComment(openaiComment);}
-                    }}
+                    }}}
+                setOpenaiProgBar(false);
                 break;
             case "Generate template":
                 if (issueTypeChoice !== "") {
@@ -274,7 +276,6 @@ export function IssueTemplateClass(props) {
                     console.log("undefined!");
                     return handleCreateTicketAIOptionsChange(event,templateType);
                 }else{
-                    setOpenaiProgBar(false);
                 if (templateType === "ticket") {
                     setTitle(openaiTitle);
                     setDescription(openaiDescription);
@@ -284,6 +285,7 @@ export function IssueTemplateClass(props) {
                     setITDescription(openaiDescription);
                     setITComment(openaiComment);}
                 }}
+                setOpenaiProgBar(false);
                 break;
             case "Stop audio":
                 setOpenaiProgBar(false);
@@ -294,7 +296,6 @@ export function IssueTemplateClass(props) {
                 setAiOptions(["","Translate to Bulgarian","Summarize","Generate template","Text to speech"])
                 break;
             case "Text to speech":
-                setOpenaiProgBar(false);
                 if (templateType === "ticket") {
                 Predictions.convert({
                     textToSpeech: {
@@ -332,6 +333,7 @@ export function IssueTemplateClass(props) {
                         setAudioTSpeech(audio);
                         setAiOptions(["","Translate to Bulgarian","Summarize","Generate template","Text to speech","Stop audio"])
                     }).catch(err => console.log({ err }));}
+                setOpenaiProgBar(false);
                 break;
             default:
                 console.log("default");

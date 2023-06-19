@@ -77,7 +77,9 @@ const {
     const createIssueTemplateBoolean = location.state ? location.state.create_it : false;
     const editIssueTemplateBoolean = location.state ? location.state.edited_it : false;
     
-    const openAIProgBarBottom = editTicketBoolean === true ? 400 : createIssueTemplateBoolean === true ? 240 : 200;
+    const openAIProgBarBottom = editTicketBoolean === true ? 300 : createTicketBoolean === true ? 120 : createIssueTemplateBoolean === true ? 240 : editIssueTemplateBoolean === true ? 200 : 0;
+    const openAIProgBarRight = editTicketBoolean === true ? 1070 : 690 ;
+    console.log(openAIProgBarBottom)
     return(
       <>
         <div className='amplify-container'
@@ -143,8 +145,6 @@ const {
               overrides={ChildTicketShortCollectionOverride}
               overrideItems={ChildTicketShortOverride}/>
           </div>
-
-
             </>)}
             {createTicketBoolean && (
             <>
@@ -155,33 +155,20 @@ const {
             <div style={{ position: 'absolute',display: 'block', bottom: 140, right: 680 , width:500 }}>
             <FileImageTicketUpload/>
             </div>
-            
-            {openaiProgBar && (
-            <div style={{ position: 'absolute',display: 'block', bottom: 1200, right: 690 , width:480 }}>
-            <Loader />
-            <Loader variation="linear" />
-            </div>
-            )}
             </>)}
             {createIssueTemplateBoolean && (
             <CreateIssueTemplate overrides={CreateIssueTemplateOverride}/>)}
-            {openaiProgBar && (
-            <div style={{ position: 'absolute',display: 'block', bottom: 240, right: 690 , width:480 }}>
-            <Loader />
-            <Loader variation="linear" />
-            </div>
-            )}
-
+            
             {editIssueTemplateBoolean && (
             <>
             <EditIssueTemplate overrides={EditIssueTemplateOverride}/>
+            </>
+            )}
             {openaiProgBar && (
-            <div style={{ position: 'absolute',display: 'block', bottom: 200, right: 690 , width:480 }}>
+            <div style={{ position: 'absolute',display: 'block', bottom: openAIProgBarBottom, right: openAIProgBarRight , width:480 }}>
             <Loader />
             <Loader variation="linear" />
             </div>
-            )}
-            </>
             )}
       </div>
       </div>
