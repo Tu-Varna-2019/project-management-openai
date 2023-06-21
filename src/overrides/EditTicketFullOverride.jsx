@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { TicketContext } from '../contexts/TicketContext';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { getProjectNameState } from '../states';
+import { ProjectContext } from '../contexts/ProjectContext';
 
 export function EditTicketFullFunc () {
 
@@ -23,7 +25,10 @@ export function EditTicketFullFunc () {
         watchedAddMeVariant,
         isLoading,
     } = React.useContext(TicketContext);
-
+    const {
+        navigate,
+    } = useContext(ProjectContext);
+    
     const EditTicketFullOverride={
         ticket_id_text: {
             children: "KAI-"+ticketID
@@ -44,7 +49,7 @@ export function EditTicketFullFunc () {
             onChange: (event) => (handleComment(event)),
         },
         cancel_button:{
-            onClick: (event) => (handleCloseEditTicketClick(event)),
+            onClick: (event) => (navigate("/board",{state:{edited:false,project: getProjectNameState()}})),
         },
         create_button:{
             onClick: (event) => (handleSaveEditTicketClick(event)),

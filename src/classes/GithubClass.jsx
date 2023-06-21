@@ -9,7 +9,8 @@ import { Ticket } from "../models";
 export function GithubClass() {
 
   const {
-    editTicket
+    editTicket,
+    editTicketBoolean,
   } = useContext(TicketContext);
   const {
     location,
@@ -18,6 +19,8 @@ export function GithubClass() {
 
   const showGithubActions = location.state ? location.state.show_git : false;
   const viewGithubCommits = location.state ? location.state.view_mode : false;
+  const redirectTicketPath = editTicketBoolean === true ? "/board" : "/edit-ticket";
+
   const repoOwner = process.env.REACT_APP_GITHUB_REPO_OWNER;
   const repoName = process.env.REACT_APP_GITHUB_REPO_NAME;
   const [shaTicket,setShaTicket] = useState([]);
@@ -35,7 +38,7 @@ export function GithubClass() {
     "SHA":""
   }]);
   const [commitsSelected,setCommitsSelected] = useState([{}]);
-
+  
   // Get all Sha from selected edited ticket
   useEffect(() => {
     setShaTicket([]);
@@ -47,8 +50,7 @@ export function GithubClass() {
   useEffect(() => {
     if (viewGithubCommits)
     setCommitsSelected(
-      commits.filter(item => selectedSha.includes(item.SHA)))  
-    
+      commits.filter(item => selectedSha.includes(item.SHA)));
   },[location.state,editTicket,viewGithubCommits,commits,selectedSha]);
 
   useEffect(() => {
@@ -77,22 +79,21 @@ export function GithubClass() {
       // Add&Remove
       case gitActions[1]:
         setGitOptionsState("Add&Remove");
-        navigate("/board",{state:{selectedTicket:editTicket,edited:true,show_git:true,project: getProjectNameState()}});
+        navigate(redirectTicketPath,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:true,project: getProjectNameState()}});
         break;
       // View current
       case gitActions[2]:
         setGitOptionsState("View current");
-        navigate("/board",{state:{selectedTicket:editTicket,edited:true,show_git:true,view_mode:true,project: getProjectNameState()}});
+        navigate(redirectTicketPath,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:true,view_mode:true,project: getProjectNameState()}});
         break;
       default:
         console.log("default");
       break;
     }
-
   };
 
   const handleBackGitActions = (event) => {
-    navigate("/board",{state:{selectedTicket:editTicket,edited:true,show_git:false,project: getProjectNameState()}});
+    navigate(redirectTicketPath,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:false,project: getProjectNameState()}});
   };
 
   const handleSaveGitActions = async (event) => {
@@ -102,7 +103,7 @@ export function GithubClass() {
         await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
           item.GitCommit = selectedSha}));
      editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
-      navigate("/board",{state:{selectedTicket:editTicketDataStore,edited:true,show_git:false,project: getProjectNameState()}});
+      navigate(redirectTicketPath,{state:{selectedTicket:editTicketDataStore,edited:editTicketBoolean,show_git:false,project: getProjectNameState()}});
       break;
     default:
       console.log("default");

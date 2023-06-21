@@ -36,12 +36,12 @@ const {
     AppComponentOverride,
     logoURL
 } = AppFunc();
-// Ignore Fileuploader warning
+
 const originalWarn = console.warn;
 console.warn = function(message) {
-    if (message.indexOf('FileUploader has exited Dev Preview and was renamed to') === -1 &&
-        message.indexOf('DataStore') === -1 )
+    if (message.indexOf('DataStore') === -1 )
         originalWarn.apply(console, arguments);
+
 };
 
 Amplify.configure(awsExports);

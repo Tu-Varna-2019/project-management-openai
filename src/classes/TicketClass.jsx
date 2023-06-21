@@ -36,6 +36,12 @@ export function TicketClass(props) {
 
     // Ticket/s
     const editTicket = location.state ? location.state.selectedTicket : "";
+
+    const editTicketBoolean = location.state ? location.state.edited : false;
+    const createTicketBoolean = location.state ? location.state.create : false;
+    const createIssueTemplateBoolean = location.state ? location.state.create_it : false;
+    const editIssueTemplateBoolean = location.state ? location.state.edited_it : false;
+
     const [subtasks,setSubtasks] = useState([]);
     const [tickets,setTickets] = useState([]);
     // Ticket by statuses
@@ -755,6 +761,10 @@ const handleSaveEditTicketClick = async (event) => {
     }
 
     return {
+        editIssueTemplateBoolean,
+        createIssueTemplateBoolean,
+        createTicketBoolean,
+        editTicketBoolean,
         editTicket,
         sprint1,
         sprint2,

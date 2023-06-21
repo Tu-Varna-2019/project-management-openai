@@ -86,14 +86,12 @@ const {
   shaTicket,
 } = useContext(GithubContext);
 const {
-  editTicket
+  editTicket,
+  editIssueTemplateBoolean,
+  createIssueTemplateBoolean,
+  createTicketBoolean,
+  editTicketBoolean,
 } = useContext(TicketContext);
-
-
-    const editTicketBoolean = location.state ? location.state.edited : false;
-    const createTicketBoolean = location.state ? location.state.create : false;
-    const createIssueTemplateBoolean = location.state ? location.state.create_it : false;
-    const editIssueTemplateBoolean = location.state ? location.state.edited_it : false;
     
     const openAIProgBarBottom = editTicketBoolean === true ? 300 : createTicketBoolean === true ? 120 : createIssueTemplateBoolean === true ? 240 : editIssueTemplateBoolean === true ? 200 : 0;
     const openAIProgBarRight = editTicketBoolean === true ? 1070 : 690 ;
