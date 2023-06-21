@@ -737,6 +737,14 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "GitCommit": {
+                    "name": "GitCommit",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -953,5 +961,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "e3d8a1d7ef487832f91ecb948bcfbf76"
+    "version": "4c9dce6d0d4138172e8576225a13148d"
 };

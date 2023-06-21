@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Board, ChildTicketShortCollection, CreateIssueTemplate, CreateTicket, CreateTicketScroll, EditIssueTemplate, EditTicket, ProjectVerticalSelectField, SearchBoxRect, SearchResultMatch, SearchResultMatchCollection, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
+import { Board, ChildTicketShortCollection, CreateIssueTemplate, CreateTicket, CreateTicketScroll, EditIssueTemplate, EditTicket, GithubCommitCollection, ProjectVerticalSelectField, SearchBoxRect, SearchResultMatchCollection, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from '../ui-components';
 import { BoardFunc } from '../overrides/BoardOverride';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
 import { EditTicketFunc } from '../overrides/EditTicketOverride';
@@ -13,8 +13,11 @@ import { CreateIssueTemplateFunc } from '../overrides/CreateIssueTemplateOverrid
 import { EditIssueTemplateFunc } from '../overrides/EditIssueTemplateOverride';
 import { ProjectContext } from '../contexts/ProjectContext';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
-import { Loader, useTheme } from '@aws-amplify/ui-react';
+import { Loader , Button, Icon , Expander, ExpanderItem } from '@aws-amplify/ui-react';
 import { IssueTemplateContext } from '../contexts/IssueTemplateContext';
+import { GithubContext } from '../contexts/GithubContext';
+import { GithubCommitFunc } from '../overrides/GithubCommitOverride';
+import { TicketContext } from '../contexts/TicketContext';
 
 
 export default function BoardPage(props) {
@@ -62,6 +65,10 @@ const {
   EditIssueTemplateOverride,
 } = EditIssueTemplateFunc();
 const {
+  GithubCommitOverrideCollectionOverride,
+  GithubCommitOverride,
+} = GithubCommitFunc();
+const {
   location,
 } = useContext(ProjectContext);
 const {
@@ -70,6 +77,17 @@ const {
 const {
   openaiProgBar
 } = useContext(IssueTemplateContext);
+const {
+  refreshGithubItems,
+  showGithubActions,
+  handleBackGitActions,
+  handleSaveGitActions,
+  selectedSha,
+  shaTicket,
+} = useContext(GithubContext);
+const {
+  editTicket
+} = useContext(TicketContext);
 
 
     const editTicketBoolean = location.state ? location.state.edited : false;
@@ -79,7 +97,7 @@ const {
     
     const openAIProgBarBottom = editTicketBoolean === true ? 300 : createTicketBoolean === true ? 120 : createIssueTemplateBoolean === true ? 240 : editIssueTemplateBoolean === true ? 200 : 0;
     const openAIProgBarRight = editTicketBoolean === true ? 1070 : 690 ;
-    console.log(openAIProgBarBottom)
+
     return(
       <>
         <div className='amplify-container'
@@ -137,6 +155,8 @@ const {
             <div style={{ position: 'absolute',display: 'block', bottom: 130, right: 1000 , width:600 }}>
             <FileImageTicketUpload/>
             </div>
+            {!showGithubActions && (
+              <>
             <div style={{ position: 'absolute',display: 'block', bottom: 370, right: -460 , width:1400 ,  overflow: 'auto', maxHeight: '600px' }}>
             <TicketInfoScroll overrides={TicketInfoScrollOverride}/>
             </div>
@@ -145,6 +165,45 @@ const {
               overrides={ChildTicketShortCollectionOverride}
               overrideItems={ChildTicketShortOverride}/>
           </div>
+          </>
+          )}
+          {showGithubActions && (
+          <>
+          <div key={refreshGithubItems} style={{ cursor: 'pointer', position: 'absolute' , width:"120px", display: 'block',top: "970px",left: "1260px",objectFit: "cover"}}>
+          <GithubCommitCollection style={{position: 'absolute',  bottom: "220px", left: "-180px" }}
+              overrides={GithubCommitOverrideCollectionOverride}
+              overrideItems={GithubCommitOverride}/>
+          </div>
+          
+          <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "870px",left: "1320px",objectFit: "cover"}}>
+          <Button
+          isDisabled={
+            shaTicket.length === 0 ? false : editTicket.GitCommit.sort().every((value, index) => value === selectedSha.sort()[index])}
+          onClick={(event) => handleSaveGitActions(event)}
+          size='default' style={{fontSize: '22px' }}>Save  
+          <Icon
+          ariaLabel=""
+          pathData="M17 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V7L17 3ZM19 19H5V5H16.17L19 7.83V19ZM12 12C10.34 12 9 13.34 9 15C9 16.66 10.34 18 12 18C13.66 18 15 16.66 15 15C15 13.34 13.66 12 12 12ZM6 6H15V10H6V6Z"/>
+          </Button>
+          </div>
+
+          <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "870px",left: "1200px",objectFit: "cover"}}>
+          <Button 
+          onClick={(event) => handleBackGitActions(event)}
+          size='large' style={{fontSize: '22px' }} >🚀Back
+          </Button>
+          </div>
+          
+          <div style={{ cursor: 'pointer', position: 'absolute' , width:"225px", display: 'block',top: "800px",left: "1200px",objectFit: "cover"}}>
+          <Expander type="single" isCollapsible={true}>
+          <ExpanderItem title="Added commits" value="ok">
+          {selectedSha.map((sha, index) => (
+            <div key={index}>{sha}</div>))}
+          </ExpanderItem>
+            </Expander>
+          </div>
+          </>
+          )}
             </>)}
             {createTicketBoolean && (
             <>

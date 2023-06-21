@@ -239,6 +239,7 @@ type EagerTicket = {
   readonly Comment?: string | null;
   readonly sprintID: string;
   readonly projectID: string;
+  readonly GitCommit?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -268,6 +269,7 @@ type LazyTicket = {
   readonly Comment?: string | null;
   readonly sprintID: string;
   readonly projectID: string;
+  readonly GitCommit?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

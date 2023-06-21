@@ -755,6 +755,7 @@ const handleSaveEditTicketClick = async (event) => {
     }
 
     return {
+        editTicket,
         sprint1,
         sprint2,
         sprint3,

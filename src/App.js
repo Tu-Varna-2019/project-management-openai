@@ -30,6 +30,7 @@ import { IssueTemplateProvider } from './providers/IssueTemplateProvider';
 import BacklogPage from './pages/BacklogPage';
 import { PISprintProvider } from './providers/PISprintProvider';
 import EditProjectPage from './pages/EditProjectPage';
+import { GithubProvider } from './providers/GithubProvider';
 
 const {
     AppComponentOverride,
@@ -65,6 +66,7 @@ export default function App() {
       <ToolbarSelectProvider>
       <ActivityProvider>
       <SubtaskProvider>
+      <GithubProvider>
       <Routes>
         <Route path="/board" element={<BoardPage/>}/>
         <Route path="/backlog" element={<BacklogPage/>}/>
@@ -84,6 +86,7 @@ export default function App() {
         <Route path='/reset-password-kai' element={<ResetPasswordKAIPage/>}/>
         <Route path='/delete-account-kai' element={<DeleteAccountKAIPage/>}/>
       </Routes>
+      </GithubProvider>
       </SubtaskProvider>
       </ActivityProvider>
       </ToolbarSelectProvider>

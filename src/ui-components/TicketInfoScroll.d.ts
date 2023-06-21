@@ -13,10 +13,10 @@ export declare type TicketInfoScrollOverridesProps = {
     "Rectangle 1"?: PrimitiveOverrideProps<ViewProps>;
     people_group?: PrimitiveOverrideProps<ViewProps>;
     Asignee?: PrimitiveOverrideProps<TextProps>;
+    "Git commits"?: PrimitiveOverrideProps<TextProps>;
     Reporter?: PrimitiveOverrideProps<TextProps>;
     asignee_icon_image?: PrimitiveOverrideProps<ImageProps>;
     asignee_name_text?: PrimitiveOverrideProps<TextProps>;
-    Details?: PrimitiveOverrideProps<TextProps>;
     Attachments?: PrimitiveOverrideProps<TextProps>;
     assign_to_me_button?: PrimitiveOverrideProps<ButtonProps>;
     reporter_name_text?: PrimitiveOverrideProps<TextProps>;
@@ -28,6 +28,7 @@ export declare type TicketInfoScrollOverridesProps = {
     "Issue type"?: PrimitiveOverrideProps<TextProps>;
     "Priority:"?: PrimitiveOverrideProps<TextProps>;
     issue_type_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    git_commit_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     issue_type_image?: PrimitiveOverrideProps<ImageProps>;
     priority_image?: PrimitiveOverrideProps<ImageProps>;
@@ -60,6 +61,7 @@ export declare type TicketInfoScrollOverridesProps = {
     reporter_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     ai_options_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     More?: PrimitiveOverrideProps<TextProps>;
+    git_options_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type TicketInfoScrollProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: TicketInfoScrollOverridesProps | undefined | null;

@@ -1,6 +1,7 @@
 import { TicketContext } from '../contexts/TicketContext';
-import React from 'react';
+import React, { useContext } from 'react';
 import { CreateTicketFunc } from './CreateTicketOverride';
+import { GithubContext } from '../contexts/GithubContext';
 
 export function TicketInfoScrollFunc () {
 
@@ -35,10 +36,25 @@ export function TicketInfoScrollFunc () {
         attachmentUrls,
     } = React.useContext(TicketContext);
 
+    const {
+        shaTicket,
+        handleGitActionsOptions,
+        gitActions,
+    } = useContext(GithubContext);
+
     const {CreateTicketOverride} = CreateTicketFunc();
     const {ai_options_select_field} = CreateTicketOverride;
 
     const TicketInfoScrollOverride={
+        git_commit_select_field:{
+            options: shaTicket,
+        },
+        git_options_select_field:{
+            onChange : (event) => (handleGitActionsOptions(event)),
+            options: gitActions,
+        },
+
+        
         ai_options_select_field,
         asignee_name_text:{
             children: asigneeName

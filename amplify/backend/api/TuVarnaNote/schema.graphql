@@ -69,6 +69,7 @@ type Ticket @model @auth(rules: [{allow: public}, {allow: private}]) {
   Comment: String
   sprintID: ID! @index(name: "bySprint")
   projectID: ID! @index(name: "byProject")
+  GitCommit: [String]
 }
 
 type NoteV2 @model @auth(rules: [{allow: public}, {allow: private}, {allow: groups, groups: ["eu-west-1_ojmQnge33_Google"], operations: [read, create, update, delete]}, {allow: owner}]) {
