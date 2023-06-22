@@ -186,20 +186,6 @@ export default function SelectProject(props) {
           {...getOverrideProps(overrides, "Divider178872266")}
         ></Divider>
       </View>
-      <SelectField
-        width="435px"
-        height="unset"
-        label="Select Project"
-        position="absolute"
-        top="450px"
-        left="calc(50% - 217.5px - 63.5px)"
-        placeholder=""
-        size="default"
-        isDisabled={false}
-        labelHidden={false}
-        variation="default"
-        {...getOverrideProps(overrides, "select_project_select_field")}
-      ></SelectField>
       <Divider
         width="253px"
         height="1px"
@@ -267,6 +253,20 @@ export default function SelectProject(props) {
         }}
         {...getOverrideProps(overrides, "edit_project_image")}
       ></Image>
+      <SelectField
+        width="435px"
+        height="unset"
+        label="Select Project"
+        position="absolute"
+        top="458px"
+        left="calc(50% - 217.5px - 63.5px)"
+        placeholder=""
+        size="default"
+        isDisabled={false}
+        labelHidden={false}
+        variation="quiet"
+        {...getOverrideProps(overrides, "select_project_select_field")}
+      ></SelectField>
     </View>
   );
 }

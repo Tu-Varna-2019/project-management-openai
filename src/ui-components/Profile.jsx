@@ -623,37 +623,25 @@ export default function Profile(props) {
         </View>
         <View
           padding="0px 0px 0px 0px"
-          width="752.43px"
-          height="174.87px"
+          width="751.49px"
+          height="174.59px"
           display="block"
           gap="unset"
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
           top="804.7px"
-          left="calc(50% - 376.21px - 527.17px)"
+          left="calc(50% - 375.74px - 527.64px)"
           {...getOverrideProps(overrides, "options_group")}
         >
-          <Card
-            width="750.55px"
-            height="174.87px"
-            position="absolute"
-            backgroundColor="rgba(255,255,255,0.61)"
-            top="0%"
-            bottom="0%"
-            left="0.25%"
-            right="0%"
-            variation="elevated"
-            {...getOverrideProps(overrides, "done_card179692303")}
-          ></Card>
           <Button
             width="750.55px"
             height="58.29px"
             position="absolute"
-            top="66.67%"
-            bottom="0%"
+            top="33.39%"
+            bottom="33.22%"
             left="0.13%"
-            right="0.12%"
+            right="0%"
             backgroundColor={
               deleteUnderScoreaccountUnderScorebuttonBackgroundColor
             }
@@ -676,9 +664,9 @@ export default function Profile(props) {
             height="58.29px"
             position="absolute"
             top="0%"
-            bottom="66.67%"
+            bottom="66.61%"
             left="0%"
-            right="0.25%"
+            right="0.13%"
             backgroundColor={
               changeUnderScorepasswordUnderScorebuttonBackgroundColor
             }
@@ -700,10 +688,10 @@ export default function Profile(props) {
             width="750.55px"
             height="58.29px"
             position="absolute"
-            top="33.33%"
-            bottom="33.33%"
-            left="0.13%"
-            right="0.12%"
+            top="66.61%"
+            bottom="0%"
+            left="0.05%"
+            right="0.07%"
             backgroundColor={
               switchUnderScoremnotesUnderScorebuttonBackgroundColor
             }
@@ -712,7 +700,7 @@ export default function Profile(props) {
             variation="link"
             fontSize={20}
             color="white"
-            children="Switch to MNotes"
+            children="Add & remove users"
             onMouseOver={() => {
               switchUnderScoremnotesUnderScorebuttonOnMouseOver();
             }}

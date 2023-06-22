@@ -398,6 +398,17 @@ export default function Toolbar(props) {
         children="1"
         {...getOverrideProps(overrides, "notify_count_badge")}
       ></Badge>
+      <Badge
+        width="32px"
+        height="23px"
+        position="absolute"
+        top="72px"
+        left="1881px"
+        size="default"
+        variation="success"
+        children=""
+        {...getOverrideProps(overrides, "admin_user_badge")}
+      ></Badge>
     </View>
   );
 }

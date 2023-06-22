@@ -12,6 +12,7 @@ export function SelectProjectFunc(props) {
         setCurrentUser,
         authenticatedUser,
         setAuthenticatedUser,
+        setIsUserAdmin,
     } = React.useContext(UserContext);
     const {
         projectName,
@@ -23,6 +24,7 @@ export function SelectProjectFunc(props) {
         handleSelectedCreateOneProjectOnClick,
     }= useContext(ProjectContext);
     // Create user if he doesn't exist in DataStore
+    console.log(authenticatedUser)
     useEffect(() => {
         async function fetchUserData() {
             try {

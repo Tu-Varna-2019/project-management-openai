@@ -54,7 +54,7 @@
         },
         "notifyticketupdatelambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/notifyticketupdatelambda-6341304c59586c6b6d68-build.zip",
+          "s3Key": "amplify-builds/notifyticketupdatelambda-38434930683456525075-build.zip",
           "paramSenderEmail": "/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail"
         },
         "TicketCreationTemplateLambda": {

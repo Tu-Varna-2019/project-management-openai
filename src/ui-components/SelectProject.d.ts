@@ -17,11 +17,11 @@ export declare type SelectProjectOverridesProps = {
     create_one_button?: PrimitiveOverrideProps<ButtonProps>;
     welcome_back_text?: PrimitiveOverrideProps<TextProps>;
     Divider178872266?: PrimitiveOverrideProps<DividerProps>;
-    select_project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     Divider178892292?: PrimitiveOverrideProps<DividerProps>;
     Divider178992079?: PrimitiveOverrideProps<DividerProps>;
     or?: PrimitiveOverrideProps<TextProps>;
     edit_project_image?: PrimitiveOverrideProps<ImageProps>;
+    select_project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type SelectProjectProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: SelectProjectOverridesProps | undefined | null;

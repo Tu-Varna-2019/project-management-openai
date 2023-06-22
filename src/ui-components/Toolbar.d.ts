@@ -33,6 +33,7 @@ export declare type ToolbarOverridesProps = {
     notify_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     success_alert?: PrimitiveOverrideProps<AlertProps>;
     notify_count_badge?: PrimitiveOverrideProps<BadgeProps>;
+    admin_user_badge?: PrimitiveOverrideProps<BadgeProps>;
 } & EscapeHatchProps;
 export declare type ToolbarProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: ToolbarOverridesProps | undefined | null;

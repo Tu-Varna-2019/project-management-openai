@@ -38,7 +38,6 @@ export declare type ProfileOverridesProps = {
     done_card179642365?: PrimitiveOverrideProps<CardProps>;
     profile_icon_image?: PrimitiveOverrideProps<ImageProps>;
     options_group?: PrimitiveOverrideProps<ViewProps>;
-    done_card179692303?: PrimitiveOverrideProps<CardProps>;
     delete_account_button?: PrimitiveOverrideProps<ButtonProps>;
     change_password_button?: PrimitiveOverrideProps<ButtonProps>;
     switch_mnotes_button?: PrimitiveOverrideProps<ButtonProps>;

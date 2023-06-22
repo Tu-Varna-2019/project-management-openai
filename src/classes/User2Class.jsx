@@ -25,6 +25,8 @@ export function User2Class() {
     const [alertVisibility,setAlertVisibility] = useState("none");
     const [alertDescription,setAlertDescription] = useState("");
 
+    const [isUserAdmin,setIsUserAdmin] = useState(false);
+
     let selectedUserID = "";
     let selectedUsername = "";
     try {
@@ -145,6 +147,8 @@ export function User2Class() {
             navigate('/note');};
 
     return {
+        setIsUserAdmin,
+        isUserAdmin,
         userIDName,
         selectedUsername,
         selectedUserID,
