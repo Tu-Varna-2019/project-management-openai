@@ -19,10 +19,7 @@
     "model": {
       "Type": "String"
     },
-    "openaiApiKey": {
-      "Type": "String"
-    },
-    "regionName": {
+    "paramOpenaiApikey": {
       "Type": "String"
     }
   },
@@ -82,11 +79,8 @@
             "MODEL": {
               "Ref": "model"
             },
-            "OPENAI_API_KEY": {
-              "Ref": "openaiApiKey"
-            },
-            "REGION_NAME": {
-              "Ref": "regionName"
+            "PARAM_OPENAI_APIKEY": {
+              "Ref": "paramOpenaiApikey"
             }
           }
         },
@@ -184,6 +178,32 @@
           ]
         }
       }
+    },
+    "CustomLambdaExecutionPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "custom-lambda-execution-policy",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ssm:GetParameter"
+              ],
+              "Resource": [
+                "arn:aws:ssm:eu-west-1:512617552494:parameter/amplify/d1nyybr00ldz1k/dev/openai/apikey"
+              ]
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ]
+      },
+      "DependsOn": "LambdaExecutionRole"
     }
   },
   "Outputs": {

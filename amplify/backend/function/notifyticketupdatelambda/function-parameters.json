@@ -8,8 +8,8 @@
   ],
   "environmentVariableList": [
     {
-      "cloudFormationParameterName": "senderEmail",
-      "environmentVariableName": "SENDER_EMAIL"
+      "cloudFormationParameterName": "paramSenderEmail",
+      "environmentVariableName": "PARAM_SENDER_EMAIL"
     }
   ]
 }

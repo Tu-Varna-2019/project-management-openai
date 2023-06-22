@@ -54,33 +54,26 @@
         },
         "notifyticketupdatelambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/notifyticketupdatelambda-484b35516150382b4152-build.zip",
-          "paramSenderEmail": "/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail",
-          "senderEmail": "2"
+          "s3Key": "amplify-builds/notifyticketupdatelambda-6341304c59586c6b6d68-build.zip",
+          "paramSenderEmail": "/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail"
         },
         "TicketCreationTemplateLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketCreationTemplateLambda-4d76574146707230784c-build.zip",
-          "model": "gpt-3.5-turbo",
+          "s3Key": "amplify-builds/TicketCreationTemplateLambda-507a2f55347073585839-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
-          "openaiApiKey": "2",
-          "regionName": "2"
+          "model": "gpt-3.5-turbo"
         },
         "TicketTranslateLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketTranslateLambda-5749677946692b716234-build.zip",
-          "model": "gpt-3.5-turbo",
+          "s3Key": "amplify-builds/TicketTranslateLambda-55786c6f755149562f50-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
-          "openaiApiKey": "2",
-          "regionName": "2"
+          "model": "gpt-3.5-turbo"
         },
         "TicketSummarizeLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketSummarizeLambda-69452b6977527a5a4331-build.zip",
-          "model": "gpt-3.5-turbo",
+          "s3Key": "amplify-builds/TicketSummarizeLambda-4835366b585843636449-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
-          "openaiApiKey": "2",
-          "regionName": "2"
+          "model": "gpt-3.5-turbo"
         }
       },
       "storage": {

@@ -1,6 +1,11 @@
 [
   {
-    "Action": [],
-    "Resource": []
-  }
+    "Effect": "Allow",
+    "Action": [
+        "ssm:GetParameter"
+    ],
+    "Resource": [
+        "arn:aws:ssm:eu-west-1:512617552494:parameter/amplify/d1nyybr00ldz1k/dev/openai/apikey"
+    ]
+}
 ]

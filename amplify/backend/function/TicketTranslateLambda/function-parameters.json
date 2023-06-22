@@ -11,12 +11,8 @@
       "environmentVariableName": "MODEL"
     },
     {
-      "cloudFormationParameterName": "openaiApiKey",
-      "environmentVariableName": "OPENAI_API_KEY"
-    },
-    {
-      "cloudFormationParameterName": "regionName",
-      "environmentVariableName": "REGION_NAME"
+      "cloudFormationParameterName": "paramOpenaiApikey",
+      "environmentVariableName": "PARAM_OPENAI_APIKEY"
     }
   ]
 }

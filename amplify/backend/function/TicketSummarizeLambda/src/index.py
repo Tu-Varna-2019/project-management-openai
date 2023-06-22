@@ -12,7 +12,13 @@ logger.setLevel(logging.INFO)
 def handler(event, context):
     print(event, event["body"])
 
-    openai.api_key = os.environ.get("OPENAI_API_KEY")
+    client_ssm_param_store = boto3.client("ssm")
+    response_openai_apikey = client_ssm_param_store.get_parameter(
+        Name=os.environ.get("PARAM_OPENAI_APIKEY"), WithDecryption=False
+    )
+
+    openai_apikey = response_openai_apikey["Parameter"]["Value"]
+    openai.api_key = openai_apikey
     response: str = ""
     payload_serialize = json.loads(json.loads(event["body"]))
     ticket_fields: str = payload_serialize["event"]["TicketFields"]

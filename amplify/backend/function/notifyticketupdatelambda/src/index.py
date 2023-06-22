@@ -31,7 +31,13 @@ def handler(event, context):
     comment: str = payload_serialize["event"]["newTicket"]["Comment"]
     watchUsers: str = payload_serialize["event"]["newTicket"]["Watch"]
 
-    sender_email = os.environ.get("SENDER_EMAIL")
+    client_ssm_param_store = boto3.client("ssm")
+    response_sender_email = client_ssm_param_store.get_parameter(
+        Name=os.environ.get("PARAM_SENDER_EMAIL"), WithDecryption=False
+    )
+
+    sender_email = response_sender_email["Parameter"]["Value"]
+
     subject = f"{ticketID} was changed"
     message = f"""
     Changes: \n {changed_props}\n

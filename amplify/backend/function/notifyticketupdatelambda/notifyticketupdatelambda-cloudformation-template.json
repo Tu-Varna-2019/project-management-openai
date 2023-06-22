@@ -16,7 +16,7 @@
     "s3Key": {
       "Type": "String"
     },
-    "senderEmail": {
+    "paramSenderEmail": {
       "Type": "String"
     }
   },
@@ -73,8 +73,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "SENDER_EMAIL": {
-              "Ref": "senderEmail"
+            "PARAM_SENDER_EMAIL": {
+              "Ref": "paramSenderEmail"
             }
           }
         },
@@ -198,6 +198,15 @@
                 "*"
               ],
               "Effect": "Allow"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ssm:GetParameter"
+              ],
+              "Resource": [
+                "arn:aws:ssm:eu-west-1:512617552494:parameter/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail"
+              ]
             }
           ]
         },
