@@ -405,7 +405,7 @@ export default function Toolbar(props) {
         top="72px"
         left="1881px"
         size="default"
-        variation="success"
+        variation="default"
         children=""
         {...getOverrideProps(overrides, "admin_user_badge")}
       ></Badge>

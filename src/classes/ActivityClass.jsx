@@ -32,8 +32,8 @@ export function ActivityClass(props) {
                 if (activityIter.UserID === selectedUserID) {
                 if (activityUser.Name === "") {
                     const user = await DataStore.query(User, activityIter.UserID);
-                    await Storage.get(user.ImageProfile, { 
-                        level: 'protected'
+                    await Storage.get("shared/"+user.ImageProfile, { 
+                        level: 'public'
                     }).then( url => {
                         setActivityUser(prevState => ({
                             ...prevState,

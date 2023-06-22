@@ -17,7 +17,7 @@ export declare type AddRemoveUserOverridesProps = {
     Divider3392598?: PrimitiveOverrideProps<DividerProps>;
     Divider3392599?: PrimitiveOverrideProps<DividerProps>;
     create_ticket_text?: PrimitiveOverrideProps<TextProps>;
-    select_project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type AddRemoveUserProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: AddRemoveUserOverridesProps | undefined | null;

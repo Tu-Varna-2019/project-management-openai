@@ -4,7 +4,7 @@ import { Ticket,User , Activity, PI, Sprint } from '../models';
 import { getDragDropTicketState, getNotificationCountState, getNotificationsState, getProjectNameState,setDragDropTicketState, setNotificationCountState, setNotificationsState } from '../states';
 import { ProjectContext } from '../contexts/ProjectContext';
 import { PISprintContext } from '../contexts/PISprintContext';
-import { User2Class } from './User2Class';
+import { UserContext } from '../contexts/UserContext';
 
 
 const iniTicketValue = {
@@ -26,7 +26,7 @@ export function TicketClass(props) {
     } = useContext(ProjectContext);
     const {
         currentUser,
-    } = User2Class();
+    } = useContext(UserContext);
     const {
         sprintID,
         PIID,
@@ -222,8 +222,8 @@ export function TicketClass(props) {
                 if (item.sub === editTicket.Asignee) {
                     setAsigneeName(item.username);
                     Storage.get(
-                        item.ImageProfile,{
-                        level:"protected"
+                        "shared/"+item.ImageProfile,{
+                        level:"public"
                     }).then(data_url => {
                         setAsigneeImageURL(data_url);
                         // if the reporter is also the asignee
@@ -234,8 +234,8 @@ export function TicketClass(props) {
                     if (item.sub === editTicket.Reporter) {
                         setReporterName(item.username);
                         Storage.get(
-                            item.ImageProfile,{
-                            level:"protected"
+                            "shared/"+item.ImageProfile,{
+                            level:"public"
                         }).then(data_url => {
                             setReporterImageURL(data_url);})}}
                     return item;})});}catch(err){/*do nothing */}}}
@@ -262,7 +262,7 @@ export function TicketClass(props) {
         const newAttachmentNames = [];
         imageNames.map(async (iter) => {
             const credentials = await Auth.currentCredentials();
-            await Storage.vault.get(iter, { 
+            await Storage.vault.get("shared/"+iter, { 
                 level: 'public',
                 identityId: credentials.identityId
             }).then(data_url => {
@@ -345,8 +345,8 @@ export function TicketClass(props) {
             data.filter(item => { 
                 if (item.sub === peopleAssignSub[selectedIndex]) {
                     Storage.get(
-                        item.ImageProfile,{
-                        level:"protected"
+                        "shared/"+item.ImageProfile,{
+                        level:"public"
                     }).then(data_url => {
                         setAsigneeImageURL(data_url);})}
             return item;})})};
@@ -361,8 +361,8 @@ export function TicketClass(props) {
             data.filter(item => { 
                 if (item.sub === peopleAssignSub[selectedIndex]) {
                     Storage.get(
-                        item.ImageProfile,{
-                        level:"protected"
+                        "shared/"+item.ImageProfile,{
+                        level:"public"
                     }).then(data_url => {
                         setReporterImageURL(data_url);})}
                 return item;})})};
@@ -389,7 +389,7 @@ export function TicketClass(props) {
         const deletedImageName = attachmentName[index];
         if (deletedImageName !== "" && deletedImageName !== undefined) {
             if(window.confirm(`Are you sure you want to remove: ${deletedImageName} ?`)) {
-                await Storage.remove(deletedImageName, { level: 'protected' });
+                await Storage.remove("shared/"+deletedImageName, { level: 'public' });
                 setImageTicket(imageTicket.replace(deletedImageName+",", ""));
                 setAttachmentUrls([]);
                 setAttachmentName([]);
@@ -624,8 +624,8 @@ const handleSaveEditTicketClick = async (event) => {
     const handleAssignToMeClick = async (event) => {
         event.preventDefault();
         await Storage.get(
-            currentUser.ImageProfile,{
-            level:"protected"
+            "shared/"+currentUser.ImageProfile,{
+            level:"public"
         }).then(data_url => {
             setAsignee(peopleAssignSub[peopleAssign.indexOf(currentUser.username)]);
             setAsigneeImageURL(data_url);

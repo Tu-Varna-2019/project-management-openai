@@ -53,5 +53,6 @@ export { default as HomeV2Mobile } from "./HomeV2Mobile";
 export { default as HomeV2 } from "./HomeV2";
 export { default as CreateTicketScroll } from "./CreateTicketScroll";
 export { default as CreateIssueTemplate } from "./CreateIssueTemplate";
+export { default as PrivateModeError } from "./PrivateModeError";
 export { default as studioTheme } from "./studioTheme";
 export { default as ReminderNoteForm } from "./ReminderNoteForm";

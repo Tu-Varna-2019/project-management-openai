@@ -39,6 +39,7 @@ const RemoveFile = async (event) => {
       acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg']}
       accessLevel="private"
       maxFileCount={1}
+      path="shared/"
       onFileRemove={(event) => {RemoveFile(event.key)}}
       onUploadSuccess={(event) => {ListImageFile(event.key); }}
      // processFile={HashFileName}

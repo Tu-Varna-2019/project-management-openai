@@ -74,6 +74,7 @@ export function EditTicketFullFunc () {
             accessLevel="public"
             maxFileCount={10}
             processFile={handleSafeTicketImageChange}
+            path="shared/"
           />)}
 
     return {

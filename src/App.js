@@ -2,7 +2,7 @@ import './App.css';
 import { Authenticator, Card } from '@aws-amplify/ui-react';
 import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify'
-import { BrowserRouter , Route , Routes } from 'react-router-dom';
+import { BrowserRouter , Route , Routes  } from 'react-router-dom';
 import CreateNotePage from "./pages/CreateNotePage";
 import HomePage from './pages/HomePage';
 import React,{ useEffect } from 'react';
@@ -31,6 +31,7 @@ import BacklogPage from './pages/BacklogPage';
 import { PISprintProvider } from './providers/PISprintProvider';
 import EditProjectPage from './pages/EditProjectPage';
 import { GithubProvider } from './providers/GithubProvider';
+import { PrivateModeError } from './ui-components';
 
 const {
     AppComponentOverride,
@@ -41,13 +42,13 @@ const originalWarn = console.warn;
 console.warn = function(message) {
     if (message.indexOf('DataStore') === -1 )
         originalWarn.apply(console, arguments);
-
 };
 
 Amplify.configure(awsExports);
 export default function App() {
   useEffect(() => {
-    document.title = "KAI";},[]);
+    document.title = "KAI";
+  },[]);
   
   return (
     <div className='amplify-container' style={{
@@ -58,10 +59,10 @@ export default function App() {
       </Helmet>
         <Authenticator components={AppComponentOverride}>
       <BrowserRouter>
+      <UserProvider>
       <ProjectProvider>
       <PISprintProvider>
       <TicketProvider>
-      <UserProvider>
       <IssueTemplateProvider>
       <ToolbarSelectProvider>
       <ActivityProvider>
@@ -82,6 +83,7 @@ export default function App() {
         <Route path='/create-note' element={<CreateNotePage/>}/>
         <Route path='/reset-password' element={<ResetPasswordPage/>}/>
         <Route path='/delete-account' element={<DeleteAccountPage/>}/>
+        <Route path='/error-private-mode' element={<PrivateModeError/>}/>
 
         <Route path='/reset-password-kai' element={<ResetPasswordKAIPage/>}/>
         <Route path='/delete-account-kai' element={<DeleteAccountKAIPage/>}/>
@@ -91,10 +93,10 @@ export default function App() {
       </ActivityProvider>
       </ToolbarSelectProvider>
       </IssueTemplateProvider>
-      </UserProvider>
       </TicketProvider>
       </PISprintProvider>
       </ProjectProvider>
+      </UserProvider>
     </BrowserRouter></Authenticator></Card></div>);
   }
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);

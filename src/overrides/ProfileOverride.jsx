@@ -1,13 +1,12 @@
 import '@aws-amplify/ui-react/styles.css';
-import { FileUploader, ThemeProvider ,createTheme} from '@aws-amplify/ui-react';
 import React from 'react';
-import { studioTheme } from '../ui-components';
 import { UserContext } from '../contexts/UserContext';
 import { ActivityContext } from '../contexts/ActivityContext';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export function ProfileFunc () {
     const {
+        isUserAdmin,
         userProfileURL,
         regexEmail,
         email,
@@ -53,6 +52,7 @@ const ProfileOverride={
     switch_mnotes_button:{
         isDisabled: isDisableUserProfileOptions,
         onClick: (event) => (handleGoToMNotes(event)),
+        style:{visibility: isUserAdmin === true ? "visible" : "hidden"}
     },
     delete_account_button:{
         isDisabled: isDisableUserProfileOptions,
@@ -69,10 +69,11 @@ function FileImageUpload () {
     return (
             <StorageManager
             acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png','.svg']}
-            accessLevel="protected"
+            accessLevel="public"
             maxFileCount={1}
             processFile={handleSaveImageClick}
             onUploadSuccess={handleReloadUploadSuccImage}
+            path="shared/"
           />
     )}
 

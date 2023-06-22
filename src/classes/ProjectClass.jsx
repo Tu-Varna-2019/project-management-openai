@@ -1,17 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Auth, DataStore , Storage } from 'aws-amplify';
 import { Project } from '../models';
 import { getProjectNameState , setPINumState, setProjectNameState, setSprintNumState } from '../states';
+import { UserContext } from '../contexts/UserContext';
 
 
 export function ProjectClass(props) {
+
+    const {
+        setIsUserAdmin,
+        currentUser,
+    } = useContext(UserContext);
 
     const [projectName,setProjectName] = useState("");
     const [initialProjectName,setInitialProjectName] = useState("");
     const [getProjectID,setGetProjectID] = useState("");
     const [getProjectImageName,setGetProjectImageName] = useState("");
-    const [projectNames,setProjectNames] = useState([]);
+    const [projectNames,setProjectNames] = useState([""]);
     const [projectIDs,setProjectIDs] = useState([]);
     const [selectedProjectID,setSelectedProjectID] = useState("");
     const [selectedProject,setSelectedProject] = useState("");
@@ -27,6 +33,25 @@ export function ProjectClass(props) {
     const location = useLocation();
     const isProjectEmpty =  /^\s*$/.test(projectName);
 
+    useEffect(() => {
+        // Check if IndexedDB is available
+        if (!window.indexedDB)
+          // If not, redirect to your error page
+          navigate("/error-private-mode");
+      }, []);
+
+      useEffect(() => {
+        async function fetchAdminData() {
+            if (getProjectID !== "") {
+            const projectDS = await DataStore.query(Project,getProjectID);
+            console.log(projectDS)
+            if (projectDS.Admin.includes(currentUser.id))
+            setIsUserAdmin(true);
+            }
+        }
+        fetchAdminData();
+    },[getProjectID,setIsUserAdmin,selectedProjectID,currentUser.id])
+
     const handleProjectName = (event) => {
         event.preventDefault();
         setProjectName(event.target.value);
@@ -36,7 +61,7 @@ export function ProjectClass(props) {
         event.preventDefault();
         setProjectName(event.target.value);
         setInitialProjectName(event.target.value);
-        setSelectedProjectID(projectIDs[event.target.selectedIndex]);
+        setSelectedProjectID(projectIDs[event.target.selectedIndex-1]);
     };
 
     const handleConfirmCreateProjectOnClick = async (event) => {
@@ -60,9 +85,14 @@ export function ProjectClass(props) {
                 await DataStore.save(
                     new Project({
                         "Name": projectName,
-                        "ImageProject": imageProjectName }));
+                        "ImageProject": imageProjectName,
+                        "Admin": [currentUser.id],
+                        "Users": []
+                     }));
                 console.log("Project created!");
-                navigate('/');}}
+                navigate('/');
+                window.location.reload();
+            }}
         setIsConfirmButtonLoading(false);
     };
 
@@ -130,15 +160,17 @@ export function ProjectClass(props) {
         async function fetchUserData() {
             await DataStore.query(Project)
             .then(data => {
-            data.filter(item => { 
+            data.filter(item => {
+                if (item.Admin.includes(currentUser.id) 
+                    || item.Users.includes(currentUser.id)) {
                 setProjectNames(prevItems => [...prevItems, item.Name]);
                 setProjectIDs(prevItems => [...prevItems, item.id]);
                 return item.Name;
-                })}).catch(error => {
+                }})}).catch(error => {
             console.error(error);});
         }
         fetchUserData();
-    },[]);
+    },[currentUser.id]);
     // Get Image URL
     useEffect(() => {
         async function fetchUserData() {

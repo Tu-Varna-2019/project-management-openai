@@ -174,7 +174,7 @@ export default function AddRemoveUser(props) {
         isDisabled={false}
         labelHidden={false}
         variation="quiet"
-        {...getOverrideProps(overrides, "select_project_select_field")}
+        {...getOverrideProps(overrides, "project_select_field")}
       ></SelectField>
     </View>
   );

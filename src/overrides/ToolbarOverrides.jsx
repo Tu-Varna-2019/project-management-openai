@@ -36,6 +36,7 @@ export function ToolbarFunc (props) {
         alertDescription,
         currentUser,
         setAlertVisibility,
+        isUserAdmin,
     } = useContext(UserContext);
 
     const {
@@ -46,6 +47,9 @@ export function ToolbarFunc (props) {
     } = useContext(ProjectContext);
 
     const ToolbarOverride={
+        admin_user_badge:{
+            backgroundColor:  isUserAdmin === true ? "rgba(245, 188, 188, 1)" : "rgba(54, 94, 61, 1)" ,
+        },
         profile_icon_image:{
             src: userProfileURL
         },

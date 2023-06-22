@@ -1,16 +1,14 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Auth } from 'aws-amplify';
 import { DataStore , Storage } from 'aws-amplify';
 import { User } from '../models';
-import { ProjectContext } from '../contexts/ProjectContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 export function User2Class() {
 
-    const {
-        location,
-        navigate,
-    } = useContext(ProjectContext);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const [currentUser,setCurrentUser] = useState("");
     const [authenticatedUser,setAuthenticatedUser] = useState("");
@@ -18,6 +16,7 @@ export function User2Class() {
     const [email,setEmail] = useState("");
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     // User with image url dicionary
+    const [AllUsers,setAllUsers] = useState([]);
     const [userSubImageURL,setUserSubImageURL] = useState([{}]);
     const [userIDName,setUserIDName] = useState([{}]);
     // Alert
@@ -26,14 +25,17 @@ export function User2Class() {
     const [alertDescription,setAlertDescription] = useState("");
 
     const [isUserAdmin,setIsUserAdmin] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
 
     let selectedUserID = "";
     let selectedUsername = "";
+    const addRemoveUserBoolean = location.state ? location.state.add_remove_user : false;
     try {
     selectedUserID = location.state.selectedUserID;
     selectedUsername = location.state.selectedUserName;
     }catch(err)
     { selectedUserID = currentUser.id ; selectedUsername = currentUser.username;}
+
     // Get current authenticated user
     useEffect(() => {
         async function fetchUserData() {
@@ -41,19 +43,30 @@ export function User2Class() {
                 const currentCredentials = await  Auth.currentAuthenticatedUser({ bypassCache: true });
                 setAuthenticatedUser(currentCredentials);
                 // Get user from DataStore
-                    await DataStore.query(User).then(data => {
-                        data.filter(item => {
-                            if(item.sub === currentCredentials.attributes.sub)
-                                setCurrentUser(item);
-                                return item;})})
+                    const user = await DataStore.query(User);
+                    const isUserFound = user.find(item => item.sub === currentCredentials.attributes.sub);
+
+                    if (isUserFound){
+                    console.log(`User found ${isUserFound.username}`);
+                    setCurrentUser(isUserFound);}
+                    else {
+                        if (currentCredentials.attributes.sub !== undefined) {
+                        console.log(`User doesn't exist , let's add him !`);
+                        await DataStore.save(
+                        new User({
+                            "sub": authenticatedUser.attributes.sub,
+                            "username": authenticatedUser.attributes.email,
+                            "ImageProfile": "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png"
+                        })).then(setCurrentUser);}}
                             }catch(error){console.log(error);}}
-        fetchUserData();},[])
+        fetchUserData();},[]);
+
     useEffect(() => {
         async function fetchUserData() {
             const credentials = await Auth.currentCredentials();
             await Storage.vault.get(
-                currentUser.ImageProfile,{
-                level:"protected",
+                "shared/"+currentUser.ImageProfile,{
+                level:"public",
                 identityId: credentials.identityId
             }).then(data => {
                 setUserProfileURL(data);})}
@@ -75,9 +88,11 @@ export function User2Class() {
             await DataStore.query(User)
             .then(data => {
                 data.filter(item => { 
+                    if (item.sub !== "00000000" )
+                    setAllUsers(prevList=> [...prevList,data]);
                     Storage.get(
-                    item.ImageProfile,{
-                    level:"protected"
+                    "shared/"+item.ImageProfile,{
+                    level:"public"
                 }).then(data_url => {
                     setUserIDName(prevList => 
                         prevList.some(obj => obj.sub === item.sub 
@@ -115,7 +130,7 @@ export function User2Class() {
     const handleSaveImageClick = async ({ file }) => {
             const fileExtension = file.name.split('.').pop();
             if (currentUser.ImageProfile !== "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png")
-            await Storage.remove(currentUser.ImageProfile);
+            await Storage.remove("shared/"+currentUser.ImageProfile);
             const editUserDataStore = await DataStore.query(User, currentUser.id);
             return file
               .arrayBuffer()
@@ -142,11 +157,20 @@ export function User2Class() {
     const handleGoToDeleteAccount = (event) => {
         if (window.confirm(`Are you sure you want to goto delete account page?`))
             navigate('/delete-account-kai');};
+
+    // Aka get to user page
     const handleGoToMNotes = (event) => {
-        if (window.confirm(`Are you sure you want to switch to MNotes app?`))
-            navigate('/note');};
+        navigate('/profile',{state:{add_remove_user:true}});
+    };
+    const handleSaveAddRemoveUser = (event) => {
+
+    };
 
     return {
+        AllUsers,
+        isLoading,
+        handleSaveAddRemoveUser,
+        addRemoveUserBoolean,
         setIsUserAdmin,
         isUserAdmin,
         userIDName,

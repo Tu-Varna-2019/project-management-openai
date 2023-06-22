@@ -1,11 +1,14 @@
 import React, { useContext } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { ActivitySlideCollection, Profile, SearchBoxRect, SearchResultMatchCollection, Toolbar } from "../ui-components";
+import { ActivitySlideCollection, AddRemoveUser, Profile, SearchBoxRect, SearchResultMatchCollection, Toolbar, UsersAdminInfoCollection } from "../ui-components";
 import { ProfileFunc } from '../overrides/ProfileOverride';
 import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ActivityFunc } from '../overrides/ActivitySlideOverride';
 import { UserContext } from '../contexts/UserContext';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
+import { AddRemoveUserFunc } from '../overrides/AddRemoveUserOverride';
+import { Tabs } from '@aws-amplify/ui-react';
+import { UsersAdminInfoFunc } from '../overrides/UsersAdminInfoOverride';
 
 export default function ProfilePage(props) {
   const {
@@ -29,8 +32,17 @@ export default function ProfilePage(props) {
   const {
     currentUser,
     selectedUserID,
+    addRemoveUserBoolean,
   } = React.useContext(UserContext);
 
+  const {
+    AddRemoveUserOverride
+  } = AddRemoveUserFunc();
+  const {
+    UsersAdminInfoOverrideCollectionOverride,
+    UsersAdminInfoOverride,
+  } = UsersAdminInfoFunc();
+ 
     return(
       <>
       <div className='amplify-container'
@@ -61,5 +73,22 @@ export default function ProfilePage(props) {
           overrides={ActivityCollectionOverride}
           overrideItems={ActivityOverride}/>
       </div>
+
+      <div style={{ position: 'absolute',display: 'block', bottom: 0, right: 0 }}>
+            {addRemoveUserBoolean && (
+              <>
+            <AddRemoveUser overrides={AddRemoveUserOverride}/>
+            {/* <div style={{ position: 'absolute',display: 'block', bottom: 130, right: 1000 , width:600 }}>
+            <Tabs/>
+            </div> */}
+            <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "980px",left: "950px",objectFit: "cover"}}>
+              <UsersAdminInfoCollection style={{position: 'absolute',  bottom: "250px", left: "-110px" }}
+              overrides={UsersAdminInfoOverrideCollectionOverride}
+              overrideItems={UsersAdminInfoOverride}/>
+          </div>
+          </>
+          )}
+          
+        </div>
       </div>
       </>)}

@@ -40,9 +40,10 @@ export function CreateProjectFunc(props) {
         return (
             <StorageManager
             acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg','.png','.svg']}
-            accessLevel="protected"
+            accessLevel="public"
             maxFileCount={1}
             processFile={handleSafeProjectImageChange}
+            path="shared/"
           />
         )}
 
