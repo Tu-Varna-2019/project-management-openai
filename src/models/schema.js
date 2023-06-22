@@ -460,6 +460,22 @@ export const schema = {
                         ]
                     }
                 },
+                "Admin": {
+                    "name": "Admin",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "Users": {
+                    "name": "Users",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -961,5 +977,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "4c9dce6d0d4138172e8576225a13148d"
+    "version": "8d5f064c812cfe1b53147bc318479897"
 };

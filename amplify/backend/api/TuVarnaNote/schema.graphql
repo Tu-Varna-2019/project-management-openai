@@ -39,6 +39,8 @@ type Project @model @auth(rules: [{allow: public}, {allow: private}]) {
   ImageProject: String
   IssueTemplates: [IssueTemplate] @hasMany(indexName: "byProject", fields: ["id"])
   PIS: [PI] @hasMany(indexName: "byProject", fields: ["id"])
+  Admin: [String]
+  Users: [String]
 }
 
 type User @model @auth(rules: [{allow: public}, {allow: private}]) {

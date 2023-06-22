@@ -257,7 +257,23 @@
         }
       ]
     },
+    "AMPLIFY_function_TicketCreationTemplateLambda_openaiApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
     "AMPLIFY_function_TicketCreationTemplateLambda_paramOpenaiApikey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_regionName": {
       "usedBy": [
         {
           "category": "function",
@@ -289,7 +305,23 @@
         }
       ]
     },
+    "AMPLIFY_function_TicketSummarizeLambda_openaiApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
     "AMPLIFY_function_TicketSummarizeLambda_paramOpenaiApikey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_regionName": {
       "usedBy": [
         {
           "category": "function",
@@ -321,7 +353,23 @@
         }
       ]
     },
+    "AMPLIFY_function_TicketTranslateLambda_openaiApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
     "AMPLIFY_function_TicketTranslateLambda_paramOpenaiApikey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_regionName": {
       "usedBy": [
         {
           "category": "function",
@@ -354,6 +402,14 @@
       ]
     },
     "AMPLIFY_function_notifyticketupdatelambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifyticketupdatelambda_senderEmail": {
       "usedBy": [
         {
           "category": "function",

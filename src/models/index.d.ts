@@ -157,6 +157,8 @@ type EagerProject = {
   readonly ImageProject?: string | null;
   readonly IssueTemplates?: (IssueTemplate | null)[] | null;
   readonly PIS?: (PI | null)[] | null;
+  readonly Admin?: (string | null)[] | null;
+  readonly Users?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -172,6 +174,8 @@ type LazyProject = {
   readonly ImageProject?: string | null;
   readonly IssueTemplates: AsyncCollection<IssueTemplate>;
   readonly PIS: AsyncCollection<PI>;
+  readonly Admin?: (string | null)[] | null;
+  readonly Users?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
