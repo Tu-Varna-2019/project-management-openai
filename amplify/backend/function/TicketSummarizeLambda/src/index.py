@@ -14,7 +14,7 @@ def handler(event, context):
 
     client_ssm_param_store = boto3.client("ssm")
     response_openai_apikey = client_ssm_param_store.get_parameter(
-        Name=os.environ.get("PARAM_OPENAI_APIKEY"), WithDecryption=False
+        Name=os.environ.get("PARAM_OPENAI_APIKEY"), WithDecryption=True
     )
 
     openai_apikey = response_openai_apikey["Parameter"]["Value"]
