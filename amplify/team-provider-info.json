@@ -53,30 +53,27 @@
           "sendNoteAttributeDateName": "dateTimeThrottle"
         },
         "notifyticketupdatelambda": {
-          "senderEmail": "M.Notes@hotmail.com",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/notifyticketupdatelambda-484b35516150382b4152-build.zip"
+          "s3Key": "amplify-builds/notifyticketupdatelambda-484b35516150382b4152-build.zip",
+          "paramSenderEmail": "/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail"
         },
         "TicketCreationTemplateLambda": {
-          "model": "gpt-3.5-turbo",
-          "openaiApiKey": "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",
-          "regionName": "eu-west-1",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketCreationTemplateLambda-4d76574146707230784c-build.zip"
+          "s3Key": "amplify-builds/TicketCreationTemplateLambda-4d76574146707230784c-build.zip",
+          "model": "gpt-3.5-turbo",
+          "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey"
         },
         "TicketTranslateLambda": {
-          "model": "gpt-3.5-turbo",
-          "openaiApiKey": "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",
-          "regionName": "eu-west-1",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketTranslateLambda-5749677946692b716234-build.zip"
+          "s3Key": "amplify-builds/TicketTranslateLambda-5749677946692b716234-build.zip",
+          "model": "gpt-3.5-turbo",
+          "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey"
         },
         "TicketSummarizeLambda": {
-          "model": "gpt-3.5-turbo",
-          "openaiApiKey": "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",
-          "regionName": "eu-west-1",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketSummarizeLambda-69452b6977527a5a4331-build.zip"
+          "s3Key": "amplify-builds/TicketSummarizeLambda-69452b6977527a5a4331-build.zip",
+          "model": "gpt-3.5-turbo",
+          "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey"
         }
       },
       "storage": {

@@ -257,15 +257,7 @@
         }
       ]
     },
-    "AMPLIFY_function_TicketCreationTemplateLambda_openaiApiKey": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "TicketCreationTemplateLambda"
-        }
-      ]
-    },
-    "AMPLIFY_function_TicketCreationTemplateLambda_regionName": {
+    "AMPLIFY_function_TicketCreationTemplateLambda_paramOpenaiApikey": {
       "usedBy": [
         {
           "category": "function",
@@ -297,15 +289,7 @@
         }
       ]
     },
-    "AMPLIFY_function_TicketSummarizeLambda_openaiApiKey": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "TicketSummarizeLambda"
-        }
-      ]
-    },
-    "AMPLIFY_function_TicketSummarizeLambda_regionName": {
+    "AMPLIFY_function_TicketSummarizeLambda_paramOpenaiApikey": {
       "usedBy": [
         {
           "category": "function",
@@ -337,15 +321,7 @@
         }
       ]
     },
-    "AMPLIFY_function_TicketTranslateLambda_openaiApiKey": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "TicketTranslateLambda"
-        }
-      ]
-    },
-    "AMPLIFY_function_TicketTranslateLambda_regionName": {
+    "AMPLIFY_function_TicketTranslateLambda_paramOpenaiApikey": {
       "usedBy": [
         {
           "category": "function",
@@ -369,7 +345,7 @@
         }
       ]
     },
-    "AMPLIFY_function_notifyticketupdatelambda_s3Key": {
+    "AMPLIFY_function_notifyticketupdatelambda_paramSenderEmail": {
       "usedBy": [
         {
           "category": "function",
@@ -377,7 +353,7 @@
         }
       ]
     },
-    "AMPLIFY_function_notifyticketupdatelambda_senderEmail": {
+    "AMPLIFY_function_notifyticketupdatelambda_s3Key": {
       "usedBy": [
         {
           "category": "function",
