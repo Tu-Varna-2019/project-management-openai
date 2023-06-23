@@ -30,6 +30,7 @@ export default function ProfilePage(props) {
   } = ActivityFunc();
 
   const {
+    refreshAdminUserItems,
     currentUser,
     selectedUserID,
     addRemoveUserBoolean,
@@ -57,7 +58,7 @@ export default function ProfilePage(props) {
           <SearchBoxRect/>
         </div>
         )}
-        <div
+        <div key={refreshAdminUserItems}
           style={{ position: 'absolute' , width:"120px", display: 'block',bottom: "990px",left: "1350px",objectFit: "cover"}}>
           <SearchResultMatchCollection style={{position: 'absolute',bottom:"-150px", left:"-235px" }}
               overrides={SearchTicketOverride}
@@ -81,8 +82,8 @@ export default function ProfilePage(props) {
             {/* <div style={{ position: 'absolute',display: 'block', bottom: 130, right: 1000 , width:600 }}>
             <Tabs/>
             </div> */}
-            <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "980px",left: "950px",objectFit: "cover"}}>
-              <UsersAdminInfoCollection style={{position: 'absolute',  bottom: "250px", left: "-110px" }}
+            <div style={{ position: 'absolute' , width:"350px", display: 'block',top: "900px",left: "800px",objectFit: "cover"}}>
+              <UsersAdminInfoCollection style={{position: 'absolute',  bottom: "250px", left: "-50px" }}
               overrides={UsersAdminInfoOverrideCollectionOverride}
               overrideItems={UsersAdminInfoOverride}/>
           </div>

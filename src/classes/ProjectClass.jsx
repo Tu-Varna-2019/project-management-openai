@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Auth, DataStore , Storage } from 'aws-amplify';
-import { Project } from '../models';
+import { Project, User } from '../models';
 import { getProjectNameState , setPINumState, setProjectNameState, setSprintNumState } from '../states';
 import { UserContext } from '../contexts/UserContext';
 
@@ -9,6 +9,12 @@ import { UserContext } from '../contexts/UserContext';
 export function ProjectClass(props) {
 
     const {
+        selectedAdminUser,
+        setSelectedAdminUser,
+        isLoading,
+        setIsLoading,
+        setAllUsers,
+        radioAdminUserMode,
         setIsUserAdmin,
         currentUser,
     } = useContext(UserContext);
@@ -44,24 +50,54 @@ export function ProjectClass(props) {
         async function fetchAdminData() {
             if (getProjectID !== "") {
             const projectDS = await DataStore.query(Project,getProjectID);
-            console.log(projectDS)
             if (projectDS.Admin.includes(currentUser.id))
             setIsUserAdmin(true);
-            }
-        }
+            }}
         fetchAdminData();
-    },[getProjectID,setIsUserAdmin,selectedProjectID,currentUser.id])
+    },[getProjectID,setIsUserAdmin,selectedProjectID,currentUser.id]);
+
+    // Set User&Admin panel
+    useEffect(() => {
+        setAllUsers([]);
+        setSelectedAdminUser([]);
+        async function fetchUserData() {
+            if (selectedProjectID !== "") {
+            const projectDS = await DataStore.query(Project,selectedProjectID);
+            const user = await DataStore.query(User);
+            // Check if user is admin or not
+            if (projectDS.Admin.includes(currentUser.id)) {
+                user.map(item => {
+                if (item.sub !== "00000000" && item.id !== currentUser.id ) {
+                // User mode
+                if (!radioAdminUserMode)
+                setSelectedAdminUser(projectDS.Users);
+                if (!radioAdminUserMode && !projectDS.Admin.includes(item.id)) 
+                setAllUsers(prevList=> [...prevList,item]);
+                
+                else {
+                    if (radioAdminUserMode)
+                    setSelectedAdminUser(projectDS.Admin);
+                    if ( radioAdminUserMode && !projectDS.Users.includes(item.id)) 
+                    setAllUsers(prevList=> [...prevList,item]); 
+                }}
+                return item;})}}
+                }fetchUserData();},
+                [currentUser,selectedProjectID,setAllUsers,radioAdminUserMode,setSelectedAdminUser]);
 
     const handleProjectName = (event) => {
         event.preventDefault();
         setProjectName(event.target.value);
         setErrorMessageProjectName("Project name must not be empty !");};
 
-    const handleSelectProjectName = (event) => {
+    const handleSelectProjectName = async (event) => {
         event.preventDefault();
+        if (event.target.value !== "") {
         setProjectName(event.target.value);
         setInitialProjectName(event.target.value);
         setSelectedProjectID(projectIDs[event.target.selectedIndex-1]);
+        const selProject = await DataStore.query(Project,projectIDs[event.target.selectedIndex-1]);
+        setIsUserAdmin(selProject.Admin.includes(currentUser.id));
+        }
     };
 
     const handleConfirmCreateProjectOnClick = async (event) => {
@@ -95,6 +131,8 @@ export function ProjectClass(props) {
             }}
         setIsConfirmButtonLoading(false);
     };
+
+
 
     const handleSaveEditProjectClick = async (event) => {
         event.preventDefault();
@@ -205,7 +243,7 @@ export function ProjectClass(props) {
       return { file, key: `${hashHex}${randomString}.${fileExtension}`};});
     }
 
-    const handleSelectedProjectOnClick = (event) => {
+    const handleSelectedProjectOnClick = async (event) => {
         event.preventDefault();
         setPINumState(0);
         setSprintNumState(0);
@@ -214,7 +252,14 @@ export function ProjectClass(props) {
             setProjectNameState(default_project_name[0]);}
         else
             setProjectNameState(projectName);
-            navigate('/board');
+
+            const getProjectByID = await DataStore.query(Project,selectedProjectID);
+            let isUserAdminMessage = "You are logged in as a";
+            if (getProjectByID.Admin.includes(currentUser.id))
+            isUserAdminMessage += "n administrator!";
+            else
+            isUserAdminMessage += " user!";
+            navigate('/board',{ state: { alert_show:'block' , alert_variant: "success", alert_description: isUserAdminMessage }});
             window.location.reload();
     };
 
@@ -230,8 +275,32 @@ export function ProjectClass(props) {
             navigate('/create-project');
         setIsCancelButtonLoading(false);};
 
+        const handleSaveAddRemoveUser = async (event) => {
+            setIsLoading(!isLoading);
+            let customMessate = "";
+            const getProject = await DataStore.query(Project,selectedProjectID);
+            // if User is in User mode
+            if (!radioAdminUserMode) {
+                await DataStore.save(Project.copyOf(getProject, item => {
+                    item.Users = selectedAdminUser;
+                    }));
+            customMessate = "User added/removed !";
+            } else {
+                // if User is in Admin
+                if (radioAdminUserMode) {
+                    await DataStore.save(Project.copyOf(getProject, item => {
+                        item.Admin = selectedAdminUser;
+                        }));
+                    customMessate = "Admin added/removed !";
+            }}
+            setIsLoading(false);
+            navigate('/profile', { state: { alert_show:'block' ,add_remove_user:false, alert_variant: "success",selectedUserID:currentUser.id, alert_description: customMessate }});
+            window.location.reload();
+        };
+
 
     return {
+        handleSaveAddRemoveUser,
         navigate,
         location,
         handleProjectName,

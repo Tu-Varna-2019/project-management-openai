@@ -12,7 +12,7 @@ export default function UsersAdminInfo(props) {
   const { user, overrides, ...rest } = props;
   return (
     <View
-      width="288px"
+      width="421px"
       height="98px"
       display="block"
       gap="unset"
@@ -24,7 +24,7 @@ export default function UsersAdminInfo(props) {
       {...rest}
     >
       <View
-        width="288px"
+        width="421px"
         height="98px"
         display="block"
         gap="unset"
@@ -42,17 +42,17 @@ export default function UsersAdminInfo(props) {
         {...getOverrideProps(overrides, "Rectangle 1")}
       ></View>
       <Image
-        width="14.93%"
-        height="41.84%"
+        width="14.96%"
+        height="63.27%"
         display="block"
         gap="unset"
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
         top="19.39%"
-        bottom="38.78%"
-        left="5.21%"
-        right="79.86%"
+        bottom="17.35%"
+        left="5.23%"
+        right="79.81%"
         padding="0px 0px 0px 0px"
         objectFit="cover"
         src={user?.ImageProfile}
@@ -68,7 +68,7 @@ export default function UsersAdminInfo(props) {
         display="block"
         direction="column"
         justifyContent="unset"
-        width="201px"
+        width="293.82px"
         height="34px"
         gap="unset"
         alignItems="unset"
@@ -92,7 +92,7 @@ export default function UsersAdminInfo(props) {
         display="block"
         direction="column"
         justifyContent="unset"
-        width="194px"
+        width="283.59px"
         height="29px"
         gap="unset"
         alignItems="unset"

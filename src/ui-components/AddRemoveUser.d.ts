@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { ButtonProps, CardProps, DividerProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { ButtonProps, CardProps, DividerProps, RadioProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type AddRemoveUserOverridesProps = {
     AddRemoveUser?: PrimitiveOverrideProps<ViewProps>;
@@ -17,7 +17,10 @@ export declare type AddRemoveUserOverridesProps = {
     Divider3392598?: PrimitiveOverrideProps<DividerProps>;
     Divider3392599?: PrimitiveOverrideProps<DividerProps>;
     create_ticket_text?: PrimitiveOverrideProps<TextProps>;
-    project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    select_project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    admin_radio?: PrimitiveOverrideProps<RadioProps>;
+    user_radio?: PrimitiveOverrideProps<RadioProps>;
+    Divider3722625?: PrimitiveOverrideProps<DividerProps>;
 } & EscapeHatchProps;
 export declare type AddRemoveUserProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: AddRemoveUserOverridesProps | undefined | null;

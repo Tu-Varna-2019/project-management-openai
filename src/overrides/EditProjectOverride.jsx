@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { ProjectContext } from '../contexts/ProjectContext';
 import { SelectProjectFunc } from './SelectProjectOverride';
 import { CreateProjectFunc } from './CreateProjectOverride';
+import { UserContext } from '../contexts/UserContext';
 
 export function EditProjectFunc(props) {
 
@@ -12,6 +13,9 @@ export function EditProjectFunc(props) {
         handleDeleteProjectClick,
         isProjectEmpty,
     }= useContext(ProjectContext);
+    const {
+        isUserAdmin
+    } = useContext(UserContext);
 
    const {SelectProjectOverride} = SelectProjectFunc();
    const {select_project_select_field} = SelectProjectOverride;
@@ -25,10 +29,11 @@ export function EditProjectFunc(props) {
         save_button:{
             onClick : (event) => (handleSaveEditProjectClick(event)),
             isLoading: isConfirmButtonLoading,
-            isDisabled : isProjectEmpty
+            isDisabled : !isUserAdmin || isProjectEmpty ,
         },
         delete_project_image:{
             onClick : (event) => (handleDeleteProjectClick(event)),
+            style:{visibility: isUserAdmin === true ? "visible" : "hidden"}
         },
     }
 

@@ -16,7 +16,7 @@ export function User2Class() {
     const [email,setEmail] = useState("");
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     // User with image url dicionary
-    const [AllUsers,setAllUsers] = useState([]);
+    const [allUsers,setAllUsers] = useState([]);
     const [userSubImageURL,setUserSubImageURL] = useState([{}]);
     const [userIDName,setUserIDName] = useState([{}]);
     // Alert
@@ -25,7 +25,11 @@ export function User2Class() {
     const [alertDescription,setAlertDescription] = useState("");
 
     const [isUserAdmin,setIsUserAdmin] = useState(false);
+    const [radioAdminUserMode,setRadioAdminUserMode] = useState(false);
+
     const [isLoading,setIsLoading] = useState(false);
+    const [selectedAdminUser,setSelectedAdminUser] = useState([]);
+    const [refreshAdminUserItems, setRefreshAdminUserItems] = useState(0);
 
     let selectedUserID = "";
     let selectedUsername = "";
@@ -88,8 +92,6 @@ export function User2Class() {
             await DataStore.query(User)
             .then(data => {
                 data.filter(item => { 
-                    if (item.sub !== "00000000" )
-                    setAllUsers(prevList=> [...prevList,data]);
                     Storage.get(
                     "shared/"+item.ImageProfile,{
                     level:"public"
@@ -160,16 +162,31 @@ export function User2Class() {
 
     // Aka get to user page
     const handleGoToMNotes = (event) => {
-        navigate('/profile',{state:{add_remove_user:true}});
+        navigate('/profile',{state:{add_remove_user:true,selectedUserID:currentUser.id}});
     };
-    const handleSaveAddRemoveUser = (event) => {
 
-    };
+    const handleAdminUserModeChange = (boolvalue) => {
+        setRadioAdminUserMode(boolvalue);};
+
+        const handleAdminUserItemClick = (user_id) => {
+              setRefreshAdminUserItems(refreshItem => refreshItem +1);
+              if (!selectedAdminUser.includes(user_id))
+              setSelectedAdminUser(prev=> [...prev,user_id]);
+              else
+              setSelectedAdminUser(selectedAdminUser.filter(item => item !== user_id));
+            }
 
     return {
-        AllUsers,
+        setIsLoading,
+        selectedAdminUser,
+        setSelectedAdminUser,
+        refreshAdminUserItems,
+        handleAdminUserItemClick,
+        handleAdminUserModeChange,
+        radioAdminUserMode,
+        allUsers,
+        setAllUsers,
         isLoading,
-        handleSaveAddRemoveUser,
         addRemoveUserBoolean,
         setIsUserAdmin,
         isUserAdmin,

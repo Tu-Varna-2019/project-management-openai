@@ -14,6 +14,7 @@ import {
   Button,
   Card,
   Divider,
+  Radio,
   SelectField,
   Text,
   View,
@@ -167,15 +168,50 @@ export default function AddRemoveUser(props) {
         height="unset"
         label="Select Project"
         position="absolute"
-        top="258px"
+        top="197px"
         left="calc(50% - 217.5px - -2.5px)"
         placeholder=""
         size="default"
         isDisabled={false}
         labelHidden={false}
         variation="quiet"
-        {...getOverrideProps(overrides, "project_select_field")}
+        {...getOverrideProps(overrides, "select_project_select_field")}
       ></SelectField>
+      <Radio
+        width="102px"
+        height="unset"
+        position="absolute"
+        top="126px"
+        left="850px"
+        size="large"
+        defaultChecked={true}
+        isDisabled={false}
+        labelPosition="end"
+        children="Admin"
+        {...getOverrideProps(overrides, "admin_radio")}
+      ></Radio>
+      <Radio
+        width="102px"
+        height="unset"
+        position="absolute"
+        top="126px"
+        left="calc(50% - 51px - -50px)"
+        size="large"
+        defaultChecked={true}
+        isDisabled={false}
+        labelPosition="start"
+        children="User"
+        {...getOverrideProps(overrides, "user_radio")}
+      ></Radio>
+      <Divider
+        height="28px"
+        position="absolute"
+        top="128px"
+        left="956px"
+        size="small"
+        orientation="vertical"
+        {...getOverrideProps(overrides, "Divider3722625")}
+      ></Divider>
     </View>
   );
 }
