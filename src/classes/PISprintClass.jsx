@@ -16,6 +16,8 @@ export function PISprintClass() {
     } = useContext(UserContext);
 
     const [PIID,setPIID] = useState("");
+    const [startDate,setStartDate] = useState("-");
+    const [endDate,setEndDate] = useState("-");
     const [PINum,setPINum] = useState( 0 );
     const [PINumbers,setPINumbers] = useState(["","create one"]);
     const [getBiggestPINum,setGetBiggestPINum] = useState(0);
@@ -27,23 +29,12 @@ export function PISprintClass() {
 
     useEffect(() => {
         if (getPINumState() !== "0") {
-        setSprintNum(getSprintNumState());
         setPINum(getPINumState());
+        if (getSprintNumState() !== "0"){
+        setSprintNum(getSprintNumState());
         }
-        async function fetchPIData(){
-        let currPIID = "";
-        const PIObj = await DataStore.query(PI)
-        PIObj.filter(item => {
-            if (item.projectID === getProjectID && item.Number === parseInt(getSprintNumState())) {
-            setPIID(item.id);
-            currPIID = item.id;
-            }})
-        await DataStore.query(Sprint)
-                .then(data => { data.filter(item => {
-                    if ( item.piID === currPIID && item.piID !== "" && item.Number === parseInt(getSprintNumState())) {     
-                    setSprintID(item.id);}})});}
-            fetchPIData();
-    },[getProjectID]);
+        }
+    },[]);
 
     useEffect(() => {
         setPINumbers(isUserAdmin ?["","create one","delete selected"] : [""]);
@@ -65,13 +56,44 @@ export function PISprintClass() {
             await DataStore.query(Sprint)
             .then(data => {
             data.filter(item => {
-                if (item.piID === PIID && item.piID !== "") {
+                if (item.piID === PIID) {
                 setSprintNumbers(prevItems => [...prevItems, item.Number]);}
                 return item.Number;})}).catch(error => {
             console.error(error);});
         }
         fetchSprintData()
     },[setPINumbers,setPINum,PIID,isUserAdmin]);
+
+    // Get PIID by PINumber
+    useEffect(() => {
+        async function fetchSprintData(){
+            await DataStore.query(PI)
+            .then(data => {
+            data.filter(item => {
+                if (item.Number === parseInt(PINum))
+                setPIID(item.id);
+                return item.Number;})}).catch(error => {
+            console.error(error);});
+        }
+        fetchSprintData()
+    },[setPINumbers,setPINum,PIID,isUserAdmin,PINum]);
+    // Get SprintID by SprintNum
+    useEffect(() => {
+        async function fetchSprintData(){
+            await DataStore.query(Sprint)
+            .then(data => {
+            data.filter(item => {
+                if (item.Number === parseInt(sprintNum) && item.piID === PIID) {
+                setSprintID(item.id);
+                setStartDate(item.StartDate);
+                setEndDate(item.EndDate);
+            }
+                return item.Number;})}).catch(error => {
+            console.error(error);});
+        }
+        fetchSprintData()
+    },[setPINumbers,setPINum,PIID,isUserAdmin,PINum,sprintNum]);
+
     // Get the largest PID ID by project
     useEffect(() => {
         async function fetchUserData() {
@@ -101,7 +123,7 @@ export function PISprintClass() {
                     setGetBiggestSprintNum(tempBigSprintNum);
                 }
         fetchUserData();
-    },[setGetBiggestSprintNum,setGetBiggestSprintNum,PIID,getBiggestSprintNum]);
+    },[setGetBiggestSprintNum,PIID,getBiggestSprintNum]);
 
     const handleCreatePI = async (newPInum) => {
         await DataStore.save(
@@ -116,14 +138,15 @@ export function PISprintClass() {
         window.location.reload();
     };
     const handleCreateSprint = async (newSprintnum) => {
-
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
         const newCreatedDate = new Date(new Date().getTime() - timezoneOffset);
         const newCreatedDateISO = newCreatedDate.toISOString();
+        const futureDate =  new Date((new Date().getTime() + 14 * 24 * 60 * 60 * 1000) - timezoneOffset);
+        const newFutureDateISO = futureDate.toISOString();
         await DataStore.save(
             new Sprint({
                 "StartDate": newCreatedDateISO,
-               // "EndDate": "1970-01-01T12:30:23.999Z",
+                "EndDate": newFutureDateISO,
                 "Number": newSprintnum,
                 "piID": PIID,
                 "Tickets": []
@@ -144,34 +167,23 @@ export function PISprintClass() {
             case "delete selected":
                 if (PINum !== 0) {
                 if (window.confirm(`Are you sure you want to delete selected PI ${PINum}`)) {
-                    const selectPI = await DataStore.query(PI);
-                    let deleted_PIID = "";
-                    selectPI.filter(data=> {
-                        if (data.projectID === getProjectID && data.Number ===parseInt(PINum)) {
-                            deleted_PIID = data.id;
-                        }
-                    })
-                    const modelToDelete = await DataStore.query(PI, deleted_PIID);
-                   DataStore.delete(modelToDelete);
-                   setPINum(0);
-                   setPINumState(0);
-                   navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `PI ${PINum} deleted!` }});
-                    window.location.reload();
+                   const modelToDelete = await DataStore.query(PI, PIID);
+                   const modelVals = await modelToDelete.Sprints.values;
+                    if(modelVals.length !== 0){
+                        navigate('/board', { state: { alert_show:'block' , alert_variant: "error", alert_description: `Please first remove all the sprints from PI ${PINum}!` }});
+                        window.location.reload();
+                    } else {
+                  DataStore.delete(modelToDelete);
+                  setPINum(0);
+                  setPINumState(0);
+                  navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `PI ${PINum} deleted!` }});
+                  window.location.reload();}
                 }}
                 break;
             default:
                 if (event.target.value !== ""){
                     setPINum(event.target.value);
-                    setPINumState(event.target.value);
-                await DataStore.query(PI)
-                .then(data => { data.filter(item => {
-                    if (item.Number === parseInt(event.target.value)) {
-                    setPIID(item.id);
-                    setSprintID(0);
-                    setSprintNum("");
-                }
-                })
-                });}
+                    setPINumState(event.target.value);}
                 break;}
     };
 
@@ -182,7 +194,7 @@ export function PISprintClass() {
                     handleCreateSprint(getBiggestSprintNum+1);
                 break;
                 case "delete selected":
-                    if (sprintID !== 0 && sprintID !== "") {
+                    if (parseInt(sprintNum) !== 0 ) {
                         if (window.confirm(`Are you sure you want to delete selected Sprint ${sprintNum}`)) {
                             const modelToDelete = await DataStore.query(Sprint, sprintID);
                             DataStore.delete(modelToDelete);
@@ -195,15 +207,12 @@ export function PISprintClass() {
             default:
                 if (event.target.value !== ""){
                 setSprintNum(event.target.value);
-                setSprintNumState(event.target.value);
-                await DataStore.query(Sprint)
-                .then(data => { data.filter(item => {
-                    if (item.Number === parseInt(event.target.value)) {
-                    setSprintID(item.id);}})
-                });}
-                break;}
-    };
+                setSprintNumState(event.target.value);}
+                break;}};
+
     return {
+        startDate,
+        endDate,
         PIID,
         PINum,
         PINumbers,

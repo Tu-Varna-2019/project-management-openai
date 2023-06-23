@@ -87,7 +87,6 @@ export function GithubClass() {
         navigate(redirectTicketPath,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:true,view_mode:true,project: getProjectNameState()}});
         break;
       default:
-        console.log("default");
       break;
     }
   };
@@ -106,7 +105,6 @@ export function GithubClass() {
       navigate(redirectTicketPath,{state:{selectedTicket:editTicketDataStore,edited:editTicketBoolean,show_git:false,project: getProjectNameState()}});
       break;
     default:
-      console.log("default");
     break;
     }
     

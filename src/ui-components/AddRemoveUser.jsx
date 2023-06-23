@@ -168,7 +168,7 @@ export default function AddRemoveUser(props) {
         height="unset"
         label="Select Project"
         position="absolute"
-        top="197px"
+        top="276px"
         left="calc(50% - 217.5px - -2.5px)"
         placeholder=""
         size="default"

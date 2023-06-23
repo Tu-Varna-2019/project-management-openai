@@ -1,7 +1,7 @@
 let ProjectNameState = "ProjectNameLocal";
 let DragDropTicketState = "DragDropTicketLocal";
 let PINumState = "PINameLocal";
-let SprintNumState = "PINameLocal";
+let SprintNumState = "SprintNameLocal";
 let notificationsState = "notificationLocal";
 let notificationCountState = "notificationCountLocal";
 

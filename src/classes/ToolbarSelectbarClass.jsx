@@ -43,7 +43,7 @@ export function ToolbarSelectClass() {
                 navigate('/edit-project');}
             break;
             default: 
-                console.log("default");
+                //console.log("default");
             break;}};
 
     const handleYourWorkSelectChange = async (event) => {
@@ -76,7 +76,7 @@ export function ToolbarSelectClass() {
                             {state:{selectedTicket:item,project: getProjectNameState()}});
                             return item;
                         })});}
-                else console.log("default");
+                //else console.log("default");
             break;}};
 
     const handleIssueTemplateSelectChange = (event) => {
@@ -88,7 +88,7 @@ export function ToolbarSelectClass() {
                 navigate("/board",{state:{edited_it:true,project: getProjectNameState()}})
                 break;
             default:
-                console.log("default");
+                //console.log("default");
                 break;
         }
     };
@@ -123,7 +123,7 @@ export function ToolbarSelectClass() {
                     navigate('/');})
             break;
             default: 
-            console.log("default");
+            //console.log("default");
             break;}};
 
     const handleClearSearchTicket = (event) => {

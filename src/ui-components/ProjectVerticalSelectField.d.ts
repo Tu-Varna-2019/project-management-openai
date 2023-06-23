@@ -5,6 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
+import { Sprint } from "../models";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { BadgeProps, ButtonProps, CardProps, DividerProps, ImageProps, RatingProps, SelectFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -22,11 +23,15 @@ export declare type ProjectVerticalSelectFieldOverridesProps = {
     backlog_button?: PrimitiveOverrideProps<ButtonProps>;
     active_sprints_button?: PrimitiveOverrideProps<ButtonProps>;
     PI_text?: PrimitiveOverrideProps<TextProps>;
+    start_date_text?: PrimitiveOverrideProps<TextProps>;
+    end_date_text?: PrimitiveOverrideProps<TextProps>;
     Sprint_text?: PrimitiveOverrideProps<TextProps>;
     select_sprint_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     select_pi_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type ProjectVerticalSelectFieldProps = React.PropsWithChildren<Partial<ViewProps> & {
+    sprint?: Sprint;
+} & {
     overrides?: ProjectVerticalSelectFieldOverridesProps | undefined | null;
 }>;
 export default function ProjectVerticalSelectField(props: ProjectVerticalSelectFieldProps): React.ReactElement;

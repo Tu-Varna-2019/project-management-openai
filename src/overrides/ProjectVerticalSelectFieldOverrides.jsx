@@ -9,6 +9,8 @@ export function ProjectVerticalSelectFieldFunc (props) {
         navigate,
     } = React.useContext(ProjectContext);
     const {
+        startDate,
+        endDate,
         PINum,
         sprintNum,
         PINumbers,
@@ -18,6 +20,12 @@ export function ProjectVerticalSelectFieldFunc (props) {
     } = React.useContext(PISprintContext);
 
     const ProjectVerticalSelectFieldOverride={
+        start_date_text:{
+            children: startDate === "-" ? "-" : new Date(startDate).toISOString().slice(0, 16).replace('T', ' ')
+        },
+        end_date_text:{
+            children: endDate === "-" ? "-" : new Date(endDate).toISOString().slice(0, 16).replace('T', ' ')
+        },
         PI_text: {
             children: `PI ${PINum}`
         },

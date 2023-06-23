@@ -19,7 +19,7 @@ import {
   View,
 } from "@aws-amplify/ui-react";
 export default function ProjectVerticalSelectField(props) {
-  const { overrides, ...rest } = props;
+  const { sprint, overrides, ...rest } = props;
   return (
     <View
       width="316px"
@@ -204,6 +204,50 @@ export default function ProjectVerticalSelectField(props) {
         whiteSpace="pre-wrap"
         children="PI "
         {...getOverrideProps(overrides, "PI_text")}
+      ></Text>
+      <Text
+        fontFamily="Inter"
+        fontSize="14px"
+        fontWeight="700"
+        color="rgba(104,112,120,1)"
+        lineHeight="21px"
+        textAlign="center"
+        display="block"
+        direction="column"
+        justifyContent="unset"
+        width="123px"
+        height="unset"
+        gap="unset"
+        alignItems="unset"
+        position="absolute"
+        top="120px"
+        left="180px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children={sprint?.StartDate}
+        {...getOverrideProps(overrides, "start_date_text")}
+      ></Text>
+      <Text
+        fontFamily="Inter"
+        fontSize="14px"
+        fontWeight="700"
+        color="rgba(104,112,120,1)"
+        lineHeight="21px"
+        textAlign="center"
+        display="block"
+        direction="column"
+        justifyContent="unset"
+        width="123px"
+        height="unset"
+        gap="unset"
+        alignItems="unset"
+        position="absolute"
+        top="152px"
+        left="180px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children={sprint?.EndDate}
+        {...getOverrideProps(overrides, "end_date_text")}
       ></Text>
       <Text
         fontFamily="Inter"

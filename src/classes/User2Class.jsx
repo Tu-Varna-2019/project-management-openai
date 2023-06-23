@@ -31,6 +31,8 @@ export function User2Class() {
     const [selectedAdminUser,setSelectedAdminUser] = useState([]);
     const [refreshAdminUserItems, setRefreshAdminUserItems] = useState(0);
 
+    const [viewedUserProfileURL,setViewedUserProfileURL] = useState("");
+
     let selectedUserID = "";
     let selectedUsername = "";
     const addRemoveUserBoolean = location.state ? location.state.add_remove_user : false;
@@ -51,11 +53,9 @@ export function User2Class() {
                     const isUserFound = user.find(item => item.sub === currentCredentials.attributes.sub);
 
                     if (isUserFound){
-                    console.log(`User found ${isUserFound.username}`);
                     setCurrentUser(isUserFound);}
                     else {
                         if (currentCredentials.attributes.sub !== undefined) {
-                        console.log(`User doesn't exist , let's add him !`);
                         await DataStore.save(
                         new User({
                             "sub": authenticatedUser.attributes.sub,
@@ -76,6 +76,21 @@ export function User2Class() {
                 setUserProfileURL(data);})}
     fetchUserData();
     },[setCurrentUser,currentUser.ImageProfile]);
+
+    useEffect(() => {
+        async function fetchUserData() {
+            if (selectedUserID !== currentUser.id) {
+            const viewedUser = await DataStore.query(User,selectedUserID);
+            await Storage.vault.get(
+                "shared/"+viewedUser.ImageProfile,{
+                level:"public",
+            }).then(data => {
+                setViewedUserProfileURL(data);})}
+            else
+                setViewedUserProfileURL(userProfileURL)
+            }
+    fetchUserData();
+    },[location.state,currentUser.id,selectedUserID,userProfileURL]);
 
     // Send success alert if ticket is created/deleted
     useEffect(() => {
@@ -177,6 +192,7 @@ export function User2Class() {
             }
 
     return {
+        viewedUserProfileURL,
         setIsLoading,
         selectedAdminUser,
         setSelectedAdminUser,

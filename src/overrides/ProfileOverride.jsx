@@ -8,6 +8,7 @@ export function ProfileFunc () {
     const {
         isUserAdmin,
         userProfileURL,
+        viewedUserProfileURL,
         regexEmail,
         email,
         handleEmailChange,
@@ -30,7 +31,7 @@ const isDisableUserProfileOptions = currentUser.id !== selectedUserID;
 
 const ProfileOverride={
     profile_icon_image: {
-        src: userProfileURL
+        src: viewedUserProfileURL
     },
     email_text_field:{
         onChange : (event) => (handleEmailChange(event)),

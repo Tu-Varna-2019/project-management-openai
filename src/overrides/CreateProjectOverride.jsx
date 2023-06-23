@@ -47,7 +47,6 @@ export function CreateProjectFunc(props) {
           />
         )}
 
-        
         return {
             CreateProjectOverride,
             FileImageUpload

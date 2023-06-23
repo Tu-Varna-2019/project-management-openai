@@ -173,7 +173,7 @@ export function IssueTemplateClass(props) {
         setITIDs([""]);
         await DataStore.query(IssueTemplate)
         .then((data => data.filter(item => {
-        if ( item.projectID === projectIDs[event.target.selectedIndex]) {
+        if ( item.projectID === projectIDs[event.target.selectedIndex-1]) {
            setITNames(prevList => [...prevList,`${item.Title} : ${item.IssueType}`]);
            setITIDs(prevList => [...prevList,item.id]);}
         })));};
@@ -208,7 +208,7 @@ export function IssueTemplateClass(props) {
     
                     if (openaiTitle === undefined || openaiDescription === undefined || openaiComment === undefined
                         || openaiTitle.trim() === "" || openaiDescription.trim() === "" || openaiComment.trim() === ""){
-                        console.log("undefined!");
+                        //console.log("undefined!");
                         return handleCreateTicketAIOptionsChange(event,templateType);
                     }else{
                     if (templateType === "ticket") {
@@ -243,7 +243,7 @@ export function IssueTemplateClass(props) {
     
                     if (openaiTitle === undefined || openaiDescription === undefined || openaiComment === undefined
                         || openaiTitle.trim() === "" || openaiDescription.trim() === "" || openaiComment.trim() === ""){
-                        console.log("undefined!");
+                        //console.log("undefined!");
                         return handleCreateTicketAIOptionsChange(event,templateType);
                     }else{
                         setOpenaiProgBar(false);
@@ -273,7 +273,7 @@ export function IssueTemplateClass(props) {
 
                 if (openaiTitle === undefined || openaiDescription === undefined || openaiComment === undefined
                     || openaiTitle.trim() === "" || openaiDescription.trim() === "" || openaiComment.trim() === ""){
-                    console.log("undefined!");
+                    //console.log("undefined!");
                     return handleCreateTicketAIOptionsChange(event,templateType);
                 }else{
                 if (templateType === "ticket") {
@@ -336,7 +336,7 @@ export function IssueTemplateClass(props) {
                 setOpenaiProgBar(false);
                 break;
             default:
-                console.log("default");
+                //console.log("default");
                 setOpenaiProgBar(false);
                 break;}
         }catch(err){console.log(err)}};
@@ -346,7 +346,7 @@ export function IssueTemplateClass(props) {
         try {
         response = await API.post('apiopenai','/openai/ticketTemplateCreate',
         { body: JSON.stringify({event}) });
-        console.log(response);
+        //console.log(response);
         }catch(err){console.log(err);}
         return response;}
 
@@ -355,7 +355,7 @@ export function IssueTemplateClass(props) {
         try {
         response = await API.post('apiopenai','/openai/ticketSummarize',
         { body: JSON.stringify({event}) });
-        console.log(response);
+        //console.log(response);
         }catch(err){console.log(err);}
         return response;}
 
@@ -364,7 +364,7 @@ export function IssueTemplateClass(props) {
         try {
         response = await API.post('apiopenai','/openai/ticketTranslate',
         { body: JSON.stringify({event}) });
-        console.log(response);
+        //console.log(response);
         }catch(err){console.log(err);}
         return response;}
 

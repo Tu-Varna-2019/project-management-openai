@@ -111,7 +111,7 @@ export function ProjectClass(props) {
                 data.filter(item => { 
                     if (item.Name === projectName)
                         does_project_name_exist = true;
-                        console.log(`Name ${projectName} already exists!`);
+                        //console.log(`Name ${projectName} already exists!`);
                         setErrorMessageProjectName(`Name ${projectName} already exists!`);
                         return item;})
                 }).catch(error => {
@@ -125,14 +125,12 @@ export function ProjectClass(props) {
                         "Admin": [currentUser.id],
                         "Users": []
                      }));
-                console.log("Project created!");
+                //console.log("Project created!");
                 navigate('/');
                 window.location.reload();
             }}
         setIsConfirmButtonLoading(false);
     };
-
-
 
     const handleSaveEditProjectClick = async (event) => {
         event.preventDefault();
@@ -214,8 +212,8 @@ export function ProjectClass(props) {
         async function fetchUserData() {
             const credentials = await Auth.currentCredentials();
             await Storage.vault.get(
-                getProjectImageName, {
-                level: "protected",
+                "shared/"+getProjectImageName, {
+                level: "public",
                 identityId: credentials.identityId
                 }).then(data => {
                     setImageProjectURL(data);})}

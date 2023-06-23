@@ -61,7 +61,7 @@ export function ToolbarFunc (props) {
         success_alert : { 
             style:{"display": alertVisibility },
             children: alertDescription,
-            variant: alertVariant,
+            variation: alertVariant,
             onDismiss : (event) => (setAlertVisibility("none")),
         },
         notify_count_badge:{
@@ -99,7 +99,7 @@ export function ToolbarFunc (props) {
         },
         create_ticket_button:{
             onClick: (event) => (handleGoToCreateTicketClick(event)),
-            isDisabled: sprintID === 0
+            isDisabled: sprintID === "" || sprintID === 0
         },
         }
         

@@ -453,7 +453,7 @@ export function TicketClass(props) {
     const postData = async (event) => {
         const response = await API.post('apiopenai','/sns/notifyticketupdate',
         { body: JSON.stringify({event})});
-        console.log(response);
+        //console.log(response);
         return response;}
 
      // Goto EditTicket component
