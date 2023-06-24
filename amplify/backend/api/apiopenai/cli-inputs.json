@@ -14,6 +14,52 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/sns/notifyticketupdate": {
+      "name": "/sns/notifyticketupdate",
+      "lambdaFunction": "notifyticketupdatelambda",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/openai/ticketTemplateCreate": {
+      "name": "/openai/ticketTemplateCreate",
+      "lambdaFunction": "TicketCreationTemplateLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/openai/ticketTranslate": {
+      "name": "/openai/ticketTranslate",
+      "lambdaFunction": "TicketTranslateLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/openai/ticketSummarize": {
+      "name": "/openai/ticketSummarize",
+      "lambdaFunction": "TicketSummarizeLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }

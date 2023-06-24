@@ -19,6 +19,7 @@ module.exports = {
     "rules": {
         "no-extra-semi":"error",
         "no-unused-vars": "off",
+        "array-callback-return":"off",
         "react/prop-types": "off"
     }
 }

@@ -58,6 +58,38 @@
           ],
           "category": "function",
           "resourceName": "ShareNoteLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -99,6 +131,30 @@
   },
   "function": {
     "ShareNoteLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "TicketCreationTemplateLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "TicketSummarizeLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "TicketTranslateLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "notifyticketupdatelambda": {
       "build": true,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -185,6 +241,126 @@
         }
       ]
     },
+    "AMPLIFY_function_TicketCreationTemplateLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_model": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_paramOpenaiApikey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketCreationTemplateLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketCreationTemplateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_model": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_paramOpenaiApikey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketSummarizeLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketSummarizeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_model": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_paramOpenaiApikey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_TicketTranslateLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "TicketTranslateLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifyticketupdatelambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifyticketupdatelambda_paramSenderEmail": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifyticketupdatelambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifyticketupdatelambda"
+        }
+      ]
+    },
     "AMPLIFY_function_openaiLambda_deploymentBucketName": {
       "usedBy": [
         {
@@ -194,6 +370,14 @@
       ]
     },
     "AMPLIFY_function_openaiLambda_model": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openaiLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_openaiLambda_openaiApiKey": {
       "usedBy": [
         {
           "category": "function",
@@ -256,6 +440,20 @@
           "resourceName": "Pinpoint"
         }
       ]
+    }
+  },
+  "predictions": {
+    "TextToAudio": {
+      "convertType": "speechGenerator",
+      "providerPlugin": "awscloudformation",
+      "service": "Polly"
+    }
+  },
+  "storage": {
+    "s3mnotesimagebucket": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

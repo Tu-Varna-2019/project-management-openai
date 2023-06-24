@@ -19,10 +19,6 @@ export declare type BinOverridesProps = {
     powered_by_amplify_text177161743?: PrimitiveOverrideProps<TextProps>;
     powered_by_amplify_text177161744?: PrimitiveOverrideProps<TextProps>;
     SearchField?: PrimitiveOverrideProps<SearchFieldProps>;
-    note_button?: PrimitiveOverrideProps<ButtonProps>;
-    task_button?: PrimitiveOverrideProps<ButtonProps>;
-    reminder_button?: PrimitiveOverrideProps<ButtonProps>;
-    bin_button?: PrimitiveOverrideProps<ButtonProps>;
     contact_us_button?: PrimitiveOverrideProps<ButtonProps>;
     amplify_logo?: PrimitiveOverrideProps<ViewProps>;
     aws_image_background?: PrimitiveOverrideProps<ImageProps>;
@@ -41,6 +37,7 @@ export declare type BinOverridesProps = {
     Vector177161765?: PrimitiveOverrideProps<IconProps>;
     Badge?: PrimitiveOverrideProps<BadgeProps>;
     SelectField?: PrimitiveOverrideProps<SelectFieldProps>;
+    edit_note_form?: PrimitiveOverrideProps<ViewProps>;
     title_text_field?: PrimitiveOverrideProps<TextFieldProps>;
     priority_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
     description_text_field?: PrimitiveOverrideProps<TextAreaFieldProps>;
@@ -51,6 +48,11 @@ export declare type BinOverridesProps = {
     create_note_button?: PrimitiveOverrideProps<ButtonProps>;
     notes_displayed_here_no_note?: PrimitiveOverrideProps<TextProps>;
     amplify_image_logo_no_note?: PrimitiveOverrideProps<ImageProps>;
+    task_bar_buttons?: PrimitiveOverrideProps<ViewProps>;
+    note_button?: PrimitiveOverrideProps<ButtonProps>;
+    task_button?: PrimitiveOverrideProps<ButtonProps>;
+    reminder_button?: PrimitiveOverrideProps<ButtonProps>;
+    bin_button?: PrimitiveOverrideProps<ButtonProps>;
     Divider177162054?: PrimitiveOverrideProps<DividerProps>;
     success_alert?: PrimitiveOverrideProps<AlertProps>;
     confirm_cancel_alert?: PrimitiveOverrideProps<AlertProps>;

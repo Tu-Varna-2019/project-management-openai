@@ -1,7 +1,8 @@
 import '@aws-amplify/ui-react/styles.css';
 import {NoteClass} from '../classes/NoteClass';
 import { UserClass } from '../classes/UserClass';
-
+import React from 'react';
+import { FileUploader } from '@aws-amplify/ui-react';
 
 export function CreateNoteFunc () {
 
@@ -22,7 +23,8 @@ export function CreateNoteFunc () {
         handleOnClickCancel,
         handleOnClickConfirm,
         errorNoteMessage,
-        errorNoteDescription
+        errorNoteDescription,
+        handleSafeImageChange,
     } = NoteClass();
 
     const {
@@ -61,7 +63,8 @@ export function CreateNoteFunc () {
             onClick : (event) => (handleAIOption(event)),
             },
         cancel_button :{
-            onClick : (event) => (handleOnClickCancel(event))},
+            onClick : (event) => (handleOnClickCancel(event))
+        },
         error_alert: {
             style:{ "display": errorNoteMessage},
             isDismissible: false,
@@ -77,8 +80,22 @@ export function CreateNoteFunc () {
             isDisabled : isTitleEmpty || hasErrorRem,
             }}
 
+    function FileImageUpload () {
+        return (
+            <FileUploader
+            shouldAutoProceed={false}
+            acceptedFileTypes={['image/*','.gif', '.bmp', '.doc', '.jpeg', '.jpg']}
+            accessLevel="private"
+            maxFileCount={1}
+            maxSize={100000}
+            isResumable={true}
+            showImages={true}
+            onSuccess={(event) =>{handleSafeImageChange(event.key);}}
+        />
+        )}
 
         return {
-            CreateNoteOverride
+            CreateNoteOverride,
+            FileImageUpload
         }
 }

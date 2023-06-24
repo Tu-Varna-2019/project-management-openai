@@ -1,0 +1,14 @@
+{
+    "resourceName": "TextToAudio",
+    "convertPolicyName": "speechGeneratorPolicyb74200ed",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "convertType": "speechGenerator",
+    "language": "en-US",
+    "voice": "Joanna",
+    "access": "auth"
+}

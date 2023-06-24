@@ -6,7 +6,6 @@ import { ReminderClass } from '../classes/ReminderClass';
 import { useLocation } from 'react-router-dom';
 import { DataStore  } from 'aws-amplify';
 import { NoteV2 } from '../models';
-import ms_outlook_sound from '../audio/ms_outlook_sound.mp3';
 
 export function ReminderFunc () {
     const {

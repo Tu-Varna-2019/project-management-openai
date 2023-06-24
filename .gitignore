@@ -45,3 +45,4 @@ amplifytools.xcconfig
 #amplify-do-not-edit-end
 .vscode/settings.json
 .vscode/settings.json
+.env

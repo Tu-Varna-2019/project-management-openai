@@ -1,0 +1,18 @@
+{
+  "lambdaLayers": [
+    {
+      "type": "ExternalLayer",
+      "arn": "arn:aws:lambda:eu-west-1:512617552494:layer:OpenAI-AWS-Lambda-Layer:4"
+    }
+  ],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "model",
+      "environmentVariableName": "MODEL"
+    },
+    {
+      "cloudFormationParameterName": "paramOpenaiApikey",
+      "environmentVariableName": "PARAM_OPENAI_APIKEY"
+    }
+  ]
+}

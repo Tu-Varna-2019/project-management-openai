@@ -50,8 +50,8 @@ export default function DeleteAccount(props) {
   };
   return (
     <View
-      width="1346px"
-      height="937px"
+      width="1920px"
+      height="1080px"
       display="block"
       gap="unset"
       alignItems="unset"
@@ -64,8 +64,8 @@ export default function DeleteAccount(props) {
       {...rest}
     >
       <View
-        width="1346px"
-        height="937px"
+        width="1920px"
+        height="1080px"
         display="block"
         gap="unset"
         alignItems="unset"
@@ -78,8 +78,8 @@ export default function DeleteAccount(props) {
         {...getOverrideProps(overrides, "Frame")}
       >
         <Image
-          width="1346px"
-          height="937px"
+          width="1920px"
+          height="1080px"
           display="block"
           gap="unset"
           alignItems="unset"
@@ -93,10 +93,10 @@ export default function DeleteAccount(props) {
           {...getOverrideProps(overrides, "aws image background notes 1")}
         ></Image>
         <Divider
-          width="1316px"
+          width="1878px"
           height="2px"
           position="absolute"
-          top="854px"
+          top="1001px"
           left="17px"
           backgroundColor="rgba(0,0,0,1)"
           size="small"
@@ -107,8 +107,8 @@ export default function DeleteAccount(props) {
           width="898px"
           height="unset"
           position="absolute"
-          top="876px"
-          left="224px"
+          top="1023px"
+          left="calc(50% - 449px - 0px)"
           size="default"
           variation="default"
           children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
@@ -123,8 +123,8 @@ export default function DeleteAccount(props) {
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
-          top="199px"
-          left="348px"
+          top="338px"
+          left="calc(50% - 327.5px - -38.5px)"
           {...getOverrideProps(overrides, "Form_field")}
         >
           <Card
@@ -228,8 +228,8 @@ export default function DeleteAccount(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="98px"
-          left="580px"
+          top="215px"
+          left="calc(50% - 92.5px - 0.5px)"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
           children="MNotes"
@@ -243,15 +243,15 @@ export default function DeleteAccount(props) {
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
-          top="54px"
-          left="774px"
+          top="164px"
+          left="1099px"
           padding="0px 0px 0px 0px"
           objectFit="cover"
           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.freebiesupply.com%2Flogos%2Flarge%2F2x%2Faws-ec2-logo-png-transparent.png&f=1&nofb=1&ipt=4b831e1f2fa38b82e4d5320d48c551604d111dee5b0e481f95970b469a094c2e&ipo=images"
           {...getOverrideProps(overrides, "logo 1")}
         ></Image>
         <Alert
-          width="1346px"
+          width="1920px"
           height="130px"
           heading="Error"
           position="absolute"
@@ -279,8 +279,8 @@ export default function DeleteAccount(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="486px"
-          left="434px"
+          top="637px"
+          left="763px"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
           children="I understand that as a user of this service, &#xA;I may want to delete my account for various reasons. &#xA;To request the deletion of my account ."
@@ -294,8 +294,8 @@ export default function DeleteAccount(props) {
           height="86px"
           justifyContent="flex-end"
           position="absolute"
-          top="486px"
-          left="434px"
+          top="625px"
+          left="calc(50% - 223px - -38px)"
           label=""
           size="large"
           defaultChecked={false}

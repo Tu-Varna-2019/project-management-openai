@@ -3,6 +3,8 @@ import { DataStore,API } from 'aws-amplify';
 import { NoteV2 } from '../models';
 import {useNavigate} from 'react-router-dom';
 import { UserClass } from './UserClass';
+import { Storage } from "@aws-amplify/storage"
+import { Auth } from 'aws-amplify';
 
 
 export function NoteClass() {
@@ -44,32 +46,29 @@ export function NoteClass() {
     // Create note error alert
     const [errorNoteMessage,setErrorNoteMessage] = useState(initialHasErrorValues.ShowErrorMessage);
     const [errorNoteDescription,setErrorNoteDescription] = useState(initialHasErrorValues.ErrorDesc);
+    // Object Image name
+    const [imageName,setImageName] = useState("");
 
     const isTitleEmpty =  /^\s*$/.test(title);
     const noNotesText = notes.length === 0 ? 465 : -300;
-    const noMoreIcon = title === "" ? -300 : 780;
+    const noMoreIcon = title === "" ? -600 : 380;
     const navigate = useNavigate();
     
     const handleDelete = (event) => {
         event.preventDefault();
         setDeleted(!deleted);
-        //if (props.onChange) props.onChange(event);
     };
-
     const handleTitle = (event) => {
         event.preventDefault();
         setTitle(event.target.value);
-       // if (props.onChange) props.onChange(event);
     };
     const handleDescription = (event) => {
         event.preventDefault();
         setDescription(event.target.value);
-     // if (props.onChange) props.onChange(event); 
     };
     const handlePriority = (event) => {
         event.preventDefault();
         setPriority(event.target.value);
-    //  if (props.onChange) props.onChange(event);
     };
 
     const handleReminder = (event) => {
@@ -77,12 +76,11 @@ export function NoteClass() {
         setReminder(event.target.value);
         const compareDates = new Date(event.target.value) >= Date.now();
         setHasErrorRem(!compareDates);
-     // if (props.onChange) props.onChange(event);
     };
     
     ////////////////////////* List all notes : HomePage,BinPage,ReminderPage ... *//////////////////////////////////////////////////////////////
 
-    const handleNoteButton = (event) => {
+    const handleNoteButton = async (event) => {
         console.log(`Button ${event.Title} `);
         setSelectedNote(event);
         setHideNote("block");
@@ -95,6 +93,15 @@ export function NoteClass() {
         const formattedDate = date.toISOString().slice(0, 16);
         setReminder(formattedDate);
         setEditNoteId(event.id);
+
+        const credentials = await Auth.currentCredentials();
+        await Storage.vault.get(
+            event.ImageName,{
+            level:"private",
+            identityId: credentials.identityId
+        }).then(data => {
+            setImageName(data);
+        })
     };
 
     const handleOnClickSave = async (event,route,reminder_state,divider_state) => {
@@ -115,12 +122,11 @@ export function NoteClass() {
         navigate(route, { state: { alert_success:'block' , title: title , action: action_message , reminder_state:reminder_state,divider_state: divider_state }});
         window.location.reload();
         };
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     ////////////////////////* Create note : CreateNotePage ... *//////////////////////////////////////////////////////////////
 
-     const postData = async (event) => {
+    const postData = async (event) => {
         const response = await API.post('apiopenai','/openai/chatcompletion',
         { body: JSON.stringify({event}) });
         console.log(response);
@@ -142,7 +148,6 @@ export function NoteClass() {
         setDescription(NoteValues.Description);
         setPriority(NoteValues.Priority);
         setReminder(NoteValues.Reminder);
-        //setHasError(initialHasErrorValues.hasError);
         setHasErrorRem(initialHasErrorValues.hasErrorRem);
     };
 
@@ -167,13 +172,27 @@ export function NoteClass() {
                 "Priority": priority,
                 "Reminder": newReminder,
                 "sub": sub,
-                "Deleted": false}));
+                "Deleted": false,
+                "ImageName": imageName
+            }));
             navigate('/note', { state: { alert_success:'block' , title: title , action: "created !" } });
         } catch (error) {
             setIsLoading(false);
             setErrorNoteMessage("block");
             setErrorNoteDescription("App is not supported in this browser's private mode! Please enable cookies!");
     }};
+
+    const handleImageRemoveChange = async (event) => {
+        await Storage.remove(event, { level: 'private' });
+        console.log("Removed file: "+ event);
+        }
+
+    const handleSafeImageChange = async (event) => {
+
+        await Storage.put(event,{level: 'private'});
+        console.log(`Saving file: ${event} `);
+        setImageName(event);
+        }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     return {
@@ -205,6 +224,9 @@ export function NoteClass() {
         errorNoteDescription,
         setNotes,
         selectedNote,
-        noMoreIcon  
+        noMoreIcon,
+        handleImageRemoveChange,
+        handleSafeImageChange,
+        imageName,
     }
 }

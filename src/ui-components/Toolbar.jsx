@@ -8,10 +8,12 @@
 import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import {
+  Alert,
+  Badge,
   Button,
-  Flex,
-  Icon,
+  Image,
   SearchField,
+  SelectField,
   Text,
   View,
 } from "@aws-amplify/ui-react";
@@ -19,8 +21,8 @@ export default function Toolbar(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="1346px"
-      height="171px"
+      width="1920px"
+      height="247px"
       display="block"
       gap="unset"
       alignItems="unset"
@@ -28,13 +30,12 @@ export default function Toolbar(props) {
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      backgroundColor="rgba(255,255,255,1)"
       {...getOverrideProps(overrides, "Toolbar")}
       {...rest}
     >
       <View
-        width="1346px"
-        height="171px"
+        width="1921px"
+        height="112px"
         display="block"
         gap="unset"
         alignItems="unset"
@@ -43,389 +44,371 @@ export default function Toolbar(props) {
         top="0px"
         left="0px"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+        borderRadius="7px"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(35,47,62,1)"
         {...getOverrideProps(overrides, "footer_rectangle")}
       ></View>
-      <View
-        padding="0px 0px 0px 0px"
-        width="1240px"
-        height="114px"
+      <SearchField
+        width="415px"
+        height="unset"
+        placeholder="Search"
+        position="absolute"
+        top="38px"
+        left="calc(50% - 207.5px - -360.5px)"
+        size="default"
+        isDisabled={false}
+        labelHidden={true}
+        variation="default"
+        backgroundColor="white"
+        {...getOverrideProps(overrides, "search_ticket_select_field")}
+      ></SearchField>
+      <Button
+        width="145px"
+        height="48px"
+        position="absolute"
+        border="1px SOLID rgba(35,47,62,1)"
+        top="40px"
+        left="calc(50% - 71.5px - 124.5px)"
+        boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+        backgroundColor="rgba(255,255,255,1)"
+        size="default"
+        isDisabled={false}
+        variation="default"
+        children="Create"
+        {...getOverrideProps(overrides, "create_ticket_button")}
+      ></Button>
+      <Image
+        width="49px"
+        height="49px"
         display="block"
         gap="unset"
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
-        top="30px"
-        left="70px"
-        {...getOverrideProps(overrides, "components_footer")}
+        top="39px"
+        left="1734px"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fpaomedia%2Fsmall-n-flat%2F1024%2Fbell-icon.png&f=1&nofb=1&ipt=bad24e084ced30d8bc26351af749aec06912617f276152536c85b66acb5aaf27&ipo=images"
+        {...getOverrideProps(overrides, "reminder_icon_image")}
+      ></Image>
+      <Image
+        width="54px"
+        height="56px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="36px"
+        left="1845px"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        {...getOverrideProps(overrides, "profile_icon_image")}
+      ></Image>
+      <Image
+        width="56px"
+        height="70px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="22px"
+        left="86px"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.freebiesupply.com%2Flogos%2Flarge%2F2x%2Faws-ec2-logo-png-transparent.png&f=1&nofb=1&ipt=4b831e1f2fa38b82e4d5320d48c551604d111dee5b0e481f95970b469a094c2e&ipo=images"
+        {...getOverrideProps(overrides, "logo 1")}
+      ></Image>
+      <Text
+        fontFamily="Inter"
+        fontSize="32px"
+        fontWeight="700"
+        color="rgba(255,255,255,1)"
+        lineHeight="48px"
+        textAlign="left"
+        display="block"
+        direction="column"
+        justifyContent="unset"
+        width="unset"
+        height="unset"
+        gap="unset"
+        alignItems="unset"
+        position="absolute"
+        top="33px"
+        left="21px"
+        padding="0px 0px 0px 0px"
+        whiteSpace="pre-wrap"
+        children="KAI"
+        {...getOverrideProps(overrides, "KAI")}
+      ></Text>
+      <View
+        padding="0px 0px 0px 0px"
+        width="131px"
+        height="64px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="34px"
+        left="177px"
+        {...getOverrideProps(overrides, "Your work group178522270")}
       >
         <Text
           fontFamily="Inter"
-          fontSize="16px"
+          fontSize="17px"
           fontWeight="700"
           color="rgba(255,255,255,1)"
-          lineHeight="24px"
+          lineHeight="25.5px"
           textAlign="left"
           display="block"
           direction="column"
           justifyContent="unset"
-          width="100px"
-          height="26px"
+          width="99px"
+          height="38.43px"
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="6px"
-          left="6px"
+          top="10.02px"
+          left="3px"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Created by "
-          {...getOverrideProps(overrides, "powered_by_amplify_text175901700")}
+          children="Your work"
+          {...getOverrideProps(overrides, "Your work")}
         ></Text>
-        <Text
-          fontFamily="Inter"
-          fontSize="16px"
-          fontWeight="700"
-          color="rgba(255,255,255,1)"
-          lineHeight="24px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="112px"
-          height="29px"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="85px"
-          left="0px"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="AWS Amplify"
-          {...getOverrideProps(overrides, "powered_by_amplify_text175901701")}
-        ></Text>
-        <Flex
-          gap="8px"
-          direction="column"
-          width="159px"
-          height="unset"
-          justifyContent="center"
-          alignItems="flex-start"
+        <SelectField
+          width="131px"
+          height="64px"
+          label="Your work"
           position="absolute"
           top="0px"
-          left="1081px"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-          padding="0px 0px 0px 0px"
-          backgroundColor="rgba(35,47,62,1)"
-          {...getOverrideProps(overrides, "my_account_select_field")}
-        >
-          <Flex
-            gap="0"
-            direction="column"
-            width="unset"
-            height="unset"
-            justifyContent="flex-start"
-            alignItems="flex-start"
-            shrink="0"
-            alignSelf="stretch"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            {...getOverrideProps(overrides, "InputGroup")}
-          >
-            <Flex
-              gap="10px"
-              direction="row"
-              width="unset"
-              height="unset"
-              justifyContent="center"
-              alignItems="center"
-              shrink="0"
-              alignSelf="stretch"
-              position="relative"
-              border="1px SOLID rgba(35,47,62,1)"
-              borderRadius="5px"
-              padding="8px 16px 8px 16px"
-              {...getOverrideProps(overrides, "Input")}
-            >
-              <Text
-                fontFamily="Inter"
-                fontSize="16px"
-                fontWeight="400"
-                color="rgba(255,255,255,1)"
-                lineHeight="24px"
-                textAlign="left"
-                display="block"
-                direction="column"
-                justifyContent="unset"
-                width="unset"
-                height="unset"
-                gap="unset"
-                alignItems="unset"
-                grow="1"
-                shrink="1"
-                basis="0"
-                position="relative"
-                padding="0px 0px 0px 0px"
-                whiteSpace="pre-wrap"
-                children="My account"
-                {...getOverrideProps(overrides, "placeholder")}
-              ></Text>
-              <Icon
-                width="24px"
-                height="24px"
-                display="block"
-                gap="unset"
-                alignItems="unset"
-                justifyContent="unset"
-                overflow="hidden"
-                shrink="0"
-                position="relative"
-                padding="0px 0px 0px 0px"
-                type="chevron_down"
-                fontSize="24px"
-                {...getOverrideProps(overrides, "Icon")}
-              ></Icon>
-            </Flex>
-          </Flex>
-        </Flex>
+          left="0px"
+          placeholder=""
+          size="default"
+          isDisabled={false}
+          labelHidden={true}
+          variation="quiet"
+          {...getOverrideProps(overrides, "your_work_select_field")}
+        ></SelectField>
       </View>
-      <SearchField
-        width="622px"
-        height="unset"
-        placeholder="Search note"
+      <View
+        padding="0px 0px 0px 0px"
+        width="118px"
+        height="64px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
         position="absolute"
         top="34px"
-        left="350px"
-        backgroundColor="rgba(255,255,255,1)"
+        left="308px"
+        {...getOverrideProps(overrides, "Your work group178522279")}
+      >
+        <Text
+          fontFamily="Inter"
+          fontSize="17px"
+          fontWeight="700"
+          color="rgba(255,255,255,1)"
+          lineHeight="25.5px"
+          textAlign="left"
+          display="block"
+          direction="column"
+          justifyContent="unset"
+          width="99px"
+          height="38.43px"
+          gap="unset"
+          alignItems="unset"
+          position="absolute"
+          top="10.02px"
+          left="3px"
+          padding="0px 0px 0px 0px"
+          whiteSpace="pre-wrap"
+          children="Projects"
+          {...getOverrideProps(overrides, "Projects")}
+        ></Text>
+        <SelectField
+          width="118px"
+          height="64px"
+          label="Your work"
+          position="absolute"
+          top="0px"
+          left="0px"
+          placeholder=""
+          size="default"
+          isDisabled={false}
+          labelHidden={true}
+          variation="quiet"
+          {...getOverrideProps(overrides, "projects_select_field")}
+        ></SelectField>
+      </View>
+      <View
+        padding="0px 0px 0px 0px"
+        width="191px"
+        height="64px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="34px"
+        left="426px"
+        {...getOverrideProps(overrides, "Your work group178522290")}
+      >
+        <Text
+          fontFamily="Inter"
+          fontSize="17px"
+          fontWeight="700"
+          color="rgba(255,255,255,1)"
+          lineHeight="25.5px"
+          textAlign="left"
+          display="block"
+          direction="column"
+          justifyContent="unset"
+          width="187.57px"
+          height="38px"
+          gap="unset"
+          alignItems="unset"
+          position="absolute"
+          top="10px"
+          left="3.43px"
+          padding="0px 0px 0px 0px"
+          whiteSpace="pre-wrap"
+          children="Issue Templates"
+          {...getOverrideProps(overrides, "Issue Templates")}
+        ></Text>
+        <SelectField
+          width="180px"
+          height="64px"
+          label="Your work"
+          position="absolute"
+          top="0px"
+          left="0px"
+          placeholder=""
+          size="default"
+          isDisabled={false}
+          labelHidden={true}
+          variation="quiet"
+          {...getOverrideProps(overrides, "issue_templates_select_field")}
+        ></SelectField>
+      </View>
+      <View
+        padding="0px 0px 0px 0px"
+        width="153.5px"
+        height="64px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="34px"
+        left="606px"
+        {...getOverrideProps(overrides, "Your work group178532301")}
+      >
+        <Text
+          fontFamily="Inter"
+          fontSize="17px"
+          fontWeight="700"
+          color="rgba(255,255,255,1)"
+          lineHeight="25.5px"
+          textAlign="left"
+          display="block"
+          direction="column"
+          justifyContent="unset"
+          width="136.5px"
+          height="38px"
+          gap="unset"
+          alignItems="unset"
+          position="absolute"
+          top="11px"
+          left="17px"
+          padding="0px 0px 0px 0px"
+          whiteSpace="pre-wrap"
+          children="Teams"
+          {...getOverrideProps(overrides, "Teams")}
+        ></Text>
+        <SelectField
+          width="131px"
+          height="64px"
+          label="Your work"
+          position="absolute"
+          top="0px"
+          left="0px"
+          placeholder=""
+          size="default"
+          isDisabled={false}
+          labelHidden={true}
+          variation="quiet"
+          {...getOverrideProps(overrides, "teams_select_field")}
+        ></SelectField>
+      </View>
+      <SelectField
+        width="100px"
+        height="80px"
+        label="Your work"
+        position="absolute"
+        top="32px"
+        left="1821px"
+        placeholder=""
         size="default"
         isDisabled={false}
         labelHidden={true}
+        variation="quiet"
+        {...getOverrideProps(overrides, "profile_select_field")}
+      ></SelectField>
+      <SelectField
+        width="100px"
+        height="80px"
+        label="Your work"
+        position="absolute"
+        top="32px"
+        left="1714px"
+        placeholder=""
+        size="default"
+        isDisabled={false}
+        labelHidden={true}
+        variation="quiet"
+        {...getOverrideProps(overrides, "notify_select_field")}
+      ></SelectField>
+      <Alert
+        width="1920px"
+        height="123px"
+        heading="Success"
+        position="absolute"
+        top="113px"
+        left="0px"
+        boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+        variation="success"
+        isDismissible={true}
+        hasIcon={true}
+        children="Description"
+        {...getOverrideProps(overrides, "success_alert")}
+      ></Alert>
+      <Badge
+        width="32px"
+        height="23px"
+        position="absolute"
+        backgroundColor="rgba(255,255,255,1)"
+        top="71.5px"
+        left="1767px"
+        size="default"
         variation="default"
-        {...getOverrideProps(overrides, "SearchField")}
-      ></SearchField>
-      <Button
-        width="150px"
-        height="unset"
+        children="1"
+        {...getOverrideProps(overrides, "notify_count_badge")}
+      ></Badge>
+      <Badge
+        width="32px"
+        height="23px"
         position="absolute"
-        top="115px"
-        left="340px"
-        backgroundColor="rgba(35,47,62,1)"
+        top="72px"
+        left="1881px"
         size="default"
-        isDisabled={false}
-        variation="primary"
-        children="Note"
-        {...getOverrideProps(overrides, "note_button")}
-      ></Button>
-      <Button
-        width="150px"
-        height="unset"
-        position="absolute"
-        top="115px"
-        left="694px"
-        backgroundColor="rgba(35,47,62,1)"
-        size="default"
-        isDisabled={false}
-        variation="primary"
-        children="Task"
-        {...getOverrideProps(overrides, "task_button")}
-      ></Button>
-      <Button
-        width="150px"
-        height="unset"
-        position="absolute"
-        top="115px"
-        left="517px"
-        backgroundColor="rgba(35,47,62,1)"
-        size="default"
-        isDisabled={false}
-        variation="primary"
-        children="Reminder"
-        {...getOverrideProps(overrides, "reminder_button")}
-      ></Button>
-      <Button
-        width="150px"
-        height="unset"
-        position="absolute"
-        top="115px"
-        left="871px"
-        backgroundColor="rgba(35,47,62,1)"
-        size="default"
-        isDisabled={false}
-        variation="primary"
-        children="Bin"
-        {...getOverrideProps(overrides, "bin_button")}
-      ></Button>
-      <Button
-        width="150px"
-        height="unset"
-        position="absolute"
-        top="34px"
-        left="993px"
-        backgroundColor="rgba(35,47,62,1)"
-        size="default"
-        isDisabled={false}
-        variation="primary"
-        children="Contact us"
-        {...getOverrideProps(overrides, "contact_us_button")}
-      ></Button>
-      <Flex
-        gap="10px"
-        direction="column"
-        width="unset"
-        height="unset"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        overflow="hidden"
-        position="absolute"
-        top="74px"
-        left="101px"
-        padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "amplify-logo.677fad72 1")}
-      >
-        <Flex
-          padding="0px 0px 0px 0px"
-          width="36.35px"
-          height="25px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          shrink="0"
-          position="relative"
-          {...getOverrideProps(overrides, "Clip path group")}
-        >
-          <View
-            padding="0px 0px 0px 0px"
-            width="36.35px"
-            height="25px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            position="absolute"
-            top="0%"
-            bottom="0%"
-            left="0%"
-            right="0%"
-            {...getOverrideProps(overrides, "clip0")}
-          >
-            <Icon
-              width="36.35px"
-              height="25px"
-              viewBox={{ minX: 0, minY: 0, width: 36.350830078125, height: 25 }}
-              paths={[
-                {
-                  d: "M36.3508 0L0 0L0 25L36.3508 25L36.3508 0Z",
-                  fill: "rgba(0,0,0,1)",
-                  fillRule: "nonzero",
-                },
-              ]}
-              display="block"
-              gap="unset"
-              alignItems="unset"
-              justifyContent="unset"
-              position="absolute"
-              top="0%"
-              bottom="0%"
-              left="0%"
-              right="0%"
-              {...getOverrideProps(overrides, "Vector175901719")}
-            ></Icon>
-          </View>
-          <View
-            padding="0px 0px 0px 0px"
-            width="36.35px"
-            height="25px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            position="absolute"
-            top="0%"
-            bottom="0%"
-            left="0%"
-            right="0%"
-            {...getOverrideProps(overrides, "Group")}
-          >
-            <Icon
-              width="21.02px"
-              height="16.67px"
-              viewBox={{
-                minX: 0,
-                minY: 0,
-                width: 21.022216796875,
-                height: 16.666748046875,
-              }}
-              paths={[
-                {
-                  d: "M7.40773 4.91926L0 16.6667L21.0222 16.6667L18.368 12.4578L7.98281 12.4578L13.1773 4.22649L10.5121 0L7.40773 4.91926Z",
-                  fill: "rgba(255,153,0,1)",
-                  fillRule: "evenodd",
-                },
-              ]}
-              display="block"
-              gap="unset"
-              alignItems="unset"
-              justifyContent="unset"
-              position="absolute"
-              top="33.33%"
-              bottom="0.01%"
-              left="0%"
-              right="42.17%"
-              {...getOverrideProps(overrides, "Vector175901721")}
-            ></Icon>
-            <Icon
-              width="16.64px"
-              height="23.02px"
-              viewBox={{
-                minX: 0,
-                minY: 0,
-                width: 16.642578125,
-                height: 23.015869140625,
-              }}
-              paths={[
-                {
-                  d: "M0 4.06973L11.6339 23.0158L16.6426 23.0158L2.49916 0L0 4.06973Z",
-                  fill: "rgba(255,153,0,1)",
-                  fillRule: "evenodd",
-                },
-              ]}
-              display="block"
-              gap="unset"
-              alignItems="unset"
-              justifyContent="unset"
-              position="absolute"
-              top="7.94%"
-              bottom="0%"
-              left="32.53%"
-              right="21.69%"
-              {...getOverrideProps(overrides, "Vector175901722")}
-            ></Icon>
-            <Icon
-              width="21.02px"
-              height="25px"
-              viewBox={{ minX: 0, minY: 0, width: 21.022216796875, height: 25 }}
-              paths={[
-                {
-                  d: "M0 0L15.8942 25L21.0222 25L5.12158 0L0 0Z",
-                  fill: "rgba(255,153,0,1)",
-                  fillRule: "evenodd",
-                },
-              ]}
-              display="block"
-              gap="unset"
-              alignItems="unset"
-              justifyContent="unset"
-              position="absolute"
-              top="0%"
-              bottom="0%"
-              left="42.17%"
-              right="0%"
-              {...getOverrideProps(overrides, "Vector175901723")}
-            ></Icon>
-          </View>
-        </Flex>
-      </Flex>
+        variation="default"
+        children=""
+        {...getOverrideProps(overrides, "admin_user_badge")}
+      ></Badge>
     </View>
   );
 }

@@ -1,3 +1,79 @@
+type Sprint @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  StartDate: AWSDateTime!
+  EndDate: AWSDateTime
+  Number: Int!
+  piID: ID! @index(name: "byPI")
+  Tickets: [Ticket] @hasMany(indexName: "bySprint", fields: ["id"])
+}
+
+type PI @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Number: Int!
+  projectID: ID! @index(name: "byProject")
+  Sprints: [Sprint] @hasMany(indexName: "byPI", fields: ["id"])
+}
+
+type IssueTemplate @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Title: String
+  Description: String!
+  Comment: String
+  StoryPoint: Int
+  IssueType: String!
+  projectID: ID! @index(name: "byProject")
+}
+
+type Activity @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  ModifiedDate: AWSDateTime!
+  Changes: String!
+  UserID: String!
+  TicketID: String!
+}
+
+type Project @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  Name: String!
+  OProjectMTickets: [Ticket] @hasMany(indexName: "byProject", fields: ["id"])
+  ImageProject: String
+  IssueTemplates: [IssueTemplate] @hasMany(indexName: "byProject", fields: ["id"])
+  PIS: [PI] @hasMany(indexName: "byProject", fields: ["id"])
+  Admin: [String]
+  Users: [String]
+}
+
+type User @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  sub: String!
+  username: String!
+  ImageProfile: String
+}
+
+type Ticket @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  Title: String!
+  Description: String
+  TicketID: Int!
+  StoryPoint: Int
+  Watch: String
+  Reporter: String!
+  Asignee: String
+  ImageTicket: String
+  EpicLink: String
+  CreatedDate: AWSDateTime!
+  UpdatedDate: AWSDateTime
+  ResolvedDate: AWSDateTime
+  Subtasks: [String]
+  IssueType: String!
+  Priority: String!
+  TicketStatus: String!
+  Comment: String
+  sprintID: ID! @index(name: "bySprint")
+  projectID: ID! @index(name: "byProject")
+  GitCommit: [String]
+}
+
 type NoteV2 @model @auth(rules: [{allow: public}, {allow: private}, {allow: groups, groups: ["eu-west-1_ojmQnge33_Google"], operations: [read, create, update, delete]}, {allow: owner}]) {
   id: ID!
   Title: String!
@@ -7,5 +83,6 @@ type NoteV2 @model @auth(rules: [{allow: public}, {allow: private}, {allow: grou
   sub: String
   Deleted: Boolean
   Notified: Boolean
+  ImageName: String
 }
  

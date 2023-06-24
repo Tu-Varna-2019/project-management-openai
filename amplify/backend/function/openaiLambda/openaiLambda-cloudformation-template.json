@@ -27,6 +27,9 @@
     },
     "model": {
       "Type": "String"
+    },
+    "openaiApiKey": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -112,6 +115,9 @@
             },
             "MODEL": {
               "Ref": "model"
+            },
+            "OPENAI_API_KEY": {
+              "Ref": "openaiApiKey"
             }
           }
         },
@@ -123,7 +129,7 @@
         },
         "Runtime": "python3.9",
         "Layers": [
-          "arn:aws:lambda:eu-west-1:512617552494:layer:OpenAI-AWS-Lambda-Layer:2"
+          "arn:aws:lambda:eu-west-1:512617552494:layer:OpenAI-AWS-Lambda-Layer:4"
         ],
         "Timeout": 25
       }

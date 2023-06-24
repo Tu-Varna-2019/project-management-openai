@@ -125,8 +125,8 @@ export default function CreateNotev2(props) {
   };
   return (
     <View
-      width="1335px"
-      height="986px"
+      width="1920px"
+      height="1080px"
       display="block"
       gap="unset"
       alignItems="unset"
@@ -139,15 +139,15 @@ export default function CreateNotev2(props) {
       {...rest}
     >
       <View
-        width="1345px"
-        height="986px"
+        width="1920px"
+        height="1080px"
         display="block"
         gap="unset"
         alignItems="unset"
         justifyContent="unset"
         overflow="hidden"
         position="absolute"
-        top="0px"
+        top="-1px"
         left="-10px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Frame")}
@@ -163,7 +163,7 @@ export default function CreateNotev2(props) {
           {...getOverrideProps(overrides, "Divider176021467")}
         ></Divider>
         <View
-          width="1328px"
+          width="1916px"
           height="171px"
           display="block"
           gap="unset"
@@ -171,7 +171,7 @@ export default function CreateNotev2(props) {
           justifyContent="unset"
           position="absolute"
           top="0px"
-          left="17px"
+          left="4px"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           padding="0px 0px 0px 0px"
           backgroundColor="rgba(35,47,62,1)"
@@ -241,7 +241,7 @@ export default function CreateNotev2(props) {
           placeholder="Search note"
           position="absolute"
           top="34px"
-          left="349px"
+          left="calc(50% - 311px - 0px)"
           backgroundColor="rgba(255,255,255,1)"
           size="default"
           isDisabled={false}
@@ -249,100 +249,114 @@ export default function CreateNotev2(props) {
           variation="default"
           {...getOverrideProps(overrides, "SearchField")}
         ></SearchField>
+        <View
+          padding="0px 0px 0px 0px"
+          width="681px"
+          height="40px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="105px"
+          left="calc(50% - 340.5px - 0.5px)"
+          {...getOverrideProps(overrides, "task_bar_button")}
+        >
+          <Button
+            width="150px"
+            height="unset"
+            position="absolute"
+            top="0px"
+            left="0px"
+            backgroundColor={noteUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="primary"
+            children="Note"
+            onClick={() => {
+              noteUnderScorebuttonOnClick();
+            }}
+            onMouseOver={() => {
+              noteUnderScorebuttonOnMouseOver();
+            }}
+            onMouseLeave={() => {
+              noteUnderScorebuttonOnMouseLeave();
+            }}
+            {...getOverrideProps(overrides, "note_button")}
+          ></Button>
+          <Button
+            width="150px"
+            height="unset"
+            position="absolute"
+            top="0px"
+            left="354px"
+            backgroundColor={taskUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="primary"
+            children="Task"
+            onClick={() => {
+              taskUnderScorebuttonOnClick();
+            }}
+            onMouseLeave={() => {
+              taskUnderScorebuttonOnMouseLeave();
+            }}
+            onMouseOver={() => {
+              taskUnderScorebuttonOnMouseOver();
+            }}
+            {...getOverrideProps(overrides, "task_button")}
+          ></Button>
+          <Button
+            width="150px"
+            height="unset"
+            position="absolute"
+            top="0px"
+            left="177px"
+            backgroundColor={reminderUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="primary"
+            children="Reminder"
+            onClick={() => {
+              reminderUnderScorebuttonOnClick();
+            }}
+            onMouseOver={() => {
+              reminderUnderScorebuttonOnMouseOver();
+            }}
+            onMouseLeave={() => {
+              reminderUnderScorebuttonOnMouseLeave();
+            }}
+            {...getOverrideProps(overrides, "reminder_button")}
+          ></Button>
+          <Button
+            width="150px"
+            height="unset"
+            position="absolute"
+            top="0px"
+            left="531px"
+            backgroundColor={binUnderScorebuttonBackgroundColor}
+            size="default"
+            isDisabled={false}
+            variation="primary"
+            children="Bin"
+            onClick={() => {
+              binUnderScorebuttonOnClick();
+            }}
+            onMouseLeave={() => {
+              binUnderScorebuttonOnMouseLeave();
+            }}
+            onMouseOver={() => {
+              binUnderScorebuttonOnMouseOver();
+            }}
+            {...getOverrideProps(overrides, "bin_button")}
+          ></Button>
+        </View>
         <Button
           width="150px"
           height="unset"
           position="absolute"
-          top="115px"
-          left="339px"
-          backgroundColor={noteUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Note"
-          onClick={() => {
-            noteUnderScorebuttonOnClick();
-          }}
-          onMouseOver={() => {
-            noteUnderScorebuttonOnMouseOver();
-          }}
-          onMouseLeave={() => {
-            noteUnderScorebuttonOnMouseLeave();
-          }}
-          {...getOverrideProps(overrides, "note_button")}
-        ></Button>
-        <Button
-          width="150px"
-          height="unset"
-          position="absolute"
-          top="115px"
-          left="693px"
-          backgroundColor={taskUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Task"
-          onClick={() => {
-            taskUnderScorebuttonOnClick();
-          }}
-          onMouseLeave={() => {
-            taskUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            taskUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "task_button")}
-        ></Button>
-        <Button
-          width="150px"
-          height="unset"
-          position="absolute"
-          top="115px"
-          left="516px"
-          backgroundColor={reminderUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Reminder"
-          onClick={() => {
-            reminderUnderScorebuttonOnClick();
-          }}
-          onMouseOver={() => {
-            reminderUnderScorebuttonOnMouseOver();
-          }}
-          onMouseLeave={() => {
-            reminderUnderScorebuttonOnMouseLeave();
-          }}
-          {...getOverrideProps(overrides, "reminder_button")}
-        ></Button>
-        <Button
-          width="150px"
-          height="unset"
-          position="absolute"
-          top="115px"
-          left="870px"
-          backgroundColor={binUnderScorebuttonBackgroundColor}
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Bin"
-          onClick={() => {
-            binUnderScorebuttonOnClick();
-          }}
-          onMouseLeave={() => {
-            binUnderScorebuttonOnMouseLeave();
-          }}
-          onMouseOver={() => {
-            binUnderScorebuttonOnMouseOver();
-          }}
-          {...getOverrideProps(overrides, "bin_button")}
-        ></Button>
-        <Button
-          width="150px"
-          height="unset"
-          position="absolute"
-          top="34px"
-          left="992px"
+          top="36px"
+          left="1563px"
           backgroundColor="rgba(35,47,62,1)"
           size="default"
           isDisabled={false}
@@ -370,8 +384,8 @@ export default function CreateNotev2(props) {
           width="898px"
           height="30px"
           position="absolute"
-          top="932px"
-          left="calc(50% - 449px - 0.5px)"
+          top="1025px"
+          left="calc(50% - 449px - 0px)"
           size="default"
           variation="default"
           children="AWS Amplify Studio is supported by Amazon Web Services © 2023, Amazon Web Services, Inc. and its affiliates. All rights reserved. View the site terms and privacy policy ."
@@ -468,7 +482,7 @@ export default function CreateNotev2(props) {
                   minX: 0,
                   minY: 0,
                   width: 21.0224609375,
-                  height: 16.6666259765625,
+                  height: 16.666671752929688,
                 }}
                 paths={[
                   {
@@ -495,7 +509,7 @@ export default function CreateNotev2(props) {
                   minX: 0,
                   minY: 0,
                   width: 16.642578125,
-                  height: 23.015869140625,
+                  height: 23.015838623046875,
                 }}
                 paths={[
                   {
@@ -545,8 +559,8 @@ export default function CreateNotev2(props) {
           height="47px"
           placeholder="My account"
           position="absolute"
-          top="34px"
-          left="1151px"
+          top="36px"
+          left="1722px"
           backgroundColor="rgba(35,47,62,1)"
           size="default"
           isDisabled={false}
@@ -555,15 +569,15 @@ export default function CreateNotev2(props) {
           {...getOverrideProps(overrides, "SelectField")}
         ></SelectField>
         <Image
-          width="1328px"
-          height="755px"
+          width="1916px"
+          height="851px"
           display="block"
           gap="unset"
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
           top="166px"
-          left="17px"
+          left="4px"
           padding="0px 0px 0px 0px"
           objectFit="cover"
           src="https://dqqb8jb1p8fmj.cloudfront.net/AiqBuyerFrontend/bg-silver-01@2x.b626e5f906ef4637bd304f3297a2a4ab.png"
@@ -587,8 +601,8 @@ export default function CreateNotev2(props) {
           alignItems="unset"
           justifyContent="unset"
           position="absolute"
-          top="249px"
-          left="282px"
+          top="312px"
+          left="calc(50% - 378px - 0px)"
           {...getOverrideProps(overrides, "createForm")}
         >
           <Text
@@ -696,8 +710,8 @@ export default function CreateNotev2(props) {
             position="absolute"
             border="3px SOLID rgba(255,153,0,1)"
             borderRadius="7px"
-            top="546px"
-            left="calc(50% - 153.5px - 193.5px)"
+            top="538px"
+            left="calc(50% - 153.5px - 186.5px)"
             backgroundColor={clearUnderScorebuttonBackgroundColor}
             size="default"
             isDisabled={false}
@@ -718,7 +732,7 @@ export default function CreateNotev2(props) {
             position="absolute"
             border="3px SOLID rgba(255,153,0,1)"
             borderRadius="7px"
-            top="546px"
+            top="537px"
             left="calc(50% - 148.5px - -167.5px)"
             backgroundColor={submitUnderScorebuttonBackgroundColor}
             size="default"
@@ -740,7 +754,7 @@ export default function CreateNotev2(props) {
             position="absolute"
             border="3px SOLID rgba(255,153,0,1)"
             borderRadius="7px"
-            top="440px"
+            top="431px"
             left="calc(50% - 148.5px - -166.5px)"
             backgroundColor={cancelUnderScorebuttonBackgroundColor}
             size="default"
@@ -780,7 +794,7 @@ export default function CreateNotev2(props) {
           ></Image>
         </View>
         <Alert
-          width="1328px"
+          width="1902px"
           height="146px"
           heading="Error"
           position="absolute"

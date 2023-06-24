@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-tuvarnanote-dev-205513-unauthRole",
       "StackName": "amplify-tuvarnanote-dev-205513",
       "StackId": "arn:aws:cloudformation:eu-west-1:512617552494:stack/amplify-tuvarnanote-dev-205513/d2156c10-dc7f-11ed-b007-067daacad6dd",
-      "AmplifyAppId": "d1nyybr00ldz1k"
+      "AmplifyAppId": "d1nyybr00ldz1k",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-tuvarnanote-dev-205513-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -38,18 +39,48 @@
         "openaiLambda": {
           "secretsPathAmplifyAppId": "d1nyybr00ldz1k",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/openaiLambda-4d753638546a654b332b-build.zip",
+          "s3Key": "amplify-builds/openaiLambda-2f327a496d4b72307639-build.zip",
           "secretName": "openai_api_key",
           "regionName": "eu-west-1",
-          "model": "gpt-3.5-turbo"
+          "model": "gpt-3.5-turbo",
+          "openaiApiKey": "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"
         },
         "ShareNoteLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/ShareNoteLambda-514446724237502f746c-build.zip",
+          "s3Key": "amplify-builds/ShareNoteLambda-486245507251576e6762-build.zip",
           "senderEmail": "M.Notes@hotmail.com",
           "sendNoteThresholdTableName": "ShareNoteThrottle",
           "sendNoteAttributeDateName": "dateTimeThrottle"
+        },
+        "notifyticketupdatelambda": {
+          "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
+          "s3Key": "amplify-builds/notifyticketupdatelambda-38434930683456525075-build.zip",
+          "paramSenderEmail": "/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail"
+        },
+        "TicketCreationTemplateLambda": {
+          "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
+          "s3Key": "amplify-builds/TicketCreationTemplateLambda-535358417238585a326f-build.zip",
+          "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
+          "model": "gpt-3.5-turbo"
+        },
+        "TicketTranslateLambda": {
+          "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
+          "s3Key": "amplify-builds/TicketTranslateLambda-54306d63366d37307a33-build.zip",
+          "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
+          "model": "gpt-3.5-turbo"
+        },
+        "TicketSummarizeLambda": {
+          "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
+          "s3Key": "amplify-builds/TicketSummarizeLambda-33454f76455a3064796c-build.zip",
+          "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
+          "model": "gpt-3.5-turbo"
         }
+      },
+      "storage": {
+        "s3mnotesimagebucket": {}
+      },
+      "predictions": {
+        "TextToAudio": {}
       }
     }
   }

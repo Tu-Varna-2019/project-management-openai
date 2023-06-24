@@ -17,6 +17,7 @@ export declare type CreateNotev2OverridesProps = {
     powered_by_amplify_text176021471?: PrimitiveOverrideProps<TextProps>;
     powered_by_amplify_text176021472?: PrimitiveOverrideProps<TextProps>;
     SearchField?: PrimitiveOverrideProps<SearchFieldProps>;
+    task_bar_button?: PrimitiveOverrideProps<ViewProps>;
     note_button?: PrimitiveOverrideProps<ButtonProps>;
     task_button?: PrimitiveOverrideProps<ButtonProps>;
     reminder_button?: PrimitiveOverrideProps<ButtonProps>;

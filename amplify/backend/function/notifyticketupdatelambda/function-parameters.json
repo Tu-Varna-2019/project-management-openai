@@ -1,0 +1,15 @@
+{
+  "permissions": {},
+  "lambdaLayers": [
+    {
+      "type": "ExternalLayer",
+      "arn": "arn:aws:lambda:eu-west-1:512617552494:layer:OpenAI-AWS-Lambda-Layer:4"
+    }
+  ],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "paramSenderEmail",
+      "environmentVariableName": "PARAM_SENDER_EMAIL"
+    }
+  ]
+}

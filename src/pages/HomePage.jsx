@@ -1,8 +1,8 @@
 import React from 'react'
-import '@aws-amplify/ui-react/styles.css';
 import { HomeV2,HomeV2Mobile,NotetitlebuttonCollection } from "../ui-components";
 import { HomeOverrideFunc } from '../overrides/HomeOverride';
 import '@aws-amplify/ui-react/styles.css';
+
 
 
 export default function HomePage(props) {
@@ -18,8 +18,8 @@ export default function HomePage(props) {
 
     return (  
         <>
-        <div 
-          style={{ height:"900px", position:'relative',display: 'inline-block',overflow: "hidden"}}>
+        <div className='amplify-container'
+          style={{ position:'relative',display: 'inline-block',overflow: "hidden"}}>
         {isMobileDevice ? <HomeV2Mobile overrides={HomeOverride}/> :<HomeV2 overrides={HomeOverride}/> }
     </div><div style={{ position: 'relative' , display: 'block',top: "-10px",left: "100px",objectFit: "cover"}}>
     <NotetitlebuttonCollection
