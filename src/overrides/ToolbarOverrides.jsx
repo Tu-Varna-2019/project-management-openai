@@ -88,7 +88,7 @@ export function ToolbarFunc (props) {
             options:["","create one","project templates"],
         },
         profile_select_field: {
-            style:{borderBottom:"none",color:"transparent"},
+            style:{/*borderBottom:"none",*/color:"transparent"},
             onChange : (event) => (handleProfileSelectChange(event)),
             options:["",currentUser.username,"Manage account","Log out"],
         },

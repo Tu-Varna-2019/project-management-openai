@@ -120,7 +120,7 @@ export function User2Class() {
                         prevList : [{ sub: item.sub, url: data_url }, ...prevList]);
                     });
                         return item;})})}
-            fetchUserData();},[])
+            fetchUserData();},[setUserProfileURL])
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);};

@@ -10,6 +10,7 @@ export function GithubClass() {
 
   const {
     editTicket,
+    backlogTicketBoolean,
     editTicketBoolean,
   } = useContext(TicketContext);
   const {
@@ -19,7 +20,7 @@ export function GithubClass() {
 
   const showGithubActions = location.state ? location.state.show_git : false;
   const viewGithubCommits = location.state ? location.state.view_mode : false;
-  const redirectTicketPath = editTicketBoolean === true ? "/board" : "/edit-ticket";
+  const redirectTicketPath = editTicketBoolean === true ? "/board" : backlogTicketBoolean === true ? "/backlog": "/edit-ticket" ;
 
   const repoOwner = process.env.REACT_APP_GITHUB_REPO_OWNER;
   const repoName = process.env.REACT_APP_GITHUB_REPO_NAME;

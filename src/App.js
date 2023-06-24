@@ -58,13 +58,15 @@ export default function App() {
   },[]);
   
   return (
+    <>
+    <Authenticator components={AppComponentOverride}>
     <div className='amplify-container' style={{
       display: 'flex',alignItems: 'flex-start', flexDirection: "column",overflow:"auto",
       justifyContent: 'space-between' }}>
       <Helmet>
       <link rel="icon" href={logoURL} />
       </Helmet>
-        <Authenticator components={AppComponentOverride}>
+       
       <BrowserRouter>
       <UserProvider>
       <ProjectProvider>
@@ -104,7 +106,7 @@ export default function App() {
       </PISprintProvider>
       </ProjectProvider>
       </UserProvider>
-    </BrowserRouter></Authenticator></div>);
+    </BrowserRouter></div></Authenticator></>);
   }
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);
 //export default  App;

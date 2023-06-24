@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Backlog, ChildTicketShortCollection, EditTicket, ProjectVerticalSelectField, SearchBoxRect, SearchResultMatchCollection, TicketInfoScroll, TicketToDoCollection, Toolbar } from "../ui-components";
+import { Backlog, ProjectVerticalSelectField, TicketToDoCollection, Toolbar } from "../ui-components";
 import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ProjectVerticalSelectFieldFunc } from '../overrides/ProjectVerticalSelectFieldOverrides';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
 import { BacklogFunc } from '../overrides/BacklogOverride';
-import { ProjectContext } from '../contexts/ProjectContext';
-import { EditTicketFunc } from '../overrides/EditTicketOverride';
-import { TicketInfoScrollFunc } from '../overrides/TicketInfoScrollOverride';
-import { SubtaskFunc } from '../overrides/SubtaskOverride';
+import SearchBoxRectComponent from '../components/ShowSearchRectComponent';
+import EditTicketComponent from '../components/EditTicketComponent';
+import { TicketContext } from '../contexts/TicketContext';
 
 export default function BacklogPage(props) {
   const {
@@ -19,8 +18,6 @@ export default function BacklogPage(props) {
   } = useContext(ToolbarSelectContext);
   const {
     ToolbarOverride,
-    SearchTicketOverride,
-    OverrideSearchTicketItems,
   } = ToolbarFunc();
   const {
     BacklogOverrideItems,
@@ -30,21 +27,10 @@ export default function BacklogPage(props) {
     Sprint4TicketOverride,
   } = BacklogFunc();
   const {
-    location,
-  } = useContext(ProjectContext);
-  const {
-    EditTicketOverride,
-    FileImageTicketUpload
-  } = EditTicketFunc();
-  const {
-    TicketInfoScrollOverride
-  } = TicketInfoScrollFunc();
-  const {
-    ChildTicketShortOverride,
-    ChildTicketShortCollectionOverride
-  } = SubtaskFunc();
+    backlogTicketBoolean,
+  } = useContext(TicketContext);
 
-  const editTicketBoolean = location.state ? location.state.edited_bg : false;
+
     return(
       <>
       <div className='amplify-container'
@@ -80,38 +66,13 @@ export default function BacklogPage(props) {
         <Toolbar overrides={ToolbarOverride}/>
         </div>
 
-        {!showSearchRect && (
-        <div style={{position: 'absolute', bottom: "825px" , left:"1100px" }}>
-          <SearchBoxRect/>
-        </div>
-        )}
-        <div
-          style={{ position: 'absolute' , width:"120px", display: 'block',bottom: "990px",left: "1350px",objectFit: "cover"}}>
-          <SearchResultMatchCollection style={{position: 'absolute',bottom:"-150px", left:"-235px" }}
-              overrides={SearchTicketOverride}
-              overrideItems={OverrideSearchTicketItems}/>
-        </div>
+        {!showSearchRect && (<SearchBoxRectComponent/>)}
    
       <div style={{ position: 'absolute',display: 'block', bottom: -10, right: 1600 , width:300 }}>
           <ProjectVerticalSelectField overrides={ProjectVerticalSelectFieldOverride}/>
-        </div>
+      </div>
         
-        <div style={{ position: 'absolute',display: 'block', bottom: 0, right: 0 }}>
-        {editTicketBoolean && (
-              <>
-            <EditTicket overrides={EditTicketOverride}/>
-            <div style={{ position: 'absolute',display: 'block', bottom: 130, right: 1000 , width:600 }}>
-            <FileImageTicketUpload/>
-            </div>
-            <div style={{ position: 'absolute',display: 'block', bottom: 370, right: -460 , width:1400 ,  overflow: 'auto', maxHeight: '600px' }}>
-            <TicketInfoScroll overrides={TicketInfoScrollOverride}/>
-            </div>
-            <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "700px",left: "1250px",objectFit: "cover"}}>
-              <ChildTicketShortCollection style={{position: 'absolute',  bottom: "-220px", left: "-250px" }}
-              overrides={ChildTicketShortCollectionOverride}
-              overrideItems={ChildTicketShortOverride}/>
-          </div></>)}
-          </div>
-          </div>
-
-      </>)}
+      <div style={{ position: 'absolute',display: 'block', bottom: 0, right: 0 }}>
+      { backlogTicketBoolean && (<EditTicketComponent/>)}
+      </div>
+      </div></>)}

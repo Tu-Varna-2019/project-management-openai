@@ -36,7 +36,8 @@ export function TicketClass(props) {
 
     // Ticket/s
     const editTicket = location.state ? location.state.selectedTicket : "";
-
+    
+    const backlogTicketBoolean = location.state ? location.state.edited_bg : false;
     const editTicketBoolean = location.state ? location.state.edited : false;
     const createTicketBoolean = location.state ? location.state.create : false;
     const createIssueTemplateBoolean = location.state ? location.state.create_it : false;
@@ -162,6 +163,7 @@ export function TicketClass(props) {
                     && item.sprintID === sprintID));
             }).catch(error => {console.error(error);});}
         fetchUserData();},[getProjectID,sprintID]);
+
     // Get ticket statuses
     useEffect(() => {
         setTicketToDo(Object.values(tickets).filter(item => item.TicketStatus === 'ToDo'));
@@ -458,8 +460,7 @@ export function TicketClass(props) {
 
      // Goto EditTicket component
     const handleCloseEditTicketClick = (event) => {
-        const editTicketBoard = location.state ? location.state.edited : false;
-        if (editTicketBoard)
+        if (editTicketBoolean)
         navigate("/board",{state:{edited:false,project: getProjectNameState()}})
         else
         navigate("/backlog",{state:{edited_bg:false,project: getProjectNameState()}})
@@ -611,8 +612,7 @@ const handleSaveEditTicketClick = async (event) => {
                 newTicket});
             }catch(err){notify_update_ticket_response="Unable to send message , sorry for the inconvinience!";}
         }
-        const editTicketBoard = location.state ? location.state.edited : false;
-        const routePath = editTicketBoard === true ? '/board' : '/backlog';
+        const routePath = editTicketBoolean === true ? '/board' : '/backlog';
         navigate(routePath, { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response} ` }});
        window.location.reload();
     } catch (error) {
@@ -663,6 +663,7 @@ const handleSaveEditTicketClick = async (event) => {
                 new Ticket({
                     "Title": title,
                     "Description": description,
+                    "Comment": comment,
                     "TicketID": getBiggestTicketID,
                     "StoryPoint": storyPoint,
                     "Watch": watchedUsers,
@@ -676,7 +677,7 @@ const handleSaveEditTicketClick = async (event) => {
                     "Priority": priority,
                     "TicketStatus": "ToDo",
                     "sprintID": sprintID,
-                    "Subtasks": subtasks,
+                    //"Subtasks": subtasks,
                 }));
                     // If ticket has been assigned to user , notify !
                     let notify_create_ticket_response = "";
@@ -716,7 +717,7 @@ const handleSaveEditTicketClick = async (event) => {
     const handleReleaseMoveTicket = async (draggedTicketID,boardStatus) => {
         const getEditedTicketID = getDragDropTicketState() || "";
         setDragDropTicketState("");
-        if (draggedTicketID !== "") {
+        if (draggedTicketID !== "" && getEditedTicketID !== "") {
             const editTicketDataStore = await DataStore.query(Ticket, draggedTicketID);
             if (editTicketDataStore.TicketStatus !== boardStatus) {
                 const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -761,6 +762,7 @@ const handleSaveEditTicketClick = async (event) => {
     }
 
     return {
+        backlogTicketBoolean,
         editIssueTemplateBoolean,
         createIssueTemplateBoolean,
         createTicketBoolean,
@@ -771,6 +773,7 @@ const handleSaveEditTicketClick = async (event) => {
         sprint3,
         sprint4,
         handleResetNotificationClick,
+        setImageTicket,
         notifications,
         notificationCount,
         setTitle,

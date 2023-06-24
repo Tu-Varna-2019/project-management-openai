@@ -8,7 +8,7 @@ export function AppFunc () {
         Header() {
           const { tokens } = useTheme();
           return (
-            <View textAlign="center" padding={tokens.space.medium} >
+            <View textAlign="center" justifyContent="center" padding={tokens.space.medium} >
               <Image
                 alt="Amplify logo"
                 src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fvisit.varna.bg%2Fmedia%2Fcache%2Fd6%2Fa3%2Fthumb5_578893_513215228710865_629317997_n.jpg&f=1&nofb=1&ipt=f56cbaffc72885ef3727e253f1ebc746be67ad8ada19ec05808bb6480b3ea32f&ipo=images"
