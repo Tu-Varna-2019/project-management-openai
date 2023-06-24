@@ -94,15 +94,15 @@ export default function Toolbar(props) {
         {...getOverrideProps(overrides, "reminder_icon_image")}
       ></Image>
       <Image
-        width="49px"
-        height="51px"
+        width="54px"
+        height="56px"
         display="block"
         gap="unset"
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
-        top="38.5px"
-        left="1850px"
+        top="36px"
+        left="1845px"
         padding="0px 0px 0px 0px"
         objectFit="cover"
         {...getOverrideProps(overrides, "profile_icon_image")}

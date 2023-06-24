@@ -115,17 +115,17 @@ export default function CreateTicketScroll(props) {
             {...getOverrideProps(overrides, "Asignee")}
           ></Text>
           <Image
-            width="12.18%"
-            height="79.41%"
+            width="14.32%"
+            height="94.12%"
             display="block"
             gap="unset"
             alignItems="unset"
             justifyContent="unset"
             position="absolute"
-            top="7.35%"
-            bottom="13.24%"
-            left="45.13%"
-            right="42.69%"
+            top="0%"
+            bottom="5.88%"
+            left="41.92%"
+            right="43.76%"
             padding="0px 0px 0px 0px"
             objectFit="cover"
             {...getOverrideProps(overrides, "asignee_icon_image")}
