@@ -11,7 +11,6 @@ import { SubtaskFunc } from '../overrides/SubtaskOverride';
 import { CreateTicketScrollFunc } from '../overrides/CreateTicketScrollOverride';
 import { CreateIssueTemplateFunc } from '../overrides/CreateIssueTemplateOverride';
 import { EditIssueTemplateFunc } from '../overrides/EditIssueTemplateOverride';
-import { ProjectContext } from '../contexts/ProjectContext';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
 import { Loader , Button, Icon , Expander, ExpanderItem } from '@aws-amplify/ui-react';
 import { IssueTemplateContext } from '../contexts/IssueTemplateContext';
@@ -69,9 +68,6 @@ const {
   GithubCommitOverride,
 } = GithubCommitFunc();
 const {
-  location,
-} = useContext(ProjectContext);
-const {
   showSearchRect
 } = useContext(ToolbarSelectContext);
 const {
@@ -98,8 +94,8 @@ const {
 
     return(
       <>
-        <div className='amplify-container'
-          style={{ position:'relative', display: 'inline-block',overflow: "hidden",top: "-50px",left: "0px"}}>
+        <div className='.amplify-container'
+          style={{ position:'relative', display: 'inline-block'}}>
           <Board overrides={BoardComponentOverride}/>
 
         <div

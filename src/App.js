@@ -1,5 +1,5 @@
 import './App.css';
-import { Authenticator, Card } from '@aws-amplify/ui-react';
+import { Authenticator } from '@aws-amplify/ui-react';
 import awsExports from "./aws-exports";
 import { Amplify } from 'aws-amplify'
 import { BrowserRouter , Route , Routes  } from 'react-router-dom';
@@ -59,9 +59,9 @@ export default function App() {
   
   return (
     <div className='amplify-container' style={{
-      display: 'flex',alignItems: 'center', flexDirection: "column",overflow:"auto",
+      display: 'flex',alignItems: 'flex-start', flexDirection: "column",overflow:"auto",
       justifyContent: 'space-between' }}>
-      <Card><Helmet>
+      <Helmet>
       <link rel="icon" href={logoURL} />
       </Helmet>
         <Authenticator components={AppComponentOverride}>
@@ -104,7 +104,7 @@ export default function App() {
       </PISprintProvider>
       </ProjectProvider>
       </UserProvider>
-    </BrowserRouter></Authenticator></Card></div>);
+    </BrowserRouter></Authenticator></div>);
   }
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);
 //export default  App;

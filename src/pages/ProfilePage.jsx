@@ -47,7 +47,7 @@ export default function ProfilePage(props) {
     return(
       <>
       <div className='amplify-container'
-            style={{ position:'relative', display: 'inline-block',overflow: "hidden",top: "-50px",left: "0px"}}>
+            style={{ position:'relative', display: 'inline-block'}}>
       <Profile overrides={ProfileOverride}/>
       <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1095, width:825 }}>
         <Toolbar overrides={ToolbarOverride}/>
