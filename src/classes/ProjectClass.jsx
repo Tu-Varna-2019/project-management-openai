@@ -44,7 +44,7 @@ export function ProjectClass(props) {
         if (!window.indexedDB)
           // If not, redirect to your error page
           navigate("/error-private-mode");
-      }, []);
+      }, [navigate]);
 
       useEffect(() => {
         async function fetchAdminData() {
@@ -293,7 +293,6 @@ export function ProjectClass(props) {
             }}
             setIsLoading(false);
             navigate('/profile', { state: { alert_show:'block' ,add_remove_user:false, alert_variant: "success",selectedUserID:currentUser.id, alert_description: customMessate }});
-            window.location.reload();
         };
 
 

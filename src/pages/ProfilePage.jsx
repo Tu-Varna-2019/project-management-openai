@@ -1,13 +1,12 @@
 import React, { useContext } from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { ActivitySlideCollection, AddRemoveUser, Profile, SearchBoxRect, SearchResultMatchCollection, Toolbar, UsersAdminInfoCollection } from "../ui-components";
+import { ActivitySlideCollection, AddRemoveUser, Profile, Toolbar, UsersAdminInfoCollection } from "../ui-components";
 import { ProfileFunc } from '../overrides/ProfileOverride';
 import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ActivityFunc } from '../overrides/ActivitySlideOverride';
 import { UserContext } from '../contexts/UserContext';
 import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
 import { AddRemoveUserFunc } from '../overrides/AddRemoveUserOverride';
-import { Tabs } from '@aws-amplify/ui-react';
 import { UsersAdminInfoFunc } from '../overrides/UsersAdminInfoOverride';
 import SearchBoxRectComponent from '../components/ShowSearchRectComponent';
 
@@ -17,8 +16,6 @@ export default function ProfilePage(props) {
   } = useContext(ToolbarSelectContext);
   const {
     ToolbarOverride,
-    SearchTicketOverride,
-    OverrideSearchTicketItems,
   } = ToolbarFunc();
   const {
     ProfileOverride,
@@ -31,7 +28,6 @@ export default function ProfilePage(props) {
   } = ActivityFunc();
 
   const {
-    refreshAdminUserItems,
     currentUser,
     selectedUserID,
     addRemoveUserBoolean,

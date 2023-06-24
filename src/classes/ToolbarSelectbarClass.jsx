@@ -109,13 +109,16 @@ export function ToolbarSelectClass() {
                 const selectedUserID = userIDName[event.target.selectedIndex-2].id;
                 navigate('/profile', { 
                     state: { selectedUserID: selectedUserID ,
-                             selectedUserName: event.target.value }});}
+                             selectedUserName: event.target.value }});
+                window.location.reload();
+                            }
             break;}};
 
     const handleProfileSelectChange = (event) => {
         switch(event.target.value){
             case "Manage account":
                 navigate('/profile');
+                window.location.reload();
             break;
             case "Log out":
                 if (window.confirm("Are you sure you want to sign out ?")) 

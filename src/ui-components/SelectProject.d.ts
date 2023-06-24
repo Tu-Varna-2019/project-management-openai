@@ -22,6 +22,8 @@ export declare type SelectProjectOverridesProps = {
     or?: PrimitiveOverrideProps<TextProps>;
     edit_project_image?: PrimitiveOverrideProps<ImageProps>;
     select_project_select_field?: PrimitiveOverrideProps<SelectFieldProps>;
+    sign_out_button?: PrimitiveOverrideProps<ButtonProps>;
+    Divider4166419?: PrimitiveOverrideProps<DividerProps>;
 } & EscapeHatchProps;
 export declare type SelectProjectProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: SelectProjectOverridesProps | undefined | null;

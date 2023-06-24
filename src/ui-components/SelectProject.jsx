@@ -8,6 +8,7 @@
 import * as React from "react";
 import {
   getOverrideProps,
+  useAuthSignOutAction,
   useNavigateAction,
   useStateMutationAction,
 } from "@aws-amplify/ui-react/internal";
@@ -61,6 +62,9 @@ export default function SelectProject(props) {
   const editUnderScoreprojectUnderScoreimageOnClick = useNavigateAction({
     type: "url",
     url: "/edit-project",
+  });
+  const signUnderScoreoutUnderScorebuttonOnClick = useAuthSignOutAction({
+    global: false,
   });
   return (
     <View
@@ -267,6 +271,32 @@ export default function SelectProject(props) {
         variation="quiet"
         {...getOverrideProps(overrides, "select_project_select_field")}
       ></SelectField>
+      <Button
+        width="563px"
+        height="38px"
+        position="absolute"
+        top="807px"
+        left="677px"
+        backgroundColor="rgba(104,112,120,0.5)"
+        size="default"
+        isDisabled={false}
+        variation="primary"
+        children="Sign out"
+        onClick={() => {
+          signUnderScoreoutUnderScorebuttonOnClick();
+        }}
+        {...getOverrideProps(overrides, "sign_out_button")}
+      ></Button>
+      <Divider
+        width="563.01px"
+        height="1.43px"
+        position="absolute"
+        top="794px"
+        left="674px"
+        size="small"
+        orientation="horizontal"
+        {...getOverrideProps(overrides, "Divider4166419")}
+      ></Divider>
     </View>
   );
 }

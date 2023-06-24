@@ -20,7 +20,6 @@ const iniErrorValue = {
 
 export function TicketClass(props) {
     const {
-        getProjectID,
         navigate,
         location,
     } = useContext(ProjectContext);
@@ -154,15 +153,14 @@ export function TicketClass(props) {
         setNotifications(splitNotifSelectField);
         setNotificationCount(getNotificationCountState());
             }},[]);
-    // Get tickets by project
+    // Get tickets by sprint
     useEffect(() => {
         async function fetchUserData() {
             await DataStore.query(Ticket)
             .then(data => {
-                setTickets(data.filter(item => item.projectID === getProjectID 
-                    && item.sprintID === sprintID));
+                setTickets(data.filter(item => item.sprintID === sprintID));
             }).catch(error => {console.error(error);});}
-        fetchUserData();},[getProjectID,sprintID]);
+        fetchUserData();},[sprintID]);
 
     // Get ticket statuses
     useEffect(() => {
@@ -250,12 +248,12 @@ export function TicketClass(props) {
             await DataStore.query(Ticket)
             .then(data => {
                 data.filter(item => {
-                if( item.projectID ===  getProjectID && item.sprintID === sprintID
+                if( item.sprintID === sprintID
                     && getBiggestTicketID <= +item.TicketID) {
                     setGetBiggestTicketID(item.TicketID+1);
                     } return item;})})}
         fetchUserData();
-    },[getBiggestTicketID,getProjectID,sprintID]);
+    },[getBiggestTicketID,sprintID]);
     // Get all urls by image names , seperated by ,
     useEffect(() => {
         if (imageTicket !== "" && attachmentName.length === 0) {
@@ -429,7 +427,6 @@ export function TicketClass(props) {
                             "CreatedDate": newTicketCreatedDate,
                             "UpdatedDate": newTicketUpdatedDate,
                             "ResolvedDate": resolved_date,
-                            "projectID": getProjectID,
                             "IssueType": issueType,
                             "Priority": priority,
                             "TicketStatus": ticketStatus,
@@ -541,7 +538,6 @@ const handleSaveEditTicketClick = async (event) => {
             item.CreatedDate = newTicketCreatedDate;
             item.UpdatedDate = newTicketUpdatedDate;
             item.ResolvedDate = resolved_date;
-            item.projectID = getProjectID.toString();
             item.IssueType = issueType;
             item.TicketStatus = ticketStatus;
             item.Comment = comment;
@@ -672,7 +668,6 @@ const handleSaveEditTicketClick = async (event) => {
                     "EpicLink": epicLink,
                     "ImageTicket": imageTicket,
                     "CreatedDate": newTicketCreatedDate,
-                    "projectID": getProjectID,
                     "IssueType": issueType,
                     "Priority": priority,
                     "TicketStatus": "ToDo",

@@ -7,7 +7,6 @@ import { StorageManager } from '@aws-amplify/ui-react-storage';
 export function ProfileFunc () {
     const {
         isUserAdmin,
-        userProfileURL,
         viewedUserProfileURL,
         regexEmail,
         email,

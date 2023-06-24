@@ -175,7 +175,7 @@ export function User2Class() {
         if (window.confirm(`Are you sure you want to goto delete account page?`))
             navigate('/delete-account-kai');};
 
-    // Aka get to user page
+    // Aka get to admin page
     const handleGoToMNotes = (event) => {
         navigate('/profile',{state:{add_remove_user:true,selectedUserID:currentUser.id}});
     };

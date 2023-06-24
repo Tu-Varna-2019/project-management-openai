@@ -405,22 +405,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "OProjectMTickets": {
-                    "name": "OProjectMTickets",
-                    "isArray": true,
-                    "type": {
-                        "model": "Ticket"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "projectID"
-                        ]
-                    }
-                },
                 "ImageProject": {
                     "name": "ImageProject",
                     "isArray": false,
@@ -746,13 +730,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "projectID": {
-                    "name": "projectID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "GitCommit": {
                     "name": "GitCommit",
                     "isArray": true,
@@ -791,15 +768,6 @@ export const schema = {
                         "name": "bySprint",
                         "fields": [
                             "sprintID"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byProject",
-                        "fields": [
-                            "projectID"
                         ]
                     }
                 },
@@ -977,5 +945,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "8d5f064c812cfe1b53147bc318479897"
+    "version": "2fb7ab7f9ad9c4c4e50284aa95d89262"
 };

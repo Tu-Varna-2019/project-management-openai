@@ -153,7 +153,6 @@ type EagerProject = {
   };
   readonly id: string;
   readonly Name: string;
-  readonly OProjectMTickets?: (Ticket | null)[] | null;
   readonly ImageProject?: string | null;
   readonly IssueTemplates?: (IssueTemplate | null)[] | null;
   readonly PIS?: (PI | null)[] | null;
@@ -170,7 +169,6 @@ type LazyProject = {
   };
   readonly id: string;
   readonly Name: string;
-  readonly OProjectMTickets: AsyncCollection<Ticket>;
   readonly ImageProject?: string | null;
   readonly IssueTemplates: AsyncCollection<IssueTemplate>;
   readonly PIS: AsyncCollection<PI>;
@@ -242,7 +240,6 @@ type EagerTicket = {
   readonly TicketStatus: string;
   readonly Comment?: string | null;
   readonly sprintID: string;
-  readonly projectID: string;
   readonly GitCommit?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -272,7 +269,6 @@ type LazyTicket = {
   readonly TicketStatus: string;
   readonly Comment?: string | null;
   readonly sprintID: string;
-  readonly projectID: string;
   readonly GitCommit?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

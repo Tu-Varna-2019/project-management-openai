@@ -38,7 +38,7 @@ def handler(event, context):
 
     sender_email = response_sender_email["Parameter"]["Value"]
 
-    subject = f"{ticketID} was changed"
+    subject = f"KAI-{ticketID} was changed"
     message = f"""
     Changes: \n {changed_props}\n
 	-------------------------------------------\n\n

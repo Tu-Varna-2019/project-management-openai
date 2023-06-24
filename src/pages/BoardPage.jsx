@@ -61,7 +61,7 @@ export default function BoardPage(props) {
         <div className='.amplify-container'
           style={{ position:'relative', display: 'inline-block',overflow: "hidden"}}>
           <Board overrides={BoardComponentOverride}/>
-        <div
+        <div 
           style={{ position: 'absolute' , width:"120px", display: 'block',top: isTicketToDoEmptyTop,left: "460px",objectFit: "cover"}}>
           <TicketToDoCollection style={{position: 'absolute', bottom: "50px" , left:"-90px" }}
               overrides={BoardTicketToDoOverride}
