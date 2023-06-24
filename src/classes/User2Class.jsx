@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 
 export function User2Class() {
-
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -32,6 +31,7 @@ export function User2Class() {
     const [refreshAdminUserItems, setRefreshAdminUserItems] = useState(0);
 
     const [viewedUserProfileURL,setViewedUserProfileURL] = useState("");
+    const defaultUserImageSHA = "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png";
 
     let selectedUserID = "";
     let selectedUsername = "";
@@ -45,33 +45,31 @@ export function User2Class() {
     // Get current authenticated user
     useEffect(() => {
         async function fetchUserData() {
-            try {
-                const currentCredentials = await  Auth.currentAuthenticatedUser({ bypassCache: true });
-                setAuthenticatedUser(currentCredentials);
-                // Get user from DataStore
-                    const user = await DataStore.query(User);
-                    const isUserFound = user.find(item => item.sub === currentCredentials.attributes.sub);
+        try {
+            const currentCredentials = await  Auth.currentAuthenticatedUser({ bypassCache: true });
+            setAuthenticatedUser(currentCredentials);
+            console.log(currentCredentials);
+            // Get user from DataStore
+            const user = await DataStore.query(User);
+            const isUserFound = user.find(item => item.sub === currentCredentials.attributes.sub);
 
-                    if (isUserFound){
-                    setCurrentUser(isUserFound);}
-                    else {
-                        if (currentCredentials.attributes.sub !== undefined) {
-                        await DataStore.save(
-                        new User({
-                            "sub": currentCredentials.attributes.sub,
-                            "username": currentCredentials.attributes.email,
-                            "ImageProfile": "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png"
-                        })).then(setCurrentUser);}}
-                            }catch(error){console.log(error);}}
+            if (isUserFound)
+            setCurrentUser(isUserFound);
+            else {
+                if (currentCredentials.attributes.sub !== undefined) {
+                await DataStore.save(
+                new User({
+                    "sub": currentCredentials.attributes.sub,
+                    "username": currentCredentials.attributes.email,
+                    "ImageProfile": defaultUserImageSHA,
+                })).then(setCurrentUser);}}}catch(error){console.log(error);}}
         fetchUserData();},[]);
 
     useEffect(() => {
         async function fetchUserData() {
-            const credentials = await Auth.currentCredentials();
             await Storage.vault.get(
                 "shared/"+currentUser.ImageProfile,{
-                level:"public",
-                identityId: credentials.identityId
+                level:"public"
             }).then(data => {
                 setUserProfileURL(data);})}
     fetchUserData();
@@ -146,7 +144,7 @@ export function User2Class() {
 
     const handleSaveImageClick = async ({ file }) => {
             const fileExtension = file.name.split('.').pop();
-            if (currentUser.ImageProfile !== "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png")
+            if (currentUser.ImageProfile !== defaultUserImageSHA)
             await Storage.remove("shared/"+currentUser.ImageProfile);
             const editUserDataStore = await DataStore.query(User, currentUser.id);
             return file
