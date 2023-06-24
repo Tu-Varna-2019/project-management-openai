@@ -79,11 +79,8 @@ export default function ProfilePage(props) {
             {addRemoveUserBoolean && (
               <>
             <AddRemoveUser overrides={AddRemoveUserOverride}/>
-            {/* <div style={{ position: 'absolute',display: 'block', bottom: 130, right: 1000 , width:600 }}>
-            <Tabs/>
-            </div> */}
             <div style={{ position: 'absolute' , width:"350px", display: 'block',top: "900px",left: "800px",objectFit: "cover"}}>
-              <UsersAdminInfoCollection style={{position: 'absolute',  bottom: "250px", left: "-50px" }}
+              <UsersAdminInfoCollection style={{position: 'absolute',  bottom: "180px", left: "-50px" }}
               overrides={UsersAdminInfoOverrideCollectionOverride}
               overrideItems={UsersAdminInfoOverride}/>
           </div>

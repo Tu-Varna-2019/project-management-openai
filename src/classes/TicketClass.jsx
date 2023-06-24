@@ -714,7 +714,7 @@ const handleSaveEditTicketClick = async (event) => {
         setDragDropTicketState(ticketid);};
 
     const handleReleaseMoveTicket = async (draggedTicketID,boardStatus) => {
-        const getEditedTicketID = getDragDropTicketState();
+        const getEditedTicketID = getDragDropTicketState() || "";
         setDragDropTicketState("");
         if (draggedTicketID !== "") {
             const editTicketDataStore = await DataStore.query(Ticket, draggedTicketID);

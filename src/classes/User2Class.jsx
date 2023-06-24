@@ -58,8 +58,8 @@ export function User2Class() {
                         if (currentCredentials.attributes.sub !== undefined) {
                         await DataStore.save(
                         new User({
-                            "sub": authenticatedUser.attributes.sub,
-                            "username": authenticatedUser.attributes.email,
+                            "sub": currentCredentials.attributes.sub,
+                            "username": currentCredentials.attributes.email,
                             "ImageProfile": "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png"
                         })).then(setCurrentUser);}}
                             }catch(error){console.log(error);}}

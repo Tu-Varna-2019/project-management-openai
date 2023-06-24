@@ -43,6 +43,13 @@ console.warn = function(message) {
     if (message.indexOf('DataStore') === -1 )
         originalWarn.apply(console, arguments);
 };
+const consoleError = console.error;
+console.error = function (...args) {
+  if (/Warning.*each child in a list/.test(args[0])) {
+    return;
+  }
+  consoleError.apply(console, args);
+};
 
 Amplify.configure(awsExports);
 export default function App() {

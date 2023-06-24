@@ -68,7 +68,7 @@ export function ToolbarFunc (props) {
             children: notificationCount
         },
         notify_select_field:{
-            style:{ borderBottom:"none",color:"transparent"},
+            style:{ /*borderBottom:"none",*/color:"transparent"},
             onChange : (event) => (handleResetNotificationClick(event)),
             options:notifications
         },
