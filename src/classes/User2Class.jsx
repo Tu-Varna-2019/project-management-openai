@@ -3,6 +3,7 @@ import { Auth } from 'aws-amplify';
 import { DataStore , Storage } from 'aws-amplify';
 import { User } from '../models';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { generate, count } from "random-words";
 
 
 export function User2Class() {
@@ -48,21 +49,23 @@ export function User2Class() {
         try {
             const currentCredentials = await  Auth.currentAuthenticatedUser({ bypassCache: true });
             setAuthenticatedUser(currentCredentials);
-            console.log(currentCredentials);
             // Get user from DataStore
-            const user = await DataStore.query(User);
-            const isUserFound = user.find(item => item.sub === currentCredentials.attributes.sub);
-
-            if (isUserFound)
-            setCurrentUser(isUserFound);
-            else {
-                if (currentCredentials.attributes.sub !== undefined) {
-                await DataStore.save(
-                new User({
-                    "sub": currentCredentials.attributes.sub,
-                    "username": currentCredentials.attributes.email,
-                    "ImageProfile": defaultUserImageSHA,
-                })).then(setCurrentUser);}}}catch(error){console.log(error);}}
+            if (currentCredentials !== undefined){
+                const user = await DataStore.query(User);
+                const isUserFound = user.find(item => item.sub === currentCredentials.attributes.sub);
+                console.log(isUserFound)
+                if (isUserFound)
+                setCurrentUser(isUserFound);
+                else {
+                    const checkUserGoogle = currentCredentials.attributes.email === undefined ?
+                    `Google_${generate({ minLength: 5, maxLength: 25 })}` : currentCredentials.attributes.email;
+                    await DataStore.save(
+                    new User({
+                        "sub": currentCredentials.attributes.sub,
+                        "username": checkUserGoogle,
+                        "ImageProfile": defaultUserImageSHA,
+                    })).then(setCurrentUser);}}
+            }catch(error){console.log(error);}}
         fetchUserData();},[]);
 
     useEffect(() => {
