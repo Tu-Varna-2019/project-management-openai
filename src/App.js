@@ -33,6 +33,7 @@ import EditProjectPage from './pages/EditProjectPage';
 import { GithubProvider } from './providers/GithubProvider';
 import { PrivateModeError } from './ui-components';
 
+
 const {
     AppComponentOverride,
     logoURL
@@ -66,8 +67,8 @@ export default function App() {
       <Helmet>
       <link rel="icon" href={logoURL} />
       </Helmet>
-       
       <BrowserRouter>
+
       <UserProvider>
       <ProjectProvider>
       <PISprintProvider>
@@ -106,6 +107,7 @@ export default function App() {
       </PISprintProvider>
       </ProjectProvider>
       </UserProvider>
+
     </BrowserRouter></div></Authenticator></>);
   }
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);

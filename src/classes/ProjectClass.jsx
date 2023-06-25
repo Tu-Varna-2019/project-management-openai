@@ -39,12 +39,7 @@ export function ProjectClass(props) {
     const location = useLocation();
     const isProjectEmpty =  /^\s*$/.test(projectName);
 
-    useEffect(() => {
-        // Check if IndexedDB is available
-        if (!window.indexedDB)
-          // If not, redirect to your error page
-          navigate("/error-private-mode");
-      }, [navigate]);
+
 
       useEffect(() => {
         async function fetchAdminData() {

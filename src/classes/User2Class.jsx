@@ -4,7 +4,7 @@ import { DataStore , Storage } from 'aws-amplify';
 import { User } from '../models';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { generate, count } from "random-words";
-
+import { Hub } from 'aws-amplify';
 
 export function User2Class() {
     const navigate = useNavigate();
@@ -43,30 +43,63 @@ export function User2Class() {
     }catch(err)
     { selectedUserID = currentUser.id ; selectedUsername = currentUser.username;}
 
+    // Check if user is in private mode
+    useEffect(() => {
+        let db;
+        try {
+          db = window.indexedDB.open("test");
+          db.onerror = function(event) {
+            console.log("IndexedDB error: ", event.target.error);
+            //Auth.signOut();
+            navigate("/error-private-mode");
+          };
+          db.onsuccess = function() {
+            console.log("IndexedDB is accessible");
+          };
+        } catch (error) {
+          console.log("IndexedDB exception: ", error);
+          navigate("/error-private-mode");
+        }
+      }, [navigate]);
+
     // Get current authenticated user
     useEffect(() => {
-        async function fetchUserData() {
-        try {
-            const currentCredentials = await  Auth.currentAuthenticatedUser({ bypassCache: true });
+      const listener = Hub.listen('datastore', async (hubData) => {
+        const { event, data } = hubData.payload;
+        if (event === 'ready') {
+          try {
+            const currentCredentials = await Auth.currentAuthenticatedUser({ bypassCache: true });
             setAuthenticatedUser(currentCredentials);
-            // Get user from DataStore
-            if (currentCredentials !== undefined){
-                const user = await DataStore.query(User);
-                const isUserFound = user.find(item => item.sub === currentCredentials.attributes.sub);
-                console.log(isUserFound)
-                if (isUserFound)
+      
+            if (currentCredentials !== undefined) {
+                const users = await DataStore.query(User);
+                const isUserFound = users.find(user => user.sub === currentCredentials.attributes.sub);
+
+              if (isUserFound) {
                 setCurrentUser(isUserFound);
-                else {
-                    const checkUserGoogle = currentCredentials.attributes.email === undefined ?
-                    `Google_${generate({ minLength: 5, maxLength: 25 })}` : currentCredentials.attributes.email;
-                    await DataStore.save(
-                    new User({
-                        "sub": currentCredentials.attributes.sub,
-                        "username": checkUserGoogle,
-                        "ImageProfile": defaultUserImageSHA,
-                    })).then(setCurrentUser);}}
-            }catch(error){console.log(error);}}
-        fetchUserData();},[]);
+              } else {
+                const checkUserGoogle = currentCredentials.attributes.email === undefined ? 
+                `Google_${generate({ minLength: 5, maxLength: 25 })}` : currentCredentials.attributes.email;
+                const newUser = await DataStore.save(
+                  new User({
+                    "sub": currentCredentials.attributes.sub,
+                    "username": checkUserGoogle,
+                    "ImageProfile": defaultUserImageSHA,
+                  })
+                );
+                setCurrentUser(newUser);
+              }
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      });
+      
+      return () => {
+        Hub.remove('datastore', listener);};
+    }, []);
+    
 
     useEffect(() => {
         async function fetchUserData() {

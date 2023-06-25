@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SubtaskContext } from "../contexts/SubtaskContext";
 import { UserContext } from "../contexts/UserContext";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 export function SubtaskFunc (props) {
 
@@ -10,8 +11,10 @@ export function SubtaskFunc (props) {
     } = React.useContext(SubtaskContext);
     const {
         userSubImageURL,
-        navigate,
     } = React.useContext(UserContext);
+    const {
+        navigate,
+    } = useContext(ProjectContext);
 
     const ChildTicketShortCollectionOverride={
         ChildTicketShortCollection:{

@@ -17,7 +17,6 @@ export function SelectProjectFunc(props) {
         isCancelButtonLoading,
         handleSelectedCreateOneProjectOnClick,
     }= useContext(ProjectContext);
-    // Create user if he doesn't exist in DataStore
 
     const SelectProjectOverride={
         select_project_select_field:{
