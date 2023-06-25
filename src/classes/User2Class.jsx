@@ -49,15 +49,15 @@ export function User2Class() {
         try {
           db = window.indexedDB.open("test");
           db.onerror = function(event) {
-            console.log("IndexedDB error: ", event.target.error);
+            //console.log("IndexedDB error: ", event.target.error);
             //Auth.signOut();
             navigate("/error-private-mode");
           };
           db.onsuccess = function() {
-            console.log("IndexedDB is accessible");
+           // console.log("IndexedDB is accessible");
           };
         } catch (error) {
-          console.log("IndexedDB exception: ", error);
+          //console.log("IndexedDB exception: ", error);
           navigate("/error-private-mode");
         }
       }, [navigate]);

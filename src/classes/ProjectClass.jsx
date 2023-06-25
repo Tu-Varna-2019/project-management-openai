@@ -240,6 +240,7 @@ export function ProjectClass(props) {
         event.preventDefault();
         setPINumState(0);
         setSprintNumState(0);
+        setGetProjectID(selectedProjectID)
         if (projectName.length === 0) {
             const default_project_name = Object.values(projectNames);
             setProjectNameState(default_project_name[0]);}

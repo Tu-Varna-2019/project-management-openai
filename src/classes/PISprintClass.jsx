@@ -70,13 +70,14 @@ export function PISprintClass() {
             await DataStore.query(PI)
             .then(data => {
             data.filter(item => {
-                if (item.Number === parseInt(PINum))
+                if (item.Number === parseInt(PINum) 
+                && item.projectID === getProjectID)
                 setPIID(item.id);
                 return item.Number;})}).catch(error => {
             console.error(error);});
         }
         fetchSprintData()
-    },[setPINumbers,setPINum,PIID,isUserAdmin,PINum]);
+    },[setPINumbers,setPINum,PIID,isUserAdmin,PINum,getProjectID]);
     // Get SprintID by SprintNum
     useEffect(() => {
         async function fetchSprintData(){
@@ -166,7 +167,7 @@ export function PISprintClass() {
                 break;
             case "delete selected":
                 if (PINum !== 0) {
-                if (window.confirm(`Are you sure you want to delete selected PI ${PINum}`)) {
+                if (window.confirm(`Are you sure you want to delete selected PI ${PINum} ${PIID} ?`)) {
                    const modelToDelete = await DataStore.query(PI, PIID);
                    const modelVals = await modelToDelete.Sprints.values;
                     if(modelVals.length !== 0){
@@ -195,13 +196,19 @@ export function PISprintClass() {
                 break;
                 case "delete selected":
                     if (parseInt(sprintNum) !== 0 ) {
-                        if (window.confirm(`Are you sure you want to delete selected Sprint ${sprintNum}`)) {
+                        if (window.confirm(`Are you sure you want to delete selected Sprint ${sprintNum} ?`)) {
                             const modelToDelete = await DataStore.query(Sprint, sprintID);
-                            DataStore.delete(modelToDelete);
-                           setSprintNum(0);
-                           setSprintNumState(0);
-                           navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `Sprint ${PINum} deleted!` }});
+                            const modelVals = await modelToDelete.Tickets.values;
+                            if(modelVals.length !== 0){
+                                navigate('/board', { state: { alert_show:'block' , alert_variant: "error", alert_description: `Please first remove all the tickets from Sprint ${sprintNum}!` }});
+                                window.location.reload();
+                            } else {
+                           await DataStore.delete(modelToDelete);
+                            setSprintNum(0);
+                            setSprintNumState(0);
+                            navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `Sprint ${PINum} deleted!` }});
                             window.location.reload();
+                        }
                         }}
                     break;
             default:

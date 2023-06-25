@@ -1,4 +1,4 @@
-type Sprint @model @auth(rules: [{allow: public}]) {
+type Sprint @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   StartDate: AWSDateTime!
   EndDate: AWSDateTime
@@ -7,14 +7,14 @@ type Sprint @model @auth(rules: [{allow: public}]) {
   Tickets: [Ticket] @hasMany(indexName: "bySprint", fields: ["id"])
 }
 
-type PI @model @auth(rules: [{allow: public}]) {
+type PI @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   Number: Int!
   projectID: ID! @index(name: "byProject")
   Sprints: [Sprint] @hasMany(indexName: "byPI", fields: ["id"])
 }
 
-type IssueTemplate @model @auth(rules: [{allow: public}]) {
+type IssueTemplate @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   Title: String
   Description: String!

@@ -7,6 +7,7 @@ import { UserContext } from "../contexts/UserContext";
 import { ProjectContext } from "../contexts/ProjectContext";
 import { TicketContext } from "../contexts/TicketContext";
 import fuzzysearch from 'fuzzysearch';
+import { PISprintContext } from "../contexts/PISprintContext";
 
 export function ToolbarSelectClass() {
     const {
@@ -19,6 +20,9 @@ export function ToolbarSelectClass() {
     const {
         tickets
     } = useContext(TicketContext);
+    const {
+        sprintID
+    } = useContext(PISprintContext);
     
     const [assignedToMe,setAssignedToMe] = useState(["","assigned to me","boards"]);
     const [allUsers,setAllUsers] = useState(["","all users"]);
