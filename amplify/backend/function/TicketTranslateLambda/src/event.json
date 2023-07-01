@@ -1,1 +1,4 @@
-{ "test": "event" }
+{
+    "body": "\"{\\\"event\\\":{\\\"Title\\\":\\\"Epic Jira Template\\\",\\\"Description\\\":\\\"This is an Epic Jira template for project management.\\\",\\\"Comment\\\":\\\"Please provide any additional information or updates related to this Epic.\\\",\\\"TicketFields\\\":\\\"Title,Description,Comment\\\"}}\""
+  }
+  

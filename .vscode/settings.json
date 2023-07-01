@@ -11,8 +11,8 @@
   "workbench.preferredHighContrastLightColorTheme": "Default Dark+",
   "workbench.preferredLightColorTheme": "Default Dark+",
   "window.autoDetectColorScheme": true,
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "Default Light+",
   "workbench.preferredHighContrastColorTheme": "Default Dark+",
-  "workbench.preferredDarkColorTheme": "Default Light Modern",
+  "workbench.preferredDarkColorTheme": "Default Dark+",
   "editor.fontLigatures": false
 }

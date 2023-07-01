@@ -1,1 +1,4 @@
-{ "test": "event" }
+{
+    "body": "\"{\\\"event\\\":{\\\"Changes\\\":\\\"undefined -> Title test\\\",\\\"newTicket\\\":{\\\"Title\\\":\\\"Title test\\\",\\\"Description\\\":\\\"Desc test\\\",\\\"Priority\\\":\\\"Low\\\",\\\"TicketID\\\":\\\"1\\\",\\\"StoryPoint\\\":\\\"2\\\",\\\"Reporter\\\":\\\"ivangeorgiev12133@gmail.com\\\",\\\"Asignee\\\":\\\"ivangeorgiev12133@gmail.com\\\",\\\"EpicLink\\\":\\\"Epic\\\",\\\"CreatedDate\\\":\\\"01.01.2023\\\",\\\"UpdatedDate\\\":\\\"01.01.2023\\\",\\\"ResolvedDate\\\":\\\"-\\\",\\\"IssueType\\\":\\\"Task\\\",\\\"TicketStatus\\\":\\\"ToDo\\\",\\\"Comment\\\":\\\"Comment test\\\",\\\"Watch\\\":\\\"ivan.georgiev@tu-varna.bg,\\\"}}}\""
+  }
+  

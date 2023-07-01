@@ -54,24 +54,24 @@
         },
         "notifyticketupdatelambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/notifyticketupdatelambda-7a3070796e7838435252-build.zip",
+          "s3Key": "amplify-builds/notifyticketupdatelambda-54596b53724938796174-build.zip",
           "paramSenderEmail": "/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail"
         },
         "TicketCreationTemplateLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketCreationTemplateLambda-535358417238585a326f-build.zip",
+          "s3Key": "amplify-builds/TicketCreationTemplateLambda-6c6d654c4f494d6f7675-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         },
         "TicketTranslateLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketTranslateLambda-54306d63366d37307a33-build.zip",
+          "s3Key": "amplify-builds/TicketTranslateLambda-516f47646a4467512f39-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         },
         "TicketSummarizeLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketSummarizeLambda-33454f76455a3064796c-build.zip",
+          "s3Key": "amplify-builds/TicketSummarizeLambda-42545a327a616c773968-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         }
