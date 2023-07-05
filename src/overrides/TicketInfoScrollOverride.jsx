@@ -128,7 +128,7 @@ export function TicketInfoScrollFunc () {
         reporter_select_field:{
             onChange : (event) => (handleReporterChange(event)),
             style:{color:"transparent", border:"none"},
-            options: peopleAssign
+            options: []//peopleAssign,
         },
         attachment_1:{
             src: attachmentUrls[0],

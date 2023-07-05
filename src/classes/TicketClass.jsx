@@ -408,7 +408,7 @@ export function TicketClass(props) {
                     item.ImageTicket = imageTicket.replace(deletedImageName+",", "")}))
             window.alert(`${deletedImageName} deleted!`);}}
     };
-   
+
     const handleMoreOptionsChange = async (event) => {
         event.preventDefault();
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -427,7 +427,7 @@ export function TicketClass(props) {
                         new Ticket({
                             "Title": title,
                             "Description": description,
-                            "TicketID": ticketID,
+                            "TicketID": getBiggestTicketID,
                             "StoryPoint": storyPoint,
                             "Watch": watchedUsers,
                             "Reporter": reporter,
@@ -485,8 +485,7 @@ const handleSaveEditTicketClick = async (event) => {
     // try to catch if resolved date is eq '-'
     try {
         const date = new Date(resolvedDate);
-        formattedDate = date.toISOString();
-    } catch(e){/*do nothing*/}
+        formattedDate = date.toISOString();} catch(e){/*do nothing*/}
     let resolved_date = formattedDate ;
     // if status is in done state assign current date in resolved
     if ( ticketStatus === "Done") {
@@ -511,8 +510,7 @@ const handleSaveEditTicketClick = async (event) => {
                     data.filter(item => { 
                         if (item.sub === editTicket.Reporter ) 
                             editTicketReporterName = item.username ; return item;})
-                }).catch(error => {
-                console.error(error);});
+                }).catch(error => {console.error(error);});
                 changed_props += `Reporter: ${editTicketReporterName} --> ${reporterName} \n`
             }
             if (asignee !== editTicket.Asignee) {
@@ -522,8 +520,7 @@ const handleSaveEditTicketClick = async (event) => {
                     data.filter(item => { 
                         if (item.sub === editTicket.Asignee ) 
                         editTicketAsigneeName = item.username ; return item;})
-                }).catch(error => {
-                console.error(error);});
+                }).catch(error => {console.error(error);});
             changed_props += `Asignee: ${editTicketAsigneeName} --> ${asigneeName} \n`
             }
         if (epicLink !== editTicket.EpicLink)
@@ -534,6 +531,8 @@ const handleSaveEditTicketClick = async (event) => {
             changed_props += `${editTicket.Comment} --> ${comment} \n`
 
         const editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
+        // Check if subtask is Task is empty
+        const checkEditTicketSubs = editTicket.Subtasks !== null ? editTicket.Subtasks : [];
         await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
             item.Title = title;
             item.Description = description;
@@ -551,41 +550,43 @@ const handleSaveEditTicketClick = async (event) => {
             item.IssueType = issueType;
             item.TicketStatus = ticketStatus;
             item.Comment = comment;
+            // Add
             if (selectedTaskID.trim() !== "" )
-            item.Subtasks = [...editTicket.Subtasks,selectedTaskID];
+            item.Subtasks = [...checkEditTicketSubs,selectedTaskID];
+            // Remove
+            if (deletedTaskID.length > 0 ) {
+                let deletedSet = new Set(deletedTaskID);
+                item.Subtasks = item.Subtasks.filter(subs => !deletedSet.has(subs));}
         }));
         // Check if subtask is Task or Subtask to also update the linked ticket
         // ADD
         if (selectedTaskID.trim() !== "") {
             const editParentChildTaskDataStore = await DataStore.query(Ticket, selectedTaskID);
+            // Include task/subtask into activity if added or deleted
+            changed_props +=`Linked ${editParentChildTaskDataStore.IssueType} --> ${editParentChildTaskDataStore.Title}`;
+
+            const checkEditTicketSubs = editParentChildTaskDataStore.Subtasks !== null ?
+             editParentChildTaskDataStore.Subtasks : [];
             await DataStore.save(Ticket.copyOf(editParentChildTaskDataStore, item => {
-                item.Subtasks = [...editParentChildTaskDataStore.Subtasks,editTicket.id];}))
+                item.Subtasks = [...checkEditTicketSubs,editTicket.id];}))
         }
         // DELETE
         if (deletedTaskID.length > 0 ) {
-            const editParentParentTaskDataStore = await DataStore.query(Ticket, editTicket.id);
-            await Promise.all(
+            const editParentTaskDataStore = await DataStore.query(Ticket, editTicket.id);
+
                 deletedTaskID.map(async (deleted_id) => {
-                  changed_props += `Unlinked ${editParentParentTaskDataStore.IssueType} --> ${editParentParentTaskDataStore.Title}\n`;
+                  changed_props += `Unlinked ${editParentTaskDataStore.IssueType} --> ${editParentTaskDataStore.Title}\n`;
               
                   const ticketToModify = await DataStore.query(Ticket, deleted_id);
+                  // Delete Linked Task/Subtask
                   await DataStore.save(
-                    Ticket.copyOf(ticketToModify, item => {
-                        if (item.Subtasks !== null)
-                      item.Subtasks = item.Subtasks.filter(subs => subs !== editTicket.id);
+                    Ticket.copyOf(ticketToModify, item_link => {
+                        if (item_link.Subtasks !== null)
+                        item_link.Subtasks = item_link.Subtasks.filter(subs => subs !== editTicket.id);
                     }));
-                  await DataStore.save(
-                    Ticket.copyOf(editParentParentTaskDataStore, item => {
-                        if (item.Subtasks !== null)
-                      item.Subtasks = item.Subtasks.filter(subs => subs !== deleted_id);
-                    }));
-                })
-              );}
-        // Include task/subtask into activity if added or deleted
-        if (selectedTaskID.trim() !== "" && subtasks !== null) {
-            const LinkedTaskSubtask = await DataStore.query(Ticket,selectedTaskID);
-            changed_props +=`Linked ${LinkedTaskSubtask.IssueType} --> ${LinkedTaskSubtask.Title}`;
-            }
+                
+                })}
+
             if (changed_props !== ""){
             await DataStore.save(
                 new Activity({
@@ -724,7 +725,7 @@ const handleSaveEditTicketClick = async (event) => {
     const handleReleaseMoveTicket = async (draggedTicketID,boardStatus) => {
         const getEditedTicketID = getDragDropTicketState() || "";
         setDragDropTicketState("");
-        if (draggedTicketID !== "" && getEditedTicketID !== "") {
+        if (draggedTicketID !== "" && getEditedTicketID !== "" && currentUser.id !== undefined) {
             const editTicketDataStore = await DataStore.query(Ticket, draggedTicketID);
             if (editTicketDataStore.TicketStatus !== boardStatus) {
                 const timezoneOffset = new Date().getTimezoneOffset() * 60000;

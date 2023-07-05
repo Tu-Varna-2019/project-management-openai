@@ -18,11 +18,8 @@ export function ToolbarSelectClass() {
         navigate
     } = useContext(ProjectContext);
     const {
-        tickets
+        tickets,
     } = useContext(TicketContext);
-    const {
-        sprintID
-    } = useContext(PISprintContext);
     
     const [assignedToMe,setAssignedToMe] = useState(["","assigned to me","boards"]);
     const [allUsers,setAllUsers] = useState(["","all users"]);
@@ -46,8 +43,7 @@ export function ToolbarSelectClass() {
                 setSprintNumState(0);
                 navigate('/edit-project');}
             break;
-            default: 
-                //console.log("default");
+            default:
             break;}};
 
     const handleYourWorkSelectChange = async (event) => {
@@ -80,7 +76,6 @@ export function ToolbarSelectClass() {
                             {state:{selectedTicket:item,project: getProjectNameState()}});
                             return item;
                         })});}
-                //else console.log("default");
             break;}};
 
     const handleIssueTemplateSelectChange = (event) => {
@@ -92,7 +87,6 @@ export function ToolbarSelectClass() {
                 navigate("/board",{state:{edited_it:true,project: getProjectNameState()}})
                 break;
             default:
-                //console.log("default");
                 break;
         }
     };
@@ -130,7 +124,6 @@ export function ToolbarSelectClass() {
                     navigate('/');})
             break;
             default: 
-            //console.log("default");
             break;}};
 
     const handleClearSearchTicket = (event) => {

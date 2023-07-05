@@ -158,12 +158,13 @@ export function ProjectClass(props) {
     const handleDeleteProjectClick = async (event) => {
         event.preventDefault();
         setIsConfirmButtonLoading(!isConfirmButtonLoading);
+        if (projectName !== "" && setIsUserAdmin) {
             if (window.confirm(`Are you sure you want to delete the selected project: ${projectName}`)) {
             const modelToDelete = await DataStore.query(Project, selectedProjectID);
             await DataStore.delete(modelToDelete);
             navigate('/');
             window.location.reload();
-            }
+            }}
         setIsConfirmButtonLoading(false);
     };
 

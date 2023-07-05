@@ -33,8 +33,8 @@ export default function BacklogPage(props) {
 
     return(
       <>
-      <div className='amplify-container'
-        style={{ position:'relative', display: 'inline-block',overflow: "hidden",top: "-50px",left: "0px"}}>
+      <div className='.amplify-container'
+        style={{ position:'relative', display: 'inline-block',overflow: "hidden"}}>
       <Backlog/>
 
       <div
@@ -62,7 +62,7 @@ export default function BacklogPage(props) {
               overrideItems={BacklogOverrideItems}/>
         </div>
 
-        <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1095, width:825 }}>
+        <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1100, width:825 }}>
         <Toolbar overrides={ToolbarOverride}/>
         </div>
 
