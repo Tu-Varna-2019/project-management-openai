@@ -32,6 +32,7 @@ import { PISprintProvider } from './providers/PISprintProvider';
 import EditProjectPage from './pages/EditProjectPage';
 import { GithubProvider } from './providers/GithubProvider';
 import { PrivateModeError } from './ui-components';
+import ToolbarGlobalComponent from './components/global/ToolbarGlobalComponent';
 
 
 const {
@@ -97,7 +98,9 @@ export default function App() {
 
         <Route path='/reset-password-kai' element={<ResetPasswordKAIPage/>}/>
         <Route path='/delete-account-kai' element={<DeleteAccountKAIPage/>}/>
+
       </Routes>
+      <ToolbarGlobalComponent/>
       </GithubProvider>
       </SubtaskProvider>
       </ActivityProvider>

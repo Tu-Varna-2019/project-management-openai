@@ -64,7 +64,7 @@ export function ActivityClass(props) {
                 for (let activityIter of activity) {
                     const modelToDelete = await DataStore.query(Activity, activityIter.id);
                     DataStore.delete(modelToDelete);}
-                    navigate('/profile', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `Activities cleared!`,selectedUserID:currentUser.id }});
+                    navigate(location.pathname, { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `Activities cleared!`,selectedUserID:currentUser.id }});
                     window.location.reload();
                 }}
         setClearActivityBtnLoading(false);

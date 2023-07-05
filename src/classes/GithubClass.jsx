@@ -20,8 +20,7 @@ export function GithubClass() {
 
   const showGithubActions = location.state ? location.state.show_git : false;
   const viewGithubCommits = location.state ? location.state.view_mode : false;
-  const redirectTicketPath = editTicketBoolean === true ? "/board" : backlogTicketBoolean === true ? "/backlog": "/edit-ticket" ;
-
+  
   const repoOwner = process.env.REACT_APP_GITHUB_REPO_OWNER;
   const repoName = process.env.REACT_APP_GITHUB_REPO_NAME;
   const [shaTicket,setShaTicket] = useState([]);
@@ -80,12 +79,12 @@ export function GithubClass() {
       // Add&Remove
       case gitActions[1]:
         setGitOptionsState("Add&Remove");
-        navigate(redirectTicketPath,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:true,project: getProjectNameState()}});
+        navigate(location.pathname,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:true,project: getProjectNameState()}});
         break;
       // View current
       case gitActions[2]:
         setGitOptionsState("View current");
-        navigate(redirectTicketPath,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:true,view_mode:true,project: getProjectNameState()}});
+        navigate(location.pathname,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:true,view_mode:true,project: getProjectNameState()}});
         break;
       default:
       break;
@@ -93,7 +92,7 @@ export function GithubClass() {
   };
 
   const handleBackGitActions = (event) => {
-    navigate(redirectTicketPath,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:false,project: getProjectNameState()}});
+    navigate(location.pathname,{state:{selectedTicket:editTicket,edited:editTicketBoolean,show_git:false,project: getProjectNameState()}});
   };
 
   const handleSaveGitActions = async (event) => {
@@ -103,7 +102,7 @@ export function GithubClass() {
         await DataStore.save(Ticket.copyOf(editTicketDataStore, item => {
           item.GitCommit = selectedSha}));
      editTicketDataStore = await DataStore.query(Ticket, editTicket.id);
-      navigate(redirectTicketPath,{state:{selectedTicket:editTicketDataStore,edited:editTicketBoolean,show_git:false,project: getProjectNameState()}});
+      navigate(location.pathname,{state:{selectedTicket:editTicketDataStore,edited:editTicketBoolean,show_git:false,project: getProjectNameState()}});
       break;
     default:
     break;

@@ -15,7 +15,8 @@ export function ToolbarSelectClass() {
         userIDName,
     } = React.useContext(UserContext);
     const {
-        navigate
+        navigate,
+        location,
     } = useContext(ProjectContext);
     const {
         tickets,
@@ -81,10 +82,10 @@ export function ToolbarSelectClass() {
     const handleIssueTemplateSelectChange = (event) => {
         switch(event.target.value){
             case "create one":
-                navigate("/board",{state:{create_it:true,project: getProjectNameState()}})
+                navigate(location.pathname,{state:{create_it:true,project: getProjectNameState(),selectedUserID:currentUser.id}})
                 break;
             case "project templates":
-                navigate("/board",{state:{edited_it:true,project: getProjectNameState()}})
+                navigate(location.pathname,{state:{edited_it:true,project: getProjectNameState(),selectedUserID:currentUser.id}})
                 break;
             default:
                 break;

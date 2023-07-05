@@ -95,6 +95,8 @@ export function TicketClass(props) {
     const moreOptions = ["","Clone","Delete"];
     // Regex for empty values
     const isTitleEmpty =  /^\s*$/.test(title);
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     const watchedCount = watchedUsers?.match(/,/g) ? watchedUsers.match(/,/g).length : 0 ;
     const ticketStatusColorVariant = ticketStatus === "ToDo" ? "error" : 
     ticketStatus === "InProgress" ? "warning" : 
@@ -398,7 +400,7 @@ export function TicketClass(props) {
     const handleDeleteImageChange = async (index) => {
         const deletedImageName = attachmentName[index];
         if (deletedImageName !== "" && deletedImageName !== undefined) {
-            if(window.confirm(`Are you sure you want to remove: ${deletedImageName} ?`)) {
+            if(window.confirm(`Are you sure you want to remove the selected image ?`)) {
                 await Storage.remove("shared/"+deletedImageName, { level: 'public' });
                 setImageTicket(imageTicket.replace(deletedImageName+",", ""));
                 setAttachmentUrls([]);
@@ -444,7 +446,7 @@ export function TicketClass(props) {
                             "sprintID": sprintID,
                             "Subtasks": subtasks,
                         }));
-                    navigate('/board', { state: { project: getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully cloned!` }});
+                    navigate(location.pathname, { state: { project: getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully cloned!` }});
                     window.location.reload();
             break;
             // Delete
@@ -453,7 +455,7 @@ export function TicketClass(props) {
                 {
                     const modelToDelete = await DataStore.query(Ticket, editTicket.id);
                     DataStore.delete(modelToDelete);
-                    navigate('/board', { state: { project: getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully deleted!` }});
+                    navigate(location.pathname, { state: { project: getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully deleted!` }});
                     window.location.reload();
                 }
             break;
@@ -467,10 +469,7 @@ export function TicketClass(props) {
 
      // Goto EditTicket component
     const handleCloseEditTicketClick = (event) => {
-        if (editTicketBoolean)
-        navigate("/board",{state:{edited:false,project: getProjectNameState()}})
-        else
-        navigate("/backlog",{state:{edited_bg:false,project: getProjectNameState()}})
+        navigate(location.pathname,{state:{edited:false,project: getProjectNameState()}})
     };
 
 const handleSaveEditTicketClick = async (event) => {
@@ -586,7 +585,6 @@ const handleSaveEditTicketClick = async (event) => {
                     }));
                 
                 })}
-
             if (changed_props !== ""){
             await DataStore.save(
                 new Activity({
@@ -598,15 +596,17 @@ const handleSaveEditTicketClick = async (event) => {
         
         let notify_update_ticket_response = "";
         if ( watchedUsers !== "" || asigneeName !== "Unassigned") {
-            const concatenateWatchUserWithAsignee = !watchedUsers.includes(asigneeName+",") ? watchedUsers + asigneeName+"," : watchedUsers==="" ? asigneeName+"," : "" ;
+            const concatenateWatchUserWithAsignee = !watchedUsers.includes(asigneeName+",") && isEmailValid.test(asigneeName) ? watchedUsers + asigneeName+"," : watchedUsers==="" ? asigneeName+"," : "" ;
             const newTicket = {
                 Title : title,
                 Description : description,
                 Priority : priority,
                 TicketID : ticketID,
                 StoryPoint : storyPoint,
-                Reporter : reporterName,
-                Asignee : asigneeName,
+                Reporter : isEmailValid.test(reporterName) ? reporterName 
+                : "" ,
+                Asignee : isEmailValid.test(asigneeName) ? asigneeName 
+                : "" ,
                 Watch: concatenateWatchUserWithAsignee,
                 EpicLink : epicLink,
                 CreatedDate : newTicketCreatedDate,
@@ -621,13 +621,12 @@ const handleSaveEditTicketClick = async (event) => {
                 newTicket});
             }catch(err){notify_update_ticket_response="Unable to send message , sorry for the inconvinience!";}
         }
-        const routePath = editTicketBoolean === true ? '/board' : '/backlog';
-        navigate(routePath, { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response} ` }});
+        navigate(location.pathname, { state: { project:getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully edited : \n ${notify_update_ticket_response} ` }});
        window.location.reload();
     } catch (error) {
         setIsLoading(false);
         console.log(error);
-       navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
+       navigate(location.pathname, { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
     }};
 
     const handleAssignToMeClick = async (event) => {
@@ -654,16 +653,18 @@ const handleSaveEditTicketClick = async (event) => {
     // Goto CreateTicket component
     const handleGoToCreateTicketClick = (event) => {
         event.preventDefault();
-        navigate("/board",{state:{create:true,project: getProjectNameState()}})
+        navigate(location.pathname,{state:{create:true,project: getProjectNameState(),selectedUserID:currentUser.id}})
     };
     // Close CreateTicket component
     const handleCloseCreateTicketClick = (event) => {
         event.preventDefault();
-        navigate("/board",{state:{create:false,project: getProjectNameState()}})
+        navigate(location.pathname,{state:{create:false,project: getProjectNameState(),selectedUserID:currentUser.id}})
     };
+
     const handleCreateTicketClick = async  (event) => {
         event.preventDefault();
         setIsLoading(!isLoading);
+
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
         const newCreatedDate = new Date(new Date().getTime() - timezoneOffset);
         const newTicketCreatedDate = newCreatedDate.toISOString();
@@ -696,9 +697,11 @@ const handleSaveEditTicketClick = async (event) => {
                             Priority : priority,
                             TicketID : ticketID,
                             StoryPoint : storyPoint,
-                            Reporter : currentUser.username,
-                            Watch: asigneeName+",",
-                            Asignee : asigneeName,
+                            Reporter : isEmailValid.test(currentUser.username) ? currentUser.username 
+                            : "" ,
+                            Watch: isEmailValid.test(asigneeName) ? asigneeName+"," : "",
+                            Asignee : isEmailValid.test(asigneeName)  ? asigneeName 
+                            : "" ,
                             EpicLink : epicLink,
                             CreatedDate : newTicketCreatedDate,
                             UpdatedDate : "-",
@@ -711,12 +714,12 @@ const handleSaveEditTicketClick = async (event) => {
                         notify_create_ticket_response = await postData({
                             Changes: `New ticket has been assigned to you ${asigneeName}`,
                             newTicket});}
-           navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully created! : ${notify_create_ticket_response}` }});
+           navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "success", alert_description: `${title} has been successfully created! : ${notify_create_ticket_response}` }});
            window.location.reload();
         } catch (error) {
             setIsLoading(false);
             console.log(error);
-            navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
+            navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "error", alert_description: `App is not supported in this browser's private mode! Please enable cookies! ${error}`}});
             window.location.reload();}};
 
     const handleHoldMoveTicket = (ticketid) => {
@@ -755,7 +758,7 @@ const handleSaveEditTicketClick = async (event) => {
                         item_edit_status.UpdatedDate = newTicketUpdatedDate;
                         item_edit_status.ResolvedDate = ticketStatusDone;
                     }));
-            navigate('/board', { state: { project:getProjectNameState(),
+            navigate(location.pathname, { state: { project:getProjectNameState(),
                 alert_show:'block' ,
                 alert_variant: "success",
                 alert_description: `KAI-${editTicketDataStore.TicketID} has been successfully moved to ${boardStatus}`}});

@@ -172,10 +172,10 @@ export function User2Class() {
                 item.username = email;
                 item.ImageProfile = currentUser.ImageProfile;
             }));
-            navigate('/profile', { state: { alert_show:'block' , alert_variant: "success", alert_description: `${email} has been successfully edited!` }});
+            navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "success", alert_description: `${email} has been successfully edited!` }});
             window.location.reload();
         }catch(error) {
-            navigate('/profile', { state: { alert_show:'block' , alert_variant: "error", alert_description: error }});
+            navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "error", alert_description: error }});
             window.location.reload();}};
 
     const handleSaveImageClick = async ({ file }) => {
@@ -199,7 +199,7 @@ export function User2Class() {
   }
 
   const handleReloadUploadSuccImage = () =>{
-    navigate('/profile', { state: { alert_show:'block' , alert_variant: "success",selectedUserID:currentUser.id, alert_description: `Image successfully uploaded!` }});
+    navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "success",selectedUserID:currentUser.id, alert_description: `Image successfully uploaded!` }});
     window.location.reload();
   };
     const handleGoToChangePassword = (event) => {
@@ -211,7 +211,7 @@ export function User2Class() {
 
     // Aka get to admin page
     const handleGoToMNotes = (event) => {
-        navigate('/profile',{state:{add_remove_user:true,selectedUserID:currentUser.id}});
+        navigate(location.pathname,{state:{add_remove_user:true,selectedUserID:currentUser.id}});
     };
 
     const handleAdminUserModeChange = (boolvalue) => {
