@@ -1,11 +1,9 @@
 import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { ActivitySlideCollection, AddRemoveUser, Profile, UsersAdminInfoCollection } from "../ui-components";
+import { ActivitySlideCollection, Profile } from "../ui-components";
 import { ProfileFunc } from '../overrides/ProfileOverride';
 import { ActivityFunc } from '../overrides/ActivitySlideOverride';
 import { UserContext } from '../contexts/UserContext';
-import { AddRemoveUserFunc } from '../overrides/AddRemoveUserOverride';
-import { UsersAdminInfoFunc } from '../overrides/UsersAdminInfoOverride';
 
 
 export default function ProfilePage(props) {
@@ -17,22 +15,14 @@ export default function ProfilePage(props) {
   const {
     ActivityCollectionOverride,
     ActivityOverride,
+    isActivityEmptyTop,
   } = ActivityFunc();
 
   const {
     currentUser,
     selectedUserID,
-    addRemoveUserBoolean,
   } = React.useContext(UserContext);
 
-  const {
-    AddRemoveUserOverride
-  } = AddRemoveUserFunc();
-  const {
-    UsersAdminInfoOverrideCollectionOverride,
-    UsersAdminInfoOverride,
-  } = UsersAdminInfoFunc();
- 
     return(
       <>
       <div className='.amplify-container'
@@ -43,12 +33,10 @@ export default function ProfilePage(props) {
       <div style={{ position: 'absolute',display: 'block', bottom: 585, right: 1330 , width:530  }}>
         <FileImageUpload />
       </div>}
-      <div style={{ position: 'absolute' , width:"120px", display: 'block',top: "200px",left: "1380px",objectFit: "cover"}}>
-        <ActivitySlideCollection style={{position: 'absolute',  bottom: "-650px", left: "-155px" }}
+      <div style={{ position: 'absolute' , width:"120px", display: 'block',top: isActivityEmptyTop,left: "1420px",objectFit: "cover"}}>
+        <ActivitySlideCollection style={{position: 'absolute',  bottom: "60px", left: "-205px" }}
           overrides={ActivityCollectionOverride}
           overrideItems={ActivityOverride}/>
       </div>
-
-
       </div>
       </>)}

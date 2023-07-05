@@ -63,13 +63,11 @@ export function ActivityClass(props) {
             if (window.confirm(`Are you sure you want to delete your activity?`)) {
                 for (let activityIter of activity) {
                     const modelToDelete = await DataStore.query(Activity, activityIter.id);
-                    DataStore.delete(modelToDelete);}
+                    await DataStore.delete(modelToDelete);}
                     navigate(location.pathname, { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `Activities cleared!`,selectedUserID:currentUser.id }});
                     window.location.reload();
-                }}
-        setClearActivityBtnLoading(false);
-
-    }
+                }}setClearActivityBtnLoading(false);
+    };
 
 
     return {
