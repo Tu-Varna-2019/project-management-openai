@@ -1,12 +1,19 @@
 import React, { useContext } from "react"
 import { TicketContext } from "../../contexts/TicketContext";
 import { CreateIssueTemplateFunc } from "../../overrides/CreateIssueTemplateOverride";
-import { CreateIssueTemplate, EditIssueTemplate } from "../../ui-components";
+import { AddRemoveUser, CreateIssueTemplate, EditIssueTemplate, Toolbar, UsersAdminInfoCollection } from "../../ui-components";
 import { EditIssueTemplateFunc } from "../../overrides/EditIssueTemplateOverride";
 import { IssueTemplateContext } from "../../contexts/IssueTemplateContext";
 import { Loader } from "@aws-amplify/ui-react";
 import EditTicketComponent from "../EditTicketComponent";
 import CreateTicketComponent from "../CreateTicketComponent";
+import { ToolbarSelectContext } from "../../contexts/ToolbarSelectContext";
+import SearchBoxRectComponent from "../ShowSearchRectComponent";
+import { ToolbarFunc } from "../../overrides/ToolbarOverrides";
+import { ProjectContext } from "../../contexts/ProjectContext";
+import { AddRemoveUserFunc } from "../../overrides/AddRemoveUserOverride";
+import { UserContext } from "../../contexts/UserContext";
+import { UsersAdminInfoFunc } from "../../overrides/UsersAdminInfoOverride";
 
 export default function ToolbarGlobalComponent () {
 
@@ -25,11 +32,57 @@ export default function ToolbarGlobalComponent () {
       const {
         openaiProgBar
       } = useContext(IssueTemplateContext);
+      const {
+        showSearchRect
+      } = useContext(ToolbarSelectContext);
+      const {
+        ToolbarOverride,
+      } = ToolbarFunc();
+      const {
+        location
+      } = useContext(ProjectContext);
+      const {
+        AddRemoveUserOverride
+      } = AddRemoveUserFunc();
+      const {
+        currentUser,
+        selectedUserID,
+        addRemoveUserBoolean,
+      } = useContext(UserContext);
+      const {
+        UsersAdminInfoOverrideCollectionOverride,
+        UsersAdminInfoOverride,
+      } = UsersAdminInfoFunc();
 
     const openAIProgBarBottom = editTicketBoolean === true ? 300 : createTicketBoolean === true ? 120 : createIssueTemplateBoolean === true ? 240 : editIssueTemplateBoolean === true ? 200 : 0;
     const openAIProgBarRight = editTicketBoolean === true ? 1070 : 690 ;  
     return (
         <>
+        {(location.pathname === "/board" ||
+        location.pathname === "/backlog" ||
+        location.pathname === "/profile" ||
+        location.pathname === "/edit-ticket" ||
+        location.pathname === "*") 
+        && (
+        <div className='.amplify-container'
+          style={{ position:'relative', display: 'inline-block'}}>
+        <div style={{ position: 'absolute',display: 'block', bottom: 828, left: 0, width:825 }}>
+        <Toolbar overrides={ToolbarOverride}/>
+        </div>
+        </div>)}
+        <div style={{ position: 'absolute',display: 'block', bottom: 155, right: 0 }}>
+            {addRemoveUserBoolean && (
+            <>
+            <AddRemoveUser overrides={AddRemoveUserOverride}/>
+            <div style={{ position: 'absolute' , width:"350px", display: 'block',top: "900px",left: "800px",objectFit: "cover"}}>
+              <UsersAdminInfoCollection style={{position: 'absolute',  bottom: "180px", left: "-50px" }}
+              overrides={UsersAdminInfoOverrideCollectionOverride}
+              overrideItems={UsersAdminInfoOverride}/>
+          </div>
+          </>
+          )}
+        </div>
+        {!showSearchRect && (<SearchBoxRectComponent/>)}
         <div style={{ position: 'absolute',display: 'block', bottom: 150, right: 0 }}>
 
         { editTicketBoolean && (<EditTicketComponent/>)}

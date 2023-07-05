@@ -1,24 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Backlog, ProjectVerticalSelectField, TicketToDoCollection, Toolbar } from "../ui-components";
-import { ToolbarFunc } from '../overrides/ToolbarOverrides';
+import { Backlog, ProjectVerticalSelectField, TicketToDoCollection } from "../ui-components";
 import { ProjectVerticalSelectFieldFunc } from '../overrides/ProjectVerticalSelectFieldOverrides';
-import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
 import { BacklogFunc } from '../overrides/BacklogOverride';
-import SearchBoxRectComponent from '../components/ShowSearchRectComponent';
-import EditTicketComponent from '../components/EditTicketComponent';
-import { TicketContext } from '../contexts/TicketContext';
 
 export default function BacklogPage(props) {
   const {
     ProjectVerticalSelectFieldOverride
   } = ProjectVerticalSelectFieldFunc();
-  const {
-    showSearchRect
-  } = useContext(ToolbarSelectContext);
-  const {
-    ToolbarOverride,
-  } = ToolbarFunc();
   const {
     BacklogOverrideItems,
     Sprint1TicketOverride,
@@ -26,10 +15,6 @@ export default function BacklogPage(props) {
     Sprint3TicketOverride,
     Sprint4TicketOverride,
   } = BacklogFunc();
-  const {
-    backlogTicketBoolean,
-  } = useContext(TicketContext);
-
 
     return(
       <>
@@ -62,17 +47,8 @@ export default function BacklogPage(props) {
               overrideItems={BacklogOverrideItems}/>
         </div>
 
-        <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1100, width:825 }}>
-        <Toolbar overrides={ToolbarOverride}/>
-        </div>
-
-        {!showSearchRect && (<SearchBoxRectComponent/>)}
-   
       <div style={{ position: 'absolute',display: 'block', bottom: -10, right: 1600 , width:300 }}>
           <ProjectVerticalSelectField overrides={ProjectVerticalSelectFieldOverride}/>
       </div>
         
-      <div style={{ position: 'absolute',display: 'block', bottom: 0, right: 0 }}>
-      { backlogTicketBoolean && (<EditTicketComponent/>)}
-      </div>
       </div></>)}

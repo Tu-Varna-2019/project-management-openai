@@ -1,11 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { Board, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection, Toolbar } from '../ui-components';
+import { Board, ProjectVerticalSelectField, TicketDoneCollection, TicketInProgressCollection, TicketInReviewCollection, TicketToDoCollection } from '../ui-components';
 import { BoardFunc } from '../overrides/BoardOverride';
-import { ToolbarFunc } from '../overrides/ToolbarOverrides';
 import { ProjectVerticalSelectFieldFunc } from '../overrides/ProjectVerticalSelectFieldOverrides';
-import { ToolbarSelectContext } from '../contexts/ToolbarSelectContext';
-import SearchBoxRectComponent from '../components/ShowSearchRectComponent';
 
 
 export default function BoardPage(props) {
@@ -22,14 +19,8 @@ export default function BoardPage(props) {
     isTicketDoneEmptyTop,
   }= BoardFunc();
   const {
-    ToolbarOverride,
-  } = ToolbarFunc();
-  const {
     ProjectVerticalSelectFieldOverride
   } = ProjectVerticalSelectFieldFunc();
-  const {
-    showSearchRect
-  } = useContext(ToolbarSelectContext);
 
     return(
       <>
@@ -60,12 +51,6 @@ export default function BoardPage(props) {
               overrides={BoardTicketDoneOverride}
               overrideItems={customOverrideItems}/>
         </div>
-
-        <div style={{ position: 'absolute',display: 'block', bottom: 820, right: 1095, width:825 }}>
-        <Toolbar overrides={ToolbarOverride}/>
-        </div>
-
-        {!showSearchRect && (<SearchBoxRectComponent/>)}
 
         <div style={{ position: 'absolute',display: 'block', bottom: -10, right: 1600 , width:300 }}>
           <ProjectVerticalSelectField overrides={ProjectVerticalSelectFieldOverride}/>
