@@ -34,20 +34,20 @@ const EditTicketComponent = () => {
         { showGithubActions && (
         <ShowGithubActionsComponent
         githubcommitcollection_div={{
-          top: 970,
-          left: 1260,
-          bottom: 220
+          top: 900,
+          left: 1100,
+          bottom: 280
         }}
         save_button_div={{
-          top: 870,
+          top: 830,
           left: 1320
         }}
         back_button_div={{
-          top: 870,
+          top: 830,
           left: 1200
         }}
         expander_div={{
-          top: 800,
+          top: 760,
           left: 1200
         }}
         />)}

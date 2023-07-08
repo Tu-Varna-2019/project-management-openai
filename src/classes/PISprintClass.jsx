@@ -276,7 +276,6 @@ export function PISprintClass() {
                             const modelToDelete = await DataStore.query(Sprint, sprintID);
                             const modelVals = await modelToDelete.Tickets.values;
                             if(modelVals.length !== 0){
-
                                 Swal.fire({
                                     allowOutsideClick: false,
                                     didOpen: () => {

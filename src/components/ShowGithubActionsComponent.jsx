@@ -24,8 +24,8 @@ const ShowGithubActionsComponent = ({githubcommitcollection_div,save_button_div,
 
     return (
        <>
-       <div key={refreshGithubItems} style={{ cursor: 'pointer', position: 'absolute' , width:"120px", display: 'block',top: githubcommitcollection_div.top,left: githubcommitcollection_div.left,objectFit: "cover"}}>
-          <GithubCommitCollection style={{position: 'absolute',  bottom: githubcommitcollection_div.bottom, left: "-180px" }}
+       <div key={refreshGithubItems} style={{ cursor: 'pointer', position: 'absolute' , width:"400px", display: 'block',top: githubcommitcollection_div.top,left: githubcommitcollection_div.left,objectFit: "cover"}}>
+          <GithubCommitCollection style={{position: 'absolute',  bottom: githubcommitcollection_div.bottom, left: "0px" }}
               overrides={GithubCommitOverrideCollectionOverride}
               overrideItems={GithubCommitOverride}/>
         </div>

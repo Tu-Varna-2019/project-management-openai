@@ -51,21 +51,21 @@ export default function EditTicketFullPage(props) {
           <>
           <ShowGithubActionsComponent
           githubcommitcollection_div={{
-            top: 1050,
-            left: 1560,
-            bottom: 160
+            top: 970,
+            left: 1350,
+            bottom: 270
           }}
           save_button_div={{
-            top: 1000,
-            left: 1620
+            top: 880,
+            left: 1570
           }}
           back_button_div={{
-            top: 1000,
-            left: 1500
+            top: 880,
+            left: 1400
           }}
           expander_div={{
-            top: 930,
-            left: 1500
+            top: 800,
+            left: 1430
           }}/></>)}
       {openaiProgBar && (
             <div style={{ position: 'absolute',display: 'block', bottom: 220, right: 950 , width:480 }}>
