@@ -1,5 +1,5 @@
 import '@aws-amplify/ui-react/styles.css';
-import React,{ useContext} from 'react';
+import React,{ useContext, useEffect} from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { ProjectContext } from '../contexts/ProjectContext';
 
@@ -18,6 +18,16 @@ export function SelectProjectFunc(props) {
         handleSelectedCreateOneProjectOnClick,
     }= useContext(ProjectContext);
 
+    // Reload page if username is undefined
+    useEffect(() => {
+        if (currentUser.username === undefined) {
+            const timer = setTimeout(() => {
+                window.location.reload();
+            }, 1700);
+            return () => clearTimeout(timer);
+        }
+    }, [currentUser.username]);
+
     const SelectProjectOverride={
         select_project_select_field:{
             onChange : (event) => (handleSelectProjectName(event)),
@@ -30,7 +40,7 @@ export function SelectProjectFunc(props) {
             isDisabled: projectName === ""
         },
         welcome_back_text:{
-            children: `Welcome back ${currentUser.username}`
+            children: `Welcome back ${currentUser.username === undefined ? '' : currentUser.username}`
         },
         create_one_button:{
             onClick : (event) => (handleSelectedCreateOneProjectOnClick(event)),
