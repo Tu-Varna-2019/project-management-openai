@@ -95,7 +95,6 @@ export function User2Class() {
           }
         }
       });
-      
       return () => {
         Hub.remove('datastore', listener);};
     }, []);

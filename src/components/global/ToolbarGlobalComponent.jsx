@@ -45,8 +45,6 @@ export default function ToolbarGlobalComponent () {
         AddRemoveUserOverride
       } = AddRemoveUserFunc();
       const {
-        currentUser,
-        selectedUserID,
         addRemoveUserBoolean,
       } = useContext(UserContext);
       const {
@@ -58,20 +56,23 @@ export default function ToolbarGlobalComponent () {
     const openAIProgBarRight = editTicketBoolean === true ? 1070 : 690 ;  
     return (
         <>
+        <div className='.amplify-container'
+          style={{ position:'relative', display: 'inline-block'}}>
         {(location.pathname === "/board" ||
         location.pathname === "/backlog" ||
         location.pathname === "/profile" ||
         location.pathname === "/edit-ticket" ||
         location.pathname === "*") 
         && (
-        <div className='.amplify-container'
-          style={{ position:'relative', display: 'inline-block'}}>
         <div style={{ position: 'absolute',display: 'block', bottom: 828, left: 0, width:825 }}>
         <Toolbar overrides={ToolbarOverride}/>
         </div>
-        </div>)}
-        <div style={{ position: 'absolute',display: 'block', bottom: 155, right: 0 }}>
-            {addRemoveUserBoolean && (
+        )}
+
+        {!showSearchRect && (<SearchBoxRectComponent/>)}
+        <div style={{ position: 'absolute',display: 'block', bottom: 0, left: 0 }}>
+
+        {addRemoveUserBoolean && (
             <>
             <AddRemoveUser overrides={AddRemoveUserOverride}/>
             <div style={{ position: 'absolute' , width:"350px", display: 'block',top: "900px",left: "800px",objectFit: "cover"}}>
@@ -81,9 +82,6 @@ export default function ToolbarGlobalComponent () {
           </div>
           </>
           )}
-        </div>
-        {!showSearchRect && (<SearchBoxRectComponent/>)}
-        <div style={{ position: 'absolute',display: 'block', bottom: 150, right: 0 }}>
 
         { editTicketBoolean && (<EditTicketComponent/>)}
         { createTicketBoolean && (<CreateTicketComponent/>)}
@@ -102,6 +100,7 @@ export default function ToolbarGlobalComponent () {
         <Loader variation="linear" />
         </div>
         )}
+      </div>
       </div>
       </>
     )
