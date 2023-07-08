@@ -15,8 +15,9 @@ type EagerSprint = {
   readonly StartDate: string;
   readonly EndDate?: string | null;
   readonly Number: number;
-  readonly piID: string;
+  readonly isActive?: boolean | null;
   readonly Tickets?: (Ticket | null)[] | null;
+  readonly piID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -30,8 +31,9 @@ type LazySprint = {
   readonly StartDate: string;
   readonly EndDate?: string | null;
   readonly Number: number;
-  readonly piID: string;
+  readonly isActive?: boolean | null;
   readonly Tickets: AsyncCollection<Ticket>;
+  readonly piID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

@@ -19,14 +19,14 @@ export function SelectProjectFunc(props) {
     }= useContext(ProjectContext);
 
     // Reload page if username is undefined
-    useEffect(() => {
-        if (currentUser.username === undefined) {
-            const timer = setTimeout(() => {
-                window.location.reload();
-            }, 1700);
-            return () => clearTimeout(timer);
-        }
-    }, [currentUser.username]);
+    // useEffect(() => {
+    //     if (currentUser.username === undefined) {
+    //         const timer = setTimeout(() => {
+    //             window.location.reload();
+    //         }, 1700);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [currentUser.username]);
 
     const SelectProjectOverride={
         select_project_select_field:{

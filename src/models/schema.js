@@ -31,11 +31,11 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "piID": {
-                    "name": "piID",
+                "isActive": {
+                    "name": "isActive",
                     "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
+                    "type": "Boolean",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "Tickets": {
@@ -53,6 +53,13 @@ export const schema = {
                             "sprintID"
                         ]
                     }
+                },
+                "piID": {
+                    "name": "piID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -972,5 +979,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "2fb7ab7f9ad9c4c4e50284aa95d89262"
+    "version": "fce89ab0dd3dcecbdc6cf70bd6738270"
 };

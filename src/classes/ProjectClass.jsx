@@ -4,6 +4,7 @@ import { Auth, DataStore , Storage } from 'aws-amplify';
 import { Project, User } from '../models';
 import { getProjectNameState , setPINumState, setProjectNameState, setSprintNumState } from '../states';
 import { UserContext } from '../contexts/UserContext';
+import Swal from 'sweetalert2';
 
 
 export function ProjectClass(props) {
@@ -38,8 +39,6 @@ export function ProjectClass(props) {
     const navigate = useNavigate();
     const location = useLocation();
     const isProjectEmpty =  /^\s*$/.test(projectName);
-
-
 
       useEffect(() => {
         async function fetchAdminData() {
@@ -98,7 +97,16 @@ export function ProjectClass(props) {
     const handleConfirmCreateProjectOnClick = async (event) => {
         event.preventDefault();
         setIsConfirmButtonLoading(!isConfirmButtonLoading);
-        if (window.confirm(`Are you sure you want to create project with the following name : ${projectName} ?`)) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `Are you sure you want to create project with the following name : ${projectName} ?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+            }).then(async (result) => {
+            if (result.isConfirmed) {
             // Check if project with the following name already exists
             let does_project_name_exist = false;
             await DataStore.query(Project)
@@ -120,10 +128,18 @@ export function ProjectClass(props) {
                         "Admin": [currentUser.id],
                         "Users": []
                      }));
-                //console.log("Project created!");
+                Swal.fire({
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                setTimeout(() => {
                 navigate('/');
                 window.location.reload();
-            }}
+            }, 1200);
+            }
+        }})
         setIsConfirmButtonLoading(false);
     };
 
@@ -149,8 +165,16 @@ export function ProjectClass(props) {
                     if (imageProjectName !== "")
                     item.ImageProject = imageProjectName;
                 }));
+                Swal.fire({
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                    });
+                setTimeout(() => {
                 navigate('/');
                 window.location.reload();
+                }, 1200);
             }
         setIsConfirmButtonLoading(false);
     };
@@ -159,12 +183,30 @@ export function ProjectClass(props) {
         event.preventDefault();
         setIsConfirmButtonLoading(!isConfirmButtonLoading);
         if (projectName !== "" && setIsUserAdmin) {
-            if (window.confirm(`Are you sure you want to delete the selected project: ${projectName}`)) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `Are you sure you want to delete the selected project: ${projectName}`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+            }).then(async (result) => {
+                    if (result.isConfirmed) {
             const modelToDelete = await DataStore.query(Project, selectedProjectID);
             await DataStore.delete(modelToDelete);
+            Swal.fire({
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+                });
+            setTimeout(() => {
             navigate('/');
             window.location.reload();
-            }}
+        }, 1200);
+        }})
+        }
         setIsConfirmButtonLoading(false);
     };
 
@@ -219,8 +261,18 @@ export function ProjectClass(props) {
     const handleCancelCreateProjectOnClick = (event) => {
         event.preventDefault();
         setIsCancelButtonLoading(!isCancelButtonLoading);
-        if (window.confirm("Are you sure you want to leave?"))
-            navigate('/');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you sure you want to leave?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                navigate('/');
+            }})
         setIsCancelButtonLoading(false);};
 
     const handleSafeProjectImageChange = async ({ file }) => {
@@ -254,8 +306,12 @@ export function ProjectClass(props) {
             isUserAdminMessage += "n administrator!";
             else
             isUserAdminMessage += " user!";
-            navigate('/board',{ state: { alert_show:'block' , alert_variant: "success", alert_description: isUserAdminMessage }});
-            window.location.reload();
+            
+            Swal.showLoading();
+            setTimeout(() => {
+                navigate('/board',{ state: { alert_show:'block' , alert_variant: "success", alert_description: isUserAdminMessage }});
+                window.location.reload();
+              }, 1200);
     };
 
     const handleSelectedProjectOnChange = async (event) => {
@@ -266,8 +322,18 @@ export function ProjectClass(props) {
     const handleSelectedCreateOneProjectOnClick = (event) => {
         event.preventDefault();
         setIsCancelButtonLoading(!isCancelButtonLoading);
-        if (window.confirm("Are you sure you want to leave this page?"))
-            navigate('/create-project');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you sure you want to leave this page and goto create project page?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                navigate('/create-project');
+            }})
         setIsCancelButtonLoading(false);};
 
         const handleSaveAddRemoveUser = async (event) => {

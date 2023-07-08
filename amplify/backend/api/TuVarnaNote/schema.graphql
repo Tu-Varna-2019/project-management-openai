@@ -3,8 +3,9 @@ type Sprint @model @auth(rules: [{allow: public}, {allow: private}]) {
   StartDate: AWSDateTime!
   EndDate: AWSDateTime
   Number: Int!
-  piID: ID! @index(name: "byPI")
+  isActive: Boolean
   Tickets: [Ticket] @hasMany(indexName: "bySprint", fields: ["id"])
+  piID: ID! @index(name: "byPI")
 }
 
 type PI @model @auth(rules: [{allow: public}, {allow: private}]) {

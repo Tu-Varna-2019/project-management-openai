@@ -5,6 +5,7 @@ import { User } from '../models';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { generate, count } from "random-words";
 import { Hub } from 'aws-amplify';
+import Swal from 'sweetalert2';
 
 export function User2Class() {
     const navigate = useNavigate();
@@ -165,6 +166,12 @@ export function User2Class() {
             const verificationCode = prompt(`Message sent ${email} . Please enter the verification code`);
             await Auth.verifyUserAttributeSubmit(authenticatedUser, 'email', verificationCode);
             await Auth.updateUserAttributes(authenticatedUser, { 'email': email });
+            Swal.fire({
+              allowOutsideClick: false,
+              didOpen: () => {
+                  Swal.showLoading();
+              }
+            });
             const editUserDataStore = await DataStore.query(User, currentUser.id);
             await DataStore.save(User.copyOf(editUserDataStore, item => {
                 item.sub = currentUser.sub;
@@ -198,15 +205,46 @@ export function User2Class() {
   }
 
   const handleReloadUploadSuccImage = () =>{
+    Swal.fire({
+      allowOutsideClick: false,
+      didOpen: () => {
+          Swal.showLoading();
+      }
+});
+    setTimeout(() => {
     navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "success",selectedUserID:currentUser.id, alert_description: `Image successfully uploaded!` }});
     window.location.reload();
+  }, 1200);
   };
     const handleGoToChangePassword = (event) => {
-        if (window.confirm(`Are you sure you want to goto change password page?`))
-            navigate('/reset-password-kai');};
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `Are you sure you want to goto change password page?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        }).then((result) => {
+          if (result.isConfirmed) {
+
+            navigate('/reset-password-kai');
+          }})
+          };
     const handleGoToDeleteAccount = (event) => {
-        if (window.confirm(`Are you sure you want to goto delete account page?`))
-            navigate('/delete-account-kai');};
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `Are you sure you want to goto delete account page?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/delete-account-kai');
+          }})
+          };
 
     // Aka get to admin page
     const handleGoToMNotes = (event) => {

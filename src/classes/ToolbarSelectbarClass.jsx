@@ -8,6 +8,7 @@ import { ProjectContext } from "../contexts/ProjectContext";
 import { TicketContext } from "../contexts/TicketContext";
 import fuzzysearch from 'fuzzysearch';
 import { PISprintContext } from "../contexts/PISprintContext";
+import Swal from "sweetalert2";
 
 export function ToolbarSelectClass() {
     const {
@@ -31,18 +32,38 @@ export function ToolbarSelectClass() {
     const handleProjectsSelectChange = (event) => {
         switch(event.target.value){
             case "switch project":
-                if (window.confirm("Are you sure you want to switch to different project? "
-                +"we will redirect you to different page?")) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you sure you want to switch to different project? We will redirect you to different page?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+                }).then((result) => {
+                if (result.isConfirmed) {
+
                 setPINumState(0);
                 setSprintNumState(0);
-                navigate('/');}
+                navigate('/');
+            }})
             break;
             case "edit project":
-                if (window.confirm("Are you sure you want to switch to different project? "
-                +"we will redirect you to different page?")) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you sure you want to switch to different project? We will redirect you to different page?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+                }).then((result) => {
+                if (result.isConfirmed) {
+
                 setPINumState(0);
                 setSprintNumState(0);
-                navigate('/edit-project');}
+                navigate('/edit-project');
+            }})
             break;
             default:
             break;}};
@@ -105,24 +126,41 @@ export function ToolbarSelectClass() {
                 break;
             default:
             if (event.target.value.includes('@')) {
+                Swal.showLoading();
                 const selectedUserID = userIDName[event.target.selectedIndex-2].id;
+                setTimeout(() => {
                 navigate('/profile', { 
                     state: { selectedUserID: selectedUserID ,
                              selectedUserName: event.target.value }});
                 window.location.reload();
-                            }
+            }, 1200);
+                }
             break;}};
 
     const handleProfileSelectChange = (event) => {
         switch(event.target.value){
             case "Manage account":
+                Swal.showLoading()
+                setTimeout(() => {
                 navigate('/profile');
                 window.location.reload();
+            }, 1200);
             break;
             case "Log out":
-                if (window.confirm("Are you sure you want to sign out ?")) 
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Are you sure you want to sign out ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+ 
                 Auth.signOut().then(() => {
                     navigate('/');})
+                }})
             break;
             default: 
             break;}};

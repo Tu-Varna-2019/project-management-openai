@@ -8,6 +8,7 @@ import {
     Predictions,
   } from '@aws-amplify/predictions';
 import { UserContext } from "../contexts/UserContext";
+import Swal from "sweetalert2";
 
 export function IssueTemplateClass(props) {
 
@@ -117,13 +118,24 @@ export function IssueTemplateClass(props) {
                     "IssueType": ITIssueType,
                     "projectID": getProjectID
                 }));
-           navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully created!` }});
-           window.location.reload();
+                Swal.fire({
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                setTimeout(() => {
+                    navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully created!` }});
+                    window.location.reload();
+                  }, 1200);
         } catch (error) {
             setLoadingCreateIT(false);
             console.log(error);
+            Swal.showLoading();
+            setTimeout(() => {
             navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
             window.location.reload();
+            }, 1200);
     }};
     // Close EditIssueTemplate component
     const handleClosedEditTicketClick = (event) => {
@@ -142,8 +154,16 @@ export function IssueTemplateClass(props) {
                 item.StoryPoint = ITStoryPoint;
                 item.IssueType = ITIssueType;
             }));
-          navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully edited!` }});
-          window.location.reload();
+            Swal.fire({
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            setTimeout(() => {
+                navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully edited!` }});
+                window.location.reload();
+              }, 1200);
         } catch (error) {
             setLoadingCreateIT(false);
             console.log(error);

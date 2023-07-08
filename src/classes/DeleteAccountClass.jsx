@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {useNavigate} from 'react-router-dom';
 import { Auth } from 'aws-amplify';
+import Swal from 'sweetalert2';
 
 export function DeleteAccountClass() {
 
@@ -31,8 +32,19 @@ export function DeleteAccountClass() {
     };
 
     const handleCancelPassword = (event,url) => {
-        if (window.confirm("Are you sure you want to leave?"))
-            navigate(url);};
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you sure you want to leave?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                navigate(url);
+            }})
+            };
 
     const handleDeleteAccount = async (event) => {
         event.preventDefault();
@@ -56,10 +68,20 @@ export function DeleteAccountClass() {
                 }).then((data) => console.log(data))
             } catch (e) {
                 if (e.name === "InvalidPasswordException") {
-                if (window.confirm("Are you sure you want to delete your account ? "+
-                    "This change cannot be reverted")) {
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "Are you sure you want to delete your account ? This change cannot be reverted",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+                }).then(async (result) => {
+                if (result.isConfirmed) {
+
                     await Auth.deleteUser();
-                    navigate('/');}
+                    navigate('/');
+                }})
                 }
                 else {
                 setIsLoading(false);

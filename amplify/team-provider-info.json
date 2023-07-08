@@ -47,31 +47,31 @@
         },
         "ShareNoteLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/ShareNoteLambda-49624f684e35635a5357-build.zip",
+          "s3Key": "amplify-builds/ShareNoteLambda-78326e506d643964596a-build.zip",
           "senderEmail": "M.Notes@hotmail.com",
           "sendNoteThresholdTableName": "ShareNoteThrottle",
           "sendNoteAttributeDateName": "dateTimeThrottle"
         },
         "notifyticketupdatelambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/notifyticketupdatelambda-67456a6f53734d597938-build.zip",
+          "s3Key": "amplify-builds/notifyticketupdatelambda-6d42644e2b504e386573-build.zip",
           "paramSenderEmail": "/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail"
         },
         "TicketCreationTemplateLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketCreationTemplateLambda-61416b45746562627371-build.zip",
+          "s3Key": "amplify-builds/TicketCreationTemplateLambda-48366435344a51537636-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         },
         "TicketTranslateLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketTranslateLambda-4f3876387256612b382b-build.zip",
+          "s3Key": "amplify-builds/TicketTranslateLambda-475633514e6a61347578-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         },
         "TicketSummarizeLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketSummarizeLambda-464b507858482f497749-build.zip",
+          "s3Key": "amplify-builds/TicketSummarizeLambda-4279476f4f70394e5578-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         }
