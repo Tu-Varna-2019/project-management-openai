@@ -2,6 +2,7 @@ import React from 'react';
 import { ChildTicketShortCollection, TicketInfoScroll } from '../ui-components';
 import { TicketInfoScrollFunc } from '../overrides/TicketInfoScrollOverride';
 import { SubtaskFunc } from '../overrides/SubtaskOverride';
+import '../css/hideScrollbar.css';
 
 const TicketInfoScrollComponent = ({ticketinfoscroll_div,childticketshort_div}) => {
     const {
@@ -14,7 +15,7 @@ const TicketInfoScrollComponent = ({ticketinfoscroll_div,childticketshort_div}) 
 
     return (
         <>
-        <div style={{ position: 'absolute',display: 'block',
+        <div className='hide-scrollbar' style={{ position: 'absolute',display: 'block',
          bottom: ticketinfoscroll_div.bottom,
         right: ticketinfoscroll_div.right ,
         width:1400 ,  overflow: 'auto', maxHeight: '600px' }}>

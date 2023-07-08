@@ -3,6 +3,7 @@ import { CreateTicket, CreateTicketScroll } from '../ui-components';
 import { EditTicketFunc } from '../overrides/EditTicketOverride';
 import { CreateTicketScrollFunc } from '../overrides/CreateTicketScrollOverride';
 import { CreateTicketFunc } from '../overrides/CreateTicketOverride';
+import '../css/hideScrollbar.css';
 
 const CreateTicketComponent = () => {
 
@@ -19,7 +20,8 @@ const CreateTicketComponent = () => {
     return (
             <>
             <CreateTicket overrides={CreateTicketOverride}/>
-            <div style={{ position: 'absolute',display: 'block', bottom: 360, right: -150 , width:1350 ,  overflow: 'auto', maxHeight: '600px' }}>
+            <div className='hide-scrollbar' 
+            style={{ position: 'absolute',display: 'block', bottom: 360, right: -150 , width:1350 ,  overflow: 'auto', maxHeight: '600px'}}>
             <CreateTicketScroll overrides={CreateTicketScrollOverride}/>
             </div>
             <div style={{ position: 'absolute',display: 'block', bottom: 140, right: 680 , width:500 }}>

@@ -53,7 +53,8 @@ export default function ToolbarGlobalComponent () {
       } = UsersAdminInfoFunc();
 
     const openAIProgBarBottom = editTicketBoolean === true ? 300 : createTicketBoolean === true ? 120 : createIssueTemplateBoolean === true ? 240 : editIssueTemplateBoolean === true ? 200 : 0;
-    const openAIProgBarRight = editTicketBoolean === true ? 1070 : 690 ;  
+    const openAIProgBarRight = editTicketBoolean === true ? 1070 : 690 ;
+    
     return (
         <>
         <div className='.amplify-container'
@@ -70,7 +71,8 @@ export default function ToolbarGlobalComponent () {
         )}
 
         {!showSearchRect && (<SearchBoxRectComponent/>)}
-        <div style={{ position: 'absolute',display: 'block', bottom: 0, left: 0 }}>
+
+      <div style={{ position: 'absolute',display: 'block', bottom: 0, left: 0 }}>
 
         {addRemoveUserBoolean && (
             <>
