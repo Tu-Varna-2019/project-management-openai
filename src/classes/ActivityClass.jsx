@@ -4,6 +4,7 @@ import { Activity, Ticket, User } from "../models";
 import { UserContext } from "../contexts/UserContext";
 import { getProjectNameState } from "../states";
 import { ProjectContext } from "../contexts/ProjectContext";
+import Swal from "sweetalert2";
 
 export function ActivityClass(props) {
     const {
@@ -60,16 +61,27 @@ export function ActivityClass(props) {
     const handleClearActivityClick = async (event) => {
         setClearActivityBtnLoading(!clearActivityBtnLoading);
         if (activity.length > 0) {
-            if (window.confirm(`Are you sure you want to delete your activity?`)) {
-                for (let activityIter of activity) {
-                    const modelToDelete = await DataStore.query(Activity, activityIter.id);
-                    DataStore.delete(modelToDelete);}
-                    navigate('/profile', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `Activities cleared!`,selectedUserID:currentUser.id }});
-                    window.location.reload();
-                }}
-        setClearActivityBtnLoading(false);
-
-    }
+            Swal.fire({
+                title: 'Delete activity',
+                text: "Are you sure you want to delete your activity?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete!',
+                isConfirmed: Swal.showLoading(),
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                    Swal.showLoading();
+                    for (let activityIter of activity) {
+                        const modelToDelete = await DataStore.query(Activity, activityIter.id);
+                        await DataStore.delete(modelToDelete);}
+                        setTimeout(() => {
+                        navigate(location.pathname, { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `Activities cleared!`,selectedUserID:currentUser.id }});
+                        window.location.reload();
+                    }, 1200);
+                }})}setClearActivityBtnLoading(false);
+    };
 
 
     return {

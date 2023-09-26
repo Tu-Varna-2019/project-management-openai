@@ -4,6 +4,7 @@ import { PI, Sprint } from "../models";
 import { ProjectContext } from "../contexts/ProjectContext";
 import { getPINumState, getSprintNumState, setPINumState, setSprintNumState } from "../states";
 import { UserContext } from "../contexts/UserContext";
+import Swal from "sweetalert2";
 
 export function PISprintClass() {
     const {
@@ -70,13 +71,14 @@ export function PISprintClass() {
             await DataStore.query(PI)
             .then(data => {
             data.filter(item => {
-                if (item.Number === parseInt(PINum))
+                if (item.Number === parseInt(PINum) 
+                && item.projectID === getProjectID)
                 setPIID(item.id);
                 return item.Number;})}).catch(error => {
             console.error(error);});
         }
         fetchSprintData()
-    },[setPINumbers,setPINum,PIID,isUserAdmin,PINum]);
+    },[setPINumbers,setPINum,PIID,isUserAdmin,PINum,getProjectID]);
     // Get SprintID by SprintNum
     useEffect(() => {
         async function fetchSprintData(){
@@ -134,8 +136,17 @@ export function PISprintClass() {
             }));
         setPINum(newPInum);
         setPINumState(newPInum);
-        navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `PI ${newPInum} created!` }});
-        window.location.reload();
+        
+        Swal.fire({
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        setTimeout(() => {
+            navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `PI ${newPInum} created!` }});
+            window.location.reload();
+          }, 1200);
     };
     const handleCreateSprint = async (newSprintnum) => {
         const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -153,32 +164,78 @@ export function PISprintClass() {
             }));
         setSprintNum(newSprintnum);
         setSprintNumState(newSprintnum);
-       navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `Sprint ${newSprintnum} created!` }});
-       window.location.reload();
+
+        Swal.fire({
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        setTimeout(() => {
+            navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `Sprint ${newSprintnum} created!` }});
+            window.location.reload();
+          }, 1200);
     };
 
     const handleSelectPINumberChange = async (event) => {
         switch(event.target.value) {
             case "create one":
-                if (window.confirm(`Are you sure you want to create another PI ${getBiggestPINum+1}`)) {
-                    handleCreatePI(getBiggestPINum+1);
-                }
+                    Swal.fire({
+                    title: 'Are you sure?',
+                    text: `Are you sure you want to create another PI ${getBiggestPINum+1}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        handleCreatePI(getBiggestPINum+1);
+                    }})
                 break;
             case "delete selected":
                 if (PINum !== 0) {
-                if (window.confirm(`Are you sure you want to delete selected PI ${PINum}`)) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: `Are you sure you want to delete selected PI ${PINum} ?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes'
+                      }).then(async (result) => {
+                        if (result.isConfirmed) {
+
                    const modelToDelete = await DataStore.query(PI, PIID);
                    const modelVals = await modelToDelete.Sprints.values;
                     if(modelVals.length !== 0){
+                        Swal.fire({
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                        setTimeout(() => {
                         navigate('/board', { state: { alert_show:'block' , alert_variant: "error", alert_description: `Please first remove all the sprints from PI ${PINum}!` }});
                         window.location.reload();
+                    }, 1200);
                     } else {
                   DataStore.delete(modelToDelete);
                   setPINum(0);
                   setPINumState(0);
+                  Swal.fire({
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                    });
+                    setTimeout(() => {
                   navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `PI ${PINum} deleted!` }});
-                  window.location.reload();}
-                }}
+                  window.location.reload();
+                }, 1200);
+                }
+                }})
+            }
                 break;
             default:
                 if (event.target.value !== ""){
@@ -189,20 +246,63 @@ export function PISprintClass() {
 
     const handleSelectSprintNumberChange = async (event) => {
         switch(event.target.value) {
-            case "create one":
-                if (window.confirm(`Are you sure you want to create another sprint ${getBiggestSprintNum+1}`)) 
-                    handleCreateSprint(getBiggestSprintNum+1);
+            case "create one":          
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: `Are you sure you want to create another sprint ${getBiggestSprintNum+1}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        handleCreateSprint(getBiggestSprintNum+1);
+                    }})
                 break;
                 case "delete selected":
                     if (parseInt(sprintNum) !== 0 ) {
-                        if (window.confirm(`Are you sure you want to delete selected Sprint ${sprintNum}`)) {
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: `Are you sure you want to delete selected Sprint ${sprintNum} ?`,
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes'
+                              }).then(async (result) => {
+                                if (result.isConfirmed) {
+        
                             const modelToDelete = await DataStore.query(Sprint, sprintID);
-                            DataStore.delete(modelToDelete);
-                           setSprintNum(0);
-                           setSprintNumState(0);
-                           navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `Sprint ${PINum} deleted!` }});
+                            const modelVals = await modelToDelete.Tickets.values;
+                            if(modelVals.length !== 0){
+                                Swal.fire({
+                                    allowOutsideClick: false,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                    }
+                                });
+                                setTimeout(() => {
+                                navigate('/board', { state: { alert_show:'block' , alert_variant: "error", alert_description: `Please first remove all the tickets from Sprint ${sprintNum}!` }});
+                                window.location.reload();
+                            }, 1200);
+                            } else {
+                           await DataStore.delete(modelToDelete);
+                            setSprintNum(0);
+                            setSprintNumState(0);
+                            Swal.fire({
+                                allowOutsideClick: false,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                }
+                            });
+                            setTimeout(() => {
+                            navigate('/board', { state: { alert_show:'block' , alert_variant: "success", alert_description: `Sprint ${sprintNum} deleted!` }});
                             window.location.reload();
-                        }}
+                            }, 1200);
+                        }
+                    }})
+                    }
                     break;
             default:
                 if (event.target.value !== ""){

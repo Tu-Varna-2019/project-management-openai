@@ -1,20 +1,21 @@
-type Sprint @model @auth(rules: [{allow: public}]) {
+type Sprint @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   StartDate: AWSDateTime!
   EndDate: AWSDateTime
   Number: Int!
-  piID: ID! @index(name: "byPI")
+  isActive: Boolean
   Tickets: [Ticket] @hasMany(indexName: "bySprint", fields: ["id"])
+  piID: ID! @index(name: "byPI")
 }
 
-type PI @model @auth(rules: [{allow: public}]) {
+type PI @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   Number: Int!
   projectID: ID! @index(name: "byProject")
   Sprints: [Sprint] @hasMany(indexName: "byPI", fields: ["id"])
 }
 
-type IssueTemplate @model @auth(rules: [{allow: public}]) {
+type IssueTemplate @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   Title: String
   Description: String!
@@ -35,7 +36,6 @@ type Activity @model @auth(rules: [{allow: public}, {allow: private}]) {
 type Project @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   Name: String!
-  OProjectMTickets: [Ticket] @hasMany(indexName: "byProject", fields: ["id"])
   ImageProject: String
   IssueTemplates: [IssueTemplate] @hasMany(indexName: "byProject", fields: ["id"])
   PIS: [PI] @hasMany(indexName: "byProject", fields: ["id"])
@@ -70,7 +70,6 @@ type Ticket @model @auth(rules: [{allow: public}, {allow: private}]) {
   TicketStatus: String!
   Comment: String
   sprintID: ID! @index(name: "bySprint")
-  projectID: ID! @index(name: "byProject")
   GitCommit: [String]
 }
 

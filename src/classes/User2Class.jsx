@@ -3,10 +3,11 @@ import { Auth } from 'aws-amplify';
 import { DataStore , Storage } from 'aws-amplify';
 import { User } from '../models';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import { generate, count } from "random-words";
+import { Hub } from 'aws-amplify';
+import Swal from 'sweetalert2';
 
 export function User2Class() {
-
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -32,6 +33,7 @@ export function User2Class() {
     const [refreshAdminUserItems, setRefreshAdminUserItems] = useState(0);
 
     const [viewedUserProfileURL,setViewedUserProfileURL] = useState("");
+    const defaultUserImageSHA = "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png";
 
     let selectedUserID = "";
     let selectedUsername = "";
@@ -42,36 +44,68 @@ export function User2Class() {
     }catch(err)
     { selectedUserID = currentUser.id ; selectedUsername = currentUser.username;}
 
+    // Check if user is in private mode
+    useEffect(() => {
+        let db;
+        try {
+          db = window.indexedDB.open("test");
+          db.onerror = function(event) {
+            //console.log("IndexedDB error: ", event.target.error);
+            //Auth.signOut();
+            navigate("/error-private-mode");
+          };
+          db.onsuccess = function() {
+           // console.log("IndexedDB is accessible");
+          };
+        } catch (error) {
+          //console.log("IndexedDB exception: ", error);
+          navigate("/error-private-mode");
+        }
+      }, [navigate]);
+
     // Get current authenticated user
     useEffect(() => {
-        async function fetchUserData() {
-            try {
-                const currentCredentials = await  Auth.currentAuthenticatedUser({ bypassCache: true });
-                setAuthenticatedUser(currentCredentials);
-                // Get user from DataStore
-                    const user = await DataStore.query(User);
-                    const isUserFound = user.find(item => item.sub === currentCredentials.attributes.sub);
+      const listener = Hub.listen('datastore', async (hubData) => {
+        const { event, data } = hubData.payload;
+        if (event === 'ready') {
+          try {
+            const currentCredentials = await Auth.currentAuthenticatedUser({ bypassCache: true });
+            setAuthenticatedUser(currentCredentials);
+      
+            if (currentCredentials !== undefined) {
+                const users = await DataStore.query(User);
+                const isUserFound = users.find(user => user.sub === currentCredentials.attributes.sub);
 
-                    if (isUserFound){
-                    setCurrentUser(isUserFound);}
-                    else {
-                        if (currentCredentials.attributes.sub !== undefined) {
-                        await DataStore.save(
-                        new User({
-                            "sub": currentCredentials.attributes.sub,
-                            "username": currentCredentials.attributes.email,
-                            "ImageProfile": "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png"
-                        })).then(setCurrentUser);}}
-                            }catch(error){console.log(error);}}
-        fetchUserData();},[]);
+              if (isUserFound) {
+                setCurrentUser(isUserFound);
+              } else {
+                const checkUserGoogle = currentCredentials.attributes.email === undefined ? 
+                `Google_${generate({ minLength: 5, maxLength: 25 })}` : currentCredentials.attributes.email;
+                const newUser = await DataStore.save(
+                  new User({
+                    "sub": currentCredentials.attributes.sub,
+                    "username": checkUserGoogle,
+                    "ImageProfile": defaultUserImageSHA,
+                  })
+                );
+                setCurrentUser(newUser);
+              }
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      });
+      return () => {
+        Hub.remove('datastore', listener);};
+    }, []);
+    
 
     useEffect(() => {
         async function fetchUserData() {
-            const credentials = await Auth.currentCredentials();
             await Storage.vault.get(
                 "shared/"+currentUser.ImageProfile,{
-                level:"public",
-                identityId: credentials.identityId
+                level:"public"
             }).then(data => {
                 setUserProfileURL(data);})}
     fetchUserData();
@@ -120,7 +154,7 @@ export function User2Class() {
                         prevList : [{ sub: item.sub, url: data_url }, ...prevList]);
                     });
                         return item;})})}
-            fetchUserData();},[])
+            fetchUserData();},[setUserProfileURL])
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);};
@@ -132,21 +166,27 @@ export function User2Class() {
             const verificationCode = prompt(`Message sent ${email} . Please enter the verification code`);
             await Auth.verifyUserAttributeSubmit(authenticatedUser, 'email', verificationCode);
             await Auth.updateUserAttributes(authenticatedUser, { 'email': email });
+            Swal.fire({
+              allowOutsideClick: false,
+              didOpen: () => {
+                  Swal.showLoading();
+              }
+            });
             const editUserDataStore = await DataStore.query(User, currentUser.id);
             await DataStore.save(User.copyOf(editUserDataStore, item => {
                 item.sub = currentUser.sub;
                 item.username = email;
                 item.ImageProfile = currentUser.ImageProfile;
             }));
-            navigate('/profile', { state: { alert_show:'block' , alert_variant: "success", alert_description: `${email} has been successfully edited!` }});
+            navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "success", alert_description: `${email} has been successfully edited!` }});
             window.location.reload();
         }catch(error) {
-            navigate('/profile', { state: { alert_show:'block' , alert_variant: "error", alert_description: error }});
+            navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "error", alert_description: error }});
             window.location.reload();}};
 
     const handleSaveImageClick = async ({ file }) => {
             const fileExtension = file.name.split('.').pop();
-            if (currentUser.ImageProfile !== "ZGVmYXVsdF91c2VyX3Byb2ZpbGUuZGVmYXVsdF91c2VyX3Byb2ZpbGUucG5n.png")
+            if (currentUser.ImageProfile !== defaultUserImageSHA)
             await Storage.remove("shared/"+currentUser.ImageProfile);
             const editUserDataStore = await DataStore.query(User, currentUser.id);
             return file
@@ -165,19 +205,50 @@ export function User2Class() {
   }
 
   const handleReloadUploadSuccImage = () =>{
-    navigate('/profile', { state: { alert_show:'block' , alert_variant: "success",selectedUserID:currentUser.id, alert_description: `Image successfully uploaded!` }});
+    Swal.fire({
+      allowOutsideClick: false,
+      didOpen: () => {
+          Swal.showLoading();
+      }
+});
+    setTimeout(() => {
+    navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "success",selectedUserID:currentUser.id, alert_description: `Image successfully uploaded!` }});
     window.location.reload();
+  }, 1200);
   };
     const handleGoToChangePassword = (event) => {
-        if (window.confirm(`Are you sure you want to goto change password page?`))
-            navigate('/reset-password-kai');};
-    const handleGoToDeleteAccount = (event) => {
-        if (window.confirm(`Are you sure you want to goto delete account page?`))
-            navigate('/delete-account-kai');};
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `Are you sure you want to goto change password page?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        }).then((result) => {
+          if (result.isConfirmed) {
 
-    // Aka get to user page
+            navigate('/reset-password-kai');
+          }})
+          };
+    const handleGoToDeleteAccount = (event) => {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `Are you sure you want to goto delete account page?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/delete-account-kai');
+          }})
+          };
+
+    // Aka get to admin page
     const handleGoToMNotes = (event) => {
-        navigate('/profile',{state:{add_remove_user:true,selectedUserID:currentUser.id}});
+        navigate(location.pathname,{state:{add_remove_user:true,selectedUserID:currentUser.id}});
     };
 
     const handleAdminUserModeChange = (boolvalue) => {

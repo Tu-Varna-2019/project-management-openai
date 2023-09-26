@@ -35,7 +35,6 @@ export function TicketInfoScrollFunc () {
         handleDeleteImageChange,
         attachmentUrls,
     } = React.useContext(TicketContext);
-
     const {
         shaTicket,
         handleGitActionsOptions,
@@ -53,8 +52,6 @@ export function TicketInfoScrollFunc () {
             onChange : (event) => (handleGitActionsOptions(event)),
             options: gitActions,
         },
-
-        
         ai_options_select_field,
         asignee_name_text:{
             children: asigneeName
@@ -131,7 +128,7 @@ export function TicketInfoScrollFunc () {
         reporter_select_field:{
             onChange : (event) => (handleReporterChange(event)),
             style:{color:"transparent", border:"none"},
-            options: peopleAssign
+            options: []//peopleAssign,
         },
         attachment_1:{
             src: attachmentUrls[0],

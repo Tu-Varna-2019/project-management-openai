@@ -7,6 +7,8 @@ import { getProjectNameState } from "../states";
 import {
     Predictions,
   } from '@aws-amplify/predictions';
+import { UserContext } from "../contexts/UserContext";
+import Swal from "sweetalert2";
 
 export function IssueTemplateClass(props) {
 
@@ -34,6 +36,10 @@ export function IssueTemplateClass(props) {
         location,
         navigate,
     } = useContext(ProjectContext);
+    
+    const {
+        currentUser,
+    } = useContext(UserContext);
 
     const [ITTitle,setITTitle] = useState("");
     const [ITDescription,setITDescription] = useState("");
@@ -56,7 +62,7 @@ export function IssueTemplateClass(props) {
         setITTitle("");
         setITDescription("");
         setITComment("");
-        setITStoryPoint("");
+        setITStoryPoint(0);
         setITIssueType("Task");
         async function fetchUserData() {
             if (!editIssueTemplate) {
@@ -97,7 +103,7 @@ export function IssueTemplateClass(props) {
     // Close CreateIssueTemplate component
     const handleClosedCreateITClick = (event) => {
         event.preventDefault();
-        navigate("/board",{state:{create_it:false,project: getProjectNameState()}})
+        navigate(location.pathname,{state:{create_it:false,project: getProjectNameState(),selectedUserID:currentUser.id}})
     };
     const handleCreateITClick = async  (event) => {
         event.preventDefault();
@@ -112,18 +118,29 @@ export function IssueTemplateClass(props) {
                     "IssueType": ITIssueType,
                     "projectID": getProjectID
                 }));
-           navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully created!` }});
-           window.location.reload();
+                Swal.fire({
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                setTimeout(() => {
+                    navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully created!` }});
+                    window.location.reload();
+                  }, 1200);
         } catch (error) {
             setLoadingCreateIT(false);
             console.log(error);
-            navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
+            Swal.showLoading();
+            setTimeout(() => {
+            navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
             window.location.reload();
+            }, 1200);
     }};
     // Close EditIssueTemplate component
     const handleClosedEditTicketClick = (event) => {
             event.preventDefault();   
-            navigate("/board",{state:{edited_it:false,project: getProjectNameState()}})
+            navigate(location.pathname,{state:{edited_it:false,project: getProjectNameState(),selectedUserID:currentUser.id}})
     };
     const handleSaveITClick = async  (event) => {
         event.preventDefault();
@@ -137,12 +154,20 @@ export function IssueTemplateClass(props) {
                 item.StoryPoint = ITStoryPoint;
                 item.IssueType = ITIssueType;
             }));
-          navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully edited!` }});
-          window.location.reload();
+            Swal.fire({
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            setTimeout(() => {
+                navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "success", alert_description: `${ITTitle} has been successfully edited!` }});
+                window.location.reload();
+              }, 1200);
         } catch (error) {
             setLoadingCreateIT(false);
             console.log(error);
-            navigate('/board', { state: { project:  getProjectNameState(), alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
+            navigate(location.pathname, { state: { project:  getProjectNameState(),selectedUserID:currentUser.id, alert_show:'block' , alert_variant: "error", alert_description: "App is not supported in this browser's private mode! Please enable cookies!"}});
             window.location.reload();
     }};
 

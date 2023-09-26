@@ -39,7 +39,7 @@
         "openaiLambda": {
           "secretsPathAmplifyAppId": "d1nyybr00ldz1k",
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/openaiLambda-2f327a496d4b72307639-build.zip",
+          "s3Key": "amplify-builds/openaiLambda-48674868465250307063-build.zip",
           "secretName": "openai_api_key",
           "regionName": "eu-west-1",
           "model": "gpt-3.5-turbo",
@@ -47,31 +47,31 @@
         },
         "ShareNoteLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/ShareNoteLambda-486245507251576e6762-build.zip",
+          "s3Key": "amplify-builds/ShareNoteLambda-78326e506d643964596a-build.zip",
           "senderEmail": "M.Notes@hotmail.com",
           "sendNoteThresholdTableName": "ShareNoteThrottle",
           "sendNoteAttributeDateName": "dateTimeThrottle"
         },
         "notifyticketupdatelambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/notifyticketupdatelambda-38434930683456525075-build.zip",
+          "s3Key": "amplify-builds/notifyticketupdatelambda-6d42644e2b504e386573-build.zip",
           "paramSenderEmail": "/amplify/d1nyybr00ldz1k/dev/notifyses/senderemail"
         },
         "TicketCreationTemplateLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketCreationTemplateLambda-535358417238585a326f-build.zip",
+          "s3Key": "amplify-builds/TicketCreationTemplateLambda-48366435344a51537636-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         },
         "TicketTranslateLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketTranslateLambda-54306d63366d37307a33-build.zip",
+          "s3Key": "amplify-builds/TicketTranslateLambda-475633514e6a61347578-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         },
         "TicketSummarizeLambda": {
           "deploymentBucketName": "amplify-tuvarnanote-dev-205513-deployment",
-          "s3Key": "amplify-builds/TicketSummarizeLambda-33454f76455a3064796c-build.zip",
+          "s3Key": "amplify-builds/TicketSummarizeLambda-4279476f4f70394e5578-build.zip",
           "paramOpenaiApikey": "/amplify/d1nyybr00ldz1k/dev/openai/apikey",
           "model": "gpt-3.5-turbo"
         }

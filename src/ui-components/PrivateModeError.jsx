@@ -100,8 +100,8 @@ export default function PrivateModeError(props) {
           justifyContent="flex-start"
           alignItems="center"
           position="absolute"
-          top="382px"
-          left="calc(50% - 468px - 0.5px)"
+          top="245px"
+          left="calc(50% - 468px - 0px)"
           padding="0px 10px 0px 10px"
           {...getOverrideProps(overrides, "Frame 1")}
         >
@@ -155,8 +155,8 @@ export default function PrivateModeError(props) {
           width="399px"
           height="102px"
           position="absolute"
-          top="776px"
-          left="calc(50% - 199.5px - 0.5px)"
+          top="698px"
+          left="calc(50% - 199.5px - -0.5px)"
           backgroundColor="rgba(255,153,0,1)"
           size="large"
           isDisabled={false}

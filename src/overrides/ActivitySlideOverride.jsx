@@ -19,6 +19,8 @@ export function ActivityFunc (props) {
         ActivitySlideCollection:{
             items: activity }}
 
+    const isActivityEmptyTop = activity.length === 0 ? "820px" : "880px";
+
     const ActivityOverride = ({ item, index })  => {
         const modifiedDate = new Date(item.ModifiedDate);
         return {
@@ -36,4 +38,5 @@ export function ActivityFunc (props) {
     return {
         ActivityCollectionOverride,
         ActivityOverride,
+        isActivityEmptyTop,
     }}

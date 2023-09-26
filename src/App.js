@@ -32,6 +32,8 @@ import { PISprintProvider } from './providers/PISprintProvider';
 import EditProjectPage from './pages/EditProjectPage';
 import { GithubProvider } from './providers/GithubProvider';
 import { PrivateModeError } from './ui-components';
+import ToolbarGlobalComponent from './components/global/ToolbarGlobalComponent';
+
 
 const {
     AppComponentOverride,
@@ -58,14 +60,16 @@ export default function App() {
   },[]);
   
   return (
+    <>
+    <Authenticator components={AppComponentOverride}>
     <div className='amplify-container' style={{
       display: 'flex',alignItems: 'flex-start', flexDirection: "column",overflow:"auto",
       justifyContent: 'space-between' }}>
       <Helmet>
       <link rel="icon" href={logoURL} />
       </Helmet>
-        <Authenticator components={AppComponentOverride}>
       <BrowserRouter>
+
       <UserProvider>
       <ProjectProvider>
       <PISprintProvider>
@@ -94,7 +98,9 @@ export default function App() {
 
         <Route path='/reset-password-kai' element={<ResetPasswordKAIPage/>}/>
         <Route path='/delete-account-kai' element={<DeleteAccountKAIPage/>}/>
+
       </Routes>
+      <ToolbarGlobalComponent/>
       </GithubProvider>
       </SubtaskProvider>
       </ActivityProvider>
@@ -104,7 +110,8 @@ export default function App() {
       </PISprintProvider>
       </ProjectProvider>
       </UserProvider>
-    </BrowserRouter></Authenticator></div>);
+
+    </BrowserRouter></div></Authenticator></>);
   }
 //export default withAuthenticator(App ,  true  /*{signIn},{signOut},{signUp},*/);
 //export default  App;

@@ -21,6 +21,6 @@ export default function EditProjectPage(props) {
         <EditProject overrides={EditProjectOverride}/>
         </div>
         <div style={{ position: 'relative',display: 'block', bottom: 620, right: -660 , width:625 }}>
-            <FileImageUpload/>
-          </div>
+        <FileImageUpload/>
+        </div>
         </>)}

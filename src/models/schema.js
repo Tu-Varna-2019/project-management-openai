@@ -31,11 +31,11 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "piID": {
-                    "name": "piID",
+                "isActive": {
+                    "name": "isActive",
                     "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
+                    "type": "Boolean",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "Tickets": {
@@ -53,6 +53,13 @@ export const schema = {
                             "sprintID"
                         ]
                     }
+                },
+                "piID": {
+                    "name": "piID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -93,6 +100,15 @@ export const schema = {
                         "rules": [
                             {
                                 "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            },
+                            {
+                                "allow": "private",
                                 "operations": [
                                     "create",
                                     "update",
@@ -184,6 +200,15 @@ export const schema = {
                         "rules": [
                             {
                                 "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            },
+                            {
+                                "allow": "private",
                                 "operations": [
                                     "create",
                                     "update",
@@ -287,6 +312,15 @@ export const schema = {
                         "rules": [
                             {
                                 "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            },
+                            {
+                                "allow": "private",
                                 "operations": [
                                     "create",
                                     "update",
@@ -404,22 +438,6 @@ export const schema = {
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
-                },
-                "OProjectMTickets": {
-                    "name": "OProjectMTickets",
-                    "isArray": true,
-                    "type": {
-                        "model": "Ticket"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "projectID"
-                        ]
-                    }
                 },
                 "ImageProject": {
                     "name": "ImageProject",
@@ -746,13 +764,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "projectID": {
-                    "name": "projectID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "GitCommit": {
                     "name": "GitCommit",
                     "isArray": true,
@@ -791,15 +802,6 @@ export const schema = {
                         "name": "bySprint",
                         "fields": [
                             "sprintID"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byProject",
-                        "fields": [
-                            "projectID"
                         ]
                     }
                 },
@@ -977,5 +979,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "8d5f064c812cfe1b53147bc318479897"
+    "version": "fce89ab0dd3dcecbdc6cf70bd6738270"
 };

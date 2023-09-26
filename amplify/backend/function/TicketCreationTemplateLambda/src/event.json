@@ -1,1 +1,4 @@
-{ "test": "event" }
+{
+    "body": "\"{\\\"event\\\":{\\\"IssueType\\\":\\\"Task\\\",\\\"TicketFields\\\":\\\"Title,Description,Comment\\\"}}\""
+}
+  

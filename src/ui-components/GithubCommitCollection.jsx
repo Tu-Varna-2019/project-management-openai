@@ -14,8 +14,9 @@ export default function GithubCommitCollection(props) {
   return (
     <Collection
       type="list"
+      isSearchable={true}
       isPaginated={true}
-      searchPlaceholder="Search..."
+      searchPlaceholder="Enter hash"
       itemsPerPage={3}
       direction="column"
       justifyContent="left"

@@ -90,7 +90,7 @@ export function EditTicketFunc (props) {
             maxFileCount={10}
             processFile={handleSafeTicketImageChange}
             path="shared/"
-          />)} 
+          />)}
 
     return {
         EditTicketOverride,
