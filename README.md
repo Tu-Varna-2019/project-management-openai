@@ -1,3 +1,36 @@
+# AI-driven Project management web app
+
+# Abstract
+A browser-based project management app offering the following features: 
+- standard ticket handling
+- user profile management
+- link a ticket with GitHub commits
+- Kanban boards
+- PI and Sprint management
+  
+Integrated with ChatGPT-3.5 for supporting the agile team with:
+1. auto-generate fields for ticket and ticket template
+2. summarize ticket content
+3. translate between English and Bulgarian and vice-versa
+4. text-to-speech capabilities
+
+# Frontend
+The UI is based on ReactJS framework.
+Most of the UI components are generated in ReactJS code by using Figma.
+
+# Backend
+All of the backend is hosted in AWS by using AWS Amplify framework to interact with the cloud.
+The user management is managed by AWS Cognito services. A more visual example of that is the Login/Register page.
+The API calls to OpenAI are executed by AWS Lambda functions in Python language. In total the project consists of 4 lambdas, each responsible of handling the respective features for interacting with ChatGPT 3.5 (excluding the text-to-speech functionality, as it's used directly in the frontend by using AWS Polly).
+The database is hosted in AWS's NoSQL DynamoDB, with GraphQL query language through AWS AppSync.
+
+# Technology Stack
+- ReactJS
+- Python
+- AWS Amplify framework
+- Figma
+- ChatGPT 3.5
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
