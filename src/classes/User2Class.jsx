@@ -212,14 +212,14 @@ export function User2Class() {
       }
 });
     setTimeout(() => {
-    navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "success",selectedUserID:currentUser.id, alert_description: `Image successfully uploaded!` }});
+    navigate(location.pathname, { state: { alert_show:'block' , alert_variant: "success",selectedUserID:currentUser.id, alert_description: "Image successfully uploaded!" }});
     window.location.reload();
   }, 1200);
   };
     const handleGoToChangePassword = (event) => {
         Swal.fire({
           title: 'Are you sure?',
-          text: `Are you sure you want to goto change password page?`,
+          text: "Are you sure you want to goto change password page?",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -234,7 +234,7 @@ export function User2Class() {
     const handleGoToDeleteAccount = (event) => {
         Swal.fire({
           title: 'Are you sure?',
-          text: `Are you sure you want to goto delete account page?`,
+          text: "Are you sure you want to goto delete account page?",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
