@@ -410,7 +410,7 @@ export function TicketClass(props) {
         if (deletedImageName !== "" && deletedImageName !== undefined) {
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: `Are you sure you want to remove the selected image ?`,
+                    text: "Are you sure you want to remove the selected image ?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
