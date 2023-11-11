@@ -12,7 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^5.2.5",
     "aws-sdk": "^2.1370.0",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "blueimp-md5": "^2.19.0",
     "crypto-js": "^4.1.1",
     "fuzzysearch": "^1.0.3",
