@@ -10,7 +10,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "aws-amplify": "^5.2.5",
+    "aws-amplify": "^5.3.15",
     "aws-sdk": "^2.1370.0",
     "axios": "^1.4.0",
     "blueimp-md5": "^2.19.0",
