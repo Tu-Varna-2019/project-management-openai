@@ -1,0 +1,40 @@
+name: SonarQube
+
+on:
+    # pull_request:
+    #   types: [opened, synchronize, reopened]
+    push:
+        branches:
+            - prod
+
+jobs:
+    sonarqube:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - name: SonarQube Scan
+              uses: sonarsource/sonarqube-scan-action@master
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+            # Check the Quality Gate status.
+            - name: SonarQube Quality Gate check
+              id: sonarqube-quality-gate-check
+              uses: sonarsource/sonarqube-quality-gate-action@master
+              # Force to fail step after specific time.
+              timeout-minutes: 5
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} #OPTIONAL
+
+            # Optionally you can use the output from the Quality Gate in another step.
+            # The possible outputs of the `quality-gate-status` variable are `PASSED`, `WARN` or `FAILED`.
+            - name: "SonarQube Quality result"
+              run: |
+                  echo "Quality Gate status: ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
+              # echo "Quality Gate URL:"
