@@ -1,3 +1,6 @@
+[![Quality Gate Status](https://wes06teapp15066sonrqa.azurewebsites.net/api/project_badges/measure?project=Tu-Varna-2019_Bachelors-Summer-Thesis-ProjectManagement-OpenAI_8f51f2cf-9425-46d6-b955-da27df335690&metric=alert_status&token=sqb_56d599f9205c79f43f9850280b60b2bcbb0faea1)](https://wes06teapp15066sonrqa.azurewebsites.net/dashboard?id=Tu-Varna-2019_Bachelors-Summer-Thesis-ProjectManagement-OpenAI_8f51f2cf-9425-46d6-b955-da27df335690)
+
+
 # AI-driven Project management web app
 
 # Abstract
