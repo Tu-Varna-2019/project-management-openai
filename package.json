@@ -5,7 +5,7 @@
   "dependencies": {
     "@aws-amplify/datastore": "^4.5.0",
     "@aws-amplify/ui-react": "^5.0.0",
-    "@aws-amplify/ui-react-storage": "^2.0.0",
+    "@aws-amplify/ui-react-storage": "^2.3.3",
     "@formkit/auto-animate": "^1.0.0-beta.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
